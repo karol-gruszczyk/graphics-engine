@@ -4,6 +4,8 @@
 [submodule "libs/boost"]
 	path = libs/boost
 	url = git@github.com:boostorg/boost.git
+	ignore = dirty
 [submodule "libs/glew"]
 	path = libs/glew
 	url = git@github.com:nigels-com/glew.git
+	ignore = dirty
