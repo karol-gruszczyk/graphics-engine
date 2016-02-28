@@ -4,16 +4,17 @@ A modern OpenGL based graphics engine using modern C++14 with boost.
 ## Setup
 ```bash
 git clone --recursive git@github.com:karol-gruszczyk/graphics-engine.git
+cd graphics-engine/
 ```
 
 * Boost
+`cl.exe` and `link.exe` need to be added to the **PATH** enviroment variable
 ```bash
-./libs/boost/boostrap.sh
-./libs/boost/b2
+cd libs/boost/
+./boostrap.sh
+./b2
 ```
 
 * GLEW
-```bash
-cd libs/glew
-make extensions
-```
+
+For windows it is recommended to download the latest binaries from https://github.com/nigels-com/glew and place the `bin`, `lib` and `include` directory into `libs/glew`
