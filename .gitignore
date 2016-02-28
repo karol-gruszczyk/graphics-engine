@@ -2,6 +2,12 @@
 !.gitignore
 *~
 
+# Visual Studio
+Debug/
+Release/
+*.sdf
+*.opendb
+
 # Compiled Object files
 *.slo
 *.lo
