@@ -3,14 +3,8 @@
 
 WinApiWindow::WinApiWindow(HINSTANCE hinstance, std::string window_title, long window_width, long window_height,
 	long window_horizontal_position /*= 0L*/, long window_vertival_position /*= 0L*/)
-	: hinstance_(hinstance), window_title_(window_title), window_width_(window_width), window_height_(window_height), 
-	window_horizontal_position_(window_horizontal_position), window_vertival_position_(window_vertival_position)
 {
-	initialization_seuccess_ &= registerWindowClass();
-	if (!initialization_seuccess_) return;
-	initialization_seuccess_ &= createWindow();
-	if (!initialization_seuccess_) return;
-	initialization_seuccess_ &= initOpenGL();
+	createWindow(hinstance, window_title, window_width, window_height, window_horizontal_position, window_vertival_position);
 }
 
 WinApiWindow::~WinApiWindow()
@@ -21,7 +15,24 @@ WinApiWindow::~WinApiWindow()
 	unregisterWindowClass();
 }
 
-bool WinApiWindow::is_ok()
+void WinApiWindow::createWindow(HINSTANCE hinstance, std::string window_title, long window_width, long window_height, long window_horizontal_position /*= 0L*/, long window_vertival_position /*= 0L*/)
+{
+	hinstance_ = hinstance;
+	window_title_ = window_title;
+	window_width_ = window_width;
+	window_height_ = window_height;
+	window_horizontal_position_ = window_horizontal_position;
+	window_vertival_position_ = window_vertival_position;
+
+	initialization_seuccess_ = true;
+	initialization_seuccess_ &= registerWindowClass();
+	if (!initialization_seuccess_) return;
+	initialization_seuccess_ &= createWinApiWindow();
+	if (!initialization_seuccess_) return;
+	initialization_seuccess_ &= initOpenGL();
+}
+
+bool WinApiWindow::isOk()
 {
 	return initialization_seuccess_;
 }
@@ -48,6 +59,32 @@ int WinApiWindow::loop()
 		}
 	} while (msg.message != WM_QUIT);
 	return static_cast<int>(msg.wParam);
+}
+
+void WinApiWindow::showCursor()
+{
+	ShowCursor(TRUE);
+}
+
+void WinApiWindow::hideCursor()
+{
+	ShowCursor(FALSE);
+}
+
+void WinApiWindow::setCursorPosition(long x, long y)
+{
+	POINT p = { x, y };
+	ClientToScreen(hwnd_, &p);
+	SetCursorPos(p.x, p.y);
+}
+
+void WinApiWindow::getCursorPosition(long& x, long& y)
+{
+	POINT p;
+	GetCursorPos(&p);
+	ScreenToClient(hwnd_, &p);
+	x = p.x;
+	y = p.y;
 }
 
 bool WinApiWindow::registerWindowClass()
@@ -80,7 +117,7 @@ void WinApiWindow::unregisterWindowClass()
 	UnregisterClass(OPENGL_WINDOW_CLASS_NAME, hinstance_);
 }
 
-bool WinApiWindow::createWindow()
+bool WinApiWindow::createWinApiWindow()
 {
 	RECT rect = { 0, 0, window_width_, window_height_ };
 	AdjustWindowRect(&rect, window_style_, FALSE);

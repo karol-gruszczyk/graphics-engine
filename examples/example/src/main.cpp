@@ -1,6 +1,9 @@
 #include "win_api_window.h"
 
 
+WinApiWindow window;
+
+
 void init()
 {
 	glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -29,8 +32,8 @@ void render()
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-	WinApiWindow window(hInstance, "OpenGL test window", 800, 600);
-	if (!window.is_ok())
+	window.createWindow(hInstance, "OpenGL test window", 800, 600);
+	if (!window.isOk())
 		return EXIT_FAILURE;
 	init();
 	window.setRenderFunction(render);
