@@ -17,4 +17,4 @@ cd libs/boost/
 
 * GLEW
 
-For windows it is recommended to download the latest binaries from https://github.com/nigels-com/glew and place the `bin`, `lib` and `include` directory into `libs/glew`
+For windows it is recommended to download the latest binaries from https://github.com/nigels-com/glew#downloads and place the `bin`, `lib` and `include` directory into `libs/glew`
