@@ -1,13 +1,8 @@
-#include <sstream>
 #include <functional>
 #include <map>
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include <windowsx.h>
-#define GLEW_STATIC
-#include <gl/glew.h>
-#include <gl/wglew.h>
 
 
 class WinApiWindow
@@ -30,6 +25,9 @@ public:
 	void hideCursor();
 	void setCursorPosition(long x, long y);
 	POINT getCursorPosition();
+	void showConsole();
+	void hideConsole();
+	void close(long quit_message = EXIT_SUCCESS);
 private:
 	static std::map<HWND, WinApiWindow*> s_instances;
 	HDC m_hdc;

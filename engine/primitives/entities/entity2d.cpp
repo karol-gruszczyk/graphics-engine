@@ -1,7 +1,4 @@
 #include "entity2d.h"
 
 
-namespace engine
-{
-
-}
+using engine::Entity2D;

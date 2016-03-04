@@ -22,11 +22,26 @@
     <ClCompile Include="..\engine\primitives\entities\entity.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity2d.cpp" />
     <ClCompile Include="..\engine\primitives\rectangle.cpp" />
+    <ClCompile Include="..\engine\shaders\fragment_shader.cpp" />
+    <ClCompile Include="..\engine\shaders\shader.cpp" />
+    <ClCompile Include="..\engine\shaders\shader_program.cpp" />
+    <ClCompile Include="..\engine\shaders\vertex_shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\engine\exceptions\file_not_found_exception.h" />
+    <ClInclude Include="..\engine\exceptions\shader_compile_exception.h" />
+    <ClInclude Include="..\engine\exceptions\shader_link_exception.h" />
     <ClInclude Include="..\engine\primitives\entities\entity.h" />
     <ClInclude Include="..\engine\primitives\entities\entity2d.h" />
     <ClInclude Include="..\engine\primitives\rectangle.h" />
+    <ClInclude Include="..\engine\shaders\fragment_shader.h" />
+    <ClInclude Include="..\engine\shaders\shader.h" />
+    <ClInclude Include="..\engine\shaders\shader_program.h" />
+    <ClInclude Include="..\engine\shaders\vertex_shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\engine\glsl\simple_fs.glsl" />
+    <None Include="..\engine\glsl\simple_vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DFF589DD-4B2E-4EC4-9B17-8766A94020EE}</ProjectGuid>
@@ -84,7 +99,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\libs\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -105,7 +120,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

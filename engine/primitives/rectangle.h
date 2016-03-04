@@ -5,16 +5,18 @@
 
 namespace engine
 {
-	class Rectangle : public engine::Entity2D
-	{
-	public:
-		Rectangle() {}
-		Rectangle(GLfloat width, GLfloat length);
-		void initialize(GLfloat width, GLfloat length);
-		void render() override;
-	protected:
-		GLfloat m_length, m_width;
-	};
+	class Rectangle;
 }
+
+class engine::Rectangle final : public engine::Entity2D
+{
+public:
+	Rectangle() {}
+	Rectangle(GLfloat width, GLfloat length);
+	void initialize(GLfloat width, GLfloat length);
+	void render() override;
+protected:
+	GLfloat m_length, m_width;
+};
 
 #endif // RECTANGLE_H_

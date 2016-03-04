@@ -1,4 +1,9 @@
 #include "win_api_window.h"
+#include <sstream>
+#include <windowsx.h>
+#define GLEW_STATIC
+#include <gl/glew.h>
+#include <gl/wglew.h>
 
 
 WinApiWindow::WinApiWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/ )
@@ -136,6 +141,20 @@ POINT WinApiWindow::getCursorPosition()
 	return p;
 }
 
+void WinApiWindow::showConsole()
+{
+	ShowWindow(GetConsoleWindow(), SW_SHOW);
+}
+
+void WinApiWindow::hideConsole()
+{
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+}
+
+void WinApiWindow::close(long quit_message /* = EXIT_SUCCESS */)
+{
+	PostQuitMessage(quit_message);
+}
 
 std::map<HWND, WinApiWindow*> WinApiWindow::s_instances;
 
@@ -266,6 +285,9 @@ LRESULT CALLBACK WinApiWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARA
 		break;
 	case WM_KEYUP:
 		s_instances[hwnd]->m_button_callback(wParam, false);
+		break;
+	case WM_CREATE:
+		ShowWindow(GetConsoleWindow(), SW_HIDE);
 		break;
 	case WM_DESTROY:
 		s_instances.erase(hwnd);
