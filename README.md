@@ -8,7 +8,8 @@ cd graphics-engine/
 ```
 
 * Boost
-`cl.exe` and `link.exe` need to be added to the **PATH** enviroment variable
+
+`cl.exe` and `link.exe`(from visual studio toolset) need to be added to the **PATH** enviroment variable
 ```bash
 cd libs/boost/
 ./boostrap.sh
