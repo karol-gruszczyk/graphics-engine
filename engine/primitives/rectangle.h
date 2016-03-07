@@ -1,7 +1,8 @@
 #ifndef RECTANGLE_H_
 #define RECTANGLE_H_
 
-#include "entities\entity2d.h"
+#include "entities\entity_2d.h"
+
 
 namespace engine
 {
@@ -11,9 +12,10 @@ namespace engine
 class engine::Rectangle final : public engine::Entity2D
 {
 public:
-	Rectangle() {}
-	Rectangle(GLfloat width, GLfloat length);
-	void initialize(GLfloat width, GLfloat length);
+	Rectangle();
+	Rectangle(glm::vec2 size, glm::vec2 position = { 0.f, 0.f }, glm::vec2 pivot = { 0.f, 0.f });
+
+	void initialize(glm::vec2 size, glm::vec2 position = { 0.f, 0.f }, glm::vec2 pivot = { 0.f, 0.f });
 	void render() override;
 protected:
 	GLfloat m_length, m_width;

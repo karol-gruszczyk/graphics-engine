@@ -27,6 +27,7 @@ public:
 	POINT getCursorPosition();
 	void showConsole();
 	void hideConsole();
+	void setTitle(std::string title);
 	void close(long quit_message = EXIT_SUCCESS);
 private:
 	static std::map<HWND, WinApiWindow*> s_instances;
@@ -34,6 +35,7 @@ private:
 	HWND m_hwnd;
 	HGLRC m_hrc;
 	HINSTANCE m_hinstance;
+	const char* m_class_name = "OPENGL_WINDOW_CLASS";
 	std::function<void()> m_render_function;
 	std::function<void(long, long)> m_resize_callback;
  	std::function<void(long, long)> m_mouse_move_callback;

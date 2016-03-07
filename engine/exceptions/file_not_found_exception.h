@@ -1,8 +1,8 @@
 #ifndef FILE_NOT_FOUND_EXCEPTION_H_
 #define FILE_NOT_FOUND_EXCEPTION_H_
 
-
 #include <exception>
+#include <boost/filesystem/path.hpp>
 
 
 namespace engine
@@ -13,8 +13,8 @@ namespace engine
 class engine::FileNotFoundException : public std::runtime_error
 {
 public:
-	FileNotFoundException(std::string path)
-		: runtime_error("The file '" + path + "' could not be found")
+	FileNotFoundException(boost::filesystem::path path)
+		: runtime_error("The file '" + path.string() + "' could not be found")
 	{}
 };
 

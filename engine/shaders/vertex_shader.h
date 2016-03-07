@@ -11,8 +11,11 @@ namespace engine
 
 class engine::VertexShader final : public engine::Shader
 {
-private:
-	void initializeShader() override;
+public:
+	VertexShader();
+	VertexShader(boost::filesystem::path path);
+
+	void loadFromFile(boost::filesystem::path path) override;
 };
 
 #endif /* VERTEX_SHADER_H_ */

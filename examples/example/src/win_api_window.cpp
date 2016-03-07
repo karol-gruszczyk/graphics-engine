@@ -1,9 +1,10 @@
 #include "win_api_window.h"
 #include <sstream>
 #include <windowsx.h>
-#define GLEW_STATIC
 #include <gl/glew.h>
 #include <gl/wglew.h>
+
+std::map<HWND, WinApiWindow*> WinApiWindow::s_instances;
 
 
 WinApiWindow::WinApiWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/ )
@@ -11,7 +12,6 @@ WinApiWindow::WinApiWindow(std::string window_title, long window_width, long win
 {
 	createWindow(window_title, window_width, window_height, window_position);
 }
-
 
 WinApiWindow::WinApiWindow()
 {
@@ -44,7 +44,6 @@ void WinApiWindow::createWindow(std::string window_title, long window_width, lon
 	m_initialization_seuccess &= initOpenGL();
 }
 
-
 bool WinApiWindow::setCoreOpenGL()
 {
 	if (!wglewIsSupported("WGL_ARB_create_context"))
@@ -52,10 +51,12 @@ bool WinApiWindow::setCoreOpenGL()
 		MessageBox(nullptr, "OpenGL 3.2+ context not available, update your graphics drivers", "Error", MB_OK | MB_ICONINFORMATION);
 		return false;
 	}
+	GLint major_version, minor_version;
+	glGetIntegerv(GL_MAJOR_VERSION, &major_version);
+	glGetIntegerv(GL_MINOR_VERSION, &minor_version);
 	const int attributes[] = {
-		WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-		WGL_CONTEXT_MINOR_VERSION_ARB, 2,
-		WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+		WGL_CONTEXT_MAJOR_VERSION_ARB, major_version,
+		WGL_CONTEXT_MINOR_VERSION_ARB, minor_version,
 		NULL
 	};
 	wglMakeCurrent(m_hdc, nullptr);
@@ -74,7 +75,6 @@ void WinApiWindow::setRenderFunction(std::function<void()> function)
 {
 	m_render_function = function;
 }
-
 
 void WinApiWindow::setResizeCallback(std::function<void(long, long)> function)
 {
@@ -151,12 +151,15 @@ void WinApiWindow::hideConsole()
 	ShowWindow(GetConsoleWindow(), SW_HIDE);
 }
 
+void WinApiWindow::setTitle(std::string title)
+{
+	SetWindowText(m_hwnd, title.c_str());
+}
+
 void WinApiWindow::close(long quit_message /* = EXIT_SUCCESS */)
 {
 	PostQuitMessage(quit_message);
 }
-
-std::map<HWND, WinApiWindow*> WinApiWindow::s_instances;
 
 bool WinApiWindow::registerWindowClass()
 {
@@ -171,7 +174,7 @@ bool WinApiWindow::registerWindowClass()
 	wcex.hIcon = LoadIcon(nullptr, IDI_WINLOGO);
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
-	wcex.lpszClassName = m_window_title.c_str();
+	wcex.lpszClassName = m_class_name;
 	wcex.lpszMenuName = nullptr;
 	wcex.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 
@@ -185,7 +188,7 @@ bool WinApiWindow::registerWindowClass()
 
 void WinApiWindow::unregisterWindowClass()
 {
-	UnregisterClass(m_window_title.c_str(), m_hinstance);
+	UnregisterClass(m_class_name, m_hinstance);
 }
 
 bool WinApiWindow::createWinApiWindow()
@@ -195,7 +198,7 @@ bool WinApiWindow::createWinApiWindow()
 	unsigned adjusted_width = rect.right - rect.left;
 	unsigned adjusted_height = rect.bottom - rect.top;
 
-	m_hwnd = CreateWindowEx(m_window_ex_style, m_window_title.c_str(), m_window_title.c_str(), m_window_style,
+	m_hwnd = CreateWindowEx(m_window_ex_style, m_class_name, m_window_title.c_str(), m_window_style,
 		m_window_position.x, m_window_position.y, adjusted_width, adjusted_height, nullptr, nullptr, m_hinstance, nullptr);
 	s_instances[m_hwnd] = this;
 	if (!m_hwnd)
@@ -244,7 +247,6 @@ bool WinApiWindow::initOpenGL()
 	}
 	return true;
 }
-
 
 void WinApiWindow::resizeCallback(long width, long height)
 {

@@ -11,8 +11,11 @@ namespace engine
 
 class engine::FragmentShader final : public engine::Shader
 {
-private:
-	void initializeShader() override;
+public:
+	FragmentShader();
+	FragmentShader(boost::filesystem::path path);
+
+	void loadFromFile(boost::filesystem::path path) override;
 };
 
 #endif /* FRAGMENT_SHADER_H_ */

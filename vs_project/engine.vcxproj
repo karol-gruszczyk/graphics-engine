@@ -19,21 +19,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\engine\config.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity.cpp" />
-    <ClCompile Include="..\engine\primitives\entities\entity2d.cpp" />
+    <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp" />
     <ClCompile Include="..\engine\primitives\rectangle.cpp" />
+    <ClCompile Include="..\engine\renderers\renderer.cpp" />
+    <ClCompile Include="..\engine\renderers\renderer_2d.cpp" />
+    <ClCompile Include="..\engine\renderers\scene.cpp" />
+    <ClCompile Include="..\engine\renderers\scene_2d.cpp" />
     <ClCompile Include="..\engine\shaders\fragment_shader.cpp" />
     <ClCompile Include="..\engine\shaders\shader.cpp" />
     <ClCompile Include="..\engine\shaders\shader_program.cpp" />
     <ClCompile Include="..\engine\shaders\vertex_shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\engine\config.h" />
     <ClInclude Include="..\engine\exceptions\file_not_found_exception.h" />
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.h" />
     <ClInclude Include="..\engine\exceptions\shader_link_exception.h" />
     <ClInclude Include="..\engine\primitives\entities\entity.h" />
-    <ClInclude Include="..\engine\primitives\entities\entity2d.h" />
+    <ClInclude Include="..\engine\primitives\entities\entity_2d.h" />
     <ClInclude Include="..\engine\primitives\rectangle.h" />
+    <ClInclude Include="..\engine\renderers\renderer.h" />
+    <ClInclude Include="..\engine\renderers\renderer_2d.h" />
+    <ClInclude Include="..\engine\renderers\scene.h" />
+    <ClInclude Include="..\engine\renderers\scene_2d.h" />
     <ClInclude Include="..\engine\shaders\fragment_shader.h" />
     <ClInclude Include="..\engine\shaders\shader.h" />
     <ClInclude Include="..\engine\shaders\shader_program.h" />
@@ -99,12 +109,18 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\libs\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>..\libs\boost\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -120,7 +136,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -128,6 +145,11 @@
       <AdditionalLibraryDirectories>..\libs\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>..\libs\boost\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

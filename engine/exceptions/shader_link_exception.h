@@ -1,7 +1,6 @@
 #ifndef SHADER_LINK_EXCEPPTION_H_
 #define SHADER_LINK_EXCEPPTION_H_
 
-
 #include <exception>
 
 
@@ -16,6 +15,7 @@ public:
 	ShaderLinkException(std::string error_message)
 		: runtime_error("The shader program failed to link shaders"), m_error_message(error_message)
 	{}
+
 	std::string& getErrorMessage()
 	{
 		return m_error_message;

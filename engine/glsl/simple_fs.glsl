@@ -1,8 +1,11 @@
 #version 330
 
-out vec4 color;
+in vec3 position;
+in vec2 texture_coord;
+
+out vec4 out_color;
 
 void main()
 {
-	color = vec4(1.f, 0.f, 0.f, 1.f);
+	out_color = vec4(vec3(texture_coord, 1.f) / 2.f + abs(sin(position * 100.f)) / 2.f, 1.f);
 }

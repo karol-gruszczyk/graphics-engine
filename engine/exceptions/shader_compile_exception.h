@@ -1,8 +1,8 @@
 #ifndef SHADER_COMPILE_EXCEPPTION_H_
 #define SHADER_COMPILE_EXCEPPTION_H_
 
-
 #include <exception>
+#include <boost/filesystem/path.hpp>
 
 
 namespace engine
@@ -13,9 +13,10 @@ namespace engine
 class engine::ShaderCompileException : public std::runtime_error
 {
 public:
-	ShaderCompileException(std::string path, std::string error_message)
-		: runtime_error("The file '" + path + "' could not be compiled"), m_error_message(error_message)
+	ShaderCompileException(boost::filesystem::path path, std::string error_message)
+		: runtime_error("The file '" + path.string() + "' could not be compiled"), m_error_message(error_message)
 	{}
+
 	std::string& getErrorMessage()
 	{
 		return m_error_message;
