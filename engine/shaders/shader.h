@@ -17,7 +17,6 @@ class engine::Shader abstract
 	friend class ShaderProgram;
 public:
 	Shader();
-	Shader(boost::filesystem::path path);
 	~Shader();
 
 	virtual void loadFromFile(boost::filesystem::path path);

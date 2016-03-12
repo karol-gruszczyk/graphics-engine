@@ -22,7 +22,7 @@ void Renderer2D::setProjectionMatrix()
 
 void Renderer2D::loadDefaultShader()
 {
-	auto path = Config::getShaderPath();
+	auto path = Config::getInstance().getShaderPath();
 	m_vertex_shader = std::make_unique<VertexShader>(path / "simple_vs.glsl");
 	m_fragment_shader = std::make_unique<FragmentShader>(path / "simple_fs.glsl");
 	m_shader_program = std::make_unique<ShaderProgram>();

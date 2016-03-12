@@ -8,7 +8,6 @@ VertexShader::VertexShader()
 {}
 
 VertexShader::VertexShader(boost::filesystem::path path)
-	: Shader(path)
 {
 	loadFromFile(path);
 }

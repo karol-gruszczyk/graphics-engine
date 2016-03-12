@@ -1,4 +1,5 @@
 #include <functional>
+#include <chrono>
 #include <map>
 
 #define WIN32_LEAN_AND_MEAN
@@ -28,6 +29,8 @@ public:
 	void showConsole();
 	void hideConsole();
 	void setTitle(std::string title);
+	void setFPSCap(unsigned fps = 60);
+	unsigned getFPS();
 	void close(long quit_message = EXIT_SUCCESS);
 private:
 	static std::map<HWND, WinApiWindow*> s_instances;
@@ -48,6 +51,9 @@ private:
 	long m_window_ex_style = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
 	std::string m_window_title;
 	bool m_initialization_seuccess;
+	std::chrono::steady_clock::time_point m_last_frame_time;
+	unsigned m_max_frame_time_ms;
+	unsigned m_fps;
 
 	bool registerWindowClass();
 	void unregisterWindowClass();

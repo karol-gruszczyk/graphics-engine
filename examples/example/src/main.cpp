@@ -1,21 +1,19 @@
 #include <iostream>
-#include <chrono>
 #include <boost/lexical_cast.hpp>
 #include <engine/renderers/renderer_2d.h>
 #include <engine/renderers/scene_2d.h>
 #include <engine/config.h>
 #include <engine/primitives/rectangle.h>
 #include "win_api_window.h"
+#include <engine/texture.h>
 
 WinApiWindow window;
 std::string gl_version;
 engine::Renderer2D renderer;
 engine::Scene2D scene;
 engine::Rectangle rect;
+engine::Texture texture;
 float counter;
-
-std::chrono::steady_clock::time_point last_time;
-unsigned frames = 0;
 
 
 void resize(long width, long height)
@@ -36,20 +34,13 @@ void buttonCallback(long button, bool pressed)
 void render()
 {
 	renderer.clearScreen();
+	texture.bind();
 
 	scene.render();
-	rect.rotate(0.05);
+	rect.rotate(1.f);
 	rect.setScale(sin(counter));
-	counter += 0.0001f;
-	auto current_time = std::chrono::high_resolution_clock::now();
-	unsigned delta_time = (unsigned)std::chrono::duration_cast<std::chrono::milliseconds>(current_time - last_time).count();
-	if (++frames > 0 && delta_time > 1000)
-	{
-		unsigned fps = unsigned(frames / (delta_time / 1'000.0));
-		window.setTitle("OpenGL: " + gl_version + " FPS: " + boost::lexical_cast<std::string>(fps));
-		last_time = current_time;
-		frames = 0;
-	}
+	counter += 0.01f;
+	window.setTitle("OpenGL: " + gl_version + " FPS: " + boost::lexical_cast<std::string>(window.getFPS()));
 }
 
 void init()
@@ -63,17 +54,17 @@ void init()
 
 	gl_version = std::string((char*)glGetString(GL_VERSION));
 
-	engine::Config::setShaderPath("..\\..\\engine\\glsl\\");
-	engine::Config::initializeLogger();
+	window.showConsole();
+	engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
+	//engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
+
+	engine::Config::getInstance().setShaderPath("..\\..\\engine\\glsl\\");
 	try
 	{
 		renderer.init(800, 600);
 	}
-	catch (engine::ShaderCompileException& e)
+	catch (engine::ShaderCompileException&)
 	{
-		window.showConsole();
-		std::cout << e.what() << std::endl;
-		std::cout << e.getErrorMessage() << std::endl;
 		std::cin.get();
 		exit(EXIT_FAILURE);
 	}
@@ -83,8 +74,17 @@ void init()
 	rect.initialize({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
 	scene.setRenderer(&renderer);
 	scene.addEntity(&rect);
+	try
+	{
+		texture.loadFromFile("moto.jpg");
+	}
+	catch (engine::FileNotFoundException& e)
+	{
+		engine::Config::getInstance().log(e.what());
+	}
 
-	last_time = std::chrono::high_resolution_clock::now();
+	render();
+	engine::Config::getInstance().logErrors(); // checking if any errors were raised
 }
 
 int main()

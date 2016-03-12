@@ -14,22 +14,29 @@ namespace engine
 class engine::Config final
 {
 public:
-	static void setShaderPath(boost::filesystem::path path);
-	static boost::filesystem::path getShaderPath();
-	static void initializeLogger(boost::filesystem::path path = "");
-	static void log(std::string& info_log);
+	enum LogLevel { DEBUG, INFO, WARNING, ERROR };
+
+	static Config& getInstance();
+
+	void setShaderPath(boost::filesystem::path path);
+	boost::filesystem::path getShaderPath();
+	void initializeLogger(boost::filesystem::path path = "");
+	void initializeLogger(std::streambuf* ostream);
+	void log(std::string info_log, LogLevel log_level = INFO);
+	void logErrors();
 private:
 	Config();
 	Config(const Config&) = delete;
 	Config& operator=(const Config&) = delete;
 	~Config();
 
-	static Config& getInstance();
+	void logEngineInitial();
+	std::string logLevelToString(LogLevel log_level);
 
 	boost::filesystem::path m_working_dir;
 	boost::filesystem::path m_shader_path;
-	bool m_logger_active;
-	std::ofstream m_logger;
+	std::unique_ptr<std::ostream> m_logger;
+	std::unique_ptr<std::ofstream> m_logger_file;
 };
 
 #endif /* CONTROL_H_ */

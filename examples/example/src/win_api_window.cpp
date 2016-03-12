@@ -7,7 +7,7 @@
 std::map<HWND, WinApiWindow*> WinApiWindow::s_instances;
 
 
-WinApiWindow::WinApiWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/ )
+WinApiWindow::WinApiWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/)
 	: WinApiWindow()
 {
 	createWindow(window_title, window_width, window_height, window_position);
@@ -30,7 +30,7 @@ WinApiWindow::~WinApiWindow()
 	unregisterWindowClass();
 }
 
-void WinApiWindow::createWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/ )
+void WinApiWindow::createWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/)
 {
 	m_hinstance = GetModuleHandle(nullptr);
 	m_window_title = window_title;
@@ -42,6 +42,8 @@ void WinApiWindow::createWindow(std::string window_title, long window_width, lon
 	if (!(m_initialization_seuccess &= registerWindowClass())) return;
 	if (!(m_initialization_seuccess &= createWinApiWindow())) return;
 	m_initialization_seuccess &= initOpenGL();
+	m_last_frame_time = std::chrono::high_resolution_clock::now();
+	setFPSCap();
 }
 
 bool WinApiWindow::setCoreOpenGL()
@@ -111,6 +113,14 @@ int WinApiWindow::loop()
 			if (!m_is_minimized)
 				m_render_function();
 			SwapBuffers(m_hdc);
+
+			auto now = std::chrono::high_resolution_clock::now();
+			auto frame_duration = (unsigned)std::chrono::duration_cast<std::chrono::milliseconds>(now - m_last_frame_time).count();
+			long sleep = m_max_frame_time_ms - frame_duration;
+			if (m_max_frame_time_ms && sleep > 0)
+				Sleep(sleep);
+			m_fps = 1000 / ((m_max_frame_time_ms && sleep > 0 ? sleep : 0) + frame_duration);
+			m_last_frame_time = std::chrono::high_resolution_clock::now();
 		}
 	} while (msg.message != WM_QUIT);
 	return static_cast<int>(msg.wParam);
@@ -154,6 +164,16 @@ void WinApiWindow::hideConsole()
 void WinApiWindow::setTitle(std::string title)
 {
 	SetWindowText(m_hwnd, title.c_str());
+}
+
+void WinApiWindow::setFPSCap(unsigned fps /*= 60*/)
+{
+	m_max_frame_time_ms = 1000 / fps;
+}
+
+unsigned WinApiWindow::getFPS()
+{
+	return m_fps;
 }
 
 void WinApiWindow::close(long quit_message /* = EXIT_SUCCESS */)

@@ -8,7 +8,6 @@ FragmentShader::FragmentShader()
 {}
 
 FragmentShader::FragmentShader(boost::filesystem::path path)
-	: Shader(path)
 {
 	loadFromFile(path);
 }

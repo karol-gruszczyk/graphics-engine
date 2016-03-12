@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\engine\config.cpp" />
+    <ClCompile Include="..\engine\font.cpp" />
+    <ClCompile Include="..\engine\image_loader.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp" />
     <ClCompile Include="..\engine\primitives\rectangle.cpp" />
@@ -31,12 +33,18 @@
     <ClCompile Include="..\engine\shaders\shader.cpp" />
     <ClCompile Include="..\engine\shaders\shader_program.cpp" />
     <ClCompile Include="..\engine\shaders\vertex_shader.cpp" />
+    <ClCompile Include="..\engine\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\engine\config.h" />
     <ClInclude Include="..\engine\exceptions\file_not_found_exception.h" />
+    <ClInclude Include="..\engine\exceptions\file_type_not_supported_exception.h" />
+    <ClInclude Include="..\engine\exceptions\initialization_failed_exception.h" />
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.h" />
     <ClInclude Include="..\engine\exceptions\shader_link_exception.h" />
+    <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.h" />
+    <ClInclude Include="..\engine\font.h" />
+    <ClInclude Include="..\engine\image_loader.h" />
     <ClInclude Include="..\engine\primitives\entities\entity.h" />
     <ClInclude Include="..\engine\primitives\entities\entity_2d.h" />
     <ClInclude Include="..\engine\primitives\rectangle.h" />
@@ -48,6 +56,7 @@
     <ClInclude Include="..\engine\shaders\shader.h" />
     <ClInclude Include="..\engine\shaders\shader_program.h" />
     <ClInclude Include="..\engine\shaders\vertex_shader.h" />
+    <ClInclude Include="..\engine\texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\engine\glsl\simple_fs.glsl" />
@@ -109,7 +118,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost;..\libs\freeimage\include\;..\libs\freetype\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -117,10 +126,13 @@
       <AdditionalDependencies>opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>..\libs\boost\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\libs\boost\stage\lib\;..\libs\freeimage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>
       </AdditionalDependencies>
     </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -136,7 +148,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew\include\;..\libs\glm\;..\libs\boost;..\libs\freeimage\include\;..\libs\freetype\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -146,7 +158,7 @@
       <AdditionalDependencies>opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>..\libs\boost\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\libs\boost\stage\lib\;..\libs\freeimage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>
       </AdditionalDependencies>
     </Lib>
