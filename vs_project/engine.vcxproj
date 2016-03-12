@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\engine\config.cpp" />
-    <ClCompile Include="..\engine\font.cpp" />
     <ClCompile Include="..\engine\image_loader.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp" />
@@ -43,7 +42,6 @@
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.h" />
     <ClInclude Include="..\engine\exceptions\shader_link_exception.h" />
     <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.h" />
-    <ClInclude Include="..\engine\font.h" />
     <ClInclude Include="..\engine\image_loader.h" />
     <ClInclude Include="..\engine\primitives\entities\entity.h" />
     <ClInclude Include="..\engine\primitives\entities\entity_2d.h" />

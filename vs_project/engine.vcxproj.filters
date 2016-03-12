@@ -16,12 +16,6 @@
     <Filter Include="Header Files\exceptions">
       <UniqueIdentifier>{d114926d-8808-473e-b556-f97a7f593a70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\entities">
-      <UniqueIdentifier>{712dd8b9-97a7-47f3-b624-98466d27bf8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\emtities">
-      <UniqueIdentifier>{7938ab12-7328-41a4-b78a-4d2e0f55a0b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\shaders">
       <UniqueIdentifier>{92b79244-1f0d-4cb0-bbd3-ad96836dc800}</UniqueIdentifier>
     </Filter>
@@ -37,13 +31,19 @@
     <Filter Include="Source Files\renderers">
       <UniqueIdentifier>{50d460cc-28d9-4293-9b4d-ec31ccfc8601}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\primitives">
+      <UniqueIdentifier>{712dd8b9-97a7-47f3-b624-98466d27bf8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\primitives">
+      <UniqueIdentifier>{7938ab12-7328-41a4-b78a-4d2e0f55a0b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\engine\primitives\entities\entity.cpp">
-      <Filter>Source Files\emtities</Filter>
+      <Filter>Source Files\primitives</Filter>
     </ClCompile>
     <ClCompile Include="..\engine\primitives\rectangle.cpp">
-      <Filter>Source Files\emtities</Filter>
+      <Filter>Source Files\primitives</Filter>
     </ClCompile>
     <ClCompile Include="..\engine\shaders\fragment_shader.cpp">
       <Filter>Source Files\shaders</Filter>
@@ -67,7 +67,7 @@
       <Filter>Source Files\renderers</Filter>
     </ClCompile>
     <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp">
-      <Filter>Source Files\emtities</Filter>
+      <Filter>Source Files\primitives</Filter>
     </ClCompile>
     <ClCompile Include="..\engine\renderers\scene.cpp">
       <Filter>Source Files\renderers</Filter>
@@ -79,9 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\engine\image_loader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\engine\font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,10 +93,10 @@
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\primitives\entities\entity.h">
-      <Filter>Header Files\entities</Filter>
+      <Filter>Header Files\primitives</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\primitives\rectangle.h">
-      <Filter>Header Files\entities</Filter>
+      <Filter>Header Files\primitives</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\shaders\fragment_shader.h">
       <Filter>Header Files\shaders</Filter>
@@ -120,7 +117,7 @@
       <Filter>Header Files\renderers</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\primitives\entities\entity_2d.h">
-      <Filter>Header Files\entities</Filter>
+      <Filter>Header Files\primitives</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\renderers\scene.h">
       <Filter>Header Files\renderers</Filter>
@@ -142,9 +139,6 @@
     </ClInclude>
     <ClInclude Include="..\engine\exceptions\file_type_not_supported_exception.h">
       <Filter>Header Files\exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\engine\font.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\exceptions\initialization_failed_exception.h">
       <Filter>Header Files\exceptions</Filter>
