@@ -22,6 +22,10 @@
     <ClCompile Include="..\engine\camera.cpp" />
     <ClCompile Include="..\engine\config.cpp" />
     <ClCompile Include="..\engine\image_loader.cpp" />
+    <ClCompile Include="..\engine\lights\directional_light.cpp" />
+    <ClCompile Include="..\engine\lights\light.cpp" />
+    <ClCompile Include="..\engine\lights\point_light.cpp" />
+    <ClCompile Include="..\engine\lights\spot_light.cpp" />
     <ClCompile Include="..\engine\primitives\box.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp" />
@@ -50,6 +54,10 @@
     <ClInclude Include="..\engine\exceptions\shader_link_exception.h" />
     <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.h" />
     <ClInclude Include="..\engine\image_loader.h" />
+    <ClInclude Include="..\engine\lights\directional_light.h" />
+    <ClInclude Include="..\engine\lights\light.h" />
+    <ClInclude Include="..\engine\lights\point_light.h" />
+    <ClInclude Include="..\engine\lights\spot_light.h" />
     <ClInclude Include="..\engine\primitives\box.h" />
     <ClInclude Include="..\engine\primitives\entities\entity.h" />
     <ClInclude Include="..\engine\primitives\entities\entity_2d.h" />
