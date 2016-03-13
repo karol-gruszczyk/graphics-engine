@@ -79,8 +79,8 @@
   <ItemGroup>
     <None Include="..\engine\glsl\2d\basic_fs.glsl" />
     <None Include="..\engine\glsl\2d\basic_vs.glsl" />
-    <None Include="..\engine\glsl\3d\basic_fs.glsl" />
-    <None Include="..\engine\glsl\3d\basic_vs.glsl" />
+    <None Include="..\engine\glsl\3d\phong_fs.glsl" />
+    <None Include="..\engine\glsl\3d\phong_vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DFF589DD-4B2E-4EC4-9B17-8766A94020EE}</ProjectGuid>

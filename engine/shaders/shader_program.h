@@ -22,6 +22,7 @@ public:
 	void init(std::initializer_list<Shader*> shaders);
 	void bind();
 	void unbind();
+	void setUniformVector3(std::string uniform_name, glm::vec3 vector);
 	void setUniformMatrix4(std::string uniform_name, glm::mat4 matrix);
 private:
 	GLuint m_shader_program_id;

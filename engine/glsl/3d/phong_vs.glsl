@@ -15,8 +15,8 @@ uniform mat4 model_matrix;
 
 void main()
 {
-	position = vertex_position;
+	position = vec3(model_matrix * vec4(vertex_position, 1.f));
 	texture_coord = vertex_texture_coord;
-	normal = vertex_normal;
+	normal = vec3(model_matrix * vec4(vertex_normal, 1.f));
 	gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertex_position, 1.f);
 }

@@ -13,13 +13,13 @@ class engine::DirectionalLight final : public Light
 {
 public:
 	DirectionalLight();
-	DirectionalLight(glm::vec3 rotation, glm::vec3 color = { 1.f, 1.f, 1.f });
+	DirectionalLight(glm::vec3 direction, glm::vec3 color = { 1.f, 1.f, 1.f });
 
-	void initialize(glm::vec3 rotation, glm::vec3 color = { 1.f, 1.f, 1.f });
-	void setRotation(glm::vec3 rotation);
-	glm::vec3 getRotation();
+	void initialize(glm::vec3 direction, glm::vec3 color = { 1.f, 1.f, 1.f });
+	void setDirection(glm::vec3 direction);
+	glm::vec3 getDirection();
 private:
-	glm::vec3 m_rotation;
+	glm::vec3 m_direction;
 };
 
 #endif /* DIRECTIONAL_LIGHT_H_ */

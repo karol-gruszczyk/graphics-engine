@@ -41,8 +41,8 @@ void engine::Renderer3D::updateProjectionMatrix()
 void engine::Renderer3D::loadDefaultShader()
 {
 	auto path = Config::getInstance().getShaderPath();
-	m_vertex_shader = std::make_unique<VertexShader>(path / "3d/basic_vs.glsl");
-	m_fragment_shader = std::make_unique<FragmentShader>(path / "3d/basic_fs.glsl");
+	m_vertex_shader = std::make_unique<VertexShader>(path / "3d/phong_vs.glsl");
+	m_fragment_shader = std::make_unique<FragmentShader>(path / "3d/phong_fs.glsl");
 	m_shader_program = std::make_unique<ShaderProgram>();
 	m_shader_program->init({ m_vertex_shader.get(), m_fragment_shader.get() });
 }

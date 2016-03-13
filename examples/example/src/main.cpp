@@ -22,6 +22,7 @@ engine::Renderer3D renderer3d;
 engine::Camera camera;
 engine::Scene2D scene2d;
 engine::Scene3D scene3d;
+engine::DirectionalLight dir_light;
 engine::Rectangle rect;
 engine::Plane plane;
 engine::Box box;
@@ -107,9 +108,9 @@ void init()
 
 	gl_version = std::string((char*)glGetString(GL_VERSION));
 
-	//window.showConsole();
-	//engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
-	engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
+	window.showConsole();
+	engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
+	//engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
 
 	engine::Config::getInstance().setShaderPath("..\\..\\engine\\glsl\\");
 	try
@@ -123,7 +124,6 @@ void init()
 		std::cin.get();
 		exit(EXIT_FAILURE);
 	}
-
 	window.setResizeCallback(resize);
 
 	rect.initialize({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
@@ -136,6 +136,8 @@ void init()
 	scene3d.setCamera(&camera);
 	scene3d.addEntity(&box);
 	camera.setPosition({ 0.f, 5.f, 10.f });
+	dir_light.setDirection({ -1.f, -1.f, -1.f });
+	scene3d.addLight(&dir_light);
 	try
 	{
 		box_texture.loadFromFile("box.jpg");

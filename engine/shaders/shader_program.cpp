@@ -61,6 +61,13 @@ void ShaderProgram::init(std::initializer_list<Shader*> shaders)
 		glDetachShader(m_shader_program_id, shader->m_shader_id);
 }
 
+void ShaderProgram::setUniformVector3(std::string uniform_name, glm::vec3 vector)
+{
+	bind();
+	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	glUniform3fv(location, 1, glm::value_ptr(vector));
+}
+
 void ShaderProgram::setUniformMatrix4(std::string uniform_name, glm::mat4 matrix)
 {
 	bind();

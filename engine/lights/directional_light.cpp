@@ -7,23 +7,23 @@ DirectionalLight::DirectionalLight()
 	: Light()
 {}
 
-DirectionalLight::DirectionalLight(glm::vec3 rotation, glm::vec3 color /* = { 1.f, 1.f, 1.f } */ )
+DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color /* = { 1.f, 1.f, 1.f } */ )
 {
-	initialize(rotation, color);
+	initialize(direction, color);
 }
 
-void DirectionalLight::initialize(glm::vec3 rotation, glm::vec3 color /* = { 1.f, 1.f, 1.f } */)
+void DirectionalLight::initialize(glm::vec3 direction, glm::vec3 color /* = { 1.f, 1.f, 1.f } */)
 {
-	m_rotation = rotation;
+	m_direction = direction;
 	m_color = color;
 }
 
-void DirectionalLight::setRotation(glm::vec3 rotation)
+void DirectionalLight::setDirection(glm::vec3 direction)
 {
-	m_rotation = rotation;
+	m_direction = glm::normalize(direction);
 }
 
-glm::vec3 DirectionalLight::getRotation()
+glm::vec3 DirectionalLight::getDirection()
 {
-	return m_rotation;
+	return m_direction;
 }

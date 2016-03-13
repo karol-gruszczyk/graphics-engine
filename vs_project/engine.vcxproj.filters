@@ -229,10 +229,10 @@
     <None Include="..\engine\glsl\2d\basic_vs.glsl">
       <Filter>GLSL shaders\2d</Filter>
     </None>
-    <None Include="..\engine\glsl\3d\basic_fs.glsl">
+    <None Include="..\engine\glsl\3d\phong_fs.glsl">
       <Filter>GLSL shaders\3d</Filter>
     </None>
-    <None Include="..\engine\glsl\3d\basic_vs.glsl">
+    <None Include="..\engine\glsl\3d\phong_vs.glsl">
       <Filter>GLSL shaders\3d</Filter>
     </None>
   </ItemGroup>
