@@ -60,7 +60,6 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 	glGenTextures(1, &m_texture_id);
 	m_texture_created = true;
 
-	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, m_texture_id);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, pixels);
