@@ -23,8 +23,9 @@ engine::Camera camera;
 engine::Scene2D scene2d;
 engine::Scene3D scene3d;
 engine::Rectangle rect;
+engine::Plane plane;
 engine::Box box;
-engine::Texture texture;
+engine::Texture box_texture, tile_texture;
 
 float counter;
 bool button_pressed[128];
@@ -62,13 +63,13 @@ void buttonCallback(long button, bool pressed)
 void updateCameraPosition()
 {
 	if (button_pressed['A'])
-		camera.moveRight(-0.1f);
+		camera.moveRight(-0.5f);
 	if (button_pressed['D'])
-		camera.moveRight(0.1f);
+		camera.moveRight(0.5f);
 	if (button_pressed['W'])
-		camera.moveForward(0.1f);
+		camera.moveForward(0.5f);
 	if (button_pressed['S'])
-		camera.moveForward(-0.1f);
+		camera.moveForward(-0.5f);
 	if (button_pressed['Q'])
 		camera.rotate({ 0.f, 0.f, -0.01f });
 	if (button_pressed['E'])
@@ -84,9 +85,12 @@ void render()
 	window.setTitle("OpenGL: " + gl_version + " FPS: " + boost::lexical_cast<std::string>(window.getFPS()));
 
 	renderer3d.clearScreen();
-	texture.bind();
 
+	box_texture.bind();
 	scene3d.render();
+
+	tile_texture.bind();
+	plane.render();
 	//scene2d.render();
 }
 
@@ -103,9 +107,9 @@ void init()
 
 	gl_version = std::string((char*)glGetString(GL_VERSION));
 
-	window.showConsole();
-	engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
-	//engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
+	//window.showConsole();
+	//engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
+	engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
 
 	engine::Config::getInstance().setShaderPath("..\\..\\engine\\glsl\\");
 	try
@@ -127,13 +131,15 @@ void init()
 	scene2d.addEntity(&rect);
 
 	box.initialize({ 5.f, 5.f, 5.f });
+	plane.initialize({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
 	scene3d.setRenderer(&renderer3d);
 	scene3d.setCamera(&camera);
 	scene3d.addEntity(&box);
 	camera.setPosition({ 0.f, 5.f, 10.f });
 	try
 	{
-		texture.loadFromFile("box.jpg");
+		box_texture.loadFromFile("box.jpg");
+		tile_texture.loadFromFile("tile.jpg");
 	}
 	catch (engine::FileNotFoundException& e)
 	{

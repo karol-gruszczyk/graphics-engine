@@ -7,12 +7,12 @@ using engine::Plane;
 Plane::Plane()
 {}
 
-Plane::Plane(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
+Plane::Plane(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, unsigned tile /* = 1 */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
 {
-	initialize(size, position, rotation, pivot);
+	initialize(size, position, tile, rotation, pivot);
 }
 
-void Plane::initialize(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
+void Plane::initialize(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, unsigned tile /* = 1 */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
 {
 	m_width = size.x;
 	m_length = size.y;
@@ -25,15 +25,15 @@ void Plane::initialize(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f }
 	{
 		0.f, 0.f, 0.f,
 		0.f, 0.f, m_length,
+		m_width, 0.f, 0.f,
 		m_width, 0.f, m_length,
-		m_width, 0.f, 0.f
 	};
 	GLfloat texture_coords[] =
 	{
-		0.f, 1.f,
-		1.f, 1.f,
-		1.f, 0.f,
-		0.f, 0.f
+		0.f, 1.f * tile,
+		0.f, 0.f,
+		1.f * tile, 1.f * tile,
+		1.f * tile, 0.f
 	};
 	GLfloat normals[] =
 	{
@@ -44,7 +44,7 @@ void Plane::initialize(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f }
 	};
 	GLushort indices[] =
 	{
-		1, 0, 2, 3
+		0, 1, 2, 3
 	};
 
 	Entity3D::initBuffers();
