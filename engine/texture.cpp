@@ -66,7 +66,15 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, pixels);
 
 	if (generate_mipmaps)
+	{
 		glGenerateMipmap(GL_TEXTURE_2D);
+		if (glewIsExtensionSupported("GL_EXT_texture_filter_anisotropic"))
+		{
+			GLfloat max_anisotropy;
+			glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropy);
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
+		}
+	}
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
