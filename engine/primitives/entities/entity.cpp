@@ -10,14 +10,13 @@ Entity::~Entity()
 {
 	if (m_vao_created)
 		glDeleteVertexArrays(1, &m_vao_id);
-	if (m_vertex_vbo_created)
-		glDeleteBuffers(1, &m_vertex_vbo_id);
-	if (m_texture_coords_vbo_created)
-		glDeleteBuffers(1, &m_texture_coords_vbo_id);
+	if (m_position_vbo_created)
+		glDeleteBuffers(1, &m_position_vbo_id);
+	if (m_texture_coord_vbo_created)
+		glDeleteBuffers(1, &m_texture_coord_vbo_id);
 }
 
-void Entity::updateModelMatrix()
+glm::mat4& Entity::getModelMatrix()
 {
-	for (auto& shader : m_shaders)
-		shader->setUniformMatrix4("model_matrix", m_pivot_matrix);
+	return m_pivot_matrix;
 }

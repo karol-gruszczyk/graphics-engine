@@ -30,7 +30,7 @@ protected:
 	std::unique_ptr<VertexShader> m_vertex_shader;
 	std::unique_ptr<FragmentShader> m_fragment_shader;
 	std::unique_ptr<ShaderProgram> m_shader_program;
-	virtual void setProjectionMatrix() = 0;
+	virtual void updateProjectionMatrix() = 0;
 	virtual void loadDefaultShader() = 0;
 };
 

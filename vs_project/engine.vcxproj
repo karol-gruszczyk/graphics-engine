@@ -19,15 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\engine\camera.cpp" />
     <ClCompile Include="..\engine\config.cpp" />
     <ClCompile Include="..\engine\image_loader.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp" />
+    <ClCompile Include="..\engine\primitives\entities\entity_3d.cpp" />
+    <ClCompile Include="..\engine\primitives\plane.cpp" />
     <ClCompile Include="..\engine\primitives\rectangle.cpp" />
     <ClCompile Include="..\engine\renderers\renderer.cpp" />
     <ClCompile Include="..\engine\renderers\renderer_2d.cpp" />
+    <ClCompile Include="..\engine\renderers\renderer_3d.cpp" />
     <ClCompile Include="..\engine\renderers\scene.cpp" />
     <ClCompile Include="..\engine\renderers\scene_2d.cpp" />
+    <ClCompile Include="..\engine\renderers\scene_3d.cpp" />
     <ClCompile Include="..\engine\shaders\fragment_shader.cpp" />
     <ClCompile Include="..\engine\shaders\shader.cpp" />
     <ClCompile Include="..\engine\shaders\shader_program.cpp" />
@@ -35,6 +40,7 @@
     <ClCompile Include="..\engine\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\engine\camera.h" />
     <ClInclude Include="..\engine\config.h" />
     <ClInclude Include="..\engine\exceptions\file_not_found_exception.h" />
     <ClInclude Include="..\engine\exceptions\file_type_not_supported_exception.h" />
@@ -45,11 +51,15 @@
     <ClInclude Include="..\engine\image_loader.h" />
     <ClInclude Include="..\engine\primitives\entities\entity.h" />
     <ClInclude Include="..\engine\primitives\entities\entity_2d.h" />
+    <ClInclude Include="..\engine\primitives\entities\entity_3d.h" />
+    <ClInclude Include="..\engine\primitives\plane.h" />
     <ClInclude Include="..\engine\primitives\rectangle.h" />
     <ClInclude Include="..\engine\renderers\renderer.h" />
     <ClInclude Include="..\engine\renderers\renderer_2d.h" />
+    <ClInclude Include="..\engine\renderers\renderer_3d.h" />
     <ClInclude Include="..\engine\renderers\scene.h" />
     <ClInclude Include="..\engine\renderers\scene_2d.h" />
+    <ClInclude Include="..\engine\renderers\scene_3d.h" />
     <ClInclude Include="..\engine\shaders\fragment_shader.h" />
     <ClInclude Include="..\engine\shaders\shader.h" />
     <ClInclude Include="..\engine\shaders\shader_program.h" />
@@ -57,8 +67,10 @@
     <ClInclude Include="..\engine\texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\engine\glsl\simple_fs.glsl" />
-    <None Include="..\engine\glsl\simple_vs.glsl" />
+    <None Include="..\engine\glsl\2d\basic_fs.glsl" />
+    <None Include="..\engine\glsl\2d\basic_vs.glsl" />
+    <None Include="..\engine\glsl\3d\basic_fs.glsl" />
+    <None Include="..\engine\glsl\3d\basic_vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DFF589DD-4B2E-4EC4-9B17-8766A94020EE}</ProjectGuid>

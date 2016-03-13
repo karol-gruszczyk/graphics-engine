@@ -37,11 +37,20 @@
     <Filter Include="Source Files\primitives">
       <UniqueIdentifier>{7938ab12-7328-41a4-b78a-4d2e0f55a0b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\primitives\entities">
+      <UniqueIdentifier>{0d38c16a-4f64-484b-8be0-20f56b20cc5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\primitives\entities">
+      <UniqueIdentifier>{2025bdbe-4917-4f49-be2e-06860ce89adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLSL shaders\2d">
+      <UniqueIdentifier>{d2a3ca3d-b8d4-4b89-a8db-ad768034d10d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLSL shaders\3d">
+      <UniqueIdentifier>{012e88df-f635-4686-a493-7bc9c48f40bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\engine\primitives\entities\entity.cpp">
-      <Filter>Source Files\primitives</Filter>
-    </ClCompile>
     <ClCompile Include="..\engine\primitives\rectangle.cpp">
       <Filter>Source Files\primitives</Filter>
     </ClCompile>
@@ -66,9 +75,6 @@
     <ClCompile Include="..\engine\renderers\scene_2d.cpp">
       <Filter>Source Files\renderers</Filter>
     </ClCompile>
-    <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp">
-      <Filter>Source Files\primitives</Filter>
-    </ClCompile>
     <ClCompile Include="..\engine\renderers\scene.cpp">
       <Filter>Source Files\renderers</Filter>
     </ClCompile>
@@ -81,6 +87,27 @@
     <ClCompile Include="..\engine\image_loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\engine\renderers\renderer_3d.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\entities\entity.cpp">
+      <Filter>Source Files\primitives\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp">
+      <Filter>Source Files\primitives\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\entities\entity_3d.cpp">
+      <Filter>Source Files\primitives\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\plane.cpp">
+      <Filter>Source Files\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\renderers\scene_3d.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.h">
@@ -91,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="..\engine\exceptions\file_not_found_exception.h">
       <Filter>Header Files\exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\engine\primitives\entities\entity.h">
-      <Filter>Header Files\primitives</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\primitives\rectangle.h">
       <Filter>Header Files\primitives</Filter>
@@ -115,9 +139,6 @@
     </ClInclude>
     <ClInclude Include="..\engine\renderers\scene_2d.h">
       <Filter>Header Files\renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\engine\primitives\entities\entity_2d.h">
-      <Filter>Header Files\primitives</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\renderers\scene.h">
       <Filter>Header Files\renderers</Filter>
@@ -143,13 +164,40 @@
     <ClInclude Include="..\engine\exceptions\initialization_failed_exception.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
+    <ClInclude Include="..\engine\renderers\renderer_3d.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\entities\entity.h">
+      <Filter>Header Files\primitives\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\entities\entity_2d.h">
+      <Filter>Header Files\primitives\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\entities\entity_3d.h">
+      <Filter>Header Files\primitives\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\plane.h">
+      <Filter>Header Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\renderers\scene_3d.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\engine\glsl\simple_fs.glsl">
-      <Filter>GLSL shaders</Filter>
+    <None Include="..\engine\glsl\2d\basic_fs.glsl">
+      <Filter>GLSL shaders\2d</Filter>
     </None>
-    <None Include="..\engine\glsl\simple_vs.glsl">
-      <Filter>GLSL shaders</Filter>
+    <None Include="..\engine\glsl\2d\basic_vs.glsl">
+      <Filter>GLSL shaders\2d</Filter>
+    </None>
+    <None Include="..\engine\glsl\3d\basic_fs.glsl">
+      <Filter>GLSL shaders\3d</Filter>
+    </None>
+    <None Include="..\engine\glsl\3d\basic_vs.glsl">
+      <Filter>GLSL shaders\3d</Filter>
     </None>
   </ItemGroup>
 </Project>

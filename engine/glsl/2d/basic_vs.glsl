@@ -8,6 +8,7 @@ out vec2 texture_coord;
 uniform mat4 projection_matrix;
 uniform mat4 model_matrix;
 
+
 void main()
 {
 	texture_coord = vertex_texture_coord;

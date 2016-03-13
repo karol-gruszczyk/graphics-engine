@@ -9,7 +9,7 @@ namespace engine
 	class Rectangle;
 }
 
-class engine::Rectangle final : public engine::Entity2D
+class engine::Rectangle final : public Entity2D
 {
 public:
 	Rectangle();

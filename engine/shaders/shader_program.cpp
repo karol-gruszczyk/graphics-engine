@@ -66,5 +66,4 @@ void ShaderProgram::setUniformMatrix4(std::string uniform_name, glm::mat4 matrix
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
-	unbind();
 }

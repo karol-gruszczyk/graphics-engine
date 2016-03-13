@@ -9,7 +9,7 @@ namespace engine
 	class VertexShader;
 }
 
-class engine::VertexShader final : public engine::Shader
+class engine::VertexShader final : public Shader
 {
 public:
 	VertexShader();

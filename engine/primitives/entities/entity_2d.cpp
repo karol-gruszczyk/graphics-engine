@@ -4,20 +4,10 @@
 using engine::Entity2D;
 
 
-inline GLfloat toRadians(GLfloat degrees)
-{
-	return degrees * (GLfloat)M_PI / 180.f;
-}
-
-inline GLfloat toDegrees(GLfloat radians)
-{
-	return radians / (GLfloat)M_PI * 180.f;
-}
-
 void Entity2D::setRotation(GLfloat angle)
 {
 	m_rotation = angle;
-	m_rotation_rad = toRadians(m_rotation);
+	m_rotation_rad = glm::radians(m_rotation);
 	updateRotationMatrix();
 }
 
@@ -34,7 +24,7 @@ void Entity2D::rotate(GLfloat angle)
 void Entity2D::setRotationRad(GLfloat angle)
 {
 	m_rotation_rad = angle;
-	m_rotation = toDegrees(m_rotation_rad);
+	m_rotation = glm::degrees(m_rotation_rad);
 	updateRotationMatrix();
 }
 
@@ -107,5 +97,4 @@ void Entity2D::updateScaleMatrix()
 void Entity2D::updatePivotMatrix()
 {
 	m_pivot_matrix = glm::translate(m_scale_matrix, glm::vec3(-m_pivot, 0.f));
-	updateModelMatrix();
 }
