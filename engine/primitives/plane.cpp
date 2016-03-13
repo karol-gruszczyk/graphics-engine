@@ -1,11 +1,11 @@
 #include "plane.h"
 
+#define ELEMENTS_BUFFER_LENGTH 4
+
 using engine::Plane;
 
 Plane::Plane()
-{
-
-}
+{}
 
 Plane::Plane(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
 {
@@ -42,18 +42,14 @@ void Plane::initialize(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f }
 		0.f, 1.f, 0.f,
 		0.f, 1.f, 0.f
 	};
+	GLushort indices[] =
+	{
+		1, 0, 2, 3
+	};
 
-	glGenBuffers(1, &m_position_vbo_id);
-	m_position_vbo_created = true;
+	Entity3D::initBuffers();
 
-	glGenBuffers(1, &m_texture_coord_vbo_id);
-	m_texture_coord_vbo_created = true;
-
-	glGenBuffers(1, &m_normal_vbo_id);
-	m_normal_vbo_created = true;
-
-	glGenVertexArrays(1, &m_vao_id);
-	m_vao_created = true;
+	static_assert(2 * sizeof(GLfloat) % 4 == 0 || 3 * sizeof(GLfloat) == 0, "Buffer data should be aligned in 4 byte blocks");
 
 	glBindVertexArray(m_vao_id);
 		glBindBuffer(GL_ARRAY_BUFFER, m_position_vbo_id);
@@ -70,12 +66,15 @@ void Plane::initialize(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f }
 		glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
 		glVertexAttribPointer(NORMAL_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
 		glEnableVertexAttribArray(NORMAL_ATTRIB_POINTER);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_index_vbo_id);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	glBindVertexArray(NULL);
 }
 
 void Plane::render()
 {
 	glBindVertexArray(m_vao_id);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glDrawElements(GL_TRIANGLE_STRIP, ELEMENTS_BUFFER_LENGTH, GL_UNSIGNED_SHORT, nullptr);
 	glBindVertexArray(NULL);
 }

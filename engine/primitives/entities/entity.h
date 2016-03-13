@@ -24,14 +24,15 @@ public:
 	virtual glm::mat4& getModelMatrix();
 protected:
 	GLuint m_vao_id;
-	GLuint m_position_vbo_id, m_texture_coord_vbo_id;
-	bool m_vao_created, m_position_vbo_created, m_texture_coord_vbo_created;
+	GLuint m_index_vbo_id, m_position_vbo_id, m_texture_coord_vbo_id;
+	bool m_index_vbo_created, m_vao_created, m_position_vbo_created, m_texture_coord_vbo_created;
 
 	glm::mat4 m_pivot_matrix;
 	glm::mat4 m_translation_matrix;
 	glm::mat4 m_rotation_matrix;
 	glm::mat4 m_scale_matrix;
 
+	virtual void initBuffers();
 	virtual void updatePivotMatrix() = 0;
 	virtual void updateTranslationMatrix() = 0;
 	virtual void updateRotationMatrix() = 0;

@@ -8,6 +8,7 @@
 #include <engine/config.h>
 #include <engine/primitives/rectangle.h>
 #include <engine/primitives/plane.h>
+#include <engine/primitives/box.h>
 #include "win_api_window.h"
 #include <engine/texture.h>
 
@@ -22,7 +23,7 @@ engine::Camera camera;
 engine::Scene2D scene2d;
 engine::Scene3D scene3d;
 engine::Rectangle rect;
-engine::Plane plane;
+engine::Box box;
 engine::Texture texture;
 
 float counter;
@@ -86,7 +87,7 @@ void render()
 	texture.bind();
 
 	scene3d.render();
-//	scene2d.render();
+	//scene2d.render();
 }
 
 void init()
@@ -102,9 +103,9 @@ void init()
 
 	gl_version = std::string((char*)glGetString(GL_VERSION));
 
-	//window.showConsole();
-	//engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
-	engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
+	window.showConsole();
+	engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
+	//engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
 
 	engine::Config::getInstance().setShaderPath("..\\..\\engine\\glsl\\");
 	try
@@ -125,14 +126,14 @@ void init()
 	scene2d.setRenderer(&renderer2d);
 	scene2d.addEntity(&rect);
 
-	plane.initialize({ 10.f, 10.f });
+	box.initialize({ 5.f, 5.f, 5.f });
 	scene3d.setRenderer(&renderer3d);
 	scene3d.setCamera(&camera);
-	scene3d.addEntity(&plane);
+	scene3d.addEntity(&box);
 	camera.setPosition({ 0.f, 5.f, 10.f });
 	try
 	{
-		texture.loadFromFile("moto.jpg");
+		texture.loadFromFile("box.jpg");
 	}
 	catch (engine::FileNotFoundException& e)
 	{

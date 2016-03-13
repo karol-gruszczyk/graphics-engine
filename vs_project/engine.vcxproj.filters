@@ -108,6 +108,9 @@
     <ClCompile Include="..\engine\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\engine\primitives\box.cpp">
+      <Filter>Source Files\primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="..\engine\camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\box.h">
+      <Filter>Header Files\primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

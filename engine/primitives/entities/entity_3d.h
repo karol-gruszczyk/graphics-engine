@@ -33,6 +33,8 @@ protected:
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
 
+	virtual void initBuffers() override;
+
 	void updateTranslationMatrix() override;
 	void updateRotationMatrix() override;
 	void updateScaleMatrix() override;

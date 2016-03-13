@@ -63,6 +63,13 @@ glm::vec3 Entity3D::getPivot()
 	return m_pivot;
 }
 
+void Entity3D::initBuffers()
+{
+	Entity::initBuffers();
+	glGenBuffers(1, &m_normal_vbo_id);
+	m_normal_vbo_created = true;
+}
+
 void Entity3D::updateTranslationMatrix()
 {
 	// TODO

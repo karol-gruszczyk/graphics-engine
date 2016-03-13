@@ -20,6 +20,7 @@ void Scene2D::addEntity(Entity2D* entity)
 
 void Scene2D::render()
 {
+	glDisable(GL_DEPTH_TEST);
 	Scene::render();
 	for (auto& entity : m_entities)
 	{

@@ -25,6 +25,8 @@ void Scene3D::addEntity(Entity3D* entity)
 
 void Scene3D::render()
 {
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 	Scene::render();
 	getShaderProgram()->setUniformMatrix4("view_matrix", m_camera_ptr->getViewMatrix());
 	for (auto& entity : m_entities)
