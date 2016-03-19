@@ -61,10 +61,26 @@ void ShaderProgram::init(std::initializer_list<Shader*> shaders)
 		glDetachShader(m_shader_program_id, shader->m_shader_id);
 }
 
+void ShaderProgram::setUniformUint(std::string uniform_name, unsigned value)
+{
+	bind();
+	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	glUniform1ui(location, value);
+}
+
+void ShaderProgram::setUniformFloat(std::string uniform_name, float value)
+{
+	bind();
+	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	assert(location != -1);
+	glUniform1f(location, value);
+}
+
 void ShaderProgram::setUniformVector3(std::string uniform_name, glm::vec3 vector)
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	assert(location != -1);
 	glUniform3fv(location, 1, glm::value_ptr(vector));
 }
 
@@ -72,5 +88,6 @@ void ShaderProgram::setUniformMatrix4(std::string uniform_name, glm::mat4 matrix
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	assert(location != -1);
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }

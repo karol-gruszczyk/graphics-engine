@@ -23,6 +23,16 @@ void engine::Scene3D::addLight(DirectionalLight* directional_light)
 	m_directional_lights.push_back(directional_light);
 }
 
+void engine::Scene3D::addLight(PointLight* point_light)
+{
+	m_point_lights.push_back(point_light);
+}
+
+void engine::Scene3D::addLight(SpotLight* spot_light)
+{
+	m_spot_lights.push_back(spot_light);
+}
+
 void Scene3D::addEntity(Entity3D* entity)
 {
 	m_entities.push_back(entity);
@@ -35,7 +45,31 @@ void Scene3D::render()
 	Scene::render();
 	
 	for (auto& light : m_directional_lights)
+	{
+		getShaderProgram()->setUniformVector3("dir_light.color", light->getColor());
 		getShaderProgram()->setUniformVector3("dir_light.direction", light->getDirection());
+	}
+
+	for (unsigned i = 0; i < m_point_lights.size(); i++)
+	{
+		auto i_str = std::to_string(i);
+		getShaderProgram()->setUniformVector3("point_lights[" + i_str + "].color", m_point_lights[i]->getColor());
+		getShaderProgram()->setUniformVector3("point_lights[" + i_str + "].position", m_point_lights[i]->getPosition());
+		getShaderProgram()->setUniformFloat("point_lights[" + i_str + "].range", m_point_lights[i]->getRange());
+	}
+	getShaderProgram()->setUniformUint("num_point_lights", m_point_lights.size());
+
+	for (unsigned i = 0; i < m_spot_lights.size(); i++)
+	{
+		auto i_str = std::to_string(i);
+		getShaderProgram()->setUniformVector3("spot_lights[" + i_str + "].color", m_spot_lights[i]->getColor());
+		getShaderProgram()->setUniformVector3("spot_lights[" + i_str + "].position", m_spot_lights[i]->getPosition());
+		getShaderProgram()->setUniformVector3("spot_lights[" + i_str + "].direction", m_spot_lights[i]->getDirection());
+		getShaderProgram()->setUniformFloat("spot_lights[" + i_str + "].range", m_spot_lights[i]->getRange());
+		getShaderProgram()->setUniformFloat("spot_lights[" + i_str + "].inner_angle", m_spot_lights[i]->getInnerAngle());
+		getShaderProgram()->setUniformFloat("spot_lights[" + i_str + "].outer_angle", m_spot_lights[i]->getOuterAngle());
+	}
+	getShaderProgram()->setUniformUint("num_spot_lights", m_spot_lights.size());
 	
 	getShaderProgram()->setUniformVector3("camera_position", m_camera_ptr->getPosition());
 	getShaderProgram()->setUniformMatrix4("view_matrix", m_camera_ptr->getViewMatrix());

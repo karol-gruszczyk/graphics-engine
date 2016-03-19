@@ -16,11 +16,11 @@ public:
 	void createWindow(std::string window_title, long window_width, long window_height, POINT window_position = { CW_USEDEFAULT, 0L });
 	bool setCoreOpenGL();
 	bool isOk();
-	void setRenderFunction(std::function<void()> function);
-	void setResizeCallback(std::function<void(long, long)> function);
-	void setMouseMoveCallback(std::function<void(long, long)> function);
-	void setMouseClickCallback(std::function<void(long)> function);
-	void setButtonCallback(std::function<void(long, bool)> function);
+	void setRenderFunction(std::function<void()> func);
+	void setResizeCallback(std::function<void(long, long)> func);
+	void setMouseMoveCallback(std::function<void(long, long)> func);
+	void setMouseClickCallback(std::function<void(long)> func);
+	void setButtonCallback(std::function<void(long, bool)> func);
 	int loop();
 	void showCursor();
 	void hideCursor();

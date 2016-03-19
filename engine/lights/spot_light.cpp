@@ -7,14 +7,24 @@ SpotLight::SpotLight()
 	: PointLight()
 {}
 
-void SpotLight::setRotation(glm::vec3 rotation)
+void SpotLight::initialize(glm::vec3 position, glm::vec3 direction, float range, float inner_angle, float outer_angle, glm::vec3 color /* = { 1.f, 1.f, 1.f */)
 {
-	m_position = rotation;
+	m_position = position;
+	m_direction = direction;
+	m_range = range;
+	m_inner_angle = inner_angle;
+	m_outer_angle = inner_angle + (outer_angle == 0.f ? 0.001f : outer_angle);
+	m_color = color;
 }
 
-glm::vec3 SpotLight::getRotation()
+void SpotLight::setDirection(glm::vec3 direction)
 {
-	return m_rotation;
+	m_direction = direction;
+}
+
+glm::vec3 SpotLight::getDirection()
+{
+	return m_direction;
 }
 
 void SpotLight::setInnerAngle(float inner_angle)

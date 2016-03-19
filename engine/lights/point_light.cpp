@@ -7,6 +7,18 @@ PointLight::PointLight()
 	: Light()
 {}
 
+engine::PointLight::PointLight(glm::vec3 position, float range, glm::vec3 color /* = { 1.f, 1.f, 1.f } */)
+{
+	initialize(position, range, color);
+}
+
+void engine::PointLight::initialize(glm::vec3 position, float range, glm::vec3 color /* = { 1.f, 1.f, 1.f } */)
+{
+	m_position = position;
+	m_range = range;
+	m_color = color;
+}
+
 void PointLight::setPosition(glm::vec3 position)
 {
 	m_position = position;
