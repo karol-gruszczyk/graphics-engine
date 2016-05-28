@@ -141,8 +141,8 @@ void init()
 	point_light.initialize({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light.initialize({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(5.f));
 	scene3d.addLight(&dir_light);
-	//scene3d.addLight(&point_light);
-	//scene3d.addLight(&spot_light);
+	scene3d.addLight(&point_light);
+	scene3d.addLight(&spot_light);
 	try
 	{
 		box_texture.loadFromFile("box.jpg");

@@ -41,6 +41,7 @@ uniform SpotLight spot_lights[MAX_SPOT_LIGHTS];
 uniform uint num_spot_lights;
 
 float ambient_strength = 0.1f;
+float specular_power = 32;
 
 vec3 processDirectionalLight(DirectionalLight dir_light);
 vec3 processPointLight(PointLight point_light);
@@ -60,19 +61,29 @@ void main()
 	out_color = vec4(light_color, 1.f) * object_color;
 }
 
-vec3 processDirectionalLight(DirectionalLight dir_light)
+vec3 processAmbientLight(vec3 light_color)
 {
-	vec3 light_ray_direction = -dir_light.direction;
-	// ambient
-	vec3 ambient = ambient_strength * dir_light.color;
+	return ambient_strength * light_color;
+}
 
-	// diffuse
-	vec3 diffuse = max(dot(normal, light_ray_direction), 0.f) * dir_light.color;
+vec3 processDiffuseLight(vec3 light_ray_direction, vec3 light_color)
+{
+	return max(dot(normal, light_ray_direction), 0.f) * light_color;
+}
 
-	// specular
+vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color)
+{
 	vec3 view_dir = normalize(camera_position - position);
 	vec3 reflect_dir = reflect(-light_ray_direction, normal);
-	vec3 specular = pow(max(dot(view_dir, reflect_dir), 0.0), 64) * dir_light.color;
+	return pow(max(dot(view_dir, reflect_dir), 0.0), specular_power) * light_color;
+}
+
+vec3 processDirectionalLight(DirectionalLight dir_light)
+{
+	vec3 light_ray_direction = normalize(-dir_light.direction);
+	vec3 ambient = processAmbientLight(dir_light.color);
+	vec3 diffuse = processDiffuseLight(light_ray_direction, dir_light.color);
+	vec3 specular = processSpecularLight(light_ray_direction, dir_light.color);
 
 	return ambient + diffuse + specular;
 }
@@ -85,16 +96,10 @@ vec3 processPointLight(PointLight point_light)
 	float attenuation = 1 / ((constant_factor) + (linear_factor * distance) + (quadratic_factor * pow(distance, 2)));
 	vec3 light_ray_direction = normalize(point_light.position - position);
 
-	// ambient
-	vec3 ambient = ambient_strength * point_light.color;
+	vec3 ambient = processAmbientLight(point_light.color);
+	vec3 diffuse = processDiffuseLight(light_ray_direction, point_light.color);
+	vec3 specular = processSpecularLight(light_ray_direction, point_light.color);
 
-	// diffuse
-	vec3 diffuse = max(dot(normal, light_ray_direction), 0.f) * point_light.color;
-
-	// specular
-	vec3 view_dir = normalize(camera_position - position);
-	vec3 reflect_dir = reflect(-light_ray_direction, normal);
-	vec3 specular = pow(max(dot(view_dir, reflect_dir), 0.0), 8) * point_light.color;
 	return attenuation * (ambient + diffuse + specular);
 }
 
@@ -116,15 +121,9 @@ vec3 processSpotLight(SpotLight spot_light)
 
 	float falloff = clamp((outer_cosine - spot_effect) / (outer_cosine - cos(spot_light.inner_angle)), 0.f, 1.f);
 
-	// ambient
-	vec3 ambient = ambient_strength * spot_light.color;
+	vec3 ambient = processAmbientLight(spot_light.color);
+	vec3 diffuse = processDiffuseLight(light_ray_direction, spot_light.color);
+	vec3 specular = processSpecularLight(light_ray_direction, spot_light.color);
 
-	// diffuse
-	vec3 diffuse = max(dot(normal, light_ray_direction), 0.f) * spot_light.color;
-
-	// specular
-	vec3 view_dir = normalize(camera_position - position);
-	vec3 reflect_dir = reflect(-light_ray_direction, normal);
-	vec3 specular = pow(max(dot(view_dir, reflect_dir), 0.0), 8) * spot_light.color;
 	return falloff * attenuation * (ambient + diffuse + specular);
 }
