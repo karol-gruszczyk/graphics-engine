@@ -3,7 +3,6 @@
 
 #include <list>
 #include <memory>
-#include "../primitives/entities/entity.h"
 #include "renderer.h"
 
 
@@ -19,11 +18,11 @@ public:
 	Scene(Renderer* renderer);
 
 	void setRenderer(Renderer* renderer);
-	void addEntity(Entity* entity);
-	void render();
-private:
+	virtual void render();
+protected:
 	Renderer* m_renderer;
-	std::list<Entity*> m_entities;
+
+	ShaderProgram* getShaderProgram();
 };
 
 #endif /* SCENE_H_ */

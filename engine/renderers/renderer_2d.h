@@ -9,7 +9,7 @@ namespace engine
 	class Renderer2D;
 }
 
-class engine::Renderer2D : public engine::Renderer
+class engine::Renderer2D : public Renderer
 {
 public:
 	Renderer2D();
@@ -17,7 +17,7 @@ public:
 
 	void setContextWidth(unsigned context_width, unsigned context_height);
 protected:
-	void setProjectionMatrix() override;
+	void updateProjectionMatrix() override;
 	void loadDefaultShader() override;
 };
 

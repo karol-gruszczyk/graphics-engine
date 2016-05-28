@@ -9,7 +9,7 @@ namespace engine
 	class Entity2D;
 }
 
-class engine::Entity2D abstract : public engine::Entity
+class engine::Entity2D abstract : public Entity
 {
 public:
 	void setRotation(GLfloat angle);

@@ -9,7 +9,7 @@ namespace engine
 	class FragmentShader;
 }
 
-class engine::FragmentShader final : public engine::Shader
+class engine::FragmentShader final : public Shader
 {
 public:
 	FragmentShader();

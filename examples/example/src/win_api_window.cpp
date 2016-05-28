@@ -73,29 +73,29 @@ bool WinApiWindow::isOk()
 	return m_initialization_seuccess;
 }
 
-void WinApiWindow::setRenderFunction(std::function<void()> function)
+void WinApiWindow::setRenderFunction(std::function<void()> func)
 {
-	m_render_function = function;
+	m_render_function = func;
 }
 
-void WinApiWindow::setResizeCallback(std::function<void(long, long)> function)
+void WinApiWindow::setResizeCallback(std::function<void(long, long)> func)
 {
-	m_resize_callback = function;
+	m_resize_callback = func;
 }
 
-void WinApiWindow::setMouseMoveCallback(std::function<void(long, long)> function)
+void WinApiWindow::setMouseMoveCallback(std::function<void(long, long)> func)
 {
-	m_mouse_move_callback = function;
+	m_mouse_move_callback = func;
 }
 
-void WinApiWindow::setMouseClickCallback(std::function<void(long)> function)
+void WinApiWindow::setMouseClickCallback(std::function<void(long)> func)
 {
-	m_mouse_click_callback = function;
+	m_mouse_click_callback = func;
 }
 
-void WinApiWindow::setButtonCallback(std::function<void(long, bool)> function)
+void WinApiWindow::setButtonCallback(std::function<void(long, bool)> func)
 {
-	m_button_callback = function;
+	m_button_callback = func;
 }
 
 int WinApiWindow::loop()
@@ -168,7 +168,7 @@ void WinApiWindow::setTitle(std::string title)
 
 void WinApiWindow::setFPSCap(unsigned fps /*= 60*/)
 {
-	m_max_frame_time_ms = 1000 / fps;
+	m_max_frame_time_ms = (unsigned)ceil(1000.0 / fps);
 }
 
 unsigned WinApiWindow::getFPS()
