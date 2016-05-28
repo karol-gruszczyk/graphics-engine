@@ -1,5 +1,4 @@
 #include <iostream>
-#include <boost/lexical_cast.hpp>
 #include <engine/renderers/renderer_2d.h>
 #include <engine/renderers/renderer_3d.h>
 #include <engine/renderers/scene_2d.h>
@@ -22,6 +21,9 @@ engine::Renderer3D renderer3d;
 engine::Camera camera;
 engine::Scene2D scene2d;
 engine::Scene3D scene3d;
+engine::DirectionalLight dir_light;
+engine::PointLight point_light;
+engine::SpotLight spot_light;
 engine::Rectangle rect;
 engine::Plane plane;
 engine::Box box;
@@ -82,7 +84,7 @@ void render()
 	rect.rotate(1.f);
 	rect.setScale(sin(counter));
 	counter += 0.01f;
-	window.setTitle("OpenGL: " + gl_version + " FPS: " + boost::lexical_cast<std::string>(window.getFPS()));
+	window.setTitle("OpenGL: " + gl_version + " FPS: " + std::to_string(window.getFPS()));
 
 	renderer3d.clearScreen();
 
@@ -107,9 +109,9 @@ void init()
 
 	gl_version = std::string((char*)glGetString(GL_VERSION));
 
-	//window.showConsole();
-	//engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
-	engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
+	window.showConsole();
+	engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
+	//engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
 
 	engine::Config::getInstance().setShaderPath("..\\..\\engine\\glsl\\");
 	try
@@ -123,7 +125,6 @@ void init()
 		std::cin.get();
 		exit(EXIT_FAILURE);
 	}
-
 	window.setResizeCallback(resize);
 
 	rect.initialize({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
@@ -136,6 +137,12 @@ void init()
 	scene3d.setCamera(&camera);
 	scene3d.addEntity(&box);
 	camera.setPosition({ 0.f, 5.f, 10.f });
+	dir_light.initialize({ -1.f, -1.f, -1.f });
+	point_light.initialize({ 50.f, 2.f, 50.f }, 10.f);
+	spot_light.initialize({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(5.f));
+	scene3d.addLight(&dir_light);
+	scene3d.addLight(&point_light);
+	scene3d.addLight(&spot_light);
 	try
 	{
 		box_texture.loadFromFile("box.jpg");

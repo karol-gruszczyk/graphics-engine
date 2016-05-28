@@ -1,7 +1,6 @@
 #include "texture.h"
 #include "config.h"
 #include "image_loader.h"
-#include <boost/lexical_cast.hpp>
 
 using engine::Texture;
 
@@ -52,8 +51,8 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 	if (!is_power_of_2(m_width) || !is_power_of_2(m_height))
 	{
 		if (image_name.empty())
-			image_name = "In memory object at 0x" + boost::lexical_cast<std::string>((unsigned)pixels);
-		auto dimensions = boost::lexical_cast<std::string>(m_width) + " x " + boost::lexical_cast<std::string>(m_height);
+			image_name = "In memory object at 0x" + std::to_string((unsigned)pixels);
+		auto dimensions = std::to_string(m_width) + " x " + std::to_string(m_height);
 		engine::Config::getInstance().log("Performance warning, image '" + image_name + "' - dimensions " + dimensions + " are not a power of 2", engine::Config::WARNING);
 	}
 
