@@ -24,9 +24,9 @@ engine::Scene3D scene3d;
 engine::DirectionalLight dir_light;
 engine::PointLight point_light;
 engine::SpotLight spot_light;
-engine::Rectangle rect;
-engine::Plane plane;
-engine::Box box;
+engine::Rectangle* rect;
+engine::Plane* plane;
+engine::Box* box;
 engine::Texture box_texture, tile_texture;
 
 float counter;
@@ -81,8 +81,8 @@ void updateCameraPosition()
 void render()
 {
 	updateCameraPosition();
-	rect.rotate(1.f);
-	rect.setScale(sin(counter));
+	rect->rotate(1.f);
+	rect->setScale(sin(counter));
 	counter += 0.01f;
 	window.setTitle("OpenGL: " + gl_version + " FPS: " + std::to_string(window.getFPS()));
 
@@ -92,7 +92,7 @@ void render()
 	scene3d.render();
 
 	tile_texture.bind();
-	plane.render();
+	plane->render();
 	scene2d.render();
 }
 
@@ -127,15 +127,15 @@ void init()
 	}
 	window.setResizeCallback(resize);
 
-	rect.initialize({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
+	rect = new engine::Rectangle({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
 	scene2d.setRenderer(&renderer2d);
-	scene2d.addEntity(&rect);
+	scene2d.addEntity(rect);
 
-	box.initialize({ 5.f, 5.f, 5.f });
-	plane.initialize({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
+	box = new engine::Box({ 5.f, 5.f, 5.f });
+	plane = new engine::Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
 	scene3d.setRenderer(&renderer3d);
 	scene3d.setCamera(&camera);
-	scene3d.addEntity(&box);
+	scene3d.addEntity(box);
 	camera.setPosition({ 0.f, 5.f, 10.f });
 	dir_light.initialize({ -1.f, -1.f, -1.f });
 	point_light.initialize({ 50.f, 2.f, 50.f }, 10.f);

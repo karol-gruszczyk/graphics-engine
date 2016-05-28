@@ -4,12 +4,13 @@ using engine::Entity;
 
 
 Entity::Entity()
-{}
+{
+	glGenVertexArrays(1, &m_vao_id);
+}
 
 Entity::~Entity()
 {
-	if (m_vao_created)
-		glDeleteVertexArrays(1, &m_vao_id);
+	glDeleteVertexArrays(1, &m_vao_id);
 
 	for (auto vbo : m_vbos)
 		glDeleteBuffers(1, &vbo);
@@ -27,10 +28,4 @@ void Entity::createBufferObject(GLenum target, GLsizeiptr data_length, const voi
 	glBindBuffer(target, vbo);
 	glBufferData(target, data_length, data, usage);
 	m_vbos.push_back(vbo);
-}
-
-void Entity::initBuffers()
-{
-	glGenVertexArrays(1, &m_vao_id);
-	m_vao_created = true;
 }

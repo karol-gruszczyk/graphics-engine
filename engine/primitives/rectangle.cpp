@@ -5,20 +5,11 @@
 using engine::Rectangle;
 
 
-Rectangle::Rectangle()
-{}
-
-Rectangle::Rectangle(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f } */, glm::vec2 pivot /* = { 0.f, 0.f } */)
+Rectangle::Rectangle(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f } */, glm::vec2 pivot /* = { 0.f, 0.f } */, 
+	GLfloat rotation /* = 0.f */, GLfloat scale /* = 1.f */)
+	: Entity2D(position, rotation, scale, pivot),
+	m_width(size.x), m_length(size.y)
 {
-	initialize(size, position, pivot);
-}
-
-void Rectangle::initialize(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f } */, glm::vec2 pivot /* = { 0.f, 0.f } */)
-{
-	m_width = size.x;
-	m_length = size.y;
-	m_position = position;
-	m_pivot = pivot;
 	updateTranslationMatrix();
 
 	GLfloat positions[] = {
@@ -37,10 +28,6 @@ void Rectangle::initialize(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f }
 	{
 		1, 0, 2, 3 
 	};
-
-	Entity2D::initBuffers();
-
-	static_assert(2 * sizeof(GLfloat) % 4 == 0, "Buffer data should be aligned in 4 byte blocks");
 
 	glBindVertexArray(m_vao_id);
 		createBufferObject(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);

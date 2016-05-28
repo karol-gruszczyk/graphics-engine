@@ -5,24 +5,12 @@
 using engine::Box;
 
 
-Box::Box()
-{}
-
-Box::Box(glm::vec3 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
+Box::Box(glm::vec3 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */,
+	glm::vec3 scale /* = { 1.f, 1.f, 1.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
+	: Entity3D(position, rotation, scale, pivot),
+	m_width(size.x), m_length(size.y), m_height(size.z)
 {
-	initialize(size, position, rotation, pivot);
-}
-
-void Box::initialize(glm::vec3 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
-{
-	m_width = size.x;
-	m_length = size.y;
-	m_height = size.z;
-	m_position = position;
-	m_rotation = rotation;
-	m_pivot = pivot;
-
-	/*
+	/* VERTIVES:
 	0.f, 0.f, 0.f,					// 0
 	m_width, 0.f, 0.f,				// 1
 	m_width, 0.f, m_length,			// 2
@@ -158,10 +146,6 @@ void Box::initialize(glm::vec3 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } *
 		16, 17, 18, 19, 0xFFFF, // left
 		20, 21, 22, 23			// right
 	};
-
-	Entity3D::initBuffers();
-
-	static_assert(2 * sizeof(GLfloat) % 4 == 0 || 3 * sizeof(GLfloat) % 4 == 0, "Buffer data should be aligned in 4 byte blocks");
 
 	glBindVertexArray(m_vao_id);
 		createBufferObject(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);

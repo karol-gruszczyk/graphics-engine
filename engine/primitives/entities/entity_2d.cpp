@@ -4,6 +4,10 @@
 using engine::Entity2D;
 
 
+Entity2D::Entity2D(glm::vec2 position, GLfloat rotation /* = 0.f */, GLfloat scale /* = 1.f */, glm::vec2 pivot /* = { 0.f, 0.f } */)
+	: m_position(position), m_rotation(rotation), m_rotation_rad(glm::radians(rotation)), m_scale(scale), m_pivot(pivot)
+{}
+
 void Entity2D::setRotation(GLfloat angle)
 {
 	m_rotation = angle;
