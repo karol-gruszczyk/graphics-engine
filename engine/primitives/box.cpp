@@ -164,28 +164,22 @@ void Box::initialize(glm::vec3 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } *
 	static_assert(2 * sizeof(GLfloat) % 4 == 0 || 3 * sizeof(GLfloat) % 4 == 0, "Buffer data should be aligned in 4 byte blocks");
 
 	glBindVertexArray(m_vao_id);
+		createBufferObject(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
+		glVertexAttribPointer(POSITION_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+		glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_position_vbo_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
-	glVertexAttribPointer(POSITION_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
-	glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
+		createBufferObject(GL_ARRAY_BUFFER, sizeof(texture_coords), texture_coords, GL_STATIC_DRAW);
+		glVertexAttribPointer(TEXTURE_COORD_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
+		glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_texture_coord_vbo_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(texture_coords), texture_coords, GL_STATIC_DRAW);
-	glVertexAttribPointer(TEXTURE_COORD_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
-	glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
+		createBufferObject(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
+		glVertexAttribPointer(NORMAL_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+		glEnableVertexAttribArray(NORMAL_ATTRIB_POINTER);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_normal_vbo_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
-	glVertexAttribPointer(NORMAL_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
-	glEnableVertexAttribArray(NORMAL_ATTRIB_POINTER);
+		createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_index_vbo_id);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	glEnable(GL_PRIMITIVE_RESTART);
-	glPrimitiveRestartIndex(0xFFFF);
-
+		glEnable(GL_PRIMITIVE_RESTART);
+		glPrimitiveRestartIndex(0xFFFF);
 	glBindVertexArray(NULL);
 }
 

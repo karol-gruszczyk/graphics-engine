@@ -25,15 +25,10 @@ public:
 	void setPivot(glm::vec3 pivot);
 	glm::vec3 getPivot();
 protected:
-	GLuint m_normal_vbo_id;
-	bool m_normal_vbo_created;
-
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
-
-	virtual void initBuffers() override;
 
 	void updateTranslationMatrix() override;
 	void updateRotationMatrix() override;

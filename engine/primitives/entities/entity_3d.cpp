@@ -4,10 +4,7 @@ using engine::Entity3D;
 
 
 Entity3D::~Entity3D()
-{
-	if (m_normal_vbo_created)
-		glDeleteBuffers(1, &m_normal_vbo_id);
-}
+{}
 
 void Entity3D::setPosition(glm::vec3 position)
 {
@@ -61,13 +58,6 @@ void Entity3D::setPivot(glm::vec3 pivot)
 glm::vec3 Entity3D::getPivot()
 {
 	return m_pivot;
-}
-
-void Entity3D::initBuffers()
-{
-	Entity::initBuffers();
-	glGenBuffers(1, &m_normal_vbo_id);
-	m_normal_vbo_created = true;
 }
 
 void Entity3D::updateTranslationMatrix()

@@ -93,7 +93,7 @@ void render()
 
 	tile_texture.bind();
 	plane.render();
-	//scene2d.render();
+	scene2d.render();
 }
 
 void init()
