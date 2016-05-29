@@ -16,13 +16,10 @@ class engine::Shader abstract
 {
 	friend class ShaderProgram;
 public:
-	Shader();
+	Shader(boost::filesystem::path path, GLenum type);
 	virtual ~Shader();
-
-	virtual void loadFromFile(boost::filesystem::path path);
 protected:
 	GLuint m_shader_id;
-	bool m_shader_created;
 };
 
 #endif /* SHADER_H_ */

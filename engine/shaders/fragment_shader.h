@@ -12,10 +12,7 @@ namespace engine
 class engine::FragmentShader final : public Shader
 {
 public:
-	FragmentShader();
 	FragmentShader(boost::filesystem::path path);
-
-	void loadFromFile(boost::filesystem::path path) override;
 };
 
 #endif /* FRAGMENT_SHADER_H_ */

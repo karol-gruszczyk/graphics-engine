@@ -6,16 +6,7 @@
 using engine::Shader;
 
 
-Shader::~Shader()
-{
-	if (m_shader_created)
-		glDeleteShader(m_shader_id);
-}
-
-Shader::Shader()
-{}
-
-void Shader::loadFromFile(boost::filesystem::path path)
+Shader::Shader(boost::filesystem::path path, GLenum type)
 {
 	std::ifstream file;
 	file.exceptions(std::ifstream::badbit);
@@ -27,6 +18,7 @@ void Shader::loadFromFile(boost::filesystem::path path)
 	file.close();
 
 	const GLchar* const gl_shader_code = shader_code.c_str();
+	m_shader_id = glCreateShader(type);
 	glShaderSource(m_shader_id, 1, &gl_shader_code, NULL);
 	glCompileShader(m_shader_id);
 
@@ -50,4 +42,9 @@ void Shader::loadFromFile(boost::filesystem::path path)
 		}
 		Config::getInstance().log(info_log, Config::WARNING);
 	}
+}
+
+Shader::~Shader()
+{
+	glDeleteShader(m_shader_id);
 }

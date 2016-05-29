@@ -15,11 +15,9 @@ namespace engine
 class engine::ShaderProgram final
 {
 public:
-	ShaderProgram();
 	ShaderProgram(std::initializer_list<Shader*> shaders);
 	~ShaderProgram();
 
-	void init(std::initializer_list<Shader*> shaders);
 	void bind();
 	void unbind();
 	void setUniformFloat(std::string uniform_name, float value);
