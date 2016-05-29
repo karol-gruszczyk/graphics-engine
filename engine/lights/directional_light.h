@@ -12,10 +12,8 @@ namespace engine
 class engine::DirectionalLight final : public Light
 {
 public:
-	DirectionalLight();
-	DirectionalLight(glm::vec3 direction, glm::vec3 color = { 1.f, 1.f, 1.f });
+	DirectionalLight(glm::vec3 direction, glm::vec3 color = { 1.f, 1.f, 1.f }, bool active = true);
 
-	void initialize(glm::vec3 direction, glm::vec3 color = { 1.f, 1.f, 1.f });
 	void setDirection(glm::vec3 direction);
 	glm::vec3 getDirection();
 private:

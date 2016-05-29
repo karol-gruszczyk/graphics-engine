@@ -17,7 +17,6 @@ namespace engine
 class engine::Scene3D : public Scene
 {
 public:
-	Scene3D();
 	Scene3D(Renderer* renderer);
 
 	void setCamera(Camera* camera);

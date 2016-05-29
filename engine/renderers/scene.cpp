@@ -5,9 +5,6 @@ using engine::Renderer;
 using engine::ShaderProgram;
 
 
-Scene::Scene()
-{}
-
 Scene::Scene(Renderer* renderer)
 {
 	setRenderer(renderer);

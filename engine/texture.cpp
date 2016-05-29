@@ -5,9 +5,6 @@
 using engine::Texture;
 
 
-Texture::Texture()
-{}
-
 Texture::Texture(boost::filesystem::path path)
 {
 	loadFromFile(path);

@@ -13,7 +13,6 @@ namespace engine
 class engine::Scene2D : public Scene
 {
 public:
-	Scene2D();
 	Scene2D(Renderer* renderer);
 
 	void addEntity(Entity2D* entity);

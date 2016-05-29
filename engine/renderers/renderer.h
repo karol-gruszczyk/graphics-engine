@@ -20,7 +20,6 @@ class engine::Renderer abstract
 public:
 	Renderer();
 
-	void init(unsigned context_width, unsigned context_height);
 	virtual void setContextWidth(unsigned context_width, unsigned context_height);
 	void clearScreen();
 protected:
@@ -31,7 +30,6 @@ protected:
 	std::unique_ptr<FragmentShader> m_fragment_shader;
 	std::unique_ptr<ShaderProgram> m_shader_program;
 	virtual void updateProjectionMatrix() = 0;
-	virtual void loadDefaultShader() = 0;
 };
 
 #endif /* RENDERER_H_ */

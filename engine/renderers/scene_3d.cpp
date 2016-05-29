@@ -5,10 +5,6 @@ using engine::Entity3D;
 using engine::Renderer;
 
 
-Scene3D::Scene3D()
-	: Scene()
-{}
-
 Scene3D::Scene3D(Renderer* renderer)
 	: Scene(renderer)
 {}

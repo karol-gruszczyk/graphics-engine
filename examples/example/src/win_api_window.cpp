@@ -16,6 +16,7 @@ WinApiWindow::WinApiWindow(std::string window_title, long window_width, long win
 WinApiWindow::WinApiWindow()
 {
 	m_render_function = []() -> void {};
+	m_cleanup_function = []() -> void {};
 	m_resize_callback = [](long, long) -> void {};
 	m_mouse_move_callback = [](long, long) -> void {};
 	m_mouse_click_callback = [](long) -> void {};
@@ -78,6 +79,11 @@ void WinApiWindow::setRenderFunction(std::function<void()> func)
 	m_render_function = func;
 }
 
+void WinApiWindow::setCleanupFunction(std::function<void()> func)
+{
+	m_cleanup_function = func;
+}
+
 void WinApiWindow::setResizeCallback(std::function<void(long, long)> func)
 {
 	m_resize_callback = func;
@@ -123,6 +129,7 @@ int WinApiWindow::loop()
 			m_last_frame_time = std::chrono::high_resolution_clock::now();
 		}
 	} while (msg.message != WM_QUIT);
+	m_cleanup_function();
 	return static_cast<int>(msg.wParam);
 }
 

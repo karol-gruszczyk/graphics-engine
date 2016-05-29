@@ -4,13 +4,10 @@
 using engine::Renderer2D;
 
 
-Renderer2D::Renderer2D()
-	: Renderer()
-{}
-
 Renderer2D::Renderer2D(unsigned context_width, unsigned context_height)
 {
-	init(context_width, context_height);
+	loadShader();
+	setContextWidth(context_width, context_height);
 }
 
 void Renderer2D::updateProjectionMatrix()
@@ -20,7 +17,7 @@ void Renderer2D::updateProjectionMatrix()
 	m_shader_program->setUniformMatrix4("model_matrix", glm::mat4());
 }
 
-void Renderer2D::loadDefaultShader()
+void Renderer2D::loadShader()
 {
 	auto path = Config::getInstance().getShaderPath();
 	m_vertex_shader = std::make_unique<VertexShader>(path / "2d/basic_vs.glsl");
