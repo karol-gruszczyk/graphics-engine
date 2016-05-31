@@ -12,9 +12,8 @@ namespace engine
 class engine::SpotLight final : public PointLight
 {
 public:
-	SpotLight();
+	SpotLight(glm::vec3 position, glm::vec3 direction, float range, float inner_angle, float outer_angle, glm::vec3 color = { 1.f, 1.f, 1.f }, bool active = true);
 
-	void initialize(glm::vec3 position, glm::vec3 direction, float range, float inner_angle, float outer_angle, glm::vec3 color = { 1.f, 1.f, 1.f });
 	void setDirection(glm::vec3 direction);
 	glm::vec3 getDirection();
 	void setInnerAngle(float inner_angle);

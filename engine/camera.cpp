@@ -5,7 +5,8 @@
 using engine::Camera;
 
 
-Camera::Camera()
+Camera::Camera(glm::vec3 position /* = { 0.f,0.f,0.f } */, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */)
+	: m_position(position), m_rotation(rotation)
 {}
 
 void Camera::setPosition(glm::vec3 position)

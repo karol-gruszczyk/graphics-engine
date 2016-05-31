@@ -6,12 +6,6 @@ using engine::Renderer;
 Renderer::Renderer()
 {}
 
-void Renderer::init(unsigned context_width, unsigned context_height)
-{
-	loadDefaultShader();
-	setContextWidth(context_width, context_height);
-}
-
 void Renderer::setContextWidth(unsigned context_width, unsigned context_height)
 {
 	glViewport(0, 0, context_width, context_height);

@@ -17,6 +17,7 @@ public:
 	bool setCoreOpenGL();
 	bool isOk();
 	void setRenderFunction(std::function<void()> func);
+	void setCleanupFunction(std::function<void()> func);
 	void setResizeCallback(std::function<void(long, long)> func);
 	void setMouseMoveCallback(std::function<void(long, long)> func);
 	void setMouseClickCallback(std::function<void(long)> func);
@@ -40,6 +41,7 @@ private:
 	HINSTANCE m_hinstance;
 	const char* m_class_name = "OPENGL_WINDOW_CLASS";
 	std::function<void()> m_render_function;
+	std::function<void()> m_cleanup_function;
 	std::function<void(long, long)> m_resize_callback;
  	std::function<void(long, long)> m_mouse_move_callback;
 	std::function<void(long)> m_mouse_click_callback;

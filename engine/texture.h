@@ -13,7 +13,6 @@ namespace engine
 class engine::Texture final
 {
 public:
-	Texture();
 	Texture(boost::filesystem::path path);
 	Texture(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format, bool generate_mipmaps);
 	~Texture();

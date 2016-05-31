@@ -14,7 +14,6 @@ namespace engine
 class engine::Scene abstract
 {
 public:
-	Scene();
 	Scene(Renderer* renderer);
 
 	void setRenderer(Renderer* renderer);

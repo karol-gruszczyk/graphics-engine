@@ -12,7 +12,7 @@ namespace engine
 class engine::Light abstract
 {
 public:
-	Light();
+	Light(glm::vec3 color = { 1.f, 1.f, 1.f }, bool active = true);
 
 	void setColor(glm::vec3 color);
 	glm::vec3 getColor();

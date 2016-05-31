@@ -3,20 +3,9 @@
 using engine::DirectionalLight;
 
 
-DirectionalLight::DirectionalLight()
-	: Light()
+DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color /* = { 1.f, 1.f, 1.f } */, bool active /* = true */)
+	: Light(color, active), m_direction(direction)
 {}
-
-DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color /* = { 1.f, 1.f, 1.f } */ )
-{
-	initialize(direction, color);
-}
-
-void DirectionalLight::initialize(glm::vec3 direction, glm::vec3 color /* = { 1.f, 1.f, 1.f } */)
-{
-	m_direction = direction;
-	m_color = color;
-}
 
 void DirectionalLight::setDirection(glm::vec3 direction)
 {

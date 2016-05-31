@@ -3,6 +3,11 @@
 using engine::Entity3D;
 
 
+Entity3D::Entity3D(glm::vec3 position, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */,glm::vec3 scale /* = { 1.f, 1.f, 1.f } */, 
+	glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
+	: m_position(position), m_rotation(rotation), m_scale(scale), m_pivot(pivot)
+{}
+
 Entity3D::~Entity3D()
 {}
 

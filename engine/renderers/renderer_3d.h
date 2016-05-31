@@ -12,7 +12,6 @@ namespace engine
 class engine::Renderer3D : public Renderer
 {
 public:
-	Renderer3D();
 	Renderer3D(unsigned context_width, unsigned context_height);
 
 	virtual void setContextWidth(unsigned context_width, unsigned context_height) override;
@@ -22,7 +21,7 @@ private:
 	GLfloat m_field_of_view = 45.f;
 
 	virtual void updateProjectionMatrix() override;
-	virtual void loadDefaultShader() override;
+	virtual void loadShader();
 };
 
 #endif /* RENDERER_3D_H_ */

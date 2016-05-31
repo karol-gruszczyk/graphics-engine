@@ -4,13 +4,10 @@
 using engine::Renderer3D;
 
 
-Renderer3D::Renderer3D()
-	: Renderer()
-{}
-
-engine::Renderer3D::Renderer3D(unsigned context_width, unsigned context_height)
+Renderer3D::Renderer3D(unsigned context_width, unsigned context_height)
 {
-	init(context_width, context_height);
+	loadShader();
+	setContextWidth(context_width, context_height);
 }
 
 void engine::Renderer3D::setContextWidth(unsigned context_width, unsigned context_height)
@@ -38,11 +35,10 @@ void engine::Renderer3D::updateProjectionMatrix()
 	m_shader_program->setUniformMatrix4("model_matrix", glm::mat4());
 }
 
-void engine::Renderer3D::loadDefaultShader()
+void engine::Renderer3D::loadShader()
 {
 	auto path = Config::getInstance().getShaderPath();
 	m_vertex_shader = std::make_unique<VertexShader>(path / "3d/phong_vs.glsl");
 	m_fragment_shader = std::make_unique<FragmentShader>(path / "3d/phong_fs.glsl");
-	m_shader_program = std::make_unique<ShaderProgram>();
-	m_shader_program->init({ m_vertex_shader.get(), m_fragment_shader.get() });
+	m_shader_program = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>({ m_vertex_shader.get(), m_fragment_shader.get()}));
 }

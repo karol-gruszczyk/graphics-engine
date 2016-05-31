@@ -6,31 +6,7 @@ using engine::ShaderProgram;
 using engine::Shader;
 
 
-ShaderProgram::ShaderProgram()
-{}
-
 ShaderProgram::ShaderProgram(std::initializer_list<Shader*> shaders)
-{
-	init(shaders);
-}
-
-ShaderProgram::~ShaderProgram()
-{
-	if (m_shader_program_created)
-		glDeleteProgram(m_shader_program_id);
-}
-
-void ShaderProgram::bind()
-{
-	glUseProgram(m_shader_program_id);
-}
-
-void ShaderProgram::unbind()
-{
-	glUseProgram(NULL);
-}
-
-void ShaderProgram::init(std::initializer_list<Shader*> shaders)
 {
 	m_shader_program_id = glCreateProgram();
 	m_shader_program_created = true;
@@ -59,6 +35,22 @@ void ShaderProgram::init(std::initializer_list<Shader*> shaders)
 	}
 	for (auto& shader : shaders)
 		glDetachShader(m_shader_program_id, shader->m_shader_id);
+}
+
+ShaderProgram::~ShaderProgram()
+{
+	if (m_shader_program_created)
+		glDeleteProgram(m_shader_program_id);
+}
+
+void ShaderProgram::bind()
+{
+	glUseProgram(m_shader_program_id);
+}
+
+void ShaderProgram::unbind()
+{
+	glUseProgram(NULL);
 }
 
 void ShaderProgram::setUniformUint(std::string uniform_name, unsigned value)

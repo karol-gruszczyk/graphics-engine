@@ -3,7 +3,8 @@
 using engine::Light;
 
 
-Light::Light()
+Light::Light(glm::vec3 color /* = { 1.f, 1.f, 1.f } */, bool active /* = true */)
+	: m_color(color), m_active(active)
 {}
 
 void Light::setColor(glm::vec3 color)
