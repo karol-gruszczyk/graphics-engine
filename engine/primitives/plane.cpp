@@ -10,8 +10,6 @@ Plane::Plane(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, unsig
 	: Entity3D(position, rotation, scale, pivot),
 	m_width(size.x), m_length(size.y)
 {
-	updateTranslationMatrix();
-
 	GLfloat positions[] =
 	{
 		0.f, 0.f, 0.f,

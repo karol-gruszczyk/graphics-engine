@@ -26,16 +26,9 @@ protected:
 	GLuint m_vao_id;
 	std::list<GLuint> m_vbos;
 
-	glm::mat4 m_pivot_matrix;
-	glm::mat4 m_translation_matrix;
-	glm::mat4 m_rotation_matrix;
-	glm::mat4 m_scale_matrix;
+	glm::mat4 m_model_matrix;
 
 	void createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage = GL_STATIC_DRAW);
-	virtual void updatePivotMatrix() = 0;
-	virtual void updateTranslationMatrix() = 0;
-	virtual void updateRotationMatrix() = 0;
-	virtual void updateScaleMatrix() = 0;
 };
 
 #endif /* ENTITY_H_ */

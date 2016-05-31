@@ -10,8 +10,6 @@ Rectangle::Rectangle(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f } */, g
 	: Entity2D(position, rotation, scale, pivot),
 	m_width(size.x), m_length(size.y)
 {
-	updateTranslationMatrix();
-
 	GLfloat positions[] = {
 		0.f, 0.f,
 		m_width, 0.f,

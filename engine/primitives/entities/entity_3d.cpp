@@ -14,7 +14,6 @@ Entity3D::~Entity3D()
 void Entity3D::setPosition(glm::vec3 position)
 {
 	m_position = position;
-	updateTranslationMatrix();
 }
 
 glm::vec3 Entity3D::getPosition()
@@ -30,7 +29,6 @@ void Entity3D::translate(glm::vec3 position)
 void Entity3D::setRotation(glm::vec3 rotation)
 {
 	m_rotation = rotation;
-	updateRotationMatrix();
 }
 
 glm::vec3 Entity3D::getRotation()
@@ -46,7 +44,6 @@ void Entity3D::rotate(glm::vec3 rotation)
 void Entity3D::setScale(glm::vec3 scale)
 {
 	m_scale = scale;
-	updateScaleMatrix();
 }
 
 glm::vec3 Entity3D::getScale()
@@ -57,30 +54,9 @@ glm::vec3 Entity3D::getScale()
 void Entity3D::setPivot(glm::vec3 pivot)
 {
 	m_pivot = pivot;
-	updatePivotMatrix();
 }
 
 glm::vec3 Entity3D::getPivot()
 {
 	return m_pivot;
-}
-
-void Entity3D::updateTranslationMatrix()
-{
-	// TODO
-}
-
-void Entity3D::updateRotationMatrix()
-{
-	// TODO
-}
-
-void Entity3D::updateScaleMatrix()
-{
-	// TODO
-}
-
-void Entity3D::updatePivotMatrix()
-{
-	// TODO
 }

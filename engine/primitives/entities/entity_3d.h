@@ -30,11 +30,6 @@ protected:
 	glm::vec3 m_rotation;
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
-
-	void updateTranslationMatrix() override;
-	void updateRotationMatrix() override;
-	void updateScaleMatrix() override;
-	void updatePivotMatrix() override;
 };
 
 #endif /* ENTITY_3D_ */

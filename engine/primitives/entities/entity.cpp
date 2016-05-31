@@ -18,7 +18,7 @@ Entity::~Entity()
 
 glm::mat4& Entity::getModelMatrix()
 {
-	return m_pivot_matrix;
+	return m_model_matrix;
 }
 
 void Entity::createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage /*= GL_STATIC_DRAW*/)

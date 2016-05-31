@@ -81,7 +81,7 @@ void updateCameraPosition()
 void render()
 {
 	updateCameraPosition();
-	rect->rotate(1.f);
+	rect->rotate(glm::radians(1.f));
 	rect->setScale(sin(counter));
 	counter += 0.01f;
 	window.setTitle("OpenGL: " + gl_version + " FPS: " + std::to_string(window.getFPS()));
