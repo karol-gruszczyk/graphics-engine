@@ -12,24 +12,6 @@ Entity2D::Entity2D(glm::vec2 position, GLfloat rotation /* = 0.f */, glm::vec2 s
 	setScale(scale);
 }
 
-void Entity2D::rotate(GLfloat angle)
-{
-	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(m_pivot, 0.f));
-	m_model_matrix = glm::rotate(m_model_matrix, angle, { 0.f, 0.f, 1.f });
-	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(-m_pivot, 0.f));
-	m_rotation += angle;
-}
-
-void Entity2D::setRotation(GLfloat angle)
-{
-	rotate(angle - m_rotation);
-}
-
-GLfloat Entity2D::getRotation()
-{
-	return m_rotation;
-}
-
 void Entity2D::translate(glm::vec2 position)
 {
 	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(position, 0.f));
@@ -44,6 +26,24 @@ void Entity2D::setPosition(glm::vec2 position)
 glm::vec2 Entity2D::getPosition()
 {
 	return m_position;
+}
+
+void Entity2D::rotate(GLfloat rotation)
+{
+	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(m_pivot, 0.f));
+	m_model_matrix = glm::rotate(m_model_matrix, rotation, { 0.f, 0.f, 1.f });
+	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(-m_pivot, 0.f));
+	m_rotation += rotation;
+}
+
+void Entity2D::setRotation(GLfloat rotation)
+{
+	rotate(rotation - m_rotation);
+}
+
+GLfloat Entity2D::getRotation()
+{
+	return m_rotation;
 }
 
 void Entity2D::setScale(glm::vec2 scale)
