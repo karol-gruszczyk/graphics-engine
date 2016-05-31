@@ -15,12 +15,12 @@ public:
 	Entity3D(glm::vec3 position, glm::vec3 rotation = { 0.f, 0.f, 0.f }, glm::vec3 scale = { 1.f, 1.f, 1.f }, glm::vec3 pivot = { 0.f, 0.f, 0.f });
 	virtual ~Entity3D();
 
-	void setPosition(glm::vec3 position);
-	glm::vec3 getPosition();
 	void translate(glm::vec3 position);
+	void setPosition(glm::vec3 position);
+	void rotate(glm::vec3 rotation);
+	glm::vec3 getPosition();
 	void setRotation(glm::vec3 rotation);
 	glm::vec3 getRotation();
-	void rotate(glm::vec3 rotation);
 	void setScale(glm::vec3 scale);
 	glm::vec3 getScale();
 	void setPivot(glm::vec3 pivot);
