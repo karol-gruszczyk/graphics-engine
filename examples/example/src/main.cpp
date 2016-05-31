@@ -125,9 +125,9 @@ void init()
 
 	gl_version = std::string((char*)glGetString(GL_VERSION));
 
-	window.showConsole();
-	engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
-	//engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
+	//window.showConsole();
+	//engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
+	engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
 
 	engine::Config::getInstance().setShaderPath("..\\..\\engine\\glsl\\");
 	try
@@ -150,7 +150,7 @@ void init()
 	box = new engine::Box({ 5.f, 5.f, 5.f });
 	plane = new engine::Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
 	scene3d = new engine::Scene3D(renderer3d);
-	camera = new engine::Camera({ 0.f, 5.f, 10.f });
+	camera = new engine::Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
 	scene3d->addEntity(box);
 	dir_light = new engine::DirectionalLight({ -1.f, -1.f, -1.f });
