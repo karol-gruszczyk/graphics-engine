@@ -6,7 +6,7 @@ using engine::Rectangle;
 
 
 Rectangle::Rectangle(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f } */, glm::vec2 pivot /* = { 0.f, 0.f } */, 
-	GLfloat rotation /* = 0.f */, GLfloat scale /* = 1.f */)
+	GLfloat rotation /* = 0.f */, glm::vec2 scale /* = { 1.f, 1.f } */)
 	: Entity2D(position, rotation, scale, pivot),
 	m_width(size.x), m_length(size.y)
 {

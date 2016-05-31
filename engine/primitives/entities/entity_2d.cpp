@@ -4,7 +4,7 @@
 using engine::Entity2D;
 
 
-Entity2D::Entity2D(glm::vec2 position, GLfloat rotation /* = 0.f */, GLfloat scale /* = 1.f */, glm::vec2 pivot /* = { 0.f, 0.f } */)
+Entity2D::Entity2D(glm::vec2 position, GLfloat rotation /* = 0.f */, glm::vec2 scale /* = { 1.f, 1.f } */, glm::vec2 pivot /* = { 0.f, 0.f } */)
 {
 	setPivot(pivot);
 	setRotation(rotation);
@@ -46,17 +46,16 @@ glm::vec2 Entity2D::getPosition()
 	return m_position;
 }
 
-void Entity2D::setScale(GLfloat scale)
+void Entity2D::setScale(glm::vec2 scale)
 {
-	//m_model_matrix = glm::mat4();
-	//setPivot(m_pivot);
-	//m_model_matrix = glm::scale(m_model_matrix, glm::vec3(scale, scale, 1.f));
-	//setRotation(m_rotation);
-	//setPosition(m_position);
+	m_model_matrix = glm::translate(glm::mat4(), glm::vec3(m_position, 0.f));
+	m_model_matrix = glm::scale(m_model_matrix, glm::vec3(scale.x, scale.y, 1.f));
+	m_model_matrix = glm::rotate(m_model_matrix, m_rotation, { 0.f, 0.f, 1.f });
+	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(-m_pivot, 0.f));
 	m_scale = scale;
 }
 
-GLfloat Entity2D::getScale()
+glm::vec2 Entity2D::getScale()
 {
 	return m_scale;
 }

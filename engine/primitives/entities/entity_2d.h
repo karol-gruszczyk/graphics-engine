@@ -12,7 +12,7 @@ namespace engine
 class engine::Entity2D abstract : public Entity
 {
 public:
-	Entity2D(glm::vec2 position, GLfloat rotation = 0.f, GLfloat scale = 1.f, glm::vec2 pivot = { 0.f, 0.f });
+	Entity2D(glm::vec2 position, GLfloat rotation = 0.f, glm::vec2 scale = { 1.f, 1.f }, glm::vec2 pivot = { 0.f, 0.f });
 
 	void rotate(GLfloat angle);
 	void setRotation(GLfloat angle);
@@ -20,14 +20,14 @@ public:
 	void translate(glm::vec2 position);
 	void setPosition(glm::vec2 position);
 	glm::vec2 getPosition();
-	void setScale(GLfloat scale);
-	GLfloat getScale();
+	void setScale(glm::vec2 scale);
+	glm::vec2 getScale();
 	void setPivot(glm::vec2 pivot);
 	glm::vec2 getPivot();
 protected:
 	glm::vec2 m_position;
 	GLfloat m_rotation;
-	GLfloat m_scale;
+	glm::vec2 m_scale;
 	glm::vec2 m_pivot;
 };
 
