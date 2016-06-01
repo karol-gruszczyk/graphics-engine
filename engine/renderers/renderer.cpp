@@ -1,6 +1,7 @@
 #include "renderer.h"
 
 using engine::Renderer;
+using engine::ShaderProgram;
 
 
 Renderer::Renderer()
@@ -16,6 +17,11 @@ void Renderer::setContextWidth(unsigned context_width, unsigned context_height)
 void Renderer::clearScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+ShaderProgram* Renderer::getShaderProgram()
+{
+	return m_shader_program.get();
 }
 
 glm::mat4& Renderer::getProjectionMatrix()

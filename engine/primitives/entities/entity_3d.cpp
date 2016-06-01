@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_inverse.hpp>
 
 using engine::Entity3D;
+using engine::Material;
 
 
 Entity3D::Entity3D(glm::vec3 position, glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */,glm::vec3 scale /* = { 1.f, 1.f, 1.f } */, 
@@ -83,4 +84,15 @@ glm::vec3 Entity3D::getPivot()
 glm::mat3 Entity3D::getNormalMatrix()
 {
 	return glm::inverseTranspose(glm::mat3(m_model_matrix));
+}
+
+void Entity3D::setMaterial(Material* material)
+{
+	m_material = material;
+}
+
+void Entity3D::render()
+{
+	m_material->bind();
+	Entity::render();
 }

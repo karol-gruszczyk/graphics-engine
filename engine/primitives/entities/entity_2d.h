@@ -2,6 +2,7 @@
 #define ENTITY_2D_H_
 
 #include "entity.h"
+#include "../../materials/material.h"
 
 
 namespace engine

@@ -20,14 +20,18 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	virtual void render() = 0;
+	virtual void render();
 	virtual glm::mat4& getModelMatrix();
 protected:
 	GLuint m_vao_id;
 	std::list<GLuint> m_vbos;
+	GLenum m_draw_mode;
+	GLuint m_elements_size;
+	GLenum m_elements_type;
 
 	glm::mat4 m_model_matrix;
 
+	void setupRendering(GLenum draw_mode, GLuint elements_size, GLenum elements_type);
 	void createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage = GL_STATIC_DRAW);
 };
 

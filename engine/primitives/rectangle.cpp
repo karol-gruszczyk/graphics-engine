@@ -1,7 +1,5 @@
 #include "rectangle.h"
 
-#define ELEMENTS_BUFFER_LENGTH 4
-
 using engine::Rectangle;
 
 
@@ -27,6 +25,8 @@ Rectangle::Rectangle(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f } */, g
 		1, 0, 2, 3 
 	};
 
+	setupRendering(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT);
+
 	glBindVertexArray(m_vao_id);
 		createBufferObject(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
 		glVertexAttribPointer(POSITION_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
@@ -37,12 +37,5 @@ Rectangle::Rectangle(glm::vec2 size, glm::vec2 position /* =  { 0.f, 0.f } */, g
 		glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
 
 		createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	glBindVertexArray(NULL);
-}
-
-void Rectangle::render()
-{
-	glBindVertexArray(m_vao_id);
-	glDrawElements(GL_TRIANGLE_STRIP, ELEMENTS_BUFFER_LENGTH, GL_UNSIGNED_SHORT, nullptr);
 	glBindVertexArray(NULL);
 }

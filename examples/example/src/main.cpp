@@ -93,11 +93,10 @@ void render()
 
 	renderer3d->clearScreen();
 
-	box_texture->bind();
 	scene3d->render();
 
-	tile_texture->bind();
-	scene2d->render();
+	//tile_texture->bind();
+	//scene2d->render();
 }
 
 void cleanup()
@@ -147,13 +146,32 @@ void init()
 	}
 	window.setResizeCallback(resize);
 
+	// 2D
 	rect = new engine::Rectangle({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
 	scene2d = new engine::Scene2D(renderer2d);
 	scene2d->addEntity(rect);
 
+	// 3D
+	try
+	{
+		box_texture = new engine::Texture("box.jpg");
+		tile_texture = new engine::Texture("tile.jpg");
+	}
+	catch (engine::FileNotFoundException& e)
+	{
+		engine::Config::getInstance().log(e.what());
+	}
+
+	box_material = new engine::Material(renderer3d->getShaderProgram());
+	box_material->setDiffuse(box_texture);
+	tile_material = new engine::Material(renderer3d->getShaderProgram());
+	tile_material->setDiffuse(tile_texture);
+	tile_material->setShininess(32);
 	box = new engine::Box({ 5.f, 5.f, 5.f }, { 20.f, 2.5f, 10.f });
 	box->setPivot({ 2.5f, 2.5f, 2.5f });
+	box->setMaterial(box_material);
 	plane = new engine::Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
+	plane->setMaterial(tile_material);
 	scene3d = new engine::Scene3D(renderer3d);
 	camera = new engine::Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
@@ -165,15 +183,6 @@ void init()
 	scene3d->addLight(dir_light);
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
-	try
-	{
-		box_texture = new engine::Texture("box.jpg");
-		tile_texture = new engine::Texture("tile.jpg");
-	}
-	catch (engine::FileNotFoundException& e)
-	{
-		engine::Config::getInstance().log(e.what());
-	}
 
 	render();
 	engine::Config::getInstance().logErrors(); // checking if any errors were raised
