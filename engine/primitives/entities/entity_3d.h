@@ -25,6 +25,8 @@ public:
 	glm::vec3 getScale();
 	void setPivot(glm::vec3 pivot);
 	glm::vec3 getPivot();
+
+	glm::mat3 getNormalMatrix();
 protected:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;

@@ -23,6 +23,7 @@ public:
 	void setUniformFloat(std::string uniform_name, float value);
 	void setUniformUint(std::string uniform_name, unsigned value);
 	void setUniformVector3(std::string uniform_name, glm::vec3 vector);
+	void setUniformMatrix3(std::string uniform_name, glm::mat3 matrix);
 	void setUniformMatrix4(std::string uniform_name, glm::mat4 matrix);
 private:
 	GLuint m_shader_program_id;

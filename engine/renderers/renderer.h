@@ -22,6 +22,8 @@ public:
 
 	virtual void setContextWidth(unsigned context_width, unsigned context_height);
 	void clearScreen();
+
+	glm::mat4& getProjectionMatrix();
 protected:
 	unsigned m_context_width, m_context_height;
 	glm::mat4 m_projection_matrix;

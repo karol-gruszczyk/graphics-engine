@@ -17,3 +17,8 @@ void Renderer::clearScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+
+glm::mat4& Renderer::getProjectionMatrix()
+{
+	return m_projection_matrix;
+}

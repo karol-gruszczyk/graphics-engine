@@ -1,5 +1,6 @@
 #include "entity_3d.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/matrix_inverse.hpp>
 
 using engine::Entity3D;
 
@@ -77,4 +78,9 @@ void Entity3D::setPivot(glm::vec3 pivot)
 glm::vec3 Entity3D::getPivot()
 {
 	return m_pivot;
+}
+
+glm::mat3 Entity3D::getNormalMatrix()
+{
+	return glm::inverseTranspose(glm::mat3(m_model_matrix));
 }
