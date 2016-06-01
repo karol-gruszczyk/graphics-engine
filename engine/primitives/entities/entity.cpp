@@ -16,9 +16,23 @@ Entity::~Entity()
 		glDeleteBuffers(1, &vbo);
 }
 
+void Entity::render()
+{
+	glBindVertexArray(m_vao_id);
+	glDrawElements(m_draw_mode, m_elements_size, m_elements_type, nullptr);
+	glBindVertexArray(NULL);
+}
+
 glm::mat4& Entity::getModelMatrix()
 {
 	return m_model_matrix;
+}
+
+void Entity::setupRendering(GLenum draw_mode, GLuint elements_size, GLenum elements_type)
+{
+	m_draw_mode = draw_mode;
+	m_elements_size = elements_size;
+	m_elements_type = elements_type;
 }
 
 void Entity::createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage /*= GL_STATIC_DRAW*/)

@@ -2,6 +2,7 @@
 #define ENTITY_3D_
 
 #include "entity.h"
+#include "../../materials/material.h"
 
 
 namespace engine
@@ -27,11 +28,15 @@ public:
 	glm::vec3 getPivot();
 
 	glm::mat3 getNormalMatrix();
+	void setMaterial(Material* material);
+	void render() override;
 protected:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
+
+	Material* m_material;
 };
 
 #endif /* ENTITY_3D_ */

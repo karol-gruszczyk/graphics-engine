@@ -1,7 +1,5 @@
 #include "box.h"
 
-#define ELEMENTS_BUFFER_LENGTH 29
-
 using engine::Box;
 
 
@@ -147,6 +145,8 @@ Box::Box(glm::vec3 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3
 		20, 21, 22, 23			// right
 	};
 
+	setupRendering(GL_TRIANGLE_STRIP, 29, GL_UNSIGNED_SHORT);
+
 	glBindVertexArray(m_vao_id);
 		createBufferObject(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
 		glVertexAttribPointer(POSITION_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
@@ -164,12 +164,5 @@ Box::Box(glm::vec3 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, glm::vec3
 
 		glEnable(GL_PRIMITIVE_RESTART);
 		glPrimitiveRestartIndex(0xFFFF);
-	glBindVertexArray(NULL);
-}
-
-void engine::Box::render()
-{
-	glBindVertexArray(m_vao_id);
-	glDrawElements(GL_TRIANGLE_STRIP, ELEMENTS_BUFFER_LENGTH, GL_UNSIGNED_SHORT, nullptr);
 	glBindVertexArray(NULL);
 }

@@ -3,6 +3,17 @@
 #define MAX_POINT_LIGHTS 8
 #define MAX_SPOT_LIGHTS 8
 
+struct Material
+{
+	vec3 ambient_color;
+	vec3 diffuse_color;
+	vec3 specular_color;
+	sampler2D ambient_texture;
+	sampler2D diffuse_texture;
+	sampler2D specular_texture;
+	float shininess;
+};
+
 struct DirectionalLight
 {
 	vec3 color;
@@ -33,6 +44,7 @@ in vec3 normal;
 out vec4 out_color;
 
 uniform sampler2D diffuse_texture;
+uniform Material material;
 
 uniform vec3 camera_position;
 uniform DirectionalLight dir_lights[MAX_DIR_LIGHTS];
@@ -43,7 +55,6 @@ uniform SpotLight spot_lights[MAX_SPOT_LIGHTS];
 uniform uint num_spot_lights;
 
 float ambient_strength = 0.1f;
-float specular_power = 32;
 
 vec3 processDirectionalLight(DirectionalLight dir_light);
 vec3 processPointLight(PointLight point_light);
@@ -52,7 +63,7 @@ vec3 processSpotLight(SpotLight spot_light);
 
 void main()
 {
-	vec4 object_color = texture2D(diffuse_texture, texture_coord);
+	vec4 object_color = texture2D(material.diffuse_texture, texture_coord);
 
 	vec3 light_color = vec3(0.f, 0.f, 0.f);
 	for (uint i = 0; i < num_dir_lights; i++)
@@ -77,9 +88,11 @@ vec3 processDiffuseLight(vec3 light_ray_direction, vec3 light_color)
 
 vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color)
 {
+	if (material.shininess == 0)
+		return vec3(0.f, 0.f, 0.f);
 	vec3 view_dir = normalize(camera_position - position);
 	vec3 reflect_dir = reflect(-light_ray_direction, normal);
-	return pow(max(dot(view_dir, reflect_dir), 0.0), specular_power) * light_color;
+	return pow(max(dot(view_dir, reflect_dir), 0.0), material.shininess) * light_color;
 }
 
 vec3 processDirectionalLight(DirectionalLight dir_light)

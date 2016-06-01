@@ -1,7 +1,5 @@
 #include "plane.h"
 
-#define ELEMENTS_BUFFER_LENGTH 4
-
 using engine::Plane;
 
 
@@ -36,6 +34,8 @@ Plane::Plane(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, unsig
 		0, 1, 2, 3
 	};
 
+	setupRendering(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT);
+
 	glBindVertexArray(m_vao_id);
 		createBufferObject(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
 		glVertexAttribPointer(POSITION_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
@@ -50,12 +50,5 @@ Plane::Plane(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, unsig
 		glEnableVertexAttribArray(NORMAL_ATTRIB_POINTER);
 
 		createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	glBindVertexArray(NULL);
-}
-
-void Plane::render()
-{
-	glBindVertexArray(m_vao_id);
-	glDrawElements(GL_TRIANGLE_STRIP, ELEMENTS_BUFFER_LENGTH, GL_UNSIGNED_SHORT, nullptr);
 	glBindVertexArray(NULL);
 }
