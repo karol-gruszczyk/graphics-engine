@@ -40,11 +40,13 @@ void Scene3D::render()
 	glEnable(GL_CULL_FACE);
 	Scene::render();
 	
-	for (auto& light : m_directional_lights)
+	for (unsigned i = 0; i < m_directional_lights.size(); i++)
 	{
-		getShaderProgram()->setUniformVector3("dir_light.color", light->getColor());
-		getShaderProgram()->setUniformVector3("dir_light.direction", light->getDirection());
+		auto i_str = std::to_string(i);
+		getShaderProgram()->setUniformVector3("dir_lights[" + i_str + "].color", m_directional_lights[i]->getColor());
+		getShaderProgram()->setUniformVector3("dir_lights[" + i_str + "].direction", m_directional_lights[i]->getDirection());
 	}
+	getShaderProgram()->setUniformUint("num_dir_lights", m_point_lights.size());
 
 	for (unsigned i = 0; i < m_point_lights.size(); i++)
 	{

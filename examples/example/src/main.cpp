@@ -81,8 +81,11 @@ void updateCameraPosition()
 void render()
 {
 	updateCameraPosition();
-	rect->rotate(1.f);
-	rect->setScale(sin(counter));
+	rect->rotate(glm::radians(1.f));
+	auto scale = (sin(counter) + 2.f) / 3.f;
+	rect->setScale({ scale, scale });
+	box->setScale({ scale, scale, scale });
+	box->rotate({ 0.f, glm::radians(1.f), 0.f });
 	counter += 0.01f;
 	window.setTitle("OpenGL: " + gl_version + " FPS: " + std::to_string(window.getFPS()));
 
@@ -92,7 +95,6 @@ void render()
 	scene3d->render();
 
 	tile_texture->bind();
-	plane->render();
 	scene2d->render();
 }
 
@@ -125,9 +127,9 @@ void init()
 
 	gl_version = std::string((char*)glGetString(GL_VERSION));
 
-	window.showConsole();
-	engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
-	//engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
+	//window.showConsole();
+	//engine::Config::getInstance().initializeLogger(std::cout.rdbuf()); // initializing logger with stdout as output stream
+	engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
 
 	engine::Config::getInstance().setShaderPath("..\\..\\engine\\glsl\\");
 	try
@@ -147,12 +149,14 @@ void init()
 	scene2d = new engine::Scene2D(renderer2d);
 	scene2d->addEntity(rect);
 
-	box = new engine::Box({ 5.f, 5.f, 5.f });
+	box = new engine::Box({ 5.f, 5.f, 5.f }, { 20.f, 2.5f, 10.f });
+	box->setPivot({ 2.5f, 2.5f, 2.5f });
 	plane = new engine::Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
 	scene3d = new engine::Scene3D(renderer3d);
-	camera = new engine::Camera({ 0.f, 5.f, 10.f });
+	camera = new engine::Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
 	scene3d->addEntity(box);
+	scene3d->addEntity(plane);
 	dir_light = new engine::DirectionalLight({ -1.f, -1.f, -1.f });
 	point_light = new engine::PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new engine::SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(5.f));
