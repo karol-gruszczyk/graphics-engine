@@ -8,7 +8,8 @@
 #include <engine/primitives/rectangle.h>
 #include <engine/primitives/plane.h>
 #include <engine/primitives/box.h>
-#include <engine/texture.h>
+#include <engine/materials/texture.h>
+#include <engine/materials/material.h>
 #include "win_api_window.h"
 
 unsigned window_width = 800;
@@ -27,7 +28,8 @@ engine::SpotLight* spot_light;
 engine::Rectangle* rect;
 engine::Plane* plane;
 engine::Box* box;
-engine::Texture* box_texture, * tile_texture;
+engine::Material* box_material, *tile_material;
+engine::Texture* box_texture, *tile_texture;
 
 float counter;
 bool button_pressed[128];

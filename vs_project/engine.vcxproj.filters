@@ -55,6 +55,12 @@
     <Filter Include="Source Files\lights">
       <UniqueIdentifier>{7d12c56d-af03-4c23-bb51-fefd8eb4a90f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\materials">
+      <UniqueIdentifier>{09df3d77-302d-4f16-9758-a0c76da469b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\materials">
+      <UniqueIdentifier>{5499f018-f693-486d-b206-3f677c287476}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\engine\primitives\rectangle.cpp">
@@ -85,12 +91,6 @@
       <Filter>Source Files\renderers</Filter>
     </ClCompile>
     <ClCompile Include="..\engine\config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\engine\texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\engine\image_loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\engine\renderers\renderer_3d.cpp">
@@ -128,6 +128,15 @@
     </ClCompile>
     <ClCompile Include="..\engine\lights\spot_light.cpp">
       <Filter>Source Files\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\materials\texture.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\materials\material.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\materials\image_loader.cpp">
+      <Filter>Source Files\materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,12 +178,6 @@
     </ClInclude>
     <ClInclude Include="..\engine\shaders\shader.h">
       <Filter>Header Files\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\engine\texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\engine\image_loader.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.h">
       <Filter>Header Files\exceptions</Filter>
@@ -220,6 +223,15 @@
     </ClInclude>
     <ClInclude Include="..\engine\lights\directional_light.h">
       <Filter>Header Files\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\materials\texture.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\materials\material.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\materials\image_loader.h">
+      <Filter>Header Files\materials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "texture.h"
-#include "config.h"
+#include "../config.h"
 #include "image_loader.h"
 
 using engine::Texture;

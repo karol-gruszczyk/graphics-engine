@@ -27,4 +27,4 @@ private:
 	unsigned m_width, m_height;
 };
 
-#endif
+#endif /* TEXTURE_H_ */

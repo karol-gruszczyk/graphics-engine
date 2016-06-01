@@ -1,5 +1,5 @@
 #include "image_loader.h"
-#include "config.h"
+#include "../config.h"
 #include <boost/filesystem/operations.hpp>
 
 using engine::ImageLoader;

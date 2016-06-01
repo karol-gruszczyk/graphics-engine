@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClCompile Include="..\engine\camera.cpp" />
     <ClCompile Include="..\engine\config.cpp" />
-    <ClCompile Include="..\engine\image_loader.cpp" />
     <ClCompile Include="..\engine\lights\directional_light.cpp" />
     <ClCompile Include="..\engine\lights\light.cpp" />
     <ClCompile Include="..\engine\lights\point_light.cpp" />
     <ClCompile Include="..\engine\lights\spot_light.cpp" />
+    <ClCompile Include="..\engine\materials\image_loader.cpp" />
+    <ClCompile Include="..\engine\materials\material.cpp" />
+    <ClCompile Include="..\engine\materials\texture.cpp" />
     <ClCompile Include="..\engine\primitives\box.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity.cpp" />
     <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp" />
@@ -42,7 +44,6 @@
     <ClCompile Include="..\engine\shaders\shader.cpp" />
     <ClCompile Include="..\engine\shaders\shader_program.cpp" />
     <ClCompile Include="..\engine\shaders\vertex_shader.cpp" />
-    <ClCompile Include="..\engine\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\engine\camera.h" />
@@ -53,11 +54,13 @@
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.h" />
     <ClInclude Include="..\engine\exceptions\shader_link_exception.h" />
     <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.h" />
-    <ClInclude Include="..\engine\image_loader.h" />
     <ClInclude Include="..\engine\lights\directional_light.h" />
     <ClInclude Include="..\engine\lights\light.h" />
     <ClInclude Include="..\engine\lights\point_light.h" />
     <ClInclude Include="..\engine\lights\spot_light.h" />
+    <ClInclude Include="..\engine\materials\image_loader.h" />
+    <ClInclude Include="..\engine\materials\material.h" />
+    <ClInclude Include="..\engine\materials\texture.h" />
     <ClInclude Include="..\engine\primitives\box.h" />
     <ClInclude Include="..\engine\primitives\entities\entity.h" />
     <ClInclude Include="..\engine\primitives\entities\entity_2d.h" />
@@ -74,7 +77,6 @@
     <ClInclude Include="..\engine\shaders\shader.h" />
     <ClInclude Include="..\engine\shaders\shader_program.h" />
     <ClInclude Include="..\engine\shaders\vertex_shader.h" />
-    <ClInclude Include="..\engine\texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\engine\glsl\2d\basic_fs.glsl" />

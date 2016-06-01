@@ -2,9 +2,9 @@
 #define IMAGE_LOADER_H_
 
 #include <FreeImage.h>
-#include "exceptions/file_not_found_exception.h"
-#include "exceptions/unknown_file_type_exception.h"
-#include "exceptions/file_type_not_supported_exception.h"
+#include "../exceptions/file_not_found_exception.h"
+#include "../exceptions/unknown_file_type_exception.h"
+#include "../exceptions/file_type_not_supported_exception.h"
 
 #pragma comment(lib, "FreeImage.lib")
 
