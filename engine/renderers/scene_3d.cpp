@@ -70,10 +70,12 @@ void Scene3D::render()
 	getShaderProgram()->setUniformUint("num_spot_lights", m_spot_lights.size());
 	
 	getShaderProgram()->setUniformVector3("camera_position", m_camera_ptr->getPosition());
-	getShaderProgram()->setUniformMatrix4("view_matrix", m_camera_ptr->getViewMatrix());
+	auto projection_view_matrix = m_renderer->getProjectionMatrix() * m_camera_ptr->getViewMatrix();
 	for (auto& entity : m_entities)
 	{
+		getShaderProgram()->setUniformMatrix4("projection_view_model_matrix", projection_view_matrix * entity->getModelMatrix());
 		getShaderProgram()->setUniformMatrix4("model_matrix", entity->getModelMatrix());
+		getShaderProgram()->setUniformMatrix3("normal_matrix", entity->getNormalMatrix());
 		entity->render();
 	}
 }

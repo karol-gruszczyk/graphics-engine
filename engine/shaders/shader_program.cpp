@@ -76,6 +76,14 @@ void ShaderProgram::setUniformVector3(std::string uniform_name, glm::vec3 vector
 	glUniform3fv(location, 1, glm::value_ptr(vector));
 }
 
+void ShaderProgram::setUniformMatrix3(std::string uniform_name, glm::mat3 matrix)
+{
+	bind();
+	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	assert(location != -1);
+	glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
 void ShaderProgram::setUniformMatrix4(std::string uniform_name, glm::mat4 matrix)
 {
 	bind();

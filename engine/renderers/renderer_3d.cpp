@@ -30,9 +30,6 @@ GLfloat engine::Renderer3D::getFieldOfView()
 void engine::Renderer3D::updateProjectionMatrix()
 {
 	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat)m_context_width / m_context_height, 0.1f, 1000.f);
-	m_shader_program->setUniformMatrix4("projection_matrix", m_projection_matrix);
-	m_shader_program->setUniformMatrix4("view_matrix", glm::mat4());
-	m_shader_program->setUniformMatrix4("model_matrix", glm::mat4());
 }
 
 void engine::Renderer3D::loadShader()
