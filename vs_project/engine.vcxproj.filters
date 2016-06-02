@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\exceptions">
+      <UniqueIdentifier>{d114926d-8808-473e-b556-f97a7f593a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shaders">
+      <UniqueIdentifier>{92b79244-1f0d-4cb0-bbd3-ad96836dc800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{52d1c1be-4257-4b3c-99ee-b5a01210087b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLSL shaders">
+      <UniqueIdentifier>{83b3fee2-54a3-4b3d-99da-af264152266a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderers">
+      <UniqueIdentifier>{3caeb72e-b6f8-4810-ad2b-9f159b3ed9fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderers">
+      <UniqueIdentifier>{50d460cc-28d9-4293-9b4d-ec31ccfc8601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\primitives">
+      <UniqueIdentifier>{712dd8b9-97a7-47f3-b624-98466d27bf8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\primitives">
+      <UniqueIdentifier>{7938ab12-7328-41a4-b78a-4d2e0f55a0b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\primitives\entities">
+      <UniqueIdentifier>{0d38c16a-4f64-484b-8be0-20f56b20cc5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\primitives\entities">
+      <UniqueIdentifier>{2025bdbe-4917-4f49-be2e-06860ce89adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLSL shaders\2d">
+      <UniqueIdentifier>{d2a3ca3d-b8d4-4b89-a8db-ad768034d10d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLSL shaders\3d">
+      <UniqueIdentifier>{012e88df-f635-4686-a493-7bc9c48f40bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lights">
+      <UniqueIdentifier>{482f444e-516f-465a-b788-2ec17acb5ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lights">
+      <UniqueIdentifier>{7d12c56d-af03-4c23-bb51-fefd8eb4a90f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\materials">
+      <UniqueIdentifier>{09df3d77-302d-4f16-9758-a0c76da469b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\materials">
+      <UniqueIdentifier>{5499f018-f693-486d-b206-3f677c287476}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\engine\primitives\rectangle.cpp">
+      <Filter>Source Files\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\shaders\fragment_shader.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\shaders\shader.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\shaders\shader_program.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\shaders\vertex_shader.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\renderers\renderer.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\renderers\renderer_2d.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\renderers\scene_2d.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\renderers\scene.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\renderers\renderer_3d.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\entities\entity.cpp">
+      <Filter>Source Files\primitives\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\entities\entity_2d.cpp">
+      <Filter>Source Files\primitives\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\entities\entity_3d.cpp">
+      <Filter>Source Files\primitives\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\plane.cpp">
+      <Filter>Source Files\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\renderers\scene_3d.cpp">
+      <Filter>Source Files\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\primitives\box.cpp">
+      <Filter>Source Files\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\lights\light.cpp">
+      <Filter>Source Files\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\lights\directional_light.cpp">
+      <Filter>Source Files\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\lights\point_light.cpp">
+      <Filter>Source Files\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\lights\spot_light.cpp">
+      <Filter>Source Files\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\materials\texture.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\materials\material.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\engine\materials\image_loader.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\engine\exceptions\shader_compile_exception.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\exceptions\shader_link_exception.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\exceptions\file_not_found_exception.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\rectangle.h">
+      <Filter>Header Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\shaders\fragment_shader.h">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\shaders\shader_program.h">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\shaders\vertex_shader.h">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\renderers\renderer_2d.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\renderers\renderer.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\renderers\scene_2d.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\renderers\scene.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\shaders\shader.h">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\exceptions\file_type_not_supported_exception.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\exceptions\initialization_failed_exception.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\renderers\renderer_3d.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\entities\entity.h">
+      <Filter>Header Files\primitives\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\entities\entity_2d.h">
+      <Filter>Header Files\primitives\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\entities\entity_3d.h">
+      <Filter>Header Files\primitives\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\plane.h">
+      <Filter>Header Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\renderers\scene_3d.h">
+      <Filter>Header Files\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\primitives\box.h">
+      <Filter>Header Files\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\lights\light.h">
+      <Filter>Header Files\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\lights\point_light.h">
+      <Filter>Header Files\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\lights\spot_light.h">
+      <Filter>Header Files\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\lights\directional_light.h">
+      <Filter>Header Files\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\materials\texture.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\materials\material.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\materials\image_loader.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\engine\glsl\2d\basic_fs.glsl">
+      <Filter>GLSL shaders\2d</Filter>
+    </None>
+    <None Include="..\engine\glsl\2d\basic_vs.glsl">
+      <Filter>GLSL shaders\2d</Filter>
+    </None>
+    <None Include="..\engine\glsl\3d\phong_fs.glsl">
+      <Filter>GLSL shaders\3d</Filter>
+    </None>
+    <None Include="..\engine\glsl\3d\phong_vs.glsl">
+      <Filter>GLSL shaders\3d</Filter>
+    </None>
+  </ItemGroup>
+</Project>

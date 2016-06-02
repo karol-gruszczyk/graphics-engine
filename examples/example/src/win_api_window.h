@@ -1,13 +1,9 @@
-#include <sstream>
 #include <functional>
+#include <chrono>
 #include <map>
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include <windowsx.h>
-#define GLEW_STATIC
-#include <gl/glew.h>
-#include <gl/wglew.h>
 
 
 class WinApiWindow
@@ -20,34 +16,46 @@ public:
 	void createWindow(std::string window_title, long window_width, long window_height, POINT window_position = { CW_USEDEFAULT, 0L });
 	bool setCoreOpenGL();
 	bool isOk();
-	void setRenderFunction(std::function<void()> function);
-	void setResizeCallback(std::function<void(long, long)> function);
-	void setMouseMoveCallback(std::function<void(long, long)> function);
-	void setMouseClickCallback(std::function<void(long)> function);
-	void setButtonCallback(std::function<void(long, bool)> function);
+	void setRenderFunction(std::function<void()> func);
+	void setCleanupFunction(std::function<void()> func);
+	void setResizeCallback(std::function<void(long, long)> func);
+	void setMouseMoveCallback(std::function<void(long, long)> func);
+	void setMouseClickCallback(std::function<void(long)> func);
+	void setButtonCallback(std::function<void(long, bool)> func);
 	int loop();
 	void showCursor();
 	void hideCursor();
 	void setCursorPosition(long x, long y);
 	POINT getCursorPosition();
+	void showConsole();
+	void hideConsole();
+	void setTitle(std::string title);
+	void setFPSCap(unsigned fps = 60);
+	unsigned getFPS();
+	void close(long quit_message = EXIT_SUCCESS);
 private:
-	static std::map<HWND, WinApiWindow*> instances_;
-	HDC hdc_;
-	HWND hwnd_;
-	HGLRC hrc_;
-	HINSTANCE hinstance_;
-	std::function<void()> render_function_;
-	std::function<void(long, long)> resize_callback_;
- 	std::function<void(long, long)> mouse_move_callback_;
-	std::function<void(long)> mouse_click_callback_;
-	std::function<void(long, bool)> button_callback_;
-	bool is_minimized_;
-	long window_width_, window_height_;
-	POINT window_position_;
-	long window_style_ = WS_OVERLAPPEDWINDOW;
-	long window_ex_style_ = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
-	std::string window_title_;
-	bool initialization_seuccess_;
+	static std::map<HWND, WinApiWindow*> s_instances;
+	HDC m_hdc;
+	HWND m_hwnd;
+	HGLRC m_hrc;
+	HINSTANCE m_hinstance;
+	const char* m_class_name = "OPENGL_WINDOW_CLASS";
+	std::function<void()> m_render_function;
+	std::function<void()> m_cleanup_function;
+	std::function<void(long, long)> m_resize_callback;
+ 	std::function<void(long, long)> m_mouse_move_callback;
+	std::function<void(long)> m_mouse_click_callback;
+	std::function<void(long, bool)> m_button_callback;
+	bool m_is_minimized;
+	long m_window_width, m_window_height;
+	POINT m_window_position;
+	long m_window_style = WS_OVERLAPPEDWINDOW;
+	long m_window_ex_style = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+	std::string m_window_title;
+	bool m_initialization_seuccess;
+	std::chrono::steady_clock::time_point m_last_frame_time;
+	unsigned m_max_frame_time_ms;
+	unsigned m_fps;
 
 	bool registerWindowClass();
 	void unregisterWindowClass();

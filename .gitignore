@@ -1,12 +1,14 @@
 .*
 !.gitignore
 *~
+*.txt
 
 # Visual Studio
 Debug/
 Release/
 *.sdf
 *.opendb
+*.db
 
 # Compiled Object files
 *.slo
@@ -21,7 +23,6 @@ Release/
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -30,7 +31,6 @@ Release/
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe

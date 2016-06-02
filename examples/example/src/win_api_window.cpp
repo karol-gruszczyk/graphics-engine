@@ -1,44 +1,51 @@
 #include "win_api_window.h"
+#include <sstream>
+#include <windowsx.h>
+#include <gl/glew.h>
+#include <gl/wglew.h>
+
+std::map<HWND, WinApiWindow*> WinApiWindow::s_instances;
 
 
-WinApiWindow::WinApiWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/ )
+WinApiWindow::WinApiWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/)
 	: WinApiWindow()
 {
 	createWindow(window_title, window_width, window_height, window_position);
 }
 
-
 WinApiWindow::WinApiWindow()
 {
-	render_function_ = []() -> void {};
-	resize_callback_ = [](long, long) -> void {};
-	mouse_move_callback_ = [](long, long) -> void {};
-	mouse_click_callback_ = [](long) -> void {};
-	button_callback_ = [](long, bool) -> void {};
+	m_render_function = []() -> void {};
+	m_cleanup_function = []() -> void {};
+	m_resize_callback = [](long, long) -> void {};
+	m_mouse_move_callback = [](long, long) -> void {};
+	m_mouse_click_callback = [](long) -> void {};
+	m_button_callback = [](long, bool) -> void {};
 }
 
 WinApiWindow::~WinApiWindow()
 {
-	wglMakeCurrent(hdc_, nullptr);
-	wglDeleteContext(hrc_);
-	ReleaseDC(hwnd_, hdc_);
+	wglMakeCurrent(m_hdc, nullptr);
+	wglDeleteContext(m_hrc);
+	ReleaseDC(m_hwnd, m_hdc);
 	unregisterWindowClass();
 }
 
-void WinApiWindow::createWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/ )
+void WinApiWindow::createWindow(std::string window_title, long window_width, long window_height, POINT window_position /* = { CW_USEDEFAULT, 0L }*/)
 {
-	hinstance_ = GetModuleHandle(nullptr);
-	window_title_ = window_title;
-	window_width_ = window_width;
-	window_height_ = window_height;
-	window_position_ = window_position;
+	m_hinstance = GetModuleHandle(nullptr);
+	m_window_title = window_title;
+	m_window_width = window_width;
+	m_window_height = window_height;
+	m_window_position = window_position;
 
-	initialization_seuccess_ = true;
-	if (!(initialization_seuccess_ &= registerWindowClass())) return;
-	if (!(initialization_seuccess_ &= createWinApiWindow())) return;
-	initialization_seuccess_ &= initOpenGL();
+	m_initialization_seuccess = true;
+	if (!(m_initialization_seuccess &= registerWindowClass())) return;
+	if (!(m_initialization_seuccess &= createWinApiWindow())) return;
+	m_initialization_seuccess &= initOpenGL();
+	m_last_frame_time = std::chrono::high_resolution_clock::now();
+	setFPSCap();
 }
-
 
 bool WinApiWindow::setCoreOpenGL()
 {
@@ -47,48 +54,54 @@ bool WinApiWindow::setCoreOpenGL()
 		MessageBox(nullptr, "OpenGL 3.2+ context not available, update your graphics drivers", "Error", MB_OK | MB_ICONINFORMATION);
 		return false;
 	}
+	GLint major_version, minor_version;
+	glGetIntegerv(GL_MAJOR_VERSION, &major_version);
+	glGetIntegerv(GL_MINOR_VERSION, &minor_version);
 	const int attributes[] = {
-		WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-		WGL_CONTEXT_MINOR_VERSION_ARB, 2,
-		WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+		WGL_CONTEXT_MAJOR_VERSION_ARB, major_version,
+		WGL_CONTEXT_MINOR_VERSION_ARB, minor_version,
 		NULL
 	};
-	wglMakeCurrent(hdc_, nullptr);
-	wglDeleteContext(hrc_); // delete OpenGL 2.1 context
-	hrc_ = wglCreateContextAttribsARB(hdc_, nullptr, attributes);
-	wglMakeCurrent(hdc_, hrc_);
+	wglMakeCurrent(m_hdc, nullptr);
+	wglDeleteContext(m_hrc); // delete OpenGL 2.1 context
+	m_hrc = wglCreateContextAttribsARB(m_hdc, nullptr, attributes);
+	wglMakeCurrent(m_hdc, m_hrc);
 	return true;
 }
 
 bool WinApiWindow::isOk()
 {
-	return initialization_seuccess_;
+	return m_initialization_seuccess;
 }
 
-void WinApiWindow::setRenderFunction(std::function<void()> function)
+void WinApiWindow::setRenderFunction(std::function<void()> func)
 {
-	render_function_ = function;
+	m_render_function = func;
 }
 
-
-void WinApiWindow::setResizeCallback(std::function<void(long, long)> function)
+void WinApiWindow::setCleanupFunction(std::function<void()> func)
 {
-	resize_callback_ = function;
+	m_cleanup_function = func;
 }
 
-void WinApiWindow::setMouseMoveCallback(std::function<void(long, long)> function)
+void WinApiWindow::setResizeCallback(std::function<void(long, long)> func)
 {
-	mouse_move_callback_ = function;
+	m_resize_callback = func;
 }
 
-void WinApiWindow::setMouseClickCallback(std::function<void(long)> function)
+void WinApiWindow::setMouseMoveCallback(std::function<void(long, long)> func)
 {
-	mouse_click_callback_ = function;
+	m_mouse_move_callback = func;
 }
 
-void WinApiWindow::setButtonCallback(std::function<void(long, bool)> function)
+void WinApiWindow::setMouseClickCallback(std::function<void(long)> func)
 {
-	button_callback_ = function;
+	m_mouse_click_callback = func;
+}
+
+void WinApiWindow::setButtonCallback(std::function<void(long, bool)> func)
+{
+	m_button_callback = func;
 }
 
 int WinApiWindow::loop()
@@ -103,11 +116,20 @@ int WinApiWindow::loop()
 		}
 		else
 		{
-			if (!is_minimized_)
-				render_function_();
-			SwapBuffers(hdc_);
+			if (!m_is_minimized)
+				m_render_function();
+			SwapBuffers(m_hdc);
+
+			auto now = std::chrono::high_resolution_clock::now();
+			auto frame_duration = (unsigned)std::chrono::duration_cast<std::chrono::milliseconds>(now - m_last_frame_time).count();
+			long sleep = m_max_frame_time_ms - frame_duration;
+			if (m_max_frame_time_ms && sleep > 0)
+				Sleep(sleep);
+			m_fps = 1000 / ((m_max_frame_time_ms && sleep > 0 ? sleep : 0) + frame_duration);
+			m_last_frame_time = std::chrono::high_resolution_clock::now();
 		}
 	} while (msg.message != WM_QUIT);
+	m_cleanup_function();
 	return static_cast<int>(msg.wParam);
 }
 
@@ -124,7 +146,7 @@ void WinApiWindow::hideCursor()
 void WinApiWindow::setCursorPosition(long x, long y)
 {
 	POINT p = { x, y };
-	ClientToScreen(hwnd_, &p);
+	ClientToScreen(m_hwnd, &p);
 	SetCursorPos(p.x, p.y);
 }
 
@@ -132,12 +154,39 @@ POINT WinApiWindow::getCursorPosition()
 {
 	POINT p;
 	GetCursorPos(&p);
-	ScreenToClient(hwnd_, &p);
+	ScreenToClient(m_hwnd, &p);
 	return p;
 }
 
+void WinApiWindow::showConsole()
+{
+	ShowWindow(GetConsoleWindow(), SW_SHOW);
+}
 
-std::map<HWND, WinApiWindow*> WinApiWindow::instances_;
+void WinApiWindow::hideConsole()
+{
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+}
+
+void WinApiWindow::setTitle(std::string title)
+{
+	SetWindowText(m_hwnd, title.c_str());
+}
+
+void WinApiWindow::setFPSCap(unsigned fps /*= 60*/)
+{
+	m_max_frame_time_ms = (unsigned)ceil(1000.0 / fps);
+}
+
+unsigned WinApiWindow::getFPS()
+{
+	return m_fps;
+}
+
+void WinApiWindow::close(long quit_message /* = EXIT_SUCCESS */)
+{
+	PostQuitMessage(quit_message);
+}
 
 bool WinApiWindow::registerWindowClass()
 {
@@ -147,12 +196,12 @@ bool WinApiWindow::registerWindowClass()
 	wcex.cbWndExtra = 0;
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	wcex.hInstance = hinstance_;
+	wcex.hInstance = m_hinstance;
 	wcex.lpfnWndProc = WndProc;
 	wcex.hIcon = LoadIcon(nullptr, IDI_WINLOGO);
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
-	wcex.lpszClassName = window_title_.c_str();
+	wcex.lpszClassName = m_class_name;
 	wcex.lpszMenuName = nullptr;
 	wcex.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 
@@ -166,31 +215,31 @@ bool WinApiWindow::registerWindowClass()
 
 void WinApiWindow::unregisterWindowClass()
 {
-	UnregisterClass(window_title_.c_str(), hinstance_);
+	UnregisterClass(m_class_name, m_hinstance);
 }
 
 bool WinApiWindow::createWinApiWindow()
 {
-	RECT rect = { 0, 0, window_width_, window_height_ };
-	AdjustWindowRectEx(&rect, window_style_, FALSE, window_ex_style_);
+	RECT rect = { 0, 0, m_window_width, m_window_height };
+	AdjustWindowRectEx(&rect, m_window_style, FALSE, m_window_ex_style);
 	unsigned adjusted_width = rect.right - rect.left;
 	unsigned adjusted_height = rect.bottom - rect.top;
 
-	hwnd_ = CreateWindowEx(window_ex_style_, window_title_.c_str(), window_title_.c_str(), window_style_,
-		window_position_.x, window_position_.y, adjusted_width, adjusted_height, nullptr, nullptr, hinstance_, nullptr);
-	instances_[hwnd_] = this;
-	if (!hwnd_)
+	m_hwnd = CreateWindowEx(m_window_ex_style, m_class_name, m_window_title.c_str(), m_window_style,
+		m_window_position.x, m_window_position.y, adjusted_width, adjusted_height, nullptr, nullptr, m_hinstance, nullptr);
+	s_instances[m_hwnd] = this;
+	if (!m_hwnd)
 	{
 		MessageBox(nullptr, "An error occurred while creating window", "Error", MB_OK | MB_ICONERROR);
 		return false;
 	}
-	ShowWindow(hwnd_, SW_SHOW);
+	ShowWindow(m_hwnd, SW_SHOW);
 	return true;
 }
 
 bool WinApiWindow::initOpenGL()
 {
-	hdc_ = GetDC(hwnd_);
+	m_hdc = GetDC(m_hwnd);
 
 	PIXELFORMATDESCRIPTOR pfd;
 	ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
@@ -203,16 +252,16 @@ bool WinApiWindow::initOpenGL()
 	pfd.cStencilBits = 8;
 	pfd.iLayerType = PFD_MAIN_PLANE;
 
-	int format = ChoosePixelFormat(hdc_, &pfd);
+	int format = ChoosePixelFormat(m_hdc, &pfd);
 
-	if (!SetPixelFormat(hdc_, format, &pfd))
+	if (!SetPixelFormat(m_hdc, format, &pfd))
 	{
 		MessageBox(nullptr, "An error occurred while setting pixel format to device context", "Error", MB_OK | MB_ICONERROR);
 		return false;
 	}
 
-	hrc_ = wglCreateContext(hdc_);  // creating an OpenGL 2.1 rendering context
-	if (!wglMakeCurrent(hdc_, hrc_))
+	m_hrc = wglCreateContext(m_hdc);  // creating an OpenGL 2.1 rendering context
+	if (!wglMakeCurrent(m_hdc, m_hrc))
 	{
 		MessageBox(nullptr, "An error occurred while creating and activating render context", "Error", MB_OK | MB_ICONERROR);
 		return false;
@@ -226,12 +275,11 @@ bool WinApiWindow::initOpenGL()
 	return true;
 }
 
-
 void WinApiWindow::resizeCallback(long width, long height)
 {
-	window_width_ = width;
-	window_height_ = height;
-	resize_callback_(width, height);
+	m_window_width = width;
+	m_window_height = height;
+	m_resize_callback(width, height);
 }
 
 LRESULT CALLBACK WinApiWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -242,16 +290,16 @@ LRESULT CALLBACK WinApiWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARA
 		switch (wParam)
 		{
 		case SIZE_MINIMIZED:
-			instances_[hwnd]->is_minimized_ = true;
+			s_instances[hwnd]->m_is_minimized = true;
 			break;
 		case SIZE_RESTORED:
-			instances_[hwnd]->is_minimized_ = false;
-			instances_[hwnd]->resizeCallback(LOWORD(lParam), HIWORD(lParam));
+			s_instances[hwnd]->m_is_minimized = false;
+			s_instances[hwnd]->resizeCallback(LOWORD(lParam), HIWORD(lParam));
 			break;
 		}
 		break;
 	case WM_MOUSEMOVE:
-		instances_[hwnd]->mouse_move_callback_(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		s_instances[hwnd]->m_mouse_move_callback(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
 	case WM_LBUTTONDOWN:
 	case WM_LBUTTONUP:
@@ -259,16 +307,19 @@ LRESULT CALLBACK WinApiWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARA
 	case WM_RBUTTONUP:
 	case WM_MBUTTONDOWN:
 	case WM_MBUTTONUP:
-		instances_[hwnd]->mouse_click_callback_(msg);
+		s_instances[hwnd]->m_mouse_click_callback(msg);
 		break;
 	case WM_KEYDOWN:
-		instances_[hwnd]->button_callback_(wParam, true);
+		s_instances[hwnd]->m_button_callback(wParam, true);
 		break;
 	case WM_KEYUP:
-		instances_[hwnd]->button_callback_(wParam, false);
+		s_instances[hwnd]->m_button_callback(wParam, false);
+		break;
+	case WM_CREATE:
+		ShowWindow(GetConsoleWindow(), SW_HIDE);
 		break;
 	case WM_DESTROY:
-		instances_.erase(hwnd);
+		s_instances.erase(hwnd);
 		PostQuitMessage(EXIT_SUCCESS);
 		return EXIT_SUCCESS;
 	}
