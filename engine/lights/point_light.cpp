@@ -1,4 +1,4 @@
-#include "point_light.h"
+#include "point_light.hpp"
 
 using engine::PointLight;
 

@@ -1,7 +1,7 @@
-#ifndef RECTANGLE_H_
-#define RECTANGLE_H_
+#ifndef RECTANGLE_HPP_
+#define RECTANGLE_HPP_
 
-#include "entities\entity_2d.h"
+#include "entities\entity_2d.hpp"
 
 
 namespace engine
@@ -17,4 +17,4 @@ protected:
 	GLfloat m_length, m_width;
 };
 
-#endif // RECTANGLE_H_
+#endif // RECTANGLE_HPP_

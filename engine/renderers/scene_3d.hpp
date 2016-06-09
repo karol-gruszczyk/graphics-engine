@@ -1,12 +1,12 @@
-#ifndef SCENE_3D_H_
-#define SCENE_3D_H_
+#ifndef SCENE_3D_HPP_
+#define SCENE_3D_HPP_
 
-#include "scene.h"
-#include "../camera.h"
-#include "../primitives/entities/entity_3d.h"
-#include "../lights/directional_light.h"
-#include "../lights/point_light.h"
-#include "../lights/spot_light.h"
+#include "scene.hpp"
+#include "../camera.hpp"
+#include "../primitives/entities/entity_3d.hpp"
+#include "../lights/directional_light.hpp"
+#include "../lights/point_light.hpp"
+#include "../lights/spot_light.hpp"
 
 
 namespace engine
@@ -33,4 +33,4 @@ private:
 	std::vector<SpotLight*> m_spot_lights;
 };
 
-#endif /* SCENE_3D_H_ */
+#endif /* SCENE_3D_HPP_ */

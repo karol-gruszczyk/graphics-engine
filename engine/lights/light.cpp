@@ -1,4 +1,4 @@
-#include "light.h"
+#include "light.hpp"
 
 using engine::Light;
 

@@ -1,5 +1,5 @@
-#ifndef INITIALIZATION_FAILED_EXCEPTION_H_
-#define INITIALIZATION_FAILED_EXCEPTION_H_
+#ifndef INITIALIZATION_FAILED_EXCEPTION_HPP_
+#define INITIALIZATION_FAILED_EXCEPTION_HPP_
 
 #include <exception>
 #include <boost/filesystem/operations.hpp>
@@ -18,4 +18,4 @@ public:
 	{}
 };
 
-#endif /* INITIALIZATION_FAILED_EXCEPTION_H_ */
+#endif /* INITIALIZATION_FAILED_EXCEPTION_HPP_ */

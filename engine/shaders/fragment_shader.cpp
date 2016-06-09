@@ -1,4 +1,4 @@
-#include "fragment_shader.h"
+#include "fragment_shader.hpp"
 
 using engine::FragmentShader;
 

@@ -1,7 +1,7 @@
-#ifndef SPOT_LIGHT_H_
-#define SPOT_LIGHT_H_
+#ifndef SPOT_LIGHT_HPP_
+#define SPOT_LIGHT_HPP_
 
-#include "point_light.h"
+#include "point_light.hpp"
 
 
 namespace engine
@@ -25,4 +25,4 @@ private:
 	float m_inner_angle, m_outer_angle;
 };
 
-#endif /* SPOT_LIGHT_H_ */
+#endif /* SPOT_LIGHT_HPP_ */

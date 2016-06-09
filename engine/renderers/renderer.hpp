@@ -1,12 +1,12 @@
-#ifndef RENDERER_H_
-#define RENDERER_H_
+#ifndef RENDERER_HPP_
+#define RENDERER_HPP_
 
 #include <memory>
 #include <glm/glm.hpp>
-#include "../shaders/shader_program.h"
-#include "../shaders/vertex_shader.h"
-#include "../shaders/fragment_shader.h"
-#include "../config.h"
+#include "../shaders/shader_program.hpp"
+#include "../shaders/vertex_shader.hpp"
+#include "../shaders/fragment_shader.hpp"
+#include "../config.hpp"
 
 
 namespace engine
@@ -35,4 +35,4 @@ protected:
 	virtual void updateProjectionMatrix() = 0;
 };
 
-#endif /* RENDERER_H_ */
+#endif /* RENDERER_HPP_ */

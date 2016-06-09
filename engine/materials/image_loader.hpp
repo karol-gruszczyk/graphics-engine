@@ -1,10 +1,10 @@
-#ifndef IMAGE_LOADER_H_
-#define IMAGE_LOADER_H_
+#ifndef IMAGE_LOADER_HPP_
+#define IMAGE_LOADER_HPP_
 
 #include <FreeImage.h>
-#include "../exceptions/file_not_found_exception.h"
-#include "../exceptions/unknown_file_type_exception.h"
-#include "../exceptions/file_type_not_supported_exception.h"
+#include "../exceptions/file_not_found_exception.hpp"
+#include "../exceptions/unknown_file_type_exception.hpp"
+#include "../exceptions/file_type_not_supported_exception.hpp"
 
 #pragma comment(lib, "FreeImage.lib")
 
@@ -36,4 +36,4 @@ private:
 	unsigned char* m_pixels;
 };
 
-#endif
+#endif /* IMAGE_LOADER_HPP_ */

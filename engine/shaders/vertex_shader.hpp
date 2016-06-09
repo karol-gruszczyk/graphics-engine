@@ -1,7 +1,7 @@
-#ifndef VERTEX_SHADER_H_
-#define VERTEX_SHADER_H_
+#ifndef VERTEX_SHADER_HPP_
+#define VERTEX_SHADER_HPP_
 
-#include "shader.h"
+#include "shader.hpp"
 
 
 namespace engine
@@ -15,4 +15,4 @@ public:
 	VertexShader(boost::filesystem::path path);
 };
 
-#endif /* VERTEX_SHADER_H_ */
+#endif /* VERTEX_SHADER_HPP_ */

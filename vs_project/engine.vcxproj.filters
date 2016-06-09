@@ -140,97 +140,97 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\engine\exceptions\shader_compile_exception.h">
+    <ClInclude Include="..\engine\exceptions\shader_compile_exception.hpp">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\exceptions\shader_link_exception.h">
+    <ClInclude Include="..\engine\exceptions\shader_link_exception.hpp">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\exceptions\file_not_found_exception.h">
+    <ClInclude Include="..\engine\exceptions\file_not_found_exception.hpp">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\primitives\rectangle.h">
+    <ClInclude Include="..\engine\primitives\rectangle.hpp">
       <Filter>Header Files\primitives</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\shaders\fragment_shader.h">
+    <ClInclude Include="..\engine\shaders\fragment_shader.hpp">
       <Filter>Header Files\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\shaders\shader_program.h">
+    <ClInclude Include="..\engine\shaders\shader_program.hpp">
       <Filter>Header Files\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\shaders\vertex_shader.h">
+    <ClInclude Include="..\engine\shaders\vertex_shader.hpp">
       <Filter>Header Files\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\renderers\renderer_2d.h">
+    <ClInclude Include="..\engine\renderers\renderer_2d.hpp">
       <Filter>Header Files\renderers</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\renderers\renderer.h">
+    <ClInclude Include="..\engine\renderers\renderer.hpp">
       <Filter>Header Files\renderers</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\renderers\scene_2d.h">
+    <ClInclude Include="..\engine\renderers\scene_2d.hpp">
       <Filter>Header Files\renderers</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\renderers\scene.h">
+    <ClInclude Include="..\engine\renderers\scene.hpp">
       <Filter>Header Files\renderers</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\config.h">
+    <ClInclude Include="..\engine\config.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\shaders\shader.h">
+    <ClInclude Include="..\engine\shaders\shader.hpp">
       <Filter>Header Files\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.h">
+    <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.hpp">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\exceptions\file_type_not_supported_exception.h">
+    <ClInclude Include="..\engine\exceptions\file_type_not_supported_exception.hpp">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\exceptions\initialization_failed_exception.h">
+    <ClInclude Include="..\engine\exceptions\initialization_failed_exception.hpp">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\renderers\renderer_3d.h">
+    <ClInclude Include="..\engine\renderers\renderer_3d.hpp">
       <Filter>Header Files\renderers</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\primitives\entities\entity.h">
+    <ClInclude Include="..\engine\primitives\entities\entity.hpp">
       <Filter>Header Files\primitives\entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\primitives\entities\entity_2d.h">
+    <ClInclude Include="..\engine\primitives\entities\entity_2d.hpp">
       <Filter>Header Files\primitives\entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\primitives\entities\entity_3d.h">
+    <ClInclude Include="..\engine\primitives\entities\entity_3d.hpp">
       <Filter>Header Files\primitives\entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\primitives\plane.h">
+    <ClInclude Include="..\engine\primitives\plane.hpp">
       <Filter>Header Files\primitives</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\renderers\scene_3d.h">
+    <ClInclude Include="..\engine\renderers\scene_3d.hpp">
       <Filter>Header Files\renderers</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\camera.h">
+    <ClInclude Include="..\engine\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\primitives\box.h">
+    <ClInclude Include="..\engine\primitives\box.hpp">
       <Filter>Header Files\primitives</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\lights\light.h">
+    <ClInclude Include="..\engine\lights\light.hpp">
       <Filter>Header Files\lights</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\lights\point_light.h">
+    <ClInclude Include="..\engine\lights\point_light.hpp">
       <Filter>Header Files\lights</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\lights\spot_light.h">
+    <ClInclude Include="..\engine\lights\spot_light.hpp">
       <Filter>Header Files\lights</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\lights\directional_light.h">
+    <ClInclude Include="..\engine\lights\directional_light.hpp">
       <Filter>Header Files\lights</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\materials\texture.h">
+    <ClInclude Include="..\engine\materials\texture.hpp">
       <Filter>Header Files\materials</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\materials\material.h">
+    <ClInclude Include="..\engine\materials\material.hpp">
       <Filter>Header Files\materials</Filter>
     </ClInclude>
-    <ClInclude Include="..\engine\materials\image_loader.h">
+    <ClInclude Include="..\engine\materials\image_loader.hpp">
       <Filter>Header Files\materials</Filter>
     </ClInclude>
   </ItemGroup>

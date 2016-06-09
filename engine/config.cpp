@@ -1,4 +1,4 @@
-#include "config.h"
+#include "config.hpp"
 #include <GL/glew.h>
 #include <boost/filesystem/operations.hpp>
 

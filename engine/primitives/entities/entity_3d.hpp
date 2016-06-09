@@ -1,8 +1,8 @@
 #ifndef ENTITY_3D_
 #define ENTITY_3D_
 
-#include "entity.h"
-#include "../../materials/material.h"
+#include "entity.hpp"
+#include "../../materials/material.hpp"
 
 
 namespace engine

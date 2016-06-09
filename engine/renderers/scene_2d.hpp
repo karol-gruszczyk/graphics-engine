@@ -1,8 +1,8 @@
-#ifndef SCENE_2D_H_
-#define SCENE_2D_H_
+#ifndef SCENE_2D_HPP_
+#define SCENE_2D_HPP_
 
-#include "scene.h"
-#include "../primitives/entities/entity_2d.h"
+#include "scene.hpp"
+#include "../primitives/entities/entity_2d.hpp"
 
 
 namespace engine
@@ -21,4 +21,4 @@ private:
 	std::list<Entity2D*> m_entities;
 };
 
-#endif /* SCENE_2D_H_ */
+#endif /* SCENE_2D_HPP_ */

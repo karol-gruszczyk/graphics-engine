@@ -1,16 +1,16 @@
 #include <iostream>
-#include <engine/renderers/renderer_2d.h>
-#include <engine/renderers/renderer_3d.h>
-#include <engine/renderers/scene_2d.h>
-#include <engine/renderers/scene_3d.h>
-#include <engine/camera.h>
-#include <engine/config.h>
-#include <engine/primitives/rectangle.h>
-#include <engine/primitives/plane.h>
-#include <engine/primitives/box.h>
-#include <engine/materials/texture.h>
-#include <engine/materials/material.h>
-#include "win_api_window.h"
+#include <engine/renderers/renderer_2d.hpp>
+#include <engine/renderers/renderer_3d.hpp>
+#include <engine/renderers/scene_2d.hpp>
+#include <engine/renderers/scene_3d.hpp>
+#include <engine/camera.hpp>
+#include <engine/config.hpp>
+#include <engine/primitives/rectangle.hpp>
+#include <engine/primitives/plane.hpp>
+#include <engine/primitives/box.hpp>
+#include <engine/materials/texture.hpp>
+#include <engine/materials/material.hpp>
+#include "win_api_window.hpp"
 
 unsigned window_width = 800;
 unsigned window_height = 600;

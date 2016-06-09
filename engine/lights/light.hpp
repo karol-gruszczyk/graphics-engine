@@ -1,5 +1,5 @@
-#ifndef LIGHT_H_
-#define LIGHT_H_
+#ifndef LIGHT_HPP_
+#define LIGHT_HPP_
 
 #include <glm/glm.hpp>
 
@@ -23,4 +23,4 @@ protected:
 	bool m_active;
 };
 
-#endif /* LIGHT_H_ */
+#endif /* LIGHT_HPP_ */

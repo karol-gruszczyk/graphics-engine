@@ -1,5 +1,5 @@
-#ifndef CONFIG_H_
-#define CONFIG_H_
+#ifndef CONFIG_HPP_
+#define CONFIG_HPP_
 
 #include <string>
 #include <fstream>
@@ -39,4 +39,4 @@ private:
 	std::unique_ptr<std::ofstream> m_logger_file;
 };
 
-#endif /* CONFIG_H_ */
+#endif /* CONFIG_HPP_ */

@@ -1,4 +1,4 @@
-#include "rectangle.h"
+#include "rectangle.hpp"
 
 using engine::Rectangle;
 

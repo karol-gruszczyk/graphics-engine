@@ -1,7 +1,7 @@
-#ifndef BOX_H_
-#define BOX_H_
+#ifndef BOX_HPP_
+#define BOX_HPP_
 
-#include "entities/entity_3d.h"
+#include "entities/entity_3d.hpp"
 
 
 namespace engine
@@ -18,4 +18,4 @@ private:
 	GLfloat m_width, m_length, m_height;
 };
 
-#endif /* BOX_H_ */
+#endif /* BOX_HPP_ */

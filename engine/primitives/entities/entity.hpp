@@ -1,8 +1,8 @@
-#ifndef ENTITY_H_
-#define ENTITY_H_
+#ifndef ENTITY_HPP_
+#define ENTITY_HPP_
 
 #include <list>
-#include "../../shaders/shader_program.h"
+#include "../../shaders/shader_program.hpp"
 
 #define POSITION_ATTRIB_POINTER 0
 #define TEXTURE_COORD_ATTRIB_POINTER 1
@@ -35,4 +35,4 @@ protected:
 	void createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage = GL_STATIC_DRAW);
 };
 
-#endif /* ENTITY_H_ */
+#endif /* ENTITY_HPP_ */

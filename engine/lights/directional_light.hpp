@@ -1,7 +1,7 @@
-#ifndef DIRECTIONAL_LIGHT_H_
-#define DIRECTIONAL_LIGHT_H_
+#ifndef DIRECTIONAL_LIGHT_HPP_
+#define DIRECTIONAL_LIGHT_HPP_
 
-#include "light.h"
+#include "light.hpp"
 
 
 namespace engine
@@ -20,4 +20,4 @@ private:
 	glm::vec3 m_direction;
 };
 
-#endif /* DIRECTIONAL_LIGHT_H_ */
+#endif /* DIRECTIONAL_LIGHT_HPP_ */

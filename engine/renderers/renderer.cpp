@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include "renderer.hpp"
 
 using engine::Renderer;
 using engine::ShaderProgram;

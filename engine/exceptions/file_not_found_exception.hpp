@@ -1,5 +1,5 @@
-#ifndef FILE_NOT_FOUND_EXCEPTION_H_
-#define FILE_NOT_FOUND_EXCEPTION_H_
+#ifndef FILE_NOT_FOUND_EXCEPTION_HPP_
+#define FILE_NOT_FOUND_EXCEPTION_HPP_
 
 #include <exception>
 #include <boost/filesystem/operations.hpp>
@@ -34,4 +34,4 @@ private:
 	}
 };
 
-#endif /* FILE_NOT_FOUND_EXCEPTION_H_ */
+#endif /* FILE_NOT_FOUND_EXCEPTION_HPP_ */

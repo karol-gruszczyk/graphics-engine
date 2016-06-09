@@ -1,6 +1,6 @@
-#include "texture.h"
-#include "../config.h"
-#include "image_loader.h"
+#include "texture.hpp"
+#include "../config.hpp"
+#include "image_loader.hpp"
 
 using engine::Texture;
 

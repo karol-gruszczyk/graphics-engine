@@ -1,7 +1,7 @@
-#ifndef FRAGMENT_SHADER_H_
-#define FRAGMENT_SHADER_H_
+#ifndef FRAGMENT_SHADER_HPP_
+#define FRAGMENT_SHADER_HPP_
 
-#include "shader.h"
+#include "shader.hpp"
 
 
 namespace engine
@@ -15,4 +15,4 @@ public:
 	FragmentShader(boost::filesystem::path path);
 };
 
-#endif /* FRAGMENT_SHADER_H_ */
+#endif /* FRAGMENT_SHADER_HPP_ */

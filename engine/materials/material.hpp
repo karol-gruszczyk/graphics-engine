@@ -1,9 +1,9 @@
-#ifndef MATERIAL_H_
-#define MATERIAL_H_
+#ifndef MATERIAL_HPP_
+#define MATERIAL_HPP_
 
 #include <glm/glm.hpp>
-#include "texture.h"
-#include "../shaders/shader_program.h"
+#include "texture.hpp"
+#include "../shaders/shader_program.hpp"
 
 
 namespace engine
@@ -39,4 +39,4 @@ private:
 	float m_shininess;
 };
 
-#endif /* MATERIAL_H_ */
+#endif /* MATERIAL_HPP_ */

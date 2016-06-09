@@ -1,4 +1,4 @@
-#include "scene_3d.h"
+#include "scene_3d.hpp"
 
 using engine::Scene3D;
 using engine::Entity3D;
