@@ -1,4 +1,4 @@
-#include "win_api_window.h"
+#include "win_api_window.hpp"
 #include <sstream>
 #include <windowsx.h>
 #include <gl/glew.h>

@@ -1,5 +1,5 @@
-#ifndef UNKNOWN_FILE_TYPE_EXCEPTION_H_
-#define UNKNOWN_FILE_TYPE_EXCEPTION_H_
+#ifndef UNKNOWN_FILE_TYPE_EXCEPTION_HPP_
+#define UNKNOWN_FILE_TYPE_EXCEPTION_HPP_
 
 #include <exception>
 #include <boost/filesystem/operations.hpp>
@@ -18,4 +18,4 @@ public:
 	{}
 };
 
-#endif /* UNKNOWN_FILE_TYPE_EXCEPTION_H_ */
+#endif /* UNKNOWN_FILE_TYPE_EXCEPTION_HPP_ */

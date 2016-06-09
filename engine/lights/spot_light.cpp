@@ -1,4 +1,4 @@
-#include "spot_light.h"
+#include "spot_light.hpp"
 
 using engine::SpotLight;
 

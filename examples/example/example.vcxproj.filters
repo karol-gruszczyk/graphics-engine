@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\win_api_window.h">
+    <ClInclude Include="src\win_api_window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
-#ifndef POINT_LIGHT_H_
-#define POINT_LIGHT_H_
+#ifndef POINT_LIGHT_HPP_
+#define POINT_LIGHT_HPP_
 
-#include "light.h"
+#include "light.hpp"
 
 
 namespace engine
@@ -23,4 +23,4 @@ protected:
 	float m_range;
 };
 
-#endif /* POINT_LIGHT_H_ */
+#endif /* POINT_LIGHT_HPP_ */

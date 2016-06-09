@@ -1,4 +1,4 @@
-#include "renderer_2d.h"
+#include "renderer_2d.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
 using engine::Renderer2D;

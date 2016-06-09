@@ -1,4 +1,4 @@
-#include "scene_2d.h"
+#include "scene_2d.hpp"
 
 using engine::Scene2D;
 using engine::Entity2D;

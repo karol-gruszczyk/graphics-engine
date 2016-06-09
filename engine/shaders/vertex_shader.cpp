@@ -1,4 +1,4 @@
-#include "vertex_shader.h"
+#include "vertex_shader.hpp"
 
 using engine::VertexShader;
 

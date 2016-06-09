@@ -1,4 +1,4 @@
-#include "material.h"
+#include "material.hpp"
 
 using engine::Material;
 using engine::ShaderProgram;

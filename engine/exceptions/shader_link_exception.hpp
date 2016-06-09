@@ -1,5 +1,5 @@
-#ifndef SHADER_LINK_EXCEPPTION_H_
-#define SHADER_LINK_EXCEPPTION_H_
+#ifndef SHADER_LINK_EXCEPPTION_HPP_
+#define SHADER_LINK_EXCEPPTION_HPP_
 
 #include <exception>
 
@@ -24,4 +24,4 @@ private:
 	std::string m_error_message;
 };
 
-#endif /* SHADER_LINK_EXCEPPTION_H_ */
+#endif /* SHADER_LINK_EXCEPPTION_HPP_ */

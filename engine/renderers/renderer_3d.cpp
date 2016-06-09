@@ -1,4 +1,4 @@
-#include "renderer_3d.h"
+#include "renderer_3d.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
 using engine::Renderer3D;

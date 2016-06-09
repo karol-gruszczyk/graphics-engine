@@ -1,5 +1,5 @@
-#ifndef SHADER_COMPILE_EXCEPPTION_H_
-#define SHADER_COMPILE_EXCEPPTION_H_
+#ifndef SHADER_COMPILE_EXCEPPTION_HPP_
+#define SHADER_COMPILE_EXCEPPTION_HPP_
 
 #include <exception>
 #include <boost/filesystem/operations.hpp>
@@ -25,4 +25,4 @@ private:
 	std::string m_error_message;
 };
 
-#endif /* SHADER_COMPILE_EXCEPPTION_H_ */
+#endif /* SHADER_COMPILE_EXCEPPTION_HPP_ */

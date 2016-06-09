@@ -1,7 +1,7 @@
-#ifndef RENDERER_3D_H_
-#define RENDERER_3D_H_
+#ifndef RENDERER_3D_HPP_
+#define RENDERER_3D_HPP_
 
-#include "renderer.h"
+#include "renderer.hpp"
 
 
 namespace engine
@@ -24,4 +24,4 @@ private:
 	virtual void loadShader();
 };
 
-#endif /* RENDERER_3D_H_ */
+#endif /* RENDERER_3D_HPP_ */

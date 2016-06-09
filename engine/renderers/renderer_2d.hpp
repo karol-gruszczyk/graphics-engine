@@ -1,7 +1,7 @@
-#ifndef RENDERER_2D_H_
-#define RENDERER_2D_H_
+#ifndef RENDERER_2D_HPP_
+#define RENDERER_2D_HPP_
 
-#include "renderer.h"
+#include "renderer.hpp"
 
 
 namespace engine
@@ -20,4 +20,4 @@ protected:
 	void loadShader();
 };
 
-#endif /* RENDERER_2D_H_ */
+#endif /* RENDERER_2D_HPP_ */

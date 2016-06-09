@@ -1,5 +1,5 @@
-#ifndef FILE_TYPE_NOT_SUPPORTED_EXCEPTION_H_
-#define FILE_TYPE_NOT_SUPPORTED_EXCEPTION_H_
+#ifndef FILE_TYPE_NOT_SUPPORTED_EXCEPTION_HPP_
+#define FILE_TYPE_NOT_SUPPORTED_EXCEPTION_HPP_
 
 #include <exception>
 #include <boost/filesystem/operations.hpp>
@@ -18,4 +18,4 @@ public:
 	{}
 };
 
-#endif /* FILE_TYPE_NOT_SUPPORTED_EXCEPTION_H_ */
+#endif /* FILE_TYPE_NOT_SUPPORTED_EXCEPTION_HPP_ */

@@ -1,4 +1,4 @@
-#include "directional_light.h"
+#include "directional_light.hpp"
 
 using engine::DirectionalLight;
 

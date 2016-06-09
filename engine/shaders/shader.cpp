@@ -1,5 +1,5 @@
-#include "shader.h"
-#include "../config.h"
+#include "shader.hpp"
+#include "../config.hpp"
 #include <fstream>
 #include <boost/filesystem/operations.hpp>
 

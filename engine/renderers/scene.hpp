@@ -1,9 +1,9 @@
-#ifndef SCENE_H_
-#define SCENE_H_
+#ifndef SCENE_HPP_
+#define SCENE_HPP_
 
 #include <list>
 #include <memory>
-#include "renderer.h"
+#include "renderer.hpp"
 
 
 namespace engine
@@ -24,4 +24,4 @@ protected:
 	ShaderProgram* getShaderProgram();
 };
 
-#endif /* SCENE_H_ */
+#endif /* SCENE_HPP_ */

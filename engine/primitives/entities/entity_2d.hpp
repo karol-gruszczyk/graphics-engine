@@ -1,8 +1,8 @@
-#ifndef ENTITY_2D_H_
-#define ENTITY_2D_H_
+#ifndef ENTITY_2D_HPP_
+#define ENTITY_2D_HPP_
 
-#include "entity.h"
-#include "../../materials/material.h"
+#include "entity.hpp"
+#include "../../materials/material.hpp"
 
 
 namespace engine
@@ -32,4 +32,4 @@ protected:
 	glm::vec2 m_pivot;
 };
 
-#endif /* ENTITY_2D_H_ */
+#endif /* ENTITY_2D_HPP_ */

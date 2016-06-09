@@ -1,4 +1,4 @@
-#include "scene.h"
+#include "scene.hpp"
 
 using engine::Scene;
 using engine::Renderer;

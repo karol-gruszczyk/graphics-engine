@@ -1,7 +1,7 @@
-#ifndef PLANE_H_
-#define PLANE_H_
+#ifndef PLANE_HPP_
+#define PLANE_HPP_
 
-#include "entities/entity_3d.h"
+#include "entities/entity_3d.hpp"
 
 
 namespace engine
@@ -18,4 +18,4 @@ private:
 	GLfloat m_width, m_length;
 };
 
-#endif /* PLANE_H_ */
+#endif /* PLANE_HPP_ */
