@@ -41,6 +41,7 @@
     <ClCompile Include="..\engine\renderers\scene_2d.cpp" />
     <ClCompile Include="..\engine\renderers\scene_3d.cpp" />
     <ClCompile Include="..\engine\shaders\fragment_shader.cpp" />
+    <ClCompile Include="..\engine\shaders\preprocessor.cpp" />
     <ClCompile Include="..\engine\shaders\shader.cpp" />
     <ClCompile Include="..\engine\shaders\shader_program.cpp" />
     <ClCompile Include="..\engine\shaders\vertex_shader.cpp" />
@@ -50,7 +51,9 @@
     <ClInclude Include="..\engine\config.hpp" />
     <ClInclude Include="..\engine\exceptions\file_not_found_exception.hpp" />
     <ClInclude Include="..\engine\exceptions\file_type_not_supported_exception.hpp" />
+    <ClInclude Include="..\engine\exceptions\glsl_syntax_error_exception.hpp" />
     <ClInclude Include="..\engine\exceptions\initialization_failed_exception.hpp" />
+    <ClInclude Include="..\engine\exceptions\light_limit_reached_exception.hpp" />
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.hpp" />
     <ClInclude Include="..\engine\exceptions\shader_link_exception.hpp" />
     <ClInclude Include="..\engine\exceptions\unknown_file_type_exception.hpp" />
@@ -74,6 +77,7 @@
     <ClInclude Include="..\engine\renderers\scene_2d.hpp" />
     <ClInclude Include="..\engine\renderers\scene_3d.hpp" />
     <ClInclude Include="..\engine\shaders\fragment_shader.hpp" />
+    <ClInclude Include="..\engine\shaders\preprocessor.hpp" />
     <ClInclude Include="..\engine\shaders\shader.hpp" />
     <ClInclude Include="..\engine\shaders\shader_program.hpp" />
     <ClInclude Include="..\engine\shaders\vertex_shader.hpp" />
@@ -81,6 +85,8 @@
   <ItemGroup>
     <None Include="..\engine\glsl\2d\basic_fs.glsl" />
     <None Include="..\engine\glsl\2d\basic_vs.glsl" />
+    <None Include="..\engine\glsl\3d\globals.glsl" />
+    <None Include="..\engine\glsl\3d\lights.glsl" />
     <None Include="..\engine\glsl\3d\phong_fs.glsl" />
     <None Include="..\engine\glsl\3d\phong_vs.glsl" />
   </ItemGroup>

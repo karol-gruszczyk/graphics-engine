@@ -1,4 +1,5 @@
 #include "scene_3d.hpp"
+#include "../glsl/3d/globals.glsl"
 
 using engine::Scene3D;
 using engine::Entity3D;
@@ -16,16 +17,22 @@ void engine::Scene3D::setCamera(Camera* camera)
 
 void engine::Scene3D::addLight(DirectionalLight* directional_light)
 {
+	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
+		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
 	m_directional_lights.push_back(directional_light);
 }
 
 void engine::Scene3D::addLight(PointLight* point_light)
 {
+	if (m_directional_lights.size() == MAX_POINT_LIGHTS)
+		throw LightLimitReachedException("point", MAX_POINT_LIGHTS);
 	m_point_lights.push_back(point_light);
 }
 
 void engine::Scene3D::addLight(SpotLight* spot_light)
 {
+	if (m_directional_lights.size() == MAX_SPOT_LIGHTS)
+		throw LightLimitReachedException("spot", MAX_SPOT_LIGHTS);
 	m_spot_lights.push_back(spot_light);
 }
 

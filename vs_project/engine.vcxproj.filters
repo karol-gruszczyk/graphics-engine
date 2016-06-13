@@ -138,6 +138,9 @@
     <ClCompile Include="..\engine\materials\image_loader.cpp">
       <Filter>Source Files\materials</Filter>
     </ClCompile>
+    <ClCompile Include="..\engine\shaders\preprocessor.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\engine\exceptions\shader_compile_exception.hpp">
@@ -233,6 +236,15 @@
     <ClInclude Include="..\engine\materials\image_loader.hpp">
       <Filter>Header Files\materials</Filter>
     </ClInclude>
+    <ClInclude Include="..\engine\shaders\preprocessor.hpp">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\exceptions\glsl_syntax_error_exception.hpp">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\engine\exceptions\light_limit_reached_exception.hpp">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\engine\glsl\2d\basic_fs.glsl">
@@ -245,6 +257,12 @@
       <Filter>GLSL shaders\3d</Filter>
     </None>
     <None Include="..\engine\glsl\3d\phong_vs.glsl">
+      <Filter>GLSL shaders\3d</Filter>
+    </None>
+    <None Include="..\engine\glsl\3d\lights.glsl">
+      <Filter>GLSL shaders\3d</Filter>
+    </None>
+    <None Include="..\engine\glsl\3d\globals.glsl">
       <Filter>GLSL shaders\3d</Filter>
     </None>
   </ItemGroup>

@@ -4,18 +4,12 @@
 #include <boost/filesystem/operations.hpp>
 
 using engine::Shader;
+using engine::Preprocessor;
 
 
 Shader::Shader(boost::filesystem::path path, GLenum type)
 {
-	std::ifstream file;
-	file.exceptions(std::ifstream::badbit);
-	file.open(path.c_str(), std::ios::in);
-	if (!file.good())
-		throw FileNotFoundException(path);
-
-	std::string shader_code((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-	file.close();
+	std::string shader_code(openShaderFile(path));
 
 	const GLchar* const gl_shader_code = shader_code.c_str();
 	m_shader_id = glCreateShader(type);
@@ -47,4 +41,10 @@ Shader::Shader(boost::filesystem::path path, GLenum type)
 Shader::~Shader()
 {
 	glDeleteShader(m_shader_id);
+}
+
+std::string Shader::openShaderFile(boost::filesystem::path path)
+{
+	Preprocessor preprocessor(path);
+	return preprocessor.getSourceCode();
 }

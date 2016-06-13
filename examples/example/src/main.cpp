@@ -138,9 +138,17 @@ void init()
 		renderer2d = new engine::Renderer2D(window_width, window_height);
 		renderer3d = new engine::Renderer3D(window_width, window_height);
 	}
+	catch (engine::GLSLSyntaxErrorException&)
+	{
+		window.showConsole();
+		std::cout << "Shader failed to compile, check logs for errors. Press any key to exit." << std::endl;
+		std::cin.get();
+		exit(EXIT_FAILURE);
+	}
 	catch (engine::ShaderCompileException&)
 	{
 		window.showConsole();
+		std::cout << "Shader failed to compile, check logs for errors. Press any key to exit." << std::endl;
 		std::cin.get();
 		exit(EXIT_FAILURE);
 	}

@@ -1,14 +1,16 @@
 #include "preprocessor.hpp"
+#include "../config.hpp"
 #include <fstream>
 #include <sstream>
 
 using engine::Preprocessor;
+using engine::Config;
 
 
 Preprocessor::Preprocessor(boost::filesystem::path path)
 {
 	m_source_code = getFileContent(path);
-	parseIncludes(path.parent_path());
+	parseIncludes(path);
 }
 
 std::string& Preprocessor::getSourceCode()
@@ -16,25 +18,22 @@ std::string& Preprocessor::getSourceCode()
 	return m_source_code;
 }
 
-void Preprocessor::parseIncludes(boost::filesystem::path directory)
+void Preprocessor::parseIncludes(boost::filesystem::path current_file)
 {
 	std::size_t position(0);
-	while (auto position = m_source_code.find("#include", position) != std::string::npos)
+	while ((position = m_source_code.find("#include")) != std::string::npos)
 	{
-		auto start = line.find('"', position);
-		auto end = line.find('"', start + 1);
-		if (start == std::string::npos || end != std::string::npos)
+		auto start = m_source_code.find('"', position);
+		auto end = m_source_code.find('"', start + 1);
+		auto line_end = m_source_code.find('\n', start + 1);
+		if (start == std::string::npos || end == std::string::npos || end >= line_end)
 		{
-			// unexpected end of string
+			auto exception = GLSLSyntaxErrorException(current_file, m_source_code.substr(position, line_end - position));
+			Config::getInstance().log(exception.what(), Config::ERROR);
+			throw exception;
 		}
-		auto filename = line.substr(start + 1, end - start);
-		if (filename.size())
-			m_source_code.replace(position, end - position, getFileContent(directory / filename));
-		else
-		{
-			// empty filename
-		}
-		position = end;
+		auto filename = m_source_code.substr(start + 1, end - start - 1);
+		m_source_code.replace(position, end - position + 1, getFileContent(current_file.parent_path() / filename));
 	}
 }
 

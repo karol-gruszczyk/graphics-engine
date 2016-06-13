@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
+#include "preprocessor.hpp"
 #include "../exceptions/shader_compile_exception.hpp"
 #include "../exceptions/file_not_found_exception.hpp"
 
@@ -20,6 +21,8 @@ public:
 	virtual ~Shader();
 protected:
 	GLuint m_shader_id;
+
+	std::string openShaderFile(boost::filesystem::path path);
 };
 
 #endif /* SHADER_HPP_ */

@@ -3,6 +3,8 @@
 
 #include <string>
 #include <boost/filesystem/path.hpp>
+#include "../exceptions/file_not_found_exception.hpp"
+#include "../exceptions/glsl_syntax_error_exception.hpp"
 
 
 namespace engine
@@ -19,8 +21,8 @@ public:
 private:
 	std::string m_source_code;
 
-	void parseIncludes(boost::filesystem::path directory);
+	void parseIncludes(boost::filesystem::path current_file);
 	std::string getFileContent(boost::filesystem::path path);
-}
+};
 
 #endif /* PREPROCESSOR_HPP_ */

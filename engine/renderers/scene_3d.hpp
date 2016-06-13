@@ -7,6 +7,7 @@
 #include "../lights/directional_light.hpp"
 #include "../lights/point_light.hpp"
 #include "../lights/spot_light.hpp"
+#include "../exceptions/light_limit_reached_exception.hpp"
 
 
 namespace engine
