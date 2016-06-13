@@ -5,7 +5,7 @@
 using engine::Texture;
 
 
-Texture::Texture(boost::filesystem::path path)
+Texture::Texture(const boost::filesystem::path& path)
 {
 	loadFromFile(path);
 }
@@ -21,20 +21,20 @@ Texture::~Texture()
 		glDeleteTextures(1, &m_texture_id);
 }
 
-void Texture::loadFromFile(boost::filesystem::path path)
+void Texture::loadFromFile(const boost::filesystem::path& path)
 {
 	ImageLoader image(path);
 
 	loadFromMemory(image.getWidth(), image.getHeight(), image.getPixels(), GL_RGBA, GL_BGRA, true, boost::filesystem::canonical(path).string());
 }
 
-void Texture::bind(unsigned short texture_level /* = 0 */)
+void Texture::bind(unsigned short texture_level /*= 0*/) const
 {
 	glActiveTexture(GL_TEXTURE0 + texture_level);
 	glBindTexture(GL_TEXTURE_2D, m_texture_id);
 }
 
-void Texture::unbind()
+void Texture::unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D, NULL);
 }

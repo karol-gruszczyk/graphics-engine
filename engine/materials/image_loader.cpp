@@ -10,13 +10,13 @@ ImageLoader::ImageLoader()
 	getGlobalInstance();
 }
 
-ImageLoader::ImageLoader(boost::filesystem::path path)
+ImageLoader::ImageLoader(const boost::filesystem::path& path)
 	: ImageLoader()
 {
 	open(path);
 }
 
-ImageLoader::ImageLoader(bool global_instance)
+ImageLoader::ImageLoader(const bool& global_instance)
 	: m_is_global(true)
 {
 	FreeImage_Initialise();
@@ -35,7 +35,7 @@ ImageLoader::~ImageLoader()
 	}
 }
 
-void ImageLoader::open(boost::filesystem::path path)
+void ImageLoader::open(const boost::filesystem::path& path)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -70,22 +70,22 @@ ImageLoader& ImageLoader::getGlobalInstance()
 	return instance;
 }
 
-unsigned ImageLoader::getWidth()
+unsigned ImageLoader::getWidth() const
 {
 	return m_width;
 }
 
-unsigned ImageLoader::getHeight()
+unsigned ImageLoader::getHeight() const
 {
 	return m_height;
 }
 
-unsigned char* ImageLoader::getPixels()
+unsigned char* ImageLoader::getPixels() const
 {
 	return m_pixels;
 }
 
-unsigned ImageLoader::getSize()
+unsigned ImageLoader::getSize() const
 {
 	return 4 * m_width * m_height;
 }

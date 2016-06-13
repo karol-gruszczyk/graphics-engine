@@ -14,7 +14,7 @@ void Scene2D::addEntity(Entity2D* entity)
 	m_entities.push_back(entity);
 }
 
-void Scene2D::render()
+void Scene2D::render() const
 {
 	glDisable(GL_DEPTH_TEST);
 	Scene::render();

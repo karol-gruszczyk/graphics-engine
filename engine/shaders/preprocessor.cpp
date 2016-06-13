@@ -7,18 +7,18 @@ using engine::Preprocessor;
 using engine::Config;
 
 
-Preprocessor::Preprocessor(boost::filesystem::path path)
+Preprocessor::Preprocessor(const boost::filesystem::path& path)
 {
 	m_source_code = getFileContent(path);
 	parseIncludes(path);
 }
 
-std::string& Preprocessor::getSourceCode()
+std::string Preprocessor::getSourceCode() const
 {
 	return m_source_code;
 }
 
-void Preprocessor::parseIncludes(boost::filesystem::path current_file)
+void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 {
 	std::size_t position(0);
 	while ((position = m_source_code.find("#include")) != std::string::npos)
@@ -37,7 +37,7 @@ void Preprocessor::parseIncludes(boost::filesystem::path current_file)
 	}
 }
 
-std::string Preprocessor::getFileContent(boost::filesystem::path path)
+std::string Preprocessor::getFileContent(const boost::filesystem::path& path) const
 {
 	std::ifstream file;
 	file.exceptions(std::ifstream::badbit);

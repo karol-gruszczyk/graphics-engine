@@ -12,11 +12,11 @@ namespace engine
 class engine::Renderer3D : public Renderer
 {
 public:
-	Renderer3D(unsigned context_width, unsigned context_height);
+	Renderer3D(const unsigned& context_width, const unsigned& context_height);
 
-	virtual void setContextWidth(unsigned context_width, unsigned context_height) override;
+	virtual void setContextWidth(const unsigned& context_width, const unsigned& context_height) override;
 	void setFieldOfView(GLfloat fov);
-	GLfloat getFieldOfView();
+	GLfloat getFieldOfView() const;
 private:
 	GLfloat m_field_of_view = 45.f;
 

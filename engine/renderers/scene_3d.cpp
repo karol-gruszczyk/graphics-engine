@@ -41,7 +41,7 @@ void Scene3D::addEntity(Entity3D* entity)
 	m_entities.push_back(entity);
 }
 
-void Scene3D::render()
+void Scene3D::render() const
 {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

@@ -16,14 +16,14 @@ Entity::~Entity()
 		glDeleteBuffers(1, &vbo);
 }
 
-void Entity::render()
+void Entity::render() const
 {
 	glBindVertexArray(m_vao_id);
 	glDrawElements(m_draw_mode, m_elements_size, m_elements_type, nullptr);
 	glBindVertexArray(NULL);
 }
 
-glm::mat4& Entity::getModelMatrix()
+const glm::mat4& Entity::getModelMatrix() const
 {
 	return m_model_matrix;
 }

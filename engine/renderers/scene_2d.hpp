@@ -16,7 +16,7 @@ public:
 	Scene2D(Renderer* renderer);
 
 	void addEntity(Entity2D* entity);
-	void render() override;
+	void render() const override;
 private:
 	std::list<Entity2D*> m_entities;
 };

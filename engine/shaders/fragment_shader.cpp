@@ -3,6 +3,6 @@
 using engine::FragmentShader;
 
 
-FragmentShader::FragmentShader(boost::filesystem::path path)
+FragmentShader::FragmentShader(const boost::filesystem::path& path)
 	: Shader(path, GL_FRAGMENT_SHADER)
 {}

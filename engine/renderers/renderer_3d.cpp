@@ -4,13 +4,13 @@
 using engine::Renderer3D;
 
 
-Renderer3D::Renderer3D(unsigned context_width, unsigned context_height)
+Renderer3D::Renderer3D(const unsigned& context_width, const unsigned& context_height)
 {
 	loadShader();
 	setContextWidth(context_width, context_height);
 }
 
-void engine::Renderer3D::setContextWidth(unsigned context_width, unsigned context_height)
+void engine::Renderer3D::setContextWidth(const unsigned& context_width, const unsigned& context_height)
 {
 	Renderer::setContextWidth(context_width, context_height);
 	updateProjectionMatrix();
@@ -22,7 +22,7 @@ void engine::Renderer3D::setFieldOfView(GLfloat fov)
 	updateProjectionMatrix();
 }
 
-GLfloat engine::Renderer3D::getFieldOfView()
+GLfloat engine::Renderer3D::getFieldOfView() const
 {
 	return m_field_of_view;
 }

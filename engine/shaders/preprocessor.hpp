@@ -15,14 +15,14 @@ namespace engine
 class engine::Preprocessor
 {
 public:
-	Preprocessor(boost::filesystem::path path);
+	Preprocessor(const boost::filesystem::path& path);
 
-	std::string& getSourceCode();
+	std::string getSourceCode() const;
 private:
 	std::string m_source_code;
 
-	void parseIncludes(boost::filesystem::path current_file);
-	std::string getFileContent(boost::filesystem::path path);
+	void parseIncludes(const boost::filesystem::path& current_file);
+	std::string getFileContent(const boost::filesystem::path& path) const;
 };
 
 #endif /* PREPROCESSOR_HPP_ */

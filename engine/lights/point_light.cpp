@@ -3,26 +3,26 @@
 using engine::PointLight;
 
 
-PointLight::PointLight(glm::vec3 position, float range, glm::vec3 color /* = { 1.f, 1.f, 1.f } */, bool active /* = true */)
+PointLight::PointLight(const glm::vec3& position, const float& range, const glm::vec3& color /* = { 1.f, 1.f, 1.f } */, const bool& active /* = true */)
 	: Light(color, active), m_position(position), m_range(range)
 {}
 
-void PointLight::setPosition(glm::vec3 position)
+void PointLight::setPosition(const glm::vec3& position)
 {
 	m_position = position;
 }
 
-glm::vec3 PointLight::getPosition()
+const glm::vec3& PointLight::getPosition() const
 {
 	return m_position;
 }
 
-void PointLight::setRange(float range)
+void PointLight::setRange(const float& range)
 {
 	m_range = range;
 }
 
-float PointLight::getRange()
+float PointLight::getRange() const
 {
 	return m_range;
 }

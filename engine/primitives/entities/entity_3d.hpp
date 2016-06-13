@@ -13,23 +13,23 @@ namespace engine
 class engine::Entity3D abstract : public Entity
 {
 public:
-	Entity3D(glm::vec3 position, glm::vec3 rotation = { 0.f, 0.f, 0.f }, glm::vec3 scale = { 1.f, 1.f, 1.f }, glm::vec3 pivot = { 0.f, 0.f, 0.f });
+	Entity3D(const glm::vec3& position, const glm::vec3& rotation = { 0.f, 0.f, 0.f }, const glm::vec3& scale = { 1.f, 1.f, 1.f }, const glm::vec3& pivot = { 0.f, 0.f, 0.f });
 	virtual ~Entity3D();
 
-	void translate(glm::vec3 position);
-	void setPosition(glm::vec3 position);
-	void rotate(glm::vec3 rotation);
-	glm::vec3 getPosition();
-	void setRotation(glm::vec3 rotation);
-	glm::vec3 getRotation();
-	void setScale(glm::vec3 scale);
-	glm::vec3 getScale();
-	void setPivot(glm::vec3 pivot);
-	glm::vec3 getPivot();
+	void translate(const glm::vec3& position);
+	void setPosition(const glm::vec3& position);
+	const glm::vec3& getPosition() const;
+	void rotate(const glm::vec3& rotation);
+	void setRotation(const glm::vec3& rotation);
+	const glm::vec3& getRotation() const;
+	void setScale(const glm::vec3& scale);
+	const glm::vec3& getScale() const;
+	void setPivot(const glm::vec3& pivot);
+	const glm::vec3& getPivot() const;
 
-	glm::mat3 getNormalMatrix();
+	glm::mat3 getNormalMatrix() const;
 	void setMaterial(Material* material);
-	void render() override;
+	void render() const override;
 protected:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;

@@ -7,7 +7,7 @@ using engine::Shader;
 using engine::Preprocessor;
 
 
-Shader::Shader(boost::filesystem::path path, GLenum type)
+Shader::Shader(const boost::filesystem::path& path, const GLenum& type)
 {
 	std::string shader_code(openShaderFile(path));
 
@@ -43,7 +43,7 @@ Shader::~Shader()
 	glDeleteShader(m_shader_id);
 }
 
-std::string Shader::openShaderFile(boost::filesystem::path path)
+std::string Shader::openShaderFile(const boost::filesystem::path& path) const
 {
 	Preprocessor preprocessor(path);
 	return preprocessor.getSourceCode();

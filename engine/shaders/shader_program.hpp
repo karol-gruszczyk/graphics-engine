@@ -15,16 +15,16 @@ namespace engine
 class engine::ShaderProgram final
 {
 public:
-	ShaderProgram(std::initializer_list<Shader*> shaders);
+	ShaderProgram(const std::initializer_list<Shader*>& shaders);
 	~ShaderProgram();
 
-	void bind();
-	void unbind();
-	void setUniformFloat(std::string uniform_name, float value);
-	void setUniformUint(std::string uniform_name, unsigned value);
-	void setUniformVector3(std::string uniform_name, glm::vec3 vector);
-	void setUniformMatrix3(std::string uniform_name, glm::mat3 matrix);
-	void setUniformMatrix4(std::string uniform_name, glm::mat4 matrix);
+	void bind() const;
+	void unbind() const;
+	void setUniformFloat(const std::string& uniform_name, const float& value) const;
+	void setUniformUint(const std::string& uniform_name, const unsigned& value) const;
+	void setUniformVector3(const std::string& uniform_name, const glm::vec3& vector) const;
+	void setUniformMatrix3(const std::string& uniform_name, const glm::mat3& matrix) const;
+	void setUniformMatrix4(const std::string& uniform_name, const glm::mat4& matrix) const;
 private:
 	GLuint m_shader_program_id;
 	bool m_shader_program_created;

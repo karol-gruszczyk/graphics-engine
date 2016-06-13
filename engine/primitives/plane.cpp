@@ -3,8 +3,8 @@
 using engine::Plane;
 
 
-Plane::Plane(glm::vec2 size, glm::vec3 position /* = { 0.f, 0.f, 0.f } */, unsigned tile /* = 1 */, 
-	glm::vec3 rotation /* = { 0.f, 0.f, 0.f } */, glm::vec3 scale /* = { 1.f, 1.f, 1.f } */, glm::vec3 pivot /* = { 0.f, 0.f, 0.f } */)
+Plane::Plane(const glm::vec2& size, const glm::vec3& position /* = { 0.f, 0.f, 0.f } */, const unsigned& tile /* = 1 */,
+	const glm::vec3& rotation /* = { 0.f, 0.f, 0.f } */, const glm::vec3& scale /* = { 1.f, 1.f, 1.f } */, const glm::vec3& pivot /* = { 0.f, 0.f, 0.f } */)
 	: Entity3D(position, rotation, scale, pivot),
 	m_width(size.x), m_length(size.y)
 {

@@ -12,12 +12,12 @@ namespace engine
 class engine::Light abstract
 {
 public:
-	Light(glm::vec3 color = { 1.f, 1.f, 1.f }, bool active = true);
+	Light(const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);
 
-	void setColor(glm::vec3 color);
-	glm::vec3 getColor();
-	void setActive(bool active);
-	bool isActive();
+	void setColor(const glm::vec3& color);
+	const glm::vec3& getColor() const;
+	void setActive(const bool& active);
+	bool isActive() const;
 protected:
 	glm::vec3 m_color;
 	bool m_active;

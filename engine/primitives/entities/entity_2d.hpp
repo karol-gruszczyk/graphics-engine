@@ -13,18 +13,18 @@ namespace engine
 class engine::Entity2D abstract : public Entity
 {
 public:
-	Entity2D(glm::vec2 position, GLfloat rotation = 0.f, glm::vec2 scale = { 1.f, 1.f }, glm::vec2 pivot = { 0.f, 0.f });
+	Entity2D(const glm::vec2& position, const GLfloat& rotation = 0.f, const glm::vec2& scale = { 1.f, 1.f }, const glm::vec2& pivot = { 0.f, 0.f });
 
-	void translate(glm::vec2 position);
-	void setPosition(glm::vec2 position);
-	glm::vec2 getPosition();
-	void rotate(GLfloat rotation);
-	void setRotation(GLfloat rotation);
-	GLfloat getRotation();
-	void setScale(glm::vec2 scale);
-	glm::vec2 getScale();
-	void setPivot(glm::vec2 pivot);
-	glm::vec2 getPivot();
+	void translate(const glm::vec2& position);
+	void setPosition(const glm::vec2& position);
+	const glm::vec2& getPosition() const;
+	void rotate(const GLfloat& rotation);
+	void setRotation(const GLfloat& rotation);
+	GLfloat getRotation() const;
+	void setScale(const glm::vec2& scale);
+	const glm::vec2& getScale() const;
+	void setPivot(const glm::vec2& pivot);
+	const glm::vec2& getPivot() const;
 protected:
 	glm::vec2 m_position;
 	GLfloat m_rotation;

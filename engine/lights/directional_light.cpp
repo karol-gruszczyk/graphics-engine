@@ -3,16 +3,16 @@
 using engine::DirectionalLight;
 
 
-DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color /* = { 1.f, 1.f, 1.f } */, bool active /* = true */)
+DirectionalLight::DirectionalLight(const glm::vec3& direction, const glm::vec3& color /* = { 1.f, 1.f, 1.f } */, const bool& active /* = true */)
 	: Light(color, active), m_direction(direction)
 {}
 
-void DirectionalLight::setDirection(glm::vec3 direction)
+void DirectionalLight::setDirection(const glm::vec3& direction)
 {
 	m_direction = glm::normalize(direction);
 }
 
-glm::vec3 DirectionalLight::getDirection()
+const glm::vec3& DirectionalLight::getDirection() const
 {
 	return m_direction;
 }

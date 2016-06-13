@@ -17,16 +17,16 @@ public:
 	Material(ShaderProgram* shader);
 	~Material();
 
-	void setAmbient(glm::vec3 color);
+	void setAmbient(const glm::vec3& color);
 	void setAmbient(Texture* texture);
-	void setDiffuse(glm::vec3 color);
+	void setDiffuse(const glm::vec3& color);
 	void setDiffuse(Texture* texture);
-	void setSpecular(glm::vec3 color);
+	void setSpecular(const glm::vec3& color);
 	void setSpecular(Texture* texture);
-	void setShininess(float shininess);
+	void setShininess(const float& shininess);
 
-	void bind();
-	void unbind();
+	void bind() const;
+	void unbind() const;
 private:
 	ShaderProgram* m_shader;
 

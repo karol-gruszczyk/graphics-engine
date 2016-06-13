@@ -6,7 +6,7 @@ using engine::ShaderProgram;
 using engine::Shader;
 
 
-ShaderProgram::ShaderProgram(std::initializer_list<Shader*> shaders)
+ShaderProgram::ShaderProgram(const std::initializer_list<Shader*>& shaders)
 {
 	m_shader_program_id = glCreateProgram();
 	m_shader_program_created = true;
@@ -43,24 +43,24 @@ ShaderProgram::~ShaderProgram()
 		glDeleteProgram(m_shader_program_id);
 }
 
-void ShaderProgram::bind()
+void ShaderProgram::bind() const
 {
 	glUseProgram(m_shader_program_id);
 }
 
-void ShaderProgram::unbind()
+void ShaderProgram::unbind() const
 {
 	glUseProgram(NULL);
 }
 
-void ShaderProgram::setUniformUint(std::string uniform_name, unsigned value)
+void ShaderProgram::setUniformUint(const std::string& uniform_name, const unsigned& value) const
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
 	glUniform1ui(location, value);
 }
 
-void ShaderProgram::setUniformFloat(std::string uniform_name, float value)
+void ShaderProgram::setUniformFloat(const std::string& uniform_name, const float& value) const
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
@@ -68,7 +68,7 @@ void ShaderProgram::setUniformFloat(std::string uniform_name, float value)
 	glUniform1f(location, value);
 }
 
-void ShaderProgram::setUniformVector3(std::string uniform_name, glm::vec3 vector)
+void ShaderProgram::setUniformVector3(const std::string& uniform_name, const glm::vec3& vector) const
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
@@ -76,7 +76,7 @@ void ShaderProgram::setUniformVector3(std::string uniform_name, glm::vec3 vector
 	glUniform3fv(location, 1, glm::value_ptr(vector));
 }
 
-void ShaderProgram::setUniformMatrix3(std::string uniform_name, glm::mat3 matrix)
+void ShaderProgram::setUniformMatrix3(const std::string& uniform_name, const glm::mat3& matrix) const
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
@@ -84,7 +84,7 @@ void ShaderProgram::setUniformMatrix3(std::string uniform_name, glm::mat3 matrix
 	glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void ShaderProgram::setUniformMatrix4(std::string uniform_name, glm::mat4 matrix)
+void ShaderProgram::setUniformMatrix4(const std::string& uniform_name, const glm::mat4& matrix) const
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());

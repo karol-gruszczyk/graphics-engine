@@ -18,20 +18,20 @@ public:
 
 	static Config& getInstance();
 
-	void setShaderPath(boost::filesystem::path path);
-	boost::filesystem::path getShaderPath();
-	void initializeLogger(boost::filesystem::path path = "");
+	void setShaderPath(const boost::filesystem::path& path);
+	const boost::filesystem::path& getShaderPath() const;
+	void initializeLogger(const boost::filesystem::path& path = "");
 	void initializeLogger(std::streambuf* ostream);
-	void log(std::string info_log, LogLevel log_level = INFO);
-	void logErrors();
+	void log(const std::string& info_log, const LogLevel& log_level = INFO) const;
+	void logErrors() const;
 private:
 	Config();
 	Config(const Config&) = delete;
 	Config& operator=(const Config&) = delete;
 	~Config();
 
-	void logEngineInitial();
-	std::string logLevelToString(LogLevel log_level);
+	void logEngineInitial() const;
+	const std::string logLevelToString(const LogLevel& log_level) const;
 
 	boost::filesystem::path m_working_dir;
 	boost::filesystem::path m_shader_path;

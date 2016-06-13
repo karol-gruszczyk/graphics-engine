@@ -15,12 +15,12 @@ void Scene::setRenderer(Renderer* renderer)
 	m_renderer = renderer;
 }
 
-void Scene::render()
+void Scene::render() const
 {
 	m_renderer->m_shader_program->bind();
 }
 
-ShaderProgram* Scene::getShaderProgram()
+ShaderProgram* Scene::getShaderProgram() const
 {
 	return m_renderer->m_shader_program.get();
 }

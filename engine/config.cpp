@@ -23,27 +23,28 @@ Config& Config::getInstance()
 	return instance;
 }
 
-void Config::setShaderPath(boost::filesystem::path path)
+void Config::setShaderPath(const boost::filesystem::path& path)
 {
 	getInstance().m_shader_path = path;
 }
 
-boost::filesystem::path Config::getShaderPath()
+const boost::filesystem::path& Config::getShaderPath() const
 {
 	return getInstance().m_shader_path;
 }
 
-void Config::initializeLogger(boost::filesystem::path path /* = "" */)
+void Config::initializeLogger(const boost::filesystem::path& path /* = "" */)
 {
 	if (m_logger_file)
 	{
 		m_logger_file->close();
 		m_logger_file.reset();
 	}
-	if (path.empty())
-		path = m_working_dir / "log.txt";
 	m_logger_file = std::make_unique<std::ofstream>();
-	m_logger_file->open(path.c_str(), std::ios::out);
+	if (path.empty())
+		m_logger_file->open((m_working_dir / "log.txt").c_str(), std::ios::out);
+	else
+		m_logger_file->open(path.c_str(), std::ios::out);
 	if (m_logger_file->good())
 	{
 		m_logger = std::make_unique<std::ostream>(m_logger_file->rdbuf());
@@ -57,20 +58,20 @@ void Config::initializeLogger(std::streambuf* ostream)
 	logEngineInitial();
 }
 
-void Config::log(std::string info_log, LogLevel log_level /* = INFO */)
+void Config::log(const std::string& info_log, const LogLevel& log_level /*= INFO*/) const
 {
 	if (m_logger)
 		*m_logger << logLevelToString(log_level) << info_log << std::endl;
 }
 
-void Config::logEngineInitial()
+void Config::logEngineInitial() const
 {
 	log(std::string("Using OpenGL ") + (char*)glGetString(GL_VERSION));
 	log(std::string("OpenGL Shading Language version: ") + (char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
 	log(std::string("Graphics card: ") + (char*)glGetString(GL_VENDOR) + " " + (char*)glGetString(GL_RENDERER));
 }
 
-std::string Config::logLevelToString(LogLevel log_level)
+const std::string Config::logLevelToString(const LogLevel& log_level) const
 {
 	switch (log_level)
 	{
@@ -87,7 +88,7 @@ std::string Config::logLevelToString(LogLevel log_level)
 	}
 }
 
-void Config::logErrors()
+void Config::logErrors() const
 {
 	GLenum error;
 	while ((error = glGetError()) != GL_NO_ERROR)

@@ -4,7 +4,7 @@
 using engine::Renderer2D;
 
 
-Renderer2D::Renderer2D(unsigned context_width, unsigned context_height)
+Renderer2D::Renderer2D(const unsigned& context_width, const  unsigned& context_height)
 {
 	loadShader();
 	setContextWidth(context_width, context_height);
@@ -25,7 +25,7 @@ void Renderer2D::loadShader()
 	m_shader_program = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>({ m_vertex_shader.get(), m_fragment_shader.get() }));
 }
 
-void Renderer2D::setContextWidth(unsigned context_width, unsigned context_height)
+void Renderer2D::setContextWidth(const unsigned& context_width, const unsigned& context_height)
 {
 	Renderer::setContextWidth(context_width, context_height);
 	updateProjectionMatrix();

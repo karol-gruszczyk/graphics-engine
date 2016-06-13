@@ -25,7 +25,7 @@ public:
 	void addLight(DirectionalLight* directional_light);
 	void addLight(PointLight* point_light);
 	void addLight(SpotLight* spot_light);
-	void render() override;
+	void render() const override;
 private:
 	Camera* m_camera_ptr;
 	std::list<Entity3D*> m_entities;

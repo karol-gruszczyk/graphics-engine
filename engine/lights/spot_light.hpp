@@ -12,14 +12,14 @@ namespace engine
 class engine::SpotLight final : public PointLight
 {
 public:
-	SpotLight(glm::vec3 position, glm::vec3 direction, float range, float inner_angle, float outer_angle, glm::vec3 color = { 1.f, 1.f, 1.f }, bool active = true);
+	SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range, const float& inner_angle, const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);
 
-	void setDirection(glm::vec3 direction);
-	glm::vec3 getDirection();
-	void setInnerAngle(float inner_angle);
-	float getInnerAngle();
-	void setOuterAngle(float outer_angle);
-	float getOuterAngle();
+	void setDirection(const glm::vec3& direction);
+	const glm::vec3& getDirection() const;
+	void setInnerAngle(const float& inner_angle);
+	float getInnerAngle() const;
+	void setOuterAngle(const float& outer_angle);
+	float getOuterAngle() const;
 private:
 	glm::vec3 m_direction;
 	float m_inner_angle, m_outer_angle;

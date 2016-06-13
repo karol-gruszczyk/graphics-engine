@@ -17,12 +17,12 @@ class engine::Shader abstract
 {
 	friend class ShaderProgram;
 public:
-	Shader(boost::filesystem::path path, GLenum type);
+	Shader(const boost::filesystem::path& path, const GLenum& type);
 	virtual ~Shader();
 protected:
 	GLuint m_shader_id;
 
-	std::string openShaderFile(boost::filesystem::path path);
+	std::string openShaderFile(const boost::filesystem::path& path) const;
 };
 
 #endif /* SHADER_HPP_ */

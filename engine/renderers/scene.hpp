@@ -17,11 +17,11 @@ public:
 	Scene(Renderer* renderer);
 
 	void setRenderer(Renderer* renderer);
-	virtual void render();
+	virtual void render() const;
 protected:
 	Renderer* m_renderer;
 
-	ShaderProgram* getShaderProgram();
+	ShaderProgram* getShaderProgram() const;
 };
 
 #endif /* SCENE_HPP_ */

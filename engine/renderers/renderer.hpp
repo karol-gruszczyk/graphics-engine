@@ -20,11 +20,11 @@ class engine::Renderer abstract
 public:
 	Renderer();
 
-	virtual void setContextWidth(unsigned context_width, unsigned context_height);
-	void clearScreen();
+	virtual void setContextWidth(const unsigned& context_width, const unsigned& context_height);
+	void clearScreen() const;
 
-	ShaderProgram* getShaderProgram();
-	glm::mat4& getProjectionMatrix();
+	ShaderProgram* getShaderProgram() const;
+	const glm::mat4& getProjectionMatrix() const;
 protected:
 	unsigned m_context_width, m_context_height;
 	glm::mat4 m_projection_matrix;

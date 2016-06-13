@@ -18,17 +18,17 @@ class engine::ImageLoader final
 {
 public:
 	ImageLoader();
-	ImageLoader(boost::filesystem::path path);
+	ImageLoader(const boost::filesystem::path& path);
 	~ImageLoader();
 
-	void open(boost::filesystem::path path);
-	unsigned getWidth();
-	unsigned getHeight();
-	unsigned char* getPixels();
-	unsigned getSize();
+	void open(const boost::filesystem::path& path);
+	unsigned getWidth() const;
+	unsigned getHeight() const;
+	unsigned char* getPixels() const;
+	unsigned getSize() const;
 	static ImageLoader& getGlobalInstance();
 private:
-	ImageLoader(bool global_instance);
+	ImageLoader(const bool& global_instance);
 	bool m_is_global;
 
 	FIBITMAP* m_bitmap;
