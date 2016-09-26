@@ -1,10 +1,8 @@
 # TODOS
 ## alpha 0.1.1
-* Rewrite object loading
+* Add object loading
 * Add materials
 * Implement materials to object loading
-* Organize dependencies(remove FreeImage from repo)
-* Add linux example
 
 ## alpha 1.1.2
 * Implement FreeType font loading

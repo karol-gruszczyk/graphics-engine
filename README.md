@@ -11,12 +11,16 @@ A modern OpenGL based graphics engine using modern C++14 with boost.
 * Boost
    * filesystem
 * FreeImage
+
+##### Ubuntu / Linux copy-paste
 ```bash
 sudo apt-get install libglew-dev libglm-dev libboost-filesystem-dev libfreeimage-dev
 ```
 
-#### Example
+#### Example program
 * FreeGLUT
+
+##### Ubuntu / Linux copy-paste
 ```bash
 sudo apt-get install freeglut3-dev libxmu-dev libxi-dev
 ```
