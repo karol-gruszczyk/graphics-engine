@@ -1,5 +1,0 @@
-#define MAX_DIR_LIGHTS 4
-#define MAX_POINT_LIGHTS 8
-#define MAX_SPOT_LIGHTS 8
-
-#define AMBIENT_STRENGTH 0.1f
