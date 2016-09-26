@@ -12,16 +12,6 @@ Material::Material(ShaderProgram* shader)
 Material::~Material()
 {}
 
-void Material::setAmbient(const glm::vec3& color)
-{
-	m_ambient_color = color;
-}
-
-void Material::setAmbient(Texture* texture)
-{
-	m_ambient_texture = texture;
-}
-
 void Material::setDiffuse(const glm::vec3& color)
 {
 	m_diffuse_color = color;
@@ -32,25 +22,24 @@ void Material::setDiffuse(Texture* texture)
 	m_diffuse_texture = texture;
 }
 
-void Material::setSpecular(const glm::vec3& color)
-{
-	m_specular_color = color;
-}
-
-void Material::setSpecular(Texture* texture)
-{
-	m_specular_texture = texture;
-}
-
 void Material::bind() const
 {
-	m_diffuse_texture->bind();
+	if (m_diffuse_texture)
+	{
+		m_shader->setUniformFloat("material.use_diffuse_texture", true);
+		m_diffuse_texture->bind();
+	}
+	else
+		m_shader->setUniformFloat("material.use_diffuse_texture", false);
+	m_shader->setUniformVector3("material.diffuse_color", m_diffuse_color);
 	m_shader->setUniformFloat("material.shininess", m_shininess);
 }
 
 void Material::unbind() const
 {
-
+	m_shader->setUniformFloat("material.use_diffuse_texture", false);
+	if (m_diffuse_texture)
+		m_diffuse_texture->unbind();
 }
 
 void engine::Material::setShininess(const float& shininess)

@@ -44,7 +44,7 @@ void Scene3D::addEntity(Entity3D* entity)
 void Scene3D::render() const
 {
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+//	glEnable(GL_CULL_FACE);
 	Scene::render();
 	
 	for (unsigned i = 0; i < m_directional_lights.size(); i++)

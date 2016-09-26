@@ -17,12 +17,8 @@ public:
 	Material(ShaderProgram* shader);
 	~Material();
 
-	void setAmbient(const glm::vec3& color);
-	void setAmbient(Texture* texture);
 	void setDiffuse(const glm::vec3& color);
 	void setDiffuse(Texture* texture);
-	void setSpecular(const glm::vec3& color);
-	void setSpecular(Texture* texture);
 	void setShininess(const float& shininess);
 
 	void bind() const;
@@ -30,12 +26,8 @@ public:
 private:
 	ShaderProgram* m_shader;
 
-	glm::vec3 m_ambient_color;
-	glm::vec3 m_diffuse_color;
-	glm::vec3 m_specular_color;
-	Texture* m_ambient_texture;
+	glm::vec3 m_diffuse_color = { 1.f, 1.f, 1.f };
 	Texture* m_diffuse_texture;
-	Texture* m_specular_texture;
 	float m_shininess;
 };
 

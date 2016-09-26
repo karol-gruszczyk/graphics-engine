@@ -19,7 +19,7 @@ Entity::~Entity()
 void Entity::render() const
 {
 	glBindVertexArray(m_vao_id);
-	glDrawElements(m_draw_mode, m_elements_size, m_elements_type, nullptr);
+	glDrawElements(m_draw_mode, m_indices_size, m_elements_type, nullptr);
 	glBindVertexArray(NULL);
 }
 
@@ -28,10 +28,10 @@ const glm::mat4& Entity::getModelMatrix() const
 	return m_model_matrix;
 }
 
-void Entity::setupRendering(GLenum draw_mode, GLuint elements_size, GLenum elements_type)
+void Entity::setupRendering(GLenum draw_mode, GLuint indices_size, GLenum elements_type)
 {
 	m_draw_mode = draw_mode;
-	m_elements_size = elements_size;
+	m_indices_size = indices_size;
 	m_elements_type = elements_type;
 }
 

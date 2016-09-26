@@ -21,7 +21,6 @@ public:
 	ImageLoader(const boost::filesystem::path& path);
 	~ImageLoader();
 
-	void open(const boost::filesystem::path& path);
 	unsigned getWidth() const;
 	unsigned getHeight() const;
 	unsigned char* getPixels() const;

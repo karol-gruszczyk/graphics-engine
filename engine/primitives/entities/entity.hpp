@@ -26,7 +26,7 @@ protected:
 	GLuint m_vao_id;
 	std::list<GLuint> m_vbos;
 	GLenum m_draw_mode;
-	GLuint m_elements_size;
+	GLuint m_indices_size;
 	GLenum m_elements_type;
 
 	glm::mat4 m_model_matrix;

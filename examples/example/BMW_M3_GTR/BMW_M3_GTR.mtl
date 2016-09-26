@@ -1,0 +1,173 @@
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+newmtl glas_head
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  0.3
+Ns  1.0
+illum 2
+#
+newmtl DRIVER
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.3
+illum 2
+map_Kd DRIVER.jpg
+#
+newmtl Interior
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  2.1
+illum 2
+map_Kd BMWM3GTR.jpg
+bump BMWM3GTR.jpg
+#
+newmtl Glass
+Ka  0.2 0.3 0.4
+Kd  0.2 0.3 0.4
+Ks  1.0 1.0 1.0
+d  0.5
+Ns  1.0
+illum 2
+#
+newmtl black
+Ka  0.1 0.1 0.1
+Kd  0.1 0.1 0.1
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.3
+illum 2
+#
+newmtl BRAKE_OF
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.1
+illum 2
+map_Kd BMWM3GTR.jpg
+#
+newmtl HEAD
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  1.0
+illum 2
+map_Kd BMWM3GTR.jpg
+#
+newmtl MISC
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.3
+illum 2
+map_Kd BMWM3GTR.jpg
+bump BMWM3GTR.jpg
+#
+newmtl blue1
+Ka  0.0 0.2 0.5
+Kd  0.0 0.2 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  1.0
+illum 2
+#
+newmtl Bottom
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.3
+illum 2
+map_Kd BOTTOM.jpg
+bump BOTTOM.jpg
+#
+newmtl BADGING
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  0.9
+illum 2
+map_Kd BMWM3GTR.jpg
+bump BMWM3GTR.jpg
+#
+newmtl Licens
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  2.7
+illum 2
+map_Kd LICENSE.psd
+#
+newmtl PSRTEST
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  1.0
+illum 2
+map_Kd BMWM3GTR.jpg
+#
+newmtl Chrome
+Ka  0.8 0.8 0.8
+Kd  0.8 0.8 0.8
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  2.1
+illum 2
+#
+newmtl white
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  1.0
+illum 2
+#
+newmtl BRAKDISC
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  2.5
+illum 2
+map_Kd BRAKDISC.jpg
+#
+newmtl Tread
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.3
+illum 2
+map_Kd TREAD_MI.jpg
+bump TREAD_MI.jpg
+#
+newmtl TIRE-chrome
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.2
+illum 2
+map_Kd BMWM3GTR.jpg
+#
+newmtl TIRE
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 1.0
+d  1.0
+Ns  3.3
+illum 2
+map_Kd BMWM3GTR.jpg
+#
+# EOF

@@ -20,6 +20,7 @@ public:
 
 	void bind() const;
 	void unbind() const;
+	void setUniformBool(const std::string& uniform_name, const bool& value) const;
 	void setUniformFloat(const std::string& uniform_name, const float& value) const;
 	void setUniformUint(const std::string& uniform_name, const unsigned& value) const;
 	void setUniformVector3(const std::string& uniform_name, const glm::vec3& vector) const;

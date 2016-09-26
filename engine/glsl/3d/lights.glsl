@@ -3,12 +3,9 @@
 
 struct Material
 {
-	vec3 ambient_color;
 	vec3 diffuse_color;
-	vec3 specular_color;
-	sampler2D ambient_texture;
+	bool use_diffuse_texture;
 	sampler2D diffuse_texture;
-	sampler2D specular_texture;
 	float shininess;
 };
 

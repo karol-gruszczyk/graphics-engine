@@ -8,6 +8,8 @@
 #include <engine/primitives/rectangle.hpp>
 #include <engine/primitives/plane.hpp>
 #include <engine/primitives/box.hpp>
+#include <engine/primitives/scene_loader.hpp>
+#include <engine/primitives/mesh.hpp>
 #include <engine/materials/texture.hpp>
 #include <engine/materials/material.hpp>
 #include "win_api_window.hpp"
@@ -28,6 +30,7 @@ engine::SpotLight* spot_light;
 engine::Rectangle* rect;
 engine::Plane* plane;
 engine::Box* box;
+engine::SceneLoader* scene_loader;
 engine::Material* box_material, *tile_material;
 engine::Texture* box_texture, *tile_texture;
 
@@ -107,6 +110,7 @@ void cleanup()
 	delete scene2d;
 	delete box;
 	delete plane;
+	delete scene_loader;
 	delete camera;
 	delete dir_light;
 	delete point_light;
@@ -190,7 +194,14 @@ void init()
 	spot_light = new engine::SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(5.f));
 	scene3d->addLight(dir_light);
 	scene3d->addLight(point_light);
-	scene3d->addLight(spot_light);
+	//scene3d->addLight(spot_light);
+
+	scene_loader = new engine::SceneLoader("BMW_M3_GTR\\BMW_M3_GTR.obj");
+	for (engine::Mesh* mesh : scene_loader->getMeshes())
+	{
+		mesh->setScale({ 0.001f, 0.001f, 0.001f });
+		scene3d->addEntity(mesh);
+	}
 
 	render();
 	engine::Config::getInstance().logErrors(); // checking if any errors were raised
