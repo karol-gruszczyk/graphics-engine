@@ -12,7 +12,6 @@
 #include <engine/primitives/rectangle.hpp>
 #include <engine/primitives/plane.hpp>
 #include <engine/primitives/box.hpp>
-#include <engine/primitives/scene_loader.hpp>
 #include <engine/primitives/mesh.hpp>
 #include <engine/materials/texture.hpp>
 #include <engine/materials/material.hpp>
@@ -35,7 +34,6 @@ engine::SpotLight* spot_light;
 engine::Rectangle* rect;
 engine::Plane* plane;
 engine::Box* box;
-engine::SceneLoader* scene_loader;
 engine::BasicMaterial* basic_tile_material;
 engine::Material* box_material, *tile_material;
 engine::Texture* box_texture, *tile_texture;
@@ -128,7 +126,6 @@ void cleanup()
     delete point_light;
     delete spot_light;
     delete scene3d;
-    delete scene_loader;
 }
 
 void keyboard(unsigned char key, int x, int y)
