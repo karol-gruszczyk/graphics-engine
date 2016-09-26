@@ -3,26 +3,14 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include <engine/renderers/renderer_2d.hpp>
-#include <engine/renderers/renderer_3d.hpp>
-#include <engine/renderers/scene_2d.hpp>
-#include <engine/renderers/scene_3d.hpp>
-#include <engine/camera.hpp>
-#include <engine/config.hpp>
-#include <engine/primitives/rectangle.hpp>
-#include <engine/primitives/plane.hpp>
-#include <engine/primitives/box.hpp>
-#include <engine/primitives/mesh.hpp>
-#include <engine/materials/texture.hpp>
-#include <engine/materials/material.hpp>
+#include <engine/engine2d.hpp>
+#include <engine/engine3d.hpp>
 
-int main_window;
 unsigned window_width = 800;
 unsigned window_height = 600;
 
 int last_frame_time;
 
-std::string gl_version;
 engine::Renderer2D* renderer2d;
 engine::Renderer3D* renderer3d;
 engine::Camera* camera;
@@ -216,7 +204,7 @@ int main(int argc, char **argv)
 
     glutInitWindowSize(window_width, window_height);
     glutInitWindowPosition(50, 50);
-    main_window = glutCreateWindow("");
+    glutCreateWindow("");
 
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();

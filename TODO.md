@@ -1,7 +1,10 @@
 # TODOS
 ## alpha 0.1.1
-* Add object loading
-* Add materials
+* ~~Add object loading~~
+* ~~Add materials~~
+* Implement global texture storage in Texture class:
+  * private Texture constructor
+  * public static method for loading
 * Implement materials to object loading
 
 ## alpha 1.1.2
