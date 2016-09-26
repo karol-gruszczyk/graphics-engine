@@ -28,7 +28,7 @@ public:
 	static ImageLoader& getGlobalInstance();
 private:
 	ImageLoader(const bool& global_instance);
-	bool m_is_global;
+	bool m_is_global = false;
 
 	FIBITMAP* m_bitmap;
 	unsigned m_width, m_height;

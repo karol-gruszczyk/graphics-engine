@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 2.8)
 
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
@@ -15,6 +15,9 @@ find_path(freeimage_INCLUDE_DIRS FreeImage.h)
 include_directories(${freeimage_INCLUDE_DIRS})
 find_library(freeimage_LIBRARIES freeimage)
 link_libraries(${freeimage_LIBRARIES})
+
+find_library(assimp_LIBRARIES assimp)
+link_libraries(${assimp_LIBRARIES})
 
 file(GLOB_RECURSE SOURCES *.cpp)
 

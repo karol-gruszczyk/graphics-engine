@@ -50,7 +50,7 @@ void ShaderProgram::bind() const
 
 void ShaderProgram::unbind() const
 {
-	glUseProgram(NULL);
+	glUseProgram(0);
 }
 
 void ShaderProgram::setUniformBool(const std::string& uniform_name, const bool& value) const

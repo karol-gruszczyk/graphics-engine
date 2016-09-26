@@ -12,6 +12,8 @@
 #include <engine/primitives/rectangle.hpp>
 #include <engine/primitives/plane.hpp>
 #include <engine/primitives/box.hpp>
+#include <engine/primitives/scene_loader.hpp>
+#include <engine/primitives/mesh.hpp>
 #include <engine/materials/texture.hpp>
 #include <engine/materials/material.hpp>
 
@@ -33,12 +35,16 @@ engine::SpotLight* spot_light;
 engine::Rectangle* rect;
 engine::Plane* plane;
 engine::Box* box;
+engine::SceneLoader* scene_loader;
 engine::Material* box_material, *tile_material;
 engine::Texture* box_texture, *tile_texture;
 
 float counter;
 bool button_pressed[128];
 int last_mouse_x, last_mouse_y;
+
+
+void draw();
 
 void resize(unsigned int width, unsigned int height)
 {
@@ -101,6 +107,15 @@ void setup()
     scene3d->addLight(dir_light);
     scene3d->addLight(point_light);
     scene3d->addLight(spot_light);
+
+    scene_loader = new engine::SceneLoader("res/cube.obj");
+    for (engine::Mesh* mesh : scene_loader->getMeshes())
+    {
+        scene3d->addEntity(mesh);
+    }
+
+    draw();
+    engine::Config::getInstance().logErrors(); // checking if any errors were raised
 }
 
 void cleanup()
@@ -116,11 +131,14 @@ void cleanup()
     delete point_light;
     delete spot_light;
     delete scene3d;
+    delete scene_loader;
 }
 
 void keyboard(unsigned char key, int x, int y)
 {
     button_pressed[toupper(key)] = true;
+    if (key == 27)
+        glutLeaveMainLoop();
 }
 
 void keyboard_up(unsigned char key, int x, int y)
@@ -200,8 +218,8 @@ int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-    glutInitContextVersion(3, 3);
-    glutInitContextFlags(GLUT_CORE_PROFILE | GLUT_DEBUG);
+    glutInitContextVersion(4, 1);
+    glutInitContextFlags(GLUT_DEBUG);
 
     glutInitWindowSize(window_width, window_height);
     glutInitWindowPosition(50, 50);
@@ -211,9 +229,8 @@ int main(int argc, char **argv)
     GLenum err = glewInit();
     if (GLEW_OK != err)
         std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
-    else
-        if (GLEW_VERSION_4_1)
-            std::cout << "Driver supports OpenGL 4.1\nDetails:" << std::endl;
+    if (glGetError() == GL_INVALID_ENUM)
+        std::cout << "GL_INVALID_ENUM on glewInit()" << std::endl;
 
     glutDisplayFunc(draw);
     glutIdleFunc(idle);

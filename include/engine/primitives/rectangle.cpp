@@ -37,5 +37,5 @@ Rectangle::Rectangle(const glm::vec2& size, const glm::vec2& position /* =  { 0.
 		glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
 
 		createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	glBindVertexArray(NULL);
+	glBindVertexArray(0);
 }

@@ -164,5 +164,5 @@ Box::Box(const glm::vec3& size, const glm::vec3& position /* = { 0.f, 0.f, 0.f }
 
 		glEnable(GL_PRIMITIVE_RESTART);
 		glPrimitiveRestartIndex(0xFFFF);
-	glBindVertexArray(NULL);
+	glBindVertexArray(0);
 }

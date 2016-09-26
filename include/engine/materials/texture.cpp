@@ -36,7 +36,7 @@ void Texture::bind(unsigned short texture_level /* = 0*/) const
 
 void Texture::unbind() const
 {
-	glBindTexture(GL_TEXTURE_2D, NULL);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format, bool generate_mipmaps, std::string image_name /* = "" */)

@@ -36,7 +36,7 @@ protected:
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
 
-	Material* m_material;
+	Material* m_material = nullptr;
 };
 
 #endif /* ENTITY_3D_ */
