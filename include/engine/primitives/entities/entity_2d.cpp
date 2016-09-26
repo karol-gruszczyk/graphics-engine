@@ -1,6 +1,7 @@
 #include "entity_2d.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
+using engine::Texture;
 using engine::Entity2D;
 
 
@@ -69,4 +70,21 @@ void Entity2D::setPivot(const glm::vec2& pivot)
 const glm::vec2& Entity2D::getPivot() const
 {
 	return m_pivot;
+}
+
+void Entity2D::setMaterial(engine::BasicMaterial *material)
+{
+    m_material = material;
+}
+
+void Entity2D::render() const
+{
+    if (m_material)
+    {
+        m_material->bind();
+        Entity::render();
+        m_material->unbind();
+    }
+    else
+        Entity::render();
 }

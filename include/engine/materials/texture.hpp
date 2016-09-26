@@ -21,6 +21,7 @@ public:
 	void loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format, bool generate_mipmaps, std::string image_name = "");
 	void bind(unsigned short texture_level = 0) const;
 	void unbind() const;
+
 private:
 	GLuint m_texture_id;
 	bool m_texture_created;

@@ -1,5 +1,6 @@
 #include "scene_3d.hpp"
 #include "../glsl/3d/globals.glsl"
+#include "../primitives/scene_loader.hpp"
 
 using engine::Scene3D;
 using engine::Entity3D;
@@ -9,6 +10,12 @@ using engine::Renderer;
 Scene3D::Scene3D(Renderer* renderer)
 	: Scene(renderer)
 {}
+
+Scene3D::~Scene3D()
+{
+    for (auto& entity : m_entities)
+        delete entity;
+}
 
 void engine::Scene3D::setCamera(Camera* camera)
 {
@@ -39,6 +46,14 @@ void engine::Scene3D::addLight(SpotLight* spot_light)
 void Scene3D::addEntity(Entity3D* entity)
 {
 	m_entities.push_back(entity);
+}
+
+void Scene3D::loadFromFile(const boost::filesystem::path &path)
+{
+    SceneLoader* loader = new SceneLoader(path);
+    for (Mesh* mesh : loader->getMeshes())
+        addEntity(mesh);
+    delete loader;
 }
 
 void Scene3D::render() const

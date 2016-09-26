@@ -30,6 +30,7 @@ public:
 	glm::mat3 getNormalMatrix() const;
 	void setMaterial(Material* material);
 	void render() const override;
+
 protected:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;

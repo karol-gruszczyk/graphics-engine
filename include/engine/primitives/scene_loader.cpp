@@ -23,12 +23,6 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path)
 	processNode(scene->mRootNode, scene);
 }
 
-SceneLoader::~SceneLoader()
-{
-	for (const auto& mesh : m_meshes)
-		delete mesh;
-}
-
 const std::vector<Mesh*>& engine::SceneLoader::getMeshes()
 {
 	return m_meshes;

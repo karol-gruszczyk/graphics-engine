@@ -7,7 +7,6 @@ in vec3 normal;
 
 out vec4 out_color;
 
-uniform sampler2D diffuse_texture;
 uniform Material material;
 
 uniform vec3 camera_position;

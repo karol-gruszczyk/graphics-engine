@@ -15,7 +15,6 @@ class engine::SceneLoader
 {
 public:
 	SceneLoader(const boost::filesystem::path& path);
-	~SceneLoader();
 
 	const std::vector<engine::Mesh*>& getMeshes();
 private:

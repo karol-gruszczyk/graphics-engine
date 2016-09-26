@@ -1,9 +1,7 @@
 #ifndef MATERIAL_HPP_
 #define MATERIAL_HPP_
 
-#include <glm/glm.hpp>
-#include "texture.hpp"
-#include "../shaders/shader_program.hpp"
+#include "basic_material.hpp"
 
 
 namespace engine
@@ -11,23 +9,16 @@ namespace engine
 	class Material;
 }
 
-class engine::Material
+class engine::Material : public engine::BasicMaterial
 {
 public:
 	Material(ShaderProgram* shader);
-	~Material();
 
-	void setDiffuse(const glm::vec3& color);
-	void setDiffuse(Texture* texture);
 	void setShininess(const float& shininess);
 
-	void bind() const;
-	void unbind() const;
-private:
-	ShaderProgram* m_shader;
+	void bind() const override;
 
-	glm::vec3 m_diffuse_color = { 1.f, 1.f, 1.f };
-	Texture* m_diffuse_texture;
+protected:
 	float m_shininess;
 };
 

@@ -26,6 +26,7 @@ public:
 	unsigned char* getPixels() const;
 	unsigned getSize() const;
 	static ImageLoader& getGlobalInstance();
+
 private:
 	ImageLoader(const bool& global_instance);
 	bool m_is_global = false;

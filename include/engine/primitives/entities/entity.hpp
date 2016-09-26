@@ -22,6 +22,7 @@ public:
 
 	virtual void render() const;
 	const glm::mat4& getModelMatrix() const;
+
 protected:
 	GLuint m_vao_id;
 	std::list<GLuint> m_vbos;
