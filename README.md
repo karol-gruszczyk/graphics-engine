@@ -2,20 +2,25 @@
 A modern OpenGL based graphics engine using modern C++14 with boost.
 
 ## Setup
-```bash
-git clone --recursive git@github.com:karol-gruszczyk/graphics-engine.git
-cd graphics-engine/
-```
 
-* Boost
+### Requirements
 
-`cl.exe` and `link.exe`(from visual studio toolset) need to be added to the **PATH** enviroment variable
-```bash
-cd libs/boost/
-./boostrap.sh
-./b2
-```
-
+#### Library
 * GLEW
+* GLM
+* Boost
+   * filesystem
+* FreeImage
 
-For windows it is recommended to download the latest binaries from https://github.com/nigels-com/glew#downloads and place the `bin`, `lib` and `include` directory into `libs/glew`
+##### Ubuntu / Linux copy-paste
+```bash
+sudo apt-get install libglew-dev libglm-dev libboost-filesystem-dev libfreeimage-dev
+```
+
+#### Example program
+* FreeGLUT
+
+##### Ubuntu / Linux copy-paste
+```bash
+sudo apt-get install freeglut3-dev libxmu-dev libxi-dev
+```
