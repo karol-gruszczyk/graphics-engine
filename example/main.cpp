@@ -36,6 +36,7 @@ engine::Rectangle* rect;
 engine::Plane* plane;
 engine::Box* box;
 engine::SceneLoader* scene_loader;
+engine::BasicMaterial* basic_tile_material;
 engine::Material* box_material, *tile_material;
 engine::Texture* box_texture, *tile_texture;
 
@@ -70,12 +71,6 @@ void setup()
         exit(EXIT_FAILURE);
     }
 
-    // 2D
-    rect = new engine::Rectangle({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
-    scene2d = new engine::Scene2D(renderer2d);
-    scene2d->addEntity(rect);
-
-    // 3D
     try
     {
         box_texture = new engine::Texture("res/box.jpg");
@@ -86,6 +81,15 @@ void setup()
         engine::Config::getInstance().log(e.what());
     }
 
+    // 2D
+    rect = new engine::Rectangle({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
+    basic_tile_material = new engine::BasicMaterial(renderer2d->getShaderProgram());
+    basic_tile_material->setDiffuse(tile_texture);
+    rect->setMaterial(basic_tile_material);
+    scene2d = new engine::Scene2D(renderer2d);
+    scene2d->addEntity(rect);
+
+    // 3D
     box_material = new engine::Material(renderer3d->getShaderProgram());
     box_material->setDiffuse(box_texture);
     tile_material = new engine::Material(renderer3d->getShaderProgram());
@@ -108,11 +112,7 @@ void setup()
     scene3d->addLight(point_light);
     scene3d->addLight(spot_light);
 
-    scene_loader = new engine::SceneLoader("res/cube.obj");
-    for (engine::Mesh* mesh : scene_loader->getMeshes())
-    {
-        scene3d->addEntity(mesh);
-    }
+    scene3d->loadFromFile("res/cube.obj");
 
     draw();
     engine::Config::getInstance().logErrors(); // checking if any errors were raised
@@ -122,10 +122,7 @@ void cleanup()
 {
     delete renderer2d;
     delete renderer3d;
-    delete rect;
     delete scene2d;
-    delete box;
-    delete plane;
     delete camera;
     delete dir_light;
     delete point_light;
@@ -201,7 +198,6 @@ void draw(void)
 
     scene3d->render();
 
-    tile_texture->bind();
     scene2d->render();
     glutSwapBuffers();
 }
