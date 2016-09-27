@@ -50,10 +50,24 @@ void ShaderProgram::bind() const
 
 void ShaderProgram::unbind() const
 {
-	glUseProgram(NULL);
+	glUseProgram(0);
 }
 
-void ShaderProgram::setUniformUint(const std::string& uniform_name, const unsigned& value) const
+void ShaderProgram::setUniformBool(const std::string& uniform_name, const bool& value) const
+{
+	bind();
+	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	glUniform1i(location, value);
+}
+
+void ShaderProgram::setUniformInt(const std::string& uniform_name, const int& value) const
+{
+	bind();
+	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	glUniform1i(location, value);
+}
+
+void ShaderProgram::setUniformUInt(const std::string &uniform_name, const unsigned &value) const
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());

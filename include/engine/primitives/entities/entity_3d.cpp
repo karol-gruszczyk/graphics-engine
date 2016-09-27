@@ -93,6 +93,12 @@ void Entity3D::setMaterial(Material* material)
 
 void Entity3D::render() const
 {
-	m_material->bind();
-	Entity::render();
+	if (m_material)
+    {
+        m_material->bind();
+        Entity::render();
+        m_material->unbind();
+    }
+	else
+		Entity::render();
 }

@@ -58,10 +58,30 @@ void Config::initializeLogger(std::streambuf* ostream)
 	logEngineInitial();
 }
 
-void Config::log(const std::string& info_log, const LogLevel& log_level /*= INFO*/) const
+void Config::log(const std::string& message, const LogLevel& log_level /*= INFO*/) const
 {
 	if (m_logger)
-		*m_logger << logLevelToString(log_level) << info_log << std::endl;
+		*m_logger << logLevelToString(log_level) << message << std::endl;
+}
+
+void Config::logInfo(const std::string& message) const
+{
+	log(message, INFO);
+}
+
+void Config::logWarning(const std::string& message) const
+{
+	log(message, WARNING);
+}
+
+void Config::logError(const std::string& message) const
+{
+	log(message, ERROR);
+}
+
+void Config::logDebug(const std::string& message) const
+{
+	log(message, DEBUG);
 }
 
 void Config::logEngineInitial() const

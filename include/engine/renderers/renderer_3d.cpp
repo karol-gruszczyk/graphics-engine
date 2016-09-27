@@ -1,16 +1,18 @@
 #include "renderer_3d.hpp"
 #include <glm/gtc/matrix_transform.hpp>
+#include "../materials/material.hpp"
+
 
 using engine::Renderer3D;
 
 
-Renderer3D::Renderer3D(const unsigned& context_width, const unsigned& context_height)
+Renderer3D::Renderer3D(const unsigned &context_width, const unsigned &context_height)
 {
 	loadShader();
 	setContextWidth(context_width, context_height);
 }
 
-void engine::Renderer3D::setContextWidth(const unsigned& context_width, const unsigned& context_height)
+void engine::Renderer3D::setContextWidth(const unsigned &context_width, const unsigned &context_height)
 {
 	Renderer::setContextWidth(context_width, context_height);
 	updateProjectionMatrix();
@@ -29,7 +31,7 @@ GLfloat engine::Renderer3D::getFieldOfView() const
 
 void engine::Renderer3D::updateProjectionMatrix()
 {
-	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat)m_context_width / m_context_height, 0.1f, 1000.f);
+	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat) m_context_width / m_context_height, 0.1f, 1000.f);
 }
 
 void engine::Renderer3D::loadShader()
@@ -37,5 +39,7 @@ void engine::Renderer3D::loadShader()
 	auto path = Config::getInstance().getShaderPath();
 	m_vertex_shader = std::make_unique<VertexShader>(path / "3d/phong_vs.glsl");
 	m_fragment_shader = std::make_unique<FragmentShader>(path / "3d/phong_fs.glsl");
-	m_shader_program = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>({ m_vertex_shader.get(), m_fragment_shader.get()}));
+	m_shader_program = std::make_unique<ShaderProgram>(
+			std::initializer_list<Shader *>({ m_vertex_shader.get(), m_fragment_shader.get() }));
+	Material::setDefaultShader(m_shader_program.get());
 }

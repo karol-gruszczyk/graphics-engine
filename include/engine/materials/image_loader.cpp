@@ -13,33 +13,6 @@ ImageLoader::ImageLoader()
 ImageLoader::ImageLoader(const boost::filesystem::path& path)
 	: ImageLoader()
 {
-	open(path);
-}
-
-ImageLoader::ImageLoader(const bool& global_instance)
-	: m_is_global(true)
-{
-	FreeImage_Initialise();
-	Config::getInstance().log(std::string("FreeImage ") + FreeImage_GetVersion() + " loaded");
-	Config::getInstance().log(FreeImage_GetCopyrightMessage());
-}
-
-ImageLoader::~ImageLoader()
-{
-	if (m_bitmap != nullptr)
-		FreeImage_Unload(m_bitmap);
-	if (m_is_global)
-	{
-		FreeImage_DeInitialise();
-		Config::getInstance().log("FreeImage unloaded");
-	}
-}
-
-void ImageLoader::open(const boost::filesystem::path& path)
-{
-	if (!boost::filesystem::exists(path))
-		throw FileNotFoundException(path);
-
 	auto path_str = path.string();
 
 	FREE_IMAGE_FORMAT file_format = FreeImage_GetFileType(path_str.c_str());
@@ -62,6 +35,25 @@ void ImageLoader::open(const boost::filesystem::path& path)
 	m_height = FreeImage_GetHeight(m_bitmap);
 
 	m_pixels = FreeImage_GetBits(m_bitmap);
+}
+
+ImageLoader::ImageLoader(const bool& global_instance)
+	: m_is_global(true)
+{
+	FreeImage_Initialise();
+	Config::getInstance().logInfo(std::string("FreeImage ") + FreeImage_GetVersion() + " loaded");
+	Config::getInstance().logInfo(FreeImage_GetCopyrightMessage());
+}
+
+ImageLoader::~ImageLoader()
+{
+	if (m_bitmap != nullptr)
+		FreeImage_Unload(m_bitmap);
+	if (m_is_global)
+	{
+		FreeImage_DeInitialise();
+		Config::getInstance().logInfo(std::string("FreeImage ") + FreeImage_GetVersion() + " unloaded");
+	}
 }
 
 ImageLoader& ImageLoader::getGlobalInstance()

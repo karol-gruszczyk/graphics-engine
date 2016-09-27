@@ -9,6 +9,12 @@ Scene2D::Scene2D(Renderer* renderer)
 	: Scene(renderer)
 {}
 
+Scene2D::~Scene2D()
+{
+    for (auto& entity : m_entities)
+        delete entity;
+}
+
 void Scene2D::addEntity(Entity2D* entity)
 {
 	m_entities.push_back(entity);

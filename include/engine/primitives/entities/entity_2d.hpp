@@ -2,7 +2,7 @@
 #define ENTITY_2D_HPP_
 
 #include "entity.hpp"
-#include "../../materials/material.hpp"
+#include "../../materials/basic_material.hpp"
 
 
 namespace engine
@@ -25,7 +25,12 @@ public:
 	const glm::vec2& getScale() const;
 	void setPivot(const glm::vec2& pivot);
 	const glm::vec2& getPivot() const;
+
+    void setMaterial(BasicMaterial* material);
+    virtual void render() const override;
 protected:
+    BasicMaterial* m_material = nullptr;
+
 	glm::vec2 m_position;
 	GLfloat m_rotation;
 	glm::vec2 m_scale;

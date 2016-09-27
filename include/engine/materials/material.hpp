@@ -1,9 +1,7 @@
 #ifndef MATERIAL_HPP_
 #define MATERIAL_HPP_
 
-#include <glm/glm.hpp>
-#include "texture.hpp"
-#include "../shaders/shader_program.hpp"
+#include "basic_material.hpp"
 
 
 namespace engine
@@ -11,32 +9,28 @@ namespace engine
 	class Material;
 }
 
-class engine::Material
+class engine::Material : public engine::BasicMaterial
 {
 public:
-	Material(ShaderProgram* shader);
-	~Material();
+	Material();
+	Material(const glm::vec3 &diffuse_color, float shininess = 0);
+	Material(Texture *diffuse_texture, float shininess = 0);
+	Material(ShaderProgram *shader);
 
-	void setAmbient(const glm::vec3& color);
-	void setAmbient(Texture* texture);
-	void setDiffuse(const glm::vec3& color);
-	void setDiffuse(Texture* texture);
-	void setSpecular(const glm::vec3& color);
-	void setSpecular(Texture* texture);
-	void setShininess(const float& shininess);
+	void setAmbient(const glm::vec3 &color);
+	void setAmbient(Texture *texture);
+	void setSpecular(const glm::vec3 &color);
+	void setSpecular(Texture *texture);
+	void setShininess(const float &shininess);
 
-	void bind() const;
-	void unbind() const;
-private:
-	ShaderProgram* m_shader;
+	void bind() const override;
 
+protected:
 	glm::vec3 m_ambient_color;
-	glm::vec3 m_diffuse_color;
+	Texture* m_ambient_texture = nullptr;
 	glm::vec3 m_specular_color;
-	Texture* m_ambient_texture;
-	Texture* m_diffuse_texture;
-	Texture* m_specular_texture;
-	float m_shininess;
+	Texture* m_specular_texture = nullptr;
+	float m_shininess = 0.f;
 };
 
 #endif /* MATERIAL_HPP_ */

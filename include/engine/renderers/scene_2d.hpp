@@ -14,6 +14,7 @@ class engine::Scene2D : public Scene
 {
 public:
 	Scene2D(Renderer* renderer);
+	~Scene2D();
 
 	void addEntity(Entity2D* entity);
 	void render() const override;

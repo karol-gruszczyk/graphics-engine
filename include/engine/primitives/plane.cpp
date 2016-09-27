@@ -41,14 +41,14 @@ Plane::Plane(const glm::vec2& size, const glm::vec3& position /* = { 0.f, 0.f, 0
 		glVertexAttribPointer(POSITION_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
 		glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
 
-		createBufferObject(GL_ARRAY_BUFFER, sizeof(texture_coords), texture_coords, GL_STATIC_DRAW);
-		glVertexAttribPointer(TEXTURE_COORD_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
-		glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
-
 		createBufferObject(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
 		glVertexAttribPointer(NORMAL_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
 		glEnableVertexAttribArray(NORMAL_ATTRIB_POINTER);
 
+		createBufferObject(GL_ARRAY_BUFFER, sizeof(texture_coords), texture_coords, GL_STATIC_DRAW);
+		glVertexAttribPointer(TEXTURE_COORD_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
+		glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
+
 		createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	glBindVertexArray(NULL);
+	glBindVertexArray(0);
 }

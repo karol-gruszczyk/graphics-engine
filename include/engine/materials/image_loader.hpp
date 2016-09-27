@@ -6,6 +6,7 @@
 #include "../exceptions/unknown_file_type_exception.hpp"
 #include "../exceptions/file_type_not_supported_exception.hpp"
 
+
 #pragma comment(lib, "FreeImage.lib")
 
 
@@ -18,22 +19,22 @@ class engine::ImageLoader final
 {
 public:
 	ImageLoader();
-	ImageLoader(const boost::filesystem::path& path);
+	ImageLoader(const boost::filesystem::path &path);
 	~ImageLoader();
 
-	void open(const boost::filesystem::path& path);
 	unsigned getWidth() const;
 	unsigned getHeight() const;
-	unsigned char* getPixels() const;
+	unsigned char *getPixels() const;
 	unsigned getSize() const;
-	static ImageLoader& getGlobalInstance();
-private:
-	ImageLoader(const bool& global_instance);
-	bool m_is_global;
+	static ImageLoader &getGlobalInstance();
 
-	FIBITMAP* m_bitmap;
+private:
+	ImageLoader(const bool &global_instance);
+	bool m_is_global = false;
+
+	FIBITMAP *m_bitmap;
 	unsigned m_width, m_height;
-	unsigned char* m_pixels;
+	unsigned char *m_pixels;
 };
 
 #endif /* IMAGE_LOADER_HPP_ */

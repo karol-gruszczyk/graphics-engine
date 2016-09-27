@@ -1,6 +1,8 @@
 #ifndef SCENE_3D_HPP_
 #define SCENE_3D_HPP_
 
+#include <boost/filesystem.hpp>
+
 #include "scene.hpp"
 #include "../camera.hpp"
 #include "../primitives/entities/entity_3d.hpp"
@@ -19,12 +21,14 @@ class engine::Scene3D : public Scene
 {
 public:
 	Scene3D(Renderer* renderer);
+    ~Scene3D();
 
 	void setCamera(Camera* camera);
 	void addEntity(Entity3D* entity);
 	void addLight(DirectionalLight* directional_light);
 	void addLight(PointLight* point_light);
 	void addLight(SpotLight* spot_light);
+	void loadFromFile(const boost::filesystem::path& path);
 	void render() const override;
 private:
 	Camera* m_camera_ptr;

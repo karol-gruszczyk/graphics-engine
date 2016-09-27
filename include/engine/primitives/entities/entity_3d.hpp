@@ -30,13 +30,14 @@ public:
 	glm::mat3 getNormalMatrix() const;
 	void setMaterial(Material* material);
 	void render() const override;
+
 protected:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
 
-	Material* m_material;
+	Material* m_material = nullptr;
 };
 
 #endif /* ENTITY_3D_ */
