@@ -125,13 +125,13 @@ void setup()
 	box = new engine::Box({ 5.f, 5.f, 5.f }, { 20.f, 2.5f, 10.f });
 	box->setPivot({ 2.5f, 2.5f, 2.5f });
 	box->setMaterial(box_material);
-	plane = new engine::Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
+	plane = new engine::Plane({ 200.f, 200.f }, { -100.f, -10.f, -100.f }, 100);
 	plane->setMaterial(tile_material);
 	scene3d = new engine::Scene3D(renderer3d);
 	camera = new engine::Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
 	//scene3d->addEntity(box);
-	//scene3d->addEntity(plane);
+	scene3d->addEntity(plane);
 	dir_light = new engine::DirectionalLight({ -1.f, -1.f, -1.f });
 	point_light = new engine::PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new engine::SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
@@ -142,11 +142,11 @@ void setup()
 
 	try
 	{
-		//scene3d->loadFromFile("res/cube.obj");
+		scene3d->loadFromFile("res/cube.obj");
 		//scene3d->loadFromFile("res/AC Cobra/ShelbyWD.blend");
-		scene3d->loadFromFile("res/Pterodactyl/Pterodactyl.obj");
+		//scene3d->loadFromFile("res/Pterodactyl/Pterodactyl.obj");
 	}
-	catch (engine::FileNotFoundException& e)
+	catch (engine::FileNotFoundException &e)
 	{
 		engine::Config::getInstance().logError(e.what());
 	}

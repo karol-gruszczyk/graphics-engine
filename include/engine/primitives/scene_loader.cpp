@@ -57,22 +57,53 @@ Material *SceneLoader::processMaterial(const aiMaterial *material)
 {
 	Material *result_mat = new Material();
 
-	aiString mat_name;
-	material->Get(AI_MATKEY_NAME, mat_name);
-	result_mat->setName(mat_name.C_Str());
+	aiString tmp_string;
+	aiColor3D tmp_color3d = { 0.f, 0.f, 0.f };
+	float ai_float = 0;
+	material->Get(AI_MATKEY_NAME, tmp_string);
+	result_mat->setName(tmp_string.C_Str());
 
-	aiString tex_path;
-	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)
+	if (material->GetTexture(aiTextureType_AMBIENT, 0, &tmp_string) == AI_SUCCESS)
 	{
-		Texture* texture = Texture::loadFromFile(m_directory / tex_path.C_Str());
-		result_mat->setDiffuse(texture);
+		try
+		{
+			result_mat->setAmbient(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
+		}
+		catch (FileNotFoundException &e)
+		{
+			Config::getInstance().logError(e.what());
+		}
 	}
-	else
+	material->Get(AI_MATKEY_COLOR_AMBIENT, tmp_color3d);
+	result_mat->setAmbient({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
+
+	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tmp_string) == AI_SUCCESS)
 	{
-		aiColor3D diffuse_color = { 0.f, 0.f, 0.f };
-		material->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse_color);
-		result_mat->setDiffuse({ diffuse_color.r, diffuse_color.g, diffuse_color.b });
+		try
+		{
+			result_mat->setDiffuse(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
+		}
+		catch (FileNotFoundException &e)
+		{
+			Config::getInstance().logError(e.what());
+		}
 	}
+	material->Get(AI_MATKEY_COLOR_DIFFUSE, tmp_color3d);
+	result_mat->setDiffuse({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
+
+	if (material->GetTexture(aiTextureType_SPECULAR, 0, &tmp_string) == AI_SUCCESS)
+	{
+		try
+		{
+			result_mat->setSpecular(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
+		}
+		catch (FileNotFoundException &e)
+		{
+			Config::getInstance().logError(e.what());
+		}
+	}
+	material->Get(AI_MATKEY_COLOR_SPECULAR, tmp_color3d);
+	result_mat->setSpecular({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
 
 	float shininess = 0.f;
 	material->Get(AI_MATKEY_SHININESS, shininess);

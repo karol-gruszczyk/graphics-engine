@@ -3,9 +3,18 @@
 
 struct Material
 {
+	vec3 ambient_color;
+	bool use_ambient_texture;
+	sampler2D ambient_texture;
+
 	vec3 diffuse_color;
 	bool use_diffuse_texture;
 	sampler2D diffuse_texture;
+
+	vec3 specular_color;
+	bool use_specular_texture;
+	sampler2D specular_texture;
+
 	float shininess;
 };
 
@@ -33,14 +42,37 @@ struct SpotLight
 };
 
 
+vec3 fragment_ambient_color;
+vec3 fragment_diffuse_color;
+vec3 fragment_specular_color;
+
+
+void setFragmentColors(Material material, vec2 texture_coord)
+{
+	if (material.use_ambient_texture)
+		fragment_ambient_color = vec3(texture2D(material.ambient_texture, texture_coord));
+	else
+	    fragment_ambient_color = material.ambient_color;
+
+	if (material.use_diffuse_texture)
+		fragment_diffuse_color = vec3(texture2D(material.diffuse_texture, texture_coord));
+	else
+	    fragment_diffuse_color = material.diffuse_color;
+
+	if (material.use_specular_texture)
+		fragment_specular_color = vec3(texture2D(material.specular_texture, texture_coord));
+	else
+	    fragment_specular_color = material.specular_color;
+}
+
 vec3 processAmbientLight(vec3 light_color)
 {
-	return AMBIENT_STRENGTH * light_color;
+	return AMBIENT_STRENGTH * light_color * fragment_ambient_color;
 }
 
 vec3 processDiffuseLight(vec3 light_ray_direction, vec3 light_color, vec3 normal)
 {
-	return max(dot(normal, light_ray_direction), 0.f) * light_color;
+	return max(dot(normal, light_ray_direction), 0.f) * light_color * fragment_diffuse_color;
 }
 
 vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color, Material material, vec3 position, vec3 normal, vec3 camera_position)
@@ -49,7 +81,7 @@ vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color, Material m
 		return vec3(0.f, 0.f, 0.f);
 	vec3 view_dir = normalize(camera_position - position);
 	vec3 reflect_dir = reflect(-light_ray_direction, normal);
-	return pow(max(dot(view_dir, reflect_dir), 0.0), material.shininess) * light_color;
+	return pow(max(dot(view_dir, reflect_dir), 0.0), material.shininess) * light_color * fragment_specular_color;
 }
 
 vec3 processDirectionalLight(DirectionalLight dir_light, Material material, vec3 position, vec3 normal, vec3 camera_position)

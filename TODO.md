@@ -22,6 +22,7 @@
 * Add static text handling(using FrameBufferObject)
 
 ## non-release
+* Add to GLSL Preprocessor debug mode
 * Remove 2D / 3D classification
   * Project all as 3D
   * Project 2D as a 3D scene with camera looking down

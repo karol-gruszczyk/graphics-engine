@@ -51,12 +51,15 @@ void BasicMaterial::bind() const
 {
 	if (m_diffuse_texture)
 	{
-		m_shader->setUniformFloat("material.use_diffuse_texture", true);
-		m_diffuse_texture->bind();
+		m_shader->setUniformBool("material.use_diffuse_texture", true);
+		m_diffuse_texture->bind(0);
+		m_shader->setUniformInt("material.diffuse_texture", 0);
 	}
 	else
-		m_shader->setUniformFloat("material.use_diffuse_texture", false);
-	m_shader->setUniformVector3("material.diffuse_color", m_diffuse_color);
+	{
+		m_shader->setUniformBool("material.use_diffuse_texture", false);
+		m_shader->setUniformVector3("material.diffuse_color", m_diffuse_color);
+	}
 }
 
 void BasicMaterial::unbind() const
