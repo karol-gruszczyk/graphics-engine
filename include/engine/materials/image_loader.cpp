@@ -13,9 +13,6 @@ ImageLoader::ImageLoader()
 ImageLoader::ImageLoader(const boost::filesystem::path& path)
 	: ImageLoader()
 {
-	if (!boost::filesystem::exists(path))
-		throw FileNotFoundException(path);
-
 	auto path_str = path.string();
 
 	FREE_IMAGE_FORMAT file_format = FreeImage_GetFileType(path_str.c_str());

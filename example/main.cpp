@@ -59,8 +59,8 @@ void setup()
 
     try
     {
-        box_texture = new engine::Texture("res/box.jpg");
-        tile_texture = new engine::Texture("res/tile.jpg");
+        box_texture = engine::Texture::loadFromFile("res/box.jpg");
+        tile_texture = engine::Texture::loadFromFile("res/tile.jpg");
     }
     catch (engine::FileNotFoundException& e)
     {
