@@ -1,5 +1,6 @@
 #include "entity.hpp"
 
+
 using engine::Entity;
 
 
@@ -23,7 +24,7 @@ void Entity::render() const
 	glBindVertexArray(0);
 }
 
-const glm::mat4& Entity::getModelMatrix() const
+const glm::mat4 &Entity::getModelMatrix() const
 {
 	return m_model_matrix;
 }
@@ -35,7 +36,8 @@ void Entity::setupRendering(GLenum draw_mode, GLuint indices_size, GLenum elemen
 	m_elements_type = elements_type;
 }
 
-void Entity::createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage /*= GL_STATIC_DRAW*/)
+void
+Entity::createBufferObject(GLenum target, GLsizeiptr data_length, const void *data, GLenum usage /*= GL_STATIC_DRAW*/)
 {
 	GLuint vbo;
 	glGenBuffers(1, &vbo);

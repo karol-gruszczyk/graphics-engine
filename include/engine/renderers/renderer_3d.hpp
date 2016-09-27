@@ -1,5 +1,5 @@
-#ifndef RENDERER_3D_HPP_
-#define RENDERER_3D_HPP_
+#ifndef GRAPHICS_ENGINE_RENDERER_3D_HPP
+#define GRAPHICS_ENGINE_RENDERER_3D_HPP
 
 #include "renderer.hpp"
 
@@ -24,4 +24,4 @@ private:
 	virtual void loadShader();
 };
 
-#endif /* RENDERER_3D_HPP_ */
+#endif /* GRAPHICS_ENGINE_RENDERER_3D_HPP */

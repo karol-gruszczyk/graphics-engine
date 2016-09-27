@@ -1,5 +1,5 @@
-#ifndef RENDERER_HPP_
-#define RENDERER_HPP_
+#ifndef GRAPHICS_ENGINE_RENDERER_HPP
+#define GRAPHICS_ENGINE_RENDERER_HPP
 
 #include <memory>
 #include <glm/glm.hpp>
@@ -35,4 +35,4 @@ protected:
 	virtual void updateProjectionMatrix() = 0;
 };
 
-#endif /* RENDERER_HPP_ */
+#endif /* GRAPHICS_ENGINE_RENDERER_HPP */

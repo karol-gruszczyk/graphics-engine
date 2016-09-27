@@ -1,5 +1,5 @@
-#ifndef CAMERA_HPP_
-#define CAMERA_HPP_
+#ifndef GRAPHICS_ENGINE_CAMERA_HPP
+#define GRAPHICS_ENGINE_CAMERA_HPP
 
 #include <glm/glm.hpp>
 
@@ -12,19 +12,19 @@ namespace engine
 class engine::Camera final
 {
 public:
-	Camera(const glm::vec3& position = { 0.f, 0.f, 0.f }, const glm::vec3& rotation = { 0.f, 0.f, 0.f });
+	Camera(const glm::vec3 &position = { 0.f, 0.f, 0.f }, const glm::vec3 &rotation = { 0.f, 0.f, 0.f });
 
-	void translate(const glm::vec3& position);
-	void setPosition(const glm::vec3& position);
-	const glm::vec3& getPosition() const;
-	void rotate(const glm::vec3& rotation);
-	void setRotation(const glm::vec3& rotation);
-	const glm::vec3& getRotation() const;
-	void moveForward(const float& distance);
-	void moveRight(const float& distance);
-	const glm::vec3& getForwardVector() const;
-	const glm::vec3& getRightVector() const;
-	const glm::mat4& getViewMatrix() const;
+	void translate(const glm::vec3 &position);
+	void setPosition(const glm::vec3 &position);
+	const glm::vec3 &getPosition() const;
+	void rotate(const glm::vec3 &rotation);
+	void setRotation(const glm::vec3 &rotation);
+	const glm::vec3 &getRotation() const;
+	void moveForward(const float &distance);
+	void moveRight(const float &distance);
+	const glm::vec3 &getForwardVector() const;
+	const glm::vec3 &getRightVector() const;
+	const glm::mat4 &getViewMatrix() const;
 private:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;
@@ -36,4 +36,4 @@ private:
 	inline void updateForwardVector();
 };
 
-#endif /* CAMERA_HPP_ */
+#endif /* GRAPHICS_ENGINE_CAMERA_HPP */

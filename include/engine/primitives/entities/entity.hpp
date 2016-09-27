@@ -1,8 +1,9 @@
-#ifndef ENTITY_HPP_
-#define ENTITY_HPP_
+#ifndef GRAPHICS_ENGINE_ENTITY_HPP
+#define GRAPHICS_ENGINE_ENTITY_HPP
 
 #include <list>
 #include "../../shaders/shader_program.hpp"
+
 
 #define POSITION_ATTRIB_POINTER 0
 #define TEXTURE_COORD_ATTRIB_POINTER 1
@@ -21,7 +22,7 @@ public:
 	virtual ~Entity();
 
 	virtual void render() const;
-	const glm::mat4& getModelMatrix() const;
+	const glm::mat4 &getModelMatrix() const;
 
 protected:
 	GLuint m_vao_id;
@@ -33,7 +34,7 @@ protected:
 	glm::mat4 m_model_matrix;
 
 	void setupRendering(GLenum draw_mode, GLuint elements_size, GLenum elements_type);
-	void createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage = GL_STATIC_DRAW);
+	void createBufferObject(GLenum target, GLsizeiptr data_length, const void *data, GLenum usage = GL_STATIC_DRAW);
 };
 
-#endif /* ENTITY_HPP_ */
+#endif /* GRAPHICS_ENGINE_ENTITY_HPP */

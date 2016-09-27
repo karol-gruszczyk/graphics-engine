@@ -3,15 +3,17 @@
 #include "../config.hpp"
 #include "image_loader.hpp"
 
+
 using engine::Texture;
 
 
-std::map<std::string, Texture*> Texture::s_textures;
+std::map<std::string, Texture *> Texture::s_textures;
 
 Texture::Texture()
 {}
 
-Texture::Texture(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format, bool generate_mipmaps)
+Texture::Texture(unsigned width, unsigned height, GLubyte *pixels, GLint internal_format, GLenum format,
+                 bool generate_mipmaps)
 {
 	loadFromMemory(width, height, pixels, internal_format, format, generate_mipmaps);
 }
@@ -21,29 +23,29 @@ Texture::~Texture()
 	if (m_texture_created)
 		glDeleteTextures(1, &m_texture_id);
 
-    if (m_static_member)
-    {
-        for (const auto& texture : s_textures)
-            delete texture.second;
-    }
+	if (m_static_member)
+	{
+		for (const auto &texture : s_textures)
+			delete texture.second;
+	}
 }
 
-Texture* Texture::loadFromFile(const boost::filesystem::path& path)
+Texture *Texture::loadFromFile(const boost::filesystem::path &path)
 {
-    if (!boost::filesystem::exists(path))
-        throw FileNotFoundException(path);
+	if (!boost::filesystem::exists(path))
+		throw FileNotFoundException(path);
 
-    auto string_path = boost::filesystem::canonical(path).string();
-    if (s_textures.count(string_path))
-        return s_textures[string_path];
+	auto string_path = boost::filesystem::canonical(path).string();
+	if (s_textures.count(string_path))
+		return s_textures[string_path];
 
-    getInstance();
+	getInstance();
 	ImageLoader loader(path);
-	Texture* texture = new Texture();
-    texture->loadFromMemory(loader.getWidth(), loader.getHeight(), loader.getPixels(),
-                            GL_RGBA, GL_BGRA, true, string_path);
-    s_textures[string_path] = texture;
-    return texture;
+	Texture *texture = new Texture();
+	texture->loadFromMemory(loader.getWidth(), loader.getHeight(), loader.getPixels(),
+	                        GL_RGBA, GL_BGRA, true, string_path);
+	s_textures[string_path] = texture;
+	return texture;
 }
 
 void Texture::bind(unsigned short texture_level /* = 0*/) const
@@ -57,7 +59,8 @@ void Texture::unbind() const
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format, bool generate_mipmaps, std::string image_name /* = "" */)
+void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte *pixels, GLint internal_format, GLenum format,
+                             bool generate_mipmaps, std::string image_name /* = "" */)
 {
 	m_width = width;
 	m_height = height;
@@ -66,13 +69,14 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 	if (!is_power_of_2(m_width) || !is_power_of_2(m_height))
 	{
 		if (image_name.empty())
-        {
-            std::stringstream ss;
-            ss << (void*)pixels;
-            image_name = "In memory object at 0x" + ss.str();
-        }
+		{
+			std::stringstream ss;
+			ss << (void *) pixels;
+			image_name = "In memory object at 0x" + ss.str();
+		}
 		auto dimensions = std::to_string(m_width) + " x " + std::to_string(m_height);
-		engine::Config::getInstance().logWarning("Performance warning, image '" + image_name + "' - dimensions " + dimensions + " are not a power of 2");
+		engine::Config::getInstance().logWarning(
+				"Performance warning, image '" + image_name + "' - dimensions " + dimensions + " are not a power of 2");
 	}
 
 	glGenTextures(1, &m_texture_id);
@@ -98,12 +102,12 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	unbind(); 
+	unbind();
 }
 
 Texture &Texture::getInstance()
 {
-    static Texture instance;
-    instance.m_static_member = true;
-    return instance;
+	static Texture instance;
+	instance.m_static_member = true;
+	return instance;
 }

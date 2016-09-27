@@ -1,5 +1,5 @@
-#ifndef SHADER_COMPILE_EXCEPPTION_HPP_
-#define SHADER_COMPILE_EXCEPPTION_HPP_
+#ifndef GRAPHICS_ENGINE_SHADER_COMPILE_EXCEPPTION_HPP
+#define GRAPHICS_ENGINE_SHADER_COMPILE_EXCEPPTION_HPP
 
 #include <exception>
 #include <boost/filesystem/operations.hpp>
@@ -14,15 +14,17 @@ class engine::ShaderCompileException : public std::runtime_error
 {
 public:
 	ShaderCompileException(boost::filesystem::path path, std::string error_message)
-		: runtime_error("The file '" + boost::filesystem::canonical(path).string() + "' could not be compiled"), m_error_message(error_message)
+			: runtime_error("The file '" + boost::filesystem::canonical(path).string() + "' could not be compiled"),
+			  m_error_message(error_message)
 	{}
 
-	std::string& getErrorMessage()
+	std::string &getErrorMessage()
 	{
 		return m_error_message;
 	}
+
 private:
 	std::string m_error_message;
 };
 
-#endif /* SHADER_COMPILE_EXCEPPTION_HPP_ */
+#endif /* GRAPHICS_ENGINE_SHADER_COMPILE_EXCEPPTION_HPP */

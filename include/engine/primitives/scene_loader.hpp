@@ -1,5 +1,5 @@
-#ifndef MODEL_LOADER_HPP_
-#define MODEL_LOADER_HPP_
+#ifndef GRAPHICS_ENGINE_MODEL_LOADER_HPP
+#define GRAPHICS_ENGINE_MODEL_LOADER_HPP
 
 #include <boost/filesystem/path.hpp>
 #include <assimp/scene.h>
@@ -30,4 +30,4 @@ private:
 	void processMaterials(const aiScene *scene);
 };
 
-#endif /* MODEL_LOADER_HPP_ */
+#endif /* GRAPHICS_ENGINE_MODEL_LOADER_HPP */

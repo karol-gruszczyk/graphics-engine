@@ -2,6 +2,7 @@
 #include "../config.hpp"
 #include <boost/filesystem/operations.hpp>
 
+
 using engine::ImageLoader;
 
 
@@ -10,8 +11,8 @@ ImageLoader::ImageLoader()
 	getGlobalInstance();
 }
 
-ImageLoader::ImageLoader(const boost::filesystem::path& path)
-	: ImageLoader()
+ImageLoader::ImageLoader(const boost::filesystem::path &path)
+		: ImageLoader()
 {
 	auto path_str = path.string();
 
@@ -27,7 +28,7 @@ ImageLoader::ImageLoader(const boost::filesystem::path& path)
 	m_bitmap = FreeImage_Load(file_format, path_str.c_str());
 	if (FreeImage_GetBPP(m_bitmap) != 32)
 	{
-		FIBITMAP* temp = m_bitmap;
+		FIBITMAP *temp = m_bitmap;
 		m_bitmap = FreeImage_ConvertTo32Bits(m_bitmap);
 		FreeImage_Unload(temp);
 	}
@@ -37,8 +38,8 @@ ImageLoader::ImageLoader(const boost::filesystem::path& path)
 	m_pixels = FreeImage_GetBits(m_bitmap);
 }
 
-ImageLoader::ImageLoader(const bool& global_instance)
-	: m_is_global(true)
+ImageLoader::ImageLoader(const bool &global_instance)
+		: m_is_global(true)
 {
 	FreeImage_Initialise();
 	Config::getInstance().logInfo(std::string("FreeImage ") + FreeImage_GetVersion() + " loaded");
@@ -56,7 +57,7 @@ ImageLoader::~ImageLoader()
 	}
 }
 
-ImageLoader& ImageLoader::getGlobalInstance()
+ImageLoader &ImageLoader::getGlobalInstance()
 {
 	static ImageLoader instance(true);
 	return instance;
@@ -72,7 +73,7 @@ unsigned ImageLoader::getHeight() const
 	return m_height;
 }
 
-unsigned char* ImageLoader::getPixels() const
+unsigned char *ImageLoader::getPixels() const
 {
 	return m_pixels;
 }

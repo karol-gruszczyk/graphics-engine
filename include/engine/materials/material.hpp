@@ -1,5 +1,5 @@
-#ifndef MATERIAL_HPP_
-#define MATERIAL_HPP_
+#ifndef GRAPHICS_ENGINE_MATERIAL_HPP
+#define GRAPHICS_ENGINE_MATERIAL_HPP
 
 #include "basic_material.hpp"
 
@@ -27,10 +27,10 @@ public:
 
 protected:
 	glm::vec3 m_ambient_color;
-	Texture* m_ambient_texture = nullptr;
+	Texture *m_ambient_texture = nullptr;
 	glm::vec3 m_specular_color;
-	Texture* m_specular_texture = nullptr;
+	Texture *m_specular_texture = nullptr;
 	float m_shininess = 0.f;
 };
 
-#endif /* MATERIAL_HPP_ */
+#endif /* GRAPHICS_ENGINE_MATERIAL_HPP */

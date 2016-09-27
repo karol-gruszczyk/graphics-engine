@@ -1,5 +1,5 @@
-#ifndef IMAGE_LOADER_HPP_
-#define IMAGE_LOADER_HPP_
+#ifndef GRAPHICS_ENGINE_IMAGE_LOADER_HPP
+#define GRAPHICS_ENGINE_IMAGE_LOADER_HPP
 
 #include <FreeImage.h>
 #include "../exceptions/file_not_found_exception.hpp"
@@ -37,4 +37,4 @@ private:
 	unsigned char *m_pixels;
 };
 
-#endif /* IMAGE_LOADER_HPP_ */
+#endif /* GRAPHICS_ENGINE_IMAGE_LOADER_HPP */

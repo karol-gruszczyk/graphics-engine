@@ -1,5 +1,5 @@
-#ifndef SCENE_3D_HPP_
-#define SCENE_3D_HPP_
+#ifndef GRAPHICS_ENGINE_SCENE_3D_HPP
+#define GRAPHICS_ENGINE_SCENE_3D_HPP
 
 #include <boost/filesystem.hpp>
 
@@ -20,22 +20,22 @@ namespace engine
 class engine::Scene3D : public Scene
 {
 public:
-	Scene3D(Renderer* renderer);
-    ~Scene3D();
+	Scene3D(Renderer *renderer);
+	~Scene3D();
 
-	void setCamera(Camera* camera);
-	void addEntity(Entity3D* entity);
-	void addLight(DirectionalLight* directional_light);
-	void addLight(PointLight* point_light);
-	void addLight(SpotLight* spot_light);
-	void loadFromFile(const boost::filesystem::path& path);
+	void setCamera(Camera *camera);
+	void addEntity(Entity3D *entity);
+	void addLight(DirectionalLight *directional_light);
+	void addLight(PointLight *point_light);
+	void addLight(SpotLight *spot_light);
+	void loadFromFile(const boost::filesystem::path &path);
 	void render() const override;
 private:
-	Camera* m_camera_ptr;
-	std::list<Entity3D*> m_entities;
-	std::vector<DirectionalLight*> m_directional_lights;
-	std::vector<PointLight*> m_point_lights;
-	std::vector<SpotLight*> m_spot_lights;
+	Camera *m_camera_ptr;
+	std::list<Entity3D *> m_entities;
+	std::vector<DirectionalLight *> m_directional_lights;
+	std::vector<PointLight *> m_point_lights;
+	std::vector<SpotLight *> m_spot_lights;
 };
 
-#endif /* SCENE_3D_HPP_ */
+#endif /* GRAPHICS_ENGINE_SCENE_3D_HPP */

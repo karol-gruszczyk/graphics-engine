@@ -3,11 +3,12 @@
 #include <fstream>
 #include <sstream>
 
+
 using engine::Preprocessor;
 using engine::Config;
 
 
-Preprocessor::Preprocessor(const boost::filesystem::path& path)
+Preprocessor::Preprocessor(const boost::filesystem::path &path)
 {
 	m_source_code = getFileContent(path);
 	parseIncludes(path);
@@ -18,7 +19,7 @@ std::string Preprocessor::getSourceCode() const
 	return m_source_code;
 }
 
-void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
+void Preprocessor::parseIncludes(const boost::filesystem::path &current_file)
 {
 	std::size_t position(0);
 	while ((position = m_source_code.find("#include")) != std::string::npos)
@@ -28,7 +29,8 @@ void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 		auto line_end = m_source_code.find('\n', start + 1);
 		if (start == std::string::npos || end == std::string::npos || end >= line_end)
 		{
-			auto exception = GLSLSyntaxErrorException(current_file, m_source_code.substr(position, line_end - position));
+			auto exception = GLSLSyntaxErrorException(current_file,
+			                                          m_source_code.substr(position, line_end - position));
 			Config::getInstance().log(exception.what(), Config::ERROR);
 			throw exception;
 		}
@@ -37,7 +39,7 @@ void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 	}
 }
 
-std::string Preprocessor::getFileContent(const boost::filesystem::path& path) const
+std::string Preprocessor::getFileContent(const boost::filesystem::path &path) const
 {
 	std::ifstream file;
 	file.exceptions(std::ifstream::badbit);

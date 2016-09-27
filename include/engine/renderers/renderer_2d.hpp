@@ -1,5 +1,5 @@
-#ifndef RENDERER_2D_HPP_
-#define RENDERER_2D_HPP_
+#ifndef GRAPHICS_ENGINE_RENDERER_2D_HPP
+#define GRAPHICS_ENGINE_RENDERER_2D_HPP
 
 #include "renderer.hpp"
 
@@ -20,4 +20,4 @@ protected:
 	void loadShader();
 };
 
-#endif /* RENDERER_2D_HPP_ */
+#endif /* GRAPHICS_ENGINE_RENDERER_2D_HPP */

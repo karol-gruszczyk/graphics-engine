@@ -1,5 +1,5 @@
-#ifndef TEXTURE_HPP_
-#define TEXTURE_HPP_
+#ifndef GRAPHICS_ENGINE_TEXTURE_HPP
+#define GRAPHICS_ENGINE_TEXTURE_HPP
 
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
@@ -35,4 +35,4 @@ private:
 	unsigned m_width, m_height;
 };
 
-#endif /* TEXTURE_HPP_ */
+#endif /* GRAPHICS_ENGINE_TEXTURE_HPP */
