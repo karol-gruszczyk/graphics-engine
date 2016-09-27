@@ -12,14 +12,17 @@ namespace engine
 class engine::Material : public engine::BasicMaterial
 {
 public:
-	Material(ShaderProgram* shader);
+	Material();
+	Material(const glm::vec3 &diffuse_color, float shininess = 0);
+	Material(Texture *diffuse_texture, float shininess = 0);
+	Material(ShaderProgram *shader);
 
-	void setShininess(const float& shininess);
+	void setShininess(const float &shininess);
 
 	void bind() const override;
 
 protected:
-	float m_shininess;
+	float m_shininess = 0.f;
 };
 
 #endif /* MATERIAL_HPP_ */

@@ -22,7 +22,12 @@ public:
 	const boost::filesystem::path& getShaderPath() const;
 	void initializeLogger(const boost::filesystem::path& path = "");
 	void initializeLogger(std::streambuf* ostream);
-	void log(const std::string& info_log, const LogLevel& log_level = INFO) const;
+	void log(const std::string& message, const LogLevel& log_level = INFO) const;
+	void logInfo(const std::string& message) const;
+	void logWarning(const std::string& message) const;
+	void logError(const std::string& message) const;
+	void logDebug(const std::string& message) const;
+
 	void logErrors() const;
 private:
 	Config();

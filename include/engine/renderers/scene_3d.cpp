@@ -50,6 +50,9 @@ void Scene3D::addEntity(Entity3D* entity)
 
 void Scene3D::loadFromFile(const boost::filesystem::path &path)
 {
+	if (!boost::filesystem::exists(path))
+		throw FileNotFoundException(path);
+
     SceneLoader* loader = new SceneLoader(path);
     for (Mesh* mesh : loader->getMeshes())
         addEntity(mesh);
@@ -59,7 +62,7 @@ void Scene3D::loadFromFile(const boost::filesystem::path &path)
 void Scene3D::render() const
 {
 	glEnable(GL_DEPTH_TEST);
-//	glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 	Scene::render();
 	
 	for (unsigned i = 0; i < m_directional_lights.size(); i++)

@@ -41,8 +41,8 @@ ImageLoader::ImageLoader(const bool& global_instance)
 	: m_is_global(true)
 {
 	FreeImage_Initialise();
-	Config::getInstance().log(std::string("FreeImage ") + FreeImage_GetVersion() + " loaded");
-	Config::getInstance().log(FreeImage_GetCopyrightMessage());
+	Config::getInstance().logInfo(std::string("FreeImage ") + FreeImage_GetVersion() + " loaded");
+	Config::getInstance().logInfo(FreeImage_GetCopyrightMessage());
 }
 
 ImageLoader::~ImageLoader()
@@ -52,7 +52,7 @@ ImageLoader::~ImageLoader()
 	if (m_is_global)
 	{
 		FreeImage_DeInitialise();
-		Config::getInstance().log("FreeImage unloaded");
+		Config::getInstance().logInfo(std::string("FreeImage ") + FreeImage_GetVersion() + " unloaded");
 	}
 }
 
