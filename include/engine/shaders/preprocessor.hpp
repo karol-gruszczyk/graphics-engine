@@ -3,8 +3,8 @@
 
 #include <string>
 #include <boost/filesystem/path.hpp>
-#include "../exceptions/file_not_found_exception.hpp"
-#include "../exceptions/glsl_syntax_error_exception.hpp"
+#include "engine/exceptions/file_not_found_exception.hpp"
+#include "engine/exceptions/glsl_syntax_error_exception.hpp"
 
 
 namespace engine

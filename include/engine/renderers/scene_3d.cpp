@@ -1,6 +1,6 @@
 #include "scene_3d.hpp"
-#include "../glsl/3d/globals.glsl"
-#include "../primitives/scene_loader.hpp"
+#include "engine/glsl/3d/globals.glsl"
+#include "engine/primitives/scene_loader.hpp"
 
 
 using engine::Scene3D;

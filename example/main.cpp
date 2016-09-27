@@ -151,6 +151,8 @@ void setup()
 		engine::Config::getInstance().logError(e.what());
 	}
 
+	engine::Font* font = engine::Font::loadFromFile("res/comic_sans.ttf");
+
 	draw();
 	engine::Config::getInstance().logErrors(); // checking if any errors were raised
 }

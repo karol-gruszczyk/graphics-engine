@@ -4,7 +4,7 @@
 #include <boost/filesystem/path.hpp>
 #include <assimp/scene.h>
 #include "mesh.hpp"
-#include "../materials/material.hpp"
+#include "engine/materials/material.hpp"
 
 
 namespace engine
@@ -12,7 +12,7 @@ namespace engine
 	class SceneLoader;
 }
 
-class engine::SceneLoader
+class engine::SceneLoader final
 {
 public:
 	SceneLoader(const boost::filesystem::path &path);

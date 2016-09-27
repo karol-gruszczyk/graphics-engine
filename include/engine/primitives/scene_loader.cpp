@@ -1,5 +1,5 @@
 #include "scene_loader.hpp"
-#include "../config.hpp"
+#include "engine/config.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <iostream>

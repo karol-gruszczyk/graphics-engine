@@ -1,5 +1,5 @@
 #include "preprocessor.hpp"
-#include "../config.hpp"
+#include "engine/config.hpp"
 #include <fstream>
 #include <sstream>
 

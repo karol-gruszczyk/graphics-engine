@@ -4,7 +4,7 @@
 #include <initializer_list>
 #include <glm/glm.hpp>
 #include "shader.hpp"
-#include "../exceptions/shader_link_exception.hpp"
+#include "engine/exceptions/shader_link_exception.hpp"
 
 
 namespace engine

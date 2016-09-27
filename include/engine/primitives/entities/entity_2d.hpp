@@ -2,7 +2,7 @@
 #define GRAPHICS_ENGINE_ENTITY_2D_HPP
 
 #include "entity.hpp"
-#include "../../materials/basic_material.hpp"
+#include "engine/materials/basic_material.hpp"
 
 
 namespace engine

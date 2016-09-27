@@ -1,6 +1,6 @@
 #include <sstream>
 #include "texture.hpp"
-#include "../config.hpp"
+#include "engine/config.hpp"
 #include "image_loader.hpp"
 
 
@@ -23,7 +23,7 @@ Texture::~Texture()
 	if (m_texture_created)
 		glDeleteTextures(1, &m_texture_id);
 
-	if (m_static_member)
+	if (m_is_static_instance)
 	{
 		for (const auto &texture : s_textures)
 			delete texture.second;
@@ -39,7 +39,7 @@ Texture *Texture::loadFromFile(const boost::filesystem::path &path)
 	if (s_textures.count(string_path))
 		return s_textures[string_path];
 
-	getInstance();
+	getStaticInstance();
 	ImageLoader loader(path);
 	Texture *texture = new Texture();
 	texture->loadFromMemory(loader.getWidth(), loader.getHeight(), loader.getPixels(),
@@ -105,9 +105,9 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte *pixels, G
 	unbind();
 }
 
-Texture &Texture::getInstance()
+Texture &Texture::getStaticInstance()
 {
 	static Texture instance;
-	instance.m_static_member = true;
+	instance.m_is_static_instance = true;
 	return instance;
 }

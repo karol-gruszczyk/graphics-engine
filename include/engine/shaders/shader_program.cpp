@@ -1,5 +1,5 @@
 #include "shader_program.hpp"
-#include "../config.hpp"
+#include "engine/config.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
 

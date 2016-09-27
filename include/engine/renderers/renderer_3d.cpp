@@ -1,6 +1,6 @@
 #include "renderer_3d.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include "../materials/material.hpp"
+#include "engine/materials/material.hpp"
 
 
 using engine::Renderer3D;

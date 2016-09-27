@@ -2,7 +2,7 @@
 #define GRAPHICS_ENGINE_SCENE_2D_HPP
 
 #include "scene.hpp"
-#include "../primitives/entities/entity_2d.hpp"
+#include "engine/primitives/entities/entity_2d.hpp"
 
 
 namespace engine

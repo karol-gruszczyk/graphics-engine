@@ -2,7 +2,7 @@
 #define GRAPHICS_ENGINE_ENTITY_HPP
 
 #include <list>
-#include "../../shaders/shader_program.hpp"
+#include "engine/shaders/shader_program.hpp"
 
 
 #define POSITION_ATTRIB_POINTER 0

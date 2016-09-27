@@ -11,13 +11,18 @@ link_libraries(${GLEW_LIBRARIES})
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 link_libraries(${Boost_LIBRARIES})
 
-find_path(freeimage_INCLUDE_DIRS FreeImage.h)
-include_directories(${freeimage_INCLUDE_DIRS})
+find_path(freeimage_INCLUDE_FreeImage FreeImage.h)
+include_directories(${freeimage_INCLUDE_FreeImage})
 find_library(freeimage_LIBRARIES freeimage)
 link_libraries(${freeimage_LIBRARIES})
 
 find_library(assimp_LIBRARIES assimp)
 link_libraries(${assimp_LIBRARIES})
+
+find_path(Freetype_INCLUDE_ft2build ft2build.h)
+include_directories(${Freetype_INCLUDE_ft2build})
+find_package(Freetype REQUIRED)
+link_libraries(${Freetype_LIBRARIES})
 
 file(GLOB_RECURSE SOURCES *.cpp)
 

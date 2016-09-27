@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "texture.hpp"
-#include "../shaders/shader_program.hpp"
+#include "engine/shaders/shader_program.hpp"
 
 
 namespace engine

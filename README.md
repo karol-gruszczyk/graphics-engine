@@ -11,11 +11,12 @@ A modern OpenGL based graphics engine using modern C++14 with boost.
 * Boost
    * filesystem
 * FreeImage
-* assimp
+* Assimp
+* FreeType
 
 ##### Ubuntu / Linux copy-paste
 ```bash
-sudo apt-get install libglew-dev libglm-dev libboost-filesystem-dev libfreeimage-dev libassimp-dev
+sudo apt-get install libglew-dev libglm-dev libboost-filesystem-dev libfreeimage-dev libassimp-dev libfreetype6-dev
 ```
 
 #### Example program

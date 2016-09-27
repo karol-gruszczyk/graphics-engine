@@ -3,10 +3,10 @@
 
 #include <memory>
 #include <glm/glm.hpp>
-#include "../shaders/shader_program.hpp"
-#include "../shaders/vertex_shader.hpp"
-#include "../shaders/fragment_shader.hpp"
-#include "../config.hpp"
+#include "engine/shaders/shader_program.hpp"
+#include "engine/shaders/vertex_shader.hpp"
+#include "engine/shaders/fragment_shader.hpp"
+#include "engine/config.hpp"
 
 
 namespace engine

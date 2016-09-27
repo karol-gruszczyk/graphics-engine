@@ -13,6 +13,7 @@
 * Add static text handling(using FrameBufferObject)
 
 ## non-release
+* Add support for non ASCII characters in paths
 * Improve scene loader
   * light loading
   * affine transformations

@@ -4,8 +4,8 @@
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
 #include "preprocessor.hpp"
-#include "../exceptions/shader_compile_exception.hpp"
-#include "../exceptions/file_not_found_exception.hpp"
+#include "engine/exceptions/shader_compile_exception.hpp"
+#include "engine/exceptions/file_not_found_exception.hpp"
 
 
 namespace engine

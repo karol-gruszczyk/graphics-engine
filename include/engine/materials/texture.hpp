@@ -26,13 +26,15 @@ public:
 
 private:
 	Texture();
-	static std::map<std::string, Texture *> s_textures;
-	static Texture &getInstance();
 
-	bool m_static_member = false;
+	static std::map<std::string, Texture *> s_textures;
+
+	bool m_is_static_instance = false;
 	GLuint m_texture_id;
 	bool m_texture_created;
 	unsigned m_width, m_height;
+
+	static Texture &getStaticInstance();
 };
 
 #endif /* GRAPHICS_ENGINE_TEXTURE_HPP */

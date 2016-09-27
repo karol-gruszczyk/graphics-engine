@@ -4,12 +4,12 @@
 #include <boost/filesystem.hpp>
 
 #include "scene.hpp"
-#include "../camera.hpp"
-#include "../primitives/entities/entity_3d.hpp"
-#include "../lights/directional_light.hpp"
-#include "../lights/point_light.hpp"
-#include "../lights/spot_light.hpp"
-#include "../exceptions/light_limit_reached_exception.hpp"
+#include "engine/camera.hpp"
+#include "engine/primitives/entities/entity_3d.hpp"
+#include "engine/lights/directional_light.hpp"
+#include "engine/lights/point_light.hpp"
+#include "engine/lights/spot_light.hpp"
+#include "engine/exceptions/light_limit_reached_exception.hpp"
 
 
 namespace engine
