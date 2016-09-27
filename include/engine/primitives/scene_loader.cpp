@@ -19,9 +19,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path &path)
 	auto loading_start_time = high_resolution_clock::now();
 
 	Assimp::Importer importer;
-	auto post_process = aiProcess_Triangulate | aiProcess_JoinIdenticalVertices |
-	                    aiProcess_RemoveRedundantMaterials;
-	const aiScene *scene = importer.ReadFile(path.string(), post_process);
+	const aiScene *scene = importer.ReadFile(path.string(), aiProcessPreset_TargetRealtime_Fast);
 
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{

@@ -1,13 +1,4 @@
-# TODOS
-## alpha 0.1.1
-* ~~Add object loading~~
-* ~~Add materials~~
-* ~~Implement global texture storage in Texture class:~~
-  * ~~private Texture constructor~~
-  * ~~public static method for loading~~
-* Implement materials to object loading
-  * ~~Diffuse~~
-  * Specular
+# TODO`S
 
 ## alpha 1.1.2
 * Implement FreeType font loading
@@ -22,7 +13,9 @@
 * Add static text handling(using FrameBufferObject)
 
 ## non-release
-* Add to GLSL Preprocessor debug mode
+* Improve scene loader
+  * light loading
+  * affine transformations
 * Remove 2D / 3D classification
   * Project all as 3D
   * Project 2D as a 3D scene with camera looking down
