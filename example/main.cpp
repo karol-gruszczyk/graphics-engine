@@ -89,9 +89,9 @@ void draw(void)
 
 void setup()
 {
-	Config::getInstance().initializeLogger(
+	Engine::getInstance().initializeLogger(
 			std::cout.rdbuf()); // initializing logger with stdout as output stream
-//    Config::getInstance().initializeLogger(); // initializing logger with default log file path
+//    Engine::getInstance().initializeLogger(); // initializing logger with default log file path
 	try
 	{
 		renderer2d = new Renderer2D(window_width, window_height);
@@ -99,7 +99,7 @@ void setup()
 	}
 	catch (std::exception& e)
 	{
-		Config::getInstance().logError(e.what());
+		Engine::getInstance().logError(e.what());
 		exit(EXIT_FAILURE);
 	}
 
@@ -110,7 +110,7 @@ void setup()
 	}
 	catch (FileNotFoundException& e)
 	{
-		Config::getInstance().logError(e.what());
+		Engine::getInstance().logError(e.what());
 	}
 
 	// 2D
@@ -153,13 +153,13 @@ void setup()
 	}
 	catch (FileNotFoundException& e)
 	{
-		Config::getInstance().logError(e.what());
+		Engine::getInstance().logError(e.what());
 	}
 
 	font = Font::loadFromFile("res/comic_sans.ttf");
 
 	draw();
-	Config::getInstance().logErrors(); // checking if any errors were raised
+	Engine::getInstance().checkErrors(); // checking if any errors were raised
 }
 
 void cleanup()

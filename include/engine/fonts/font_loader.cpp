@@ -1,5 +1,5 @@
 #include "font_loader.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 
 
 using engine::FontLoader;
@@ -13,12 +13,12 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 	getGlobalInstance();
 
 	auto full_path = boost::filesystem::canonical(path).string();
-	Config::getInstance().logInfo("Loading font '" + full_path + "'");
+	Engine::getInstance().logInfo("Loading font '" + full_path + "'");
 
 	FT_Face face;
 	if (FT_New_Face(s_ft_lib, path.string().c_str(), 0, &face) != 0)
 	{
-		Config::getInstance().logError("FreeType failed to load font '" + full_path + "'");
+		Engine::getInstance().logError("FreeType failed to load font '" + full_path + "'");
 		return;
 	}
 
@@ -29,7 +29,7 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 	{
 		if (FT_Load_Char(face, ch, FT_LOAD_RENDER) != 0)
 		{
-			Config::getInstance().logError("FreeType failed loading glyph '" + std::to_string(ch) + "' for font '"
+			Engine::getInstance().logError("FreeType failed loading glyph '" + std::to_string(ch) + "' for font '"
 			                               + full_path + "'");
 			return;
 		}
@@ -43,7 +43,7 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 	}
 	FT_Done_Face(face);
 
-	Config::getInstance().logInfo("Font '" + full_path + "' loaded");
+	Engine::getInstance().logInfo("Font '" + full_path + "' loaded");
 }
 
 FontLoader::~FontLoader()
@@ -51,7 +51,7 @@ FontLoader::~FontLoader()
 	if (m_is_global)
 	{
 		FT_Done_FreeType(s_ft_lib);
-		Config::getInstance().logInfo("FreeType unloaded");
+		Engine::getInstance().logInfo("FreeType unloaded");
 	}
 }
 
@@ -76,9 +76,9 @@ FontLoader::FontLoader()
 		: m_is_global(true)
 {
 	if (FT_Init_FreeType(&s_ft_lib) != 0)
-		Config::getInstance().logError("FreeType failed to initialize");
+		Engine::getInstance().logError("FreeType failed to initialize");
 	else
-		Config::getInstance().logInfo("FreeType " + getFreeTypeVersion() + " loaded");
+		Engine::getInstance().logInfo("FreeType " + getFreeTypeVersion() + " loaded");
 }
 
 FontLoader& FontLoader::getGlobalInstance()

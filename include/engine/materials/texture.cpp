@@ -1,6 +1,6 @@
 #include <sstream>
 #include "texture.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 #include "image_loader.hpp"
 
 
@@ -75,7 +75,7 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 			image_name = "In memory object at 0x" + ss.str();
 		}
 		auto dimensions = std::to_string(m_width) + " x " + std::to_string(m_height);
-		engine::Config::getInstance().logWarning(
+		engine::Engine::getInstance().logWarning(
 				"Performance warning, image '" + image_name + "' - dimensions " + dimensions + " are not a power of 2");
 	}
 

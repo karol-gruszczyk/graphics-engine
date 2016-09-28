@@ -1,5 +1,5 @@
 #include "shader_program.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
 
@@ -29,10 +29,10 @@ ShaderProgram::ShaderProgram(const std::initializer_list<Shader*>& shaders)
 
 		if (success == GL_FALSE)
 		{
-			Config::getInstance().log(info_log, Config::ERROR);
+			Engine::getInstance().logError(info_log);
 			throw ShaderLinkException(info_log);
 		}
-		Config::getInstance().log(info_log, Config::WARNING);
+		Engine::getInstance().logWarning(info_log);
 	}
 	for (auto& shader : shaders)
 		glDetachShader(m_shader_program_id, shader->m_shader_id);

@@ -6,7 +6,7 @@
 #include "engine/shaders/shader_program.hpp"
 #include "engine/shaders/vertex_shader.hpp"
 #include "engine/shaders/fragment_shader.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 
 
 namespace engine

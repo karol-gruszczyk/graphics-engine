@@ -1,7 +1,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "font.hpp"
 #include "font_loader.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 #include "engine/primitives/rectangle.hpp"
 #include "engine/shaders/vertex_shader.hpp"
 #include "engine/shaders/fragment_shader.hpp"
@@ -91,7 +91,7 @@ Font& Font::getStaticInstance()
 
 void Font::loadShader()
 {
-	const auto& shader_path = Config::getInstance().getShaderPath();
+	const auto& shader_path = Engine::getInstance().getShaderPath();
 	VertexShader vertexShader(shader_path / "fonts/font_vs.glsl");
 	FragmentShader fragmentShader(shader_path / "fonts/font_fs.glsl");
 	s_shader = new ShaderProgram({ &vertexShader, &fragmentShader });

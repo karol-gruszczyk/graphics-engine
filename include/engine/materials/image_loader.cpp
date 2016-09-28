@@ -1,5 +1,5 @@
 #include "image_loader.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 
 
 using engine::ImageLoader;
@@ -37,8 +37,8 @@ ImageLoader::ImageLoader()
 		: m_is_static_instance(true)
 {
 	FreeImage_Initialise();
-	Config::getInstance().logInfo("FreeImage " + std::string(FreeImage_GetVersion()) + " loaded");
-	Config::getInstance().logInfo(FreeImage_GetCopyrightMessage());
+	Engine::getInstance().logInfo("FreeImage " + std::string(FreeImage_GetVersion()) + " loaded");
+	Engine::getInstance().logInfo(FreeImage_GetCopyrightMessage());
 }
 
 ImageLoader::~ImageLoader()
@@ -48,7 +48,7 @@ ImageLoader::~ImageLoader()
 	if (m_is_static_instance)
 	{
 		FreeImage_DeInitialise();
-		Config::getInstance().logInfo("FreeImage unloaded");
+		Engine::getInstance().logInfo("FreeImage unloaded");
 	}
 }
 

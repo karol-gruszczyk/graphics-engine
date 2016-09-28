@@ -1,8 +1,8 @@
 # TODO`S
 
 ## alpha 1.1.2
-* Rewrite Config class to Engine
-  * supervisor class storing all global data, such as window size
+* ~~Rewrite Config class to Engine~~
+  * add functionality for setting context sizes where it is needed
 * ~~Implement FreeType font loading~~
 * Add dynamic text(one quad per glyph)
 

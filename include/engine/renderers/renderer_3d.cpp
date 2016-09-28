@@ -36,7 +36,7 @@ void engine::Renderer3D::updateProjectionMatrix()
 
 void engine::Renderer3D::loadShader()
 {
-	const auto& path = Config::getInstance().getShaderPath();
+	const auto& path = Engine::getInstance().getShaderPath();
 	VertexShader vertex_shader(path / "3d/phong_vs.glsl");
 	FragmentShader fragment_shader(path / "3d/phong_fs.glsl");
 	m_shader_program = new ShaderProgram({ &vertex_shader, &fragment_shader });

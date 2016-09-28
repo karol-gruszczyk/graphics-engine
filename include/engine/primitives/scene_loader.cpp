@@ -1,5 +1,5 @@
 #include "scene_loader.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <chrono>
@@ -8,13 +8,13 @@
 using engine::SceneLoader;
 using engine::Material;
 using engine::Mesh;
-using engine::Config;
+using engine::Engine;
 
 SceneLoader::SceneLoader(const boost::filesystem::path& path)
 {
 	using namespace std::chrono;
 
-	Config::getInstance().logInfo("Loading scene '" + boost::filesystem::canonical(path).string() + "'");
+	Engine::getInstance().logInfo("Loading scene '" + boost::filesystem::canonical(path).string() + "'");
 	auto loading_start_time = high_resolution_clock::now();
 
 	Assimp::Importer importer;
@@ -22,7 +22,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path)
 
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		Config::getInstance().logError("Failed to open file(" + path.string() + "): " + importer.GetErrorString());
+		Engine::getInstance().logError("Failed to open file(" + path.string() + "): " + importer.GetErrorString());
 		return;
 	}
 	m_directory = path.parent_path();
@@ -30,7 +30,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path)
 	processNode(scene->mRootNode, scene);
 
 	duration<double, std::milli> loading_time = high_resolution_clock::now() - loading_start_time;
-	Config::getInstance().logInfo("Scene '" + boost::filesystem::canonical(path).string() + "' loaded in " +
+	Engine::getInstance().logInfo("Scene '" + boost::filesystem::canonical(path).string() + "' loaded in " +
 	                              std::to_string(loading_time.count()) + " ms");
 }
 
@@ -68,7 +68,7 @@ Material* SceneLoader::processMaterial(const aiMaterial* material)
 		}
 		catch (FileNotFoundException& e)
 		{
-			Config::getInstance().logError(e.what());
+			Engine::getInstance().logError(e.what());
 		}
 	}
 	material->Get(AI_MATKEY_COLOR_AMBIENT, tmp_color3d);
@@ -82,7 +82,7 @@ Material* SceneLoader::processMaterial(const aiMaterial* material)
 		}
 		catch (FileNotFoundException& e)
 		{
-			Config::getInstance().logError(e.what());
+			Engine::getInstance().logError(e.what());
 		}
 	}
 	material->Get(AI_MATKEY_COLOR_DIFFUSE, tmp_color3d);
@@ -96,7 +96,7 @@ Material* SceneLoader::processMaterial(const aiMaterial* material)
 		}
 		catch (FileNotFoundException& e)
 		{
-			Config::getInstance().logError(e.what());
+			Engine::getInstance().logError(e.what());
 		}
 	}
 	material->Get(AI_MATKEY_COLOR_SPECULAR, tmp_color3d);

@@ -1,10 +1,10 @@
 #include "preprocessor.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 #include <sstream>
 
 
 using engine::Preprocessor;
-using engine::Config;
+using engine::Engine;
 
 
 Preprocessor::Preprocessor(const boost::filesystem::path& path)
@@ -30,7 +30,7 @@ void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 		{
 			auto exception = GLSLSyntaxErrorException(current_file,
 			                                          m_source_code.substr(position, line_end - position));
-			Config::getInstance().log(exception.what(), Config::ERROR);
+			Engine::getInstance().logError(exception.what());
 			throw exception;
 		}
 		auto filename = m_source_code.substr(start + 1, end - start - 1);

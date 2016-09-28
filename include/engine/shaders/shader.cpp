@@ -1,5 +1,5 @@
 #include "shader.hpp"
-#include "engine/config.hpp"
+#include "engine/engine.hpp"
 
 
 using engine::Shader;
@@ -31,10 +31,10 @@ Shader::Shader(const boost::filesystem::path& path, const GLenum& type)
 		           info_log;
 		if (success == GL_FALSE)
 		{
-			Config::getInstance().log(info_log, Config::ERROR);
+			Engine::getInstance().logError(info_log);
 			throw ShaderCompileException(path, info_log);
 		}
-		Config::getInstance().log(info_log, Config::WARNING);
+		Engine::getInstance().logWarning(info_log);
 	}
 }
 
