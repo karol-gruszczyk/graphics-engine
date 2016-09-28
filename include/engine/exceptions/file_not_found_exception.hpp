@@ -24,7 +24,7 @@ private:
 		if (path.is_absolute())
 			return path.string();
 		auto absolute_path = boost::filesystem::current_path();
-		for (auto &subpath : path)
+		for (auto& subpath : path)
 		{
 			if (subpath == "..")
 				absolute_path.remove_leaf();

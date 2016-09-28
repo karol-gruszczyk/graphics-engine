@@ -8,54 +8,54 @@ using engine::Entity3D;
 using engine::Renderer;
 
 
-Scene3D::Scene3D(Renderer *renderer)
+Scene3D::Scene3D(Renderer* renderer)
 		: Scene(renderer)
 {}
 
 Scene3D::~Scene3D()
 {
-	for (auto &entity : m_entities)
+	for (auto& entity : m_entities)
 		delete entity;
 }
 
-void engine::Scene3D::setCamera(Camera *camera)
+void engine::Scene3D::setCamera(Camera* camera)
 {
 	m_camera_ptr = camera;
 }
 
-void engine::Scene3D::addLight(DirectionalLight *directional_light)
+void engine::Scene3D::addLight(DirectionalLight* directional_light)
 {
 	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
 		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
 	m_directional_lights.push_back(directional_light);
 }
 
-void engine::Scene3D::addLight(PointLight *point_light)
+void engine::Scene3D::addLight(PointLight* point_light)
 {
 	if (m_directional_lights.size() == MAX_POINT_LIGHTS)
 		throw LightLimitReachedException("point", MAX_POINT_LIGHTS);
 	m_point_lights.push_back(point_light);
 }
 
-void engine::Scene3D::addLight(SpotLight *spot_light)
+void engine::Scene3D::addLight(SpotLight* spot_light)
 {
 	if (m_directional_lights.size() == MAX_SPOT_LIGHTS)
 		throw LightLimitReachedException("spot", MAX_SPOT_LIGHTS);
 	m_spot_lights.push_back(spot_light);
 }
 
-void Scene3D::addEntity(Entity3D *entity)
+void Scene3D::addEntity(Entity3D* entity)
 {
 	m_entities.push_back(entity);
 }
 
-void Scene3D::loadFromFile(const boost::filesystem::path &path)
+void Scene3D::loadFromFile(const boost::filesystem::path& path)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
 
-	SceneLoader *loader = new SceneLoader(path);
-	for (Mesh *mesh : loader->getMeshes())
+	SceneLoader* loader = new SceneLoader(path);
+	for (Mesh* mesh : loader->getMeshes())
 		addEntity(mesh);
 	delete loader;
 }
@@ -100,7 +100,7 @@ void Scene3D::render() const
 
 	getShaderProgram()->setUniformVector3("camera_position", m_camera_ptr->getPosition());
 	auto projection_view_matrix = m_renderer->getProjectionMatrix() * m_camera_ptr->getViewMatrix();
-	for (auto &entity : m_entities)
+	for (auto& entity : m_entities)
 	{
 		getShaderProgram()->setUniformMatrix4("projection_view_model_matrix",
 		                                      projection_view_matrix * entity->getModelMatrix());

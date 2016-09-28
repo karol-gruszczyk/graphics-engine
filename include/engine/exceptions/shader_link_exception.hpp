@@ -16,7 +16,7 @@ public:
 			: runtime_error("The shader program failed to link shaders"), m_error_message(error_message)
 	{}
 
-	std::string &getErrorMessage()
+	std::string& getErrorMessage()
 	{
 		return m_error_message;
 	}

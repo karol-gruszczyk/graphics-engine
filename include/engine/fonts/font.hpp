@@ -4,6 +4,7 @@
 #include <boost/filesystem.hpp>
 #include <map>
 #include "engine/materials/texture.hpp"
+#include "engine/shaders/shader_program.hpp"
 
 
 namespace engine
@@ -15,17 +16,22 @@ class engine::Font
 {
 public:
 	~Font();
-	static Font *loadFromFile(const boost::filesystem::path &path);
+	static Font* loadFromFile(const boost::filesystem::path& path);
+	void renderText(const std::string& text);
 
 private:
 	Font();
 
-	static std::map<std::string, Font *> s_fonts;
+	static std::map<std::string, Font*> s_fonts;
+	static ShaderProgram* s_shader;
 
 	bool m_is_static_instance = false;
-	std::map<wchar_t, Texture*> m_char_bitmaps;
+	std::map<char, Texture*> m_glyph_bitmaps;
 
-	static Font &getStaticInstance();
+	static Font& getStaticInstance();
+
+	void loadShader();
+	void unloadShader();
 };
 
 #endif /* GRAPHICS_ENGINE_FONT_HPP */

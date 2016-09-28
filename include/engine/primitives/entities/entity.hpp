@@ -22,7 +22,7 @@ public:
 	virtual ~Entity();
 
 	virtual void render() const;
-	const glm::mat4 &getModelMatrix() const;
+	const glm::mat4& getModelMatrix() const;
 
 protected:
 	GLuint m_vao_id;
@@ -34,7 +34,7 @@ protected:
 	glm::mat4 m_model_matrix;
 
 	void setupRendering(GLenum draw_mode, GLuint elements_size, GLenum elements_type);
-	void createBufferObject(GLenum target, GLsizeiptr data_length, const void *data, GLenum usage = GL_STATIC_DRAW);
+	void createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage = GL_STATIC_DRAW);
 };
 
 #endif /* GRAPHICS_ENGINE_ENTITY_HPP */

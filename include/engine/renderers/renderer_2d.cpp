@@ -6,7 +6,7 @@
 using engine::Renderer2D;
 
 
-Renderer2D::Renderer2D(const unsigned &context_width, const unsigned &context_height)
+Renderer2D::Renderer2D(const unsigned& context_width, const unsigned& context_height)
 {
 	loadShader();
 	setContextWidth(context_width, context_height);
@@ -22,14 +22,13 @@ void Renderer2D::updateProjectionMatrix()
 void Renderer2D::loadShader()
 {
 	auto path = Config::getInstance().getShaderPath();
-	m_vertex_shader = std::make_unique<VertexShader>(path / "2d/basic_vs.glsl");
-	m_fragment_shader = std::make_unique<FragmentShader>(path / "2d/basic_fs.glsl");
-	m_shader_program = std::make_unique<ShaderProgram>(
-			std::initializer_list<Shader *>({ m_vertex_shader.get(), m_fragment_shader.get() }));
-	BasicMaterial::setDefaultShader(m_shader_program.get());
+	VertexShader vertex_shader(path / "2d/basic_vs.glsl");
+	FragmentShader fragment_shader(path / "2d/basic_fs.glsl");
+	m_shader_program = new ShaderProgram({ &vertex_shader, &fragment_shader });
+	BasicMaterial::setDefaultShader(m_shader_program);
 }
 
-void Renderer2D::setContextWidth(const unsigned &context_width, const unsigned &context_height)
+void Renderer2D::setContextWidth(const unsigned& context_width, const unsigned& context_height)
 {
 	Renderer::setContextWidth(context_width, context_height);
 	updateProjectionMatrix();

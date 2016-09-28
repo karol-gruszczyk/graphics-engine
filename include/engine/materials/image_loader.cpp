@@ -5,7 +5,7 @@
 using engine::ImageLoader;
 
 
-ImageLoader::ImageLoader(const boost::filesystem::path &path)
+ImageLoader::ImageLoader(const boost::filesystem::path& path)
 {
 	getStaticInstance();
 
@@ -23,7 +23,7 @@ ImageLoader::ImageLoader(const boost::filesystem::path &path)
 	m_bitmap = FreeImage_Load(file_format, path_str);
 	if (FreeImage_GetBPP(m_bitmap) != 32)
 	{
-		FIBITMAP *temp = m_bitmap;
+		FIBITMAP* temp = m_bitmap;
 		m_bitmap = FreeImage_ConvertTo32Bits(m_bitmap);
 		FreeImage_Unload(temp);
 	}
@@ -52,7 +52,7 @@ ImageLoader::~ImageLoader()
 	}
 }
 
-ImageLoader &ImageLoader::getStaticInstance()
+ImageLoader& ImageLoader::getStaticInstance()
 {
 	static ImageLoader instance;
 	return instance;
@@ -68,7 +68,7 @@ unsigned ImageLoader::getHeight() const
 	return m_height;
 }
 
-unsigned char *ImageLoader::getPixels() const
+unsigned char* ImageLoader::getPixels() const
 {
 	return m_pixels;
 }

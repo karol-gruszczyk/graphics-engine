@@ -12,10 +12,10 @@ namespace engine
 class engine::DirectionalLight final : public Light
 {
 public:
-	DirectionalLight(const glm::vec3 &direction, const glm::vec3 &color = { 1.f, 1.f, 1.f }, const bool &active = true);
+	DirectionalLight(const glm::vec3& direction, const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);
 
-	void setDirection(const glm::vec3 &direction);
-	const glm::vec3 &getDirection() const;
+	void setDirection(const glm::vec3& direction);
+	const glm::vec3& getDirection() const;
 private:
 	glm::vec3 m_direction;
 };

@@ -1,6 +1,5 @@
 #include "preprocessor.hpp"
 #include "engine/config.hpp"
-#include <fstream>
 #include <sstream>
 
 
@@ -8,7 +7,7 @@ using engine::Preprocessor;
 using engine::Config;
 
 
-Preprocessor::Preprocessor(const boost::filesystem::path &path)
+Preprocessor::Preprocessor(const boost::filesystem::path& path)
 {
 	m_source_code = getFileContent(path);
 	parseIncludes(path);
@@ -19,7 +18,7 @@ std::string Preprocessor::getSourceCode() const
 	return m_source_code;
 }
 
-void Preprocessor::parseIncludes(const boost::filesystem::path &current_file)
+void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 {
 	std::size_t position(0);
 	while ((position = m_source_code.find("#include")) != std::string::npos)
@@ -39,7 +38,7 @@ void Preprocessor::parseIncludes(const boost::filesystem::path &current_file)
 	}
 }
 
-std::string Preprocessor::getFileContent(const boost::filesystem::path &path) const
+std::string Preprocessor::getFileContent(const boost::filesystem::path& path) const
 {
 	std::ifstream file;
 	file.exceptions(std::ifstream::badbit);

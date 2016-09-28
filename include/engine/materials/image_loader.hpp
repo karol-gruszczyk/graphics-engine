@@ -15,23 +15,23 @@ namespace engine
 class engine::ImageLoader final
 {
 public:
-	ImageLoader(const boost::filesystem::path &path);
+	ImageLoader(const boost::filesystem::path& path);
 	~ImageLoader();
 
 	unsigned getWidth() const;
 	unsigned getHeight() const;
-	unsigned char *getPixels() const;
+	unsigned char* getPixels() const;
 	unsigned getSize() const;
 
 private:
 	ImageLoader();
 
 	bool m_is_static_instance = false;
-	FIBITMAP *m_bitmap;
+	FIBITMAP* m_bitmap;
 	unsigned m_width, m_height;
-	unsigned char *m_pixels;
+	unsigned char* m_pixels;
 
-	static ImageLoader &getStaticInstance();
+	static ImageLoader& getStaticInstance();
 };
 
 #endif /* GRAPHICS_ENGINE_IMAGE_LOADER_HPP */

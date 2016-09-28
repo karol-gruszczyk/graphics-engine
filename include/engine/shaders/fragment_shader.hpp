@@ -12,7 +12,7 @@ namespace engine
 class engine::FragmentShader final : public Shader
 {
 public:
-	FragmentShader(const boost::filesystem::path &path);
+	FragmentShader(const boost::filesystem::path& path);
 };
 
 #endif /* GRAPHICS_ENGINE_FRAGMENT_SHADER_HPP */

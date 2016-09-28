@@ -12,7 +12,7 @@ namespace engine
 class engine::VertexShader final : public Shader
 {
 public:
-	VertexShader(const boost::filesystem::path &path);
+	VertexShader(const boost::filesystem::path& path);
 };
 
 #endif /* GRAPHICS_ENGINE_VERTEX_SHADER_HPP */

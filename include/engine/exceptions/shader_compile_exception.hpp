@@ -18,7 +18,7 @@ public:
 			  m_error_message(error_message)
 	{}
 
-	std::string &getErrorMessage()
+	std::string& getErrorMessage()
 	{
 		return m_error_message;
 	}

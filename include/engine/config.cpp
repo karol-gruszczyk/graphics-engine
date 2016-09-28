@@ -9,7 +9,6 @@ using engine::Config;
 Config::Config()
 {
 	m_working_dir = boost::filesystem::current_path();
-	m_shader_path = m_working_dir;
 }
 
 Config::~Config()
@@ -18,23 +17,23 @@ Config::~Config()
 		m_logger_file->close();
 }
 
-Config &Config::getInstance()
+Config& Config::getInstance()
 {
 	static Config instance;
 	return instance;
 }
 
-void Config::setShaderPath(const boost::filesystem::path &path)
+void Config::setShaderPath(const boost::filesystem::path& path)
 {
 	getInstance().m_shader_path = path;
 }
 
-const boost::filesystem::path &Config::getShaderPath() const
+const boost::filesystem::path& Config::getShaderPath() const
 {
 	return getInstance().m_shader_path;
 }
 
-void Config::initializeLogger(const boost::filesystem::path &path /* = "" */)
+void Config::initializeLogger(const boost::filesystem::path& path /* = "" */)
 {
 	if (m_logger_file)
 	{
@@ -49,50 +48,50 @@ void Config::initializeLogger(const boost::filesystem::path &path /* = "" */)
 	if (m_logger_file->good())
 	{
 		m_logger = std::make_unique<std::ostream>(m_logger_file->rdbuf());
-		logEngineInitial();
+		logInitial();
 	}
 }
 
-void Config::initializeLogger(std::streambuf *ostream)
+void Config::initializeLogger(std::streambuf* ostream)
 {
 	m_logger = std::make_unique<std::ostream>(ostream);
-	logEngineInitial();
+	logInitial();
 }
 
-void Config::log(const std::string &message, const LogLevel &log_level /*= INFO*/) const
+void Config::log(const std::string& message, const LogLevel& log_level /*= INFO*/) const
 {
 	if (m_logger)
 		*m_logger << logLevelToString(log_level) << message << std::endl;
 }
 
-void Config::logInfo(const std::string &message) const
+void Config::logInfo(const std::string& message) const
 {
 	log(message, INFO);
 }
 
-void Config::logWarning(const std::string &message) const
+void Config::logWarning(const std::string& message) const
 {
 	log(message, WARNING);
 }
 
-void Config::logError(const std::string &message) const
+void Config::logError(const std::string& message) const
 {
 	log(message, ERROR);
 }
 
-void Config::logDebug(const std::string &message) const
+void Config::logDebug(const std::string& message) const
 {
 	log(message, DEBUG);
 }
 
-void Config::logEngineInitial() const
+void Config::logInitial() const
 {
-	log(std::string("Using OpenGL ") + (char *) glGetString(GL_VERSION));
-	log(std::string("OpenGL Shading Language version: ") + (char *) glGetString(GL_SHADING_LANGUAGE_VERSION));
-	log(std::string("Graphics card: ") + (char *) glGetString(GL_VENDOR) + " " + (char *) glGetString(GL_RENDERER));
+	log(std::string("Using OpenGL ") + (char*) glGetString(GL_VERSION));
+	log(std::string("OpenGL Shading Language version: ") + (char*) glGetString(GL_SHADING_LANGUAGE_VERSION));
+	log(std::string("Graphics card: ") + (char*) glGetString(GL_VENDOR) + " " + (char*) glGetString(GL_RENDERER));
 }
 
-const std::string Config::logLevelToString(const LogLevel &log_level) const
+const std::string Config::logLevelToString(const LogLevel& log_level) const
 {
 	switch (log_level)
 	{

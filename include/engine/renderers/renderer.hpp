@@ -17,8 +17,10 @@ namespace engine
 class engine::Renderer
 {
 	friend class Scene;
+
 public:
 	Renderer();
+	~Renderer();
 
 	virtual void setContextWidth(const unsigned& context_width, const unsigned& context_height);
 	void clearScreen() const;
@@ -29,9 +31,7 @@ protected:
 	unsigned m_context_width, m_context_height;
 	glm::mat4 m_projection_matrix;
 
-	std::unique_ptr<VertexShader> m_vertex_shader;
-	std::unique_ptr<FragmentShader> m_fragment_shader;
-	std::unique_ptr<ShaderProgram> m_shader_program;
+	ShaderProgram* m_shader_program = nullptr;
 	virtual void updateProjectionMatrix() = 0;
 };
 

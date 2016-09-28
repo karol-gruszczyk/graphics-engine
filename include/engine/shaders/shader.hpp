@@ -18,12 +18,12 @@ class engine::Shader
 	friend class ShaderProgram;
 
 public:
-	Shader(const boost::filesystem::path &path, const GLenum &type);
+	Shader(const boost::filesystem::path& path, const GLenum& type);
 	virtual ~Shader();
 protected:
 	GLuint m_shader_id;
 
-	std::string openShaderFile(const boost::filesystem::path &path) const;
+	std::string openShaderFile(const boost::filesystem::path& path) const;
 };
 
 #endif /* GRAPHICS_ENGINE_SHADER_HPP */

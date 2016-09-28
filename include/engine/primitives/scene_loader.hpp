@@ -15,19 +15,19 @@ namespace engine
 class engine::SceneLoader final
 {
 public:
-	SceneLoader(const boost::filesystem::path &path);
+	SceneLoader(const boost::filesystem::path& path);
 
-	const std::vector<Material *> &getMaterials();
-	const std::vector<Mesh *> &getMeshes();
+	const std::vector<Material*>& getMaterials();
+	const std::vector<Mesh*>& getMeshes();
 private:
 	boost::filesystem::path m_directory;
-	std::vector<Material *> m_materials;
-	std::vector<Mesh *> m_meshes;
+	std::vector<Material*> m_materials;
+	std::vector<Mesh*> m_meshes;
 
-	Material *processMaterial(const aiMaterial *material);
-	void processNode(aiNode *node, const aiScene *scene);
-	Mesh *processMesh(aiMesh *mesh);
-	void processMaterials(const aiScene *scene);
+	Material* processMaterial(const aiMaterial* material);
+	void processNode(aiNode* node, const aiScene* scene);
+	Mesh* processMesh(aiMesh* mesh);
+	void processMaterials(const aiScene* scene);
 };
 
 #endif /* GRAPHICS_ENGINE_MODEL_LOADER_HPP */

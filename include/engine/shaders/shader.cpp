@@ -1,18 +1,16 @@
 #include "shader.hpp"
 #include "engine/config.hpp"
-#include <fstream>
-#include <boost/filesystem/operations.hpp>
 
 
 using engine::Shader;
 using engine::Preprocessor;
 
 
-Shader::Shader(const boost::filesystem::path &path, const GLenum &type)
+Shader::Shader(const boost::filesystem::path& path, const GLenum& type)
 {
 	std::string shader_code(openShaderFile(path));
 
-	const GLchar *const gl_shader_code = shader_code.c_str();
+	const GLchar* const gl_shader_code = shader_code.c_str();
 	m_shader_id = glCreateShader(type);
 	glShaderSource(m_shader_id, 1, &gl_shader_code, NULL);
 	glCompileShader(m_shader_id);
@@ -45,7 +43,7 @@ Shader::~Shader()
 	glDeleteShader(m_shader_id);
 }
 
-std::string Shader::openShaderFile(const boost::filesystem::path &path) const
+std::string Shader::openShaderFile(const boost::filesystem::path& path) const
 {
 	Preprocessor preprocessor(path);
 	return preprocessor.getSourceCode();

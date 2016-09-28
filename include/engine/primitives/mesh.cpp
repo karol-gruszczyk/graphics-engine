@@ -4,8 +4,8 @@
 using engine::Mesh;
 
 
-Mesh::Mesh(unsigned num_vertices, float *positions, float *normals, float *texture_coords, unsigned num_indices,
-           unsigned *indices)
+Mesh::Mesh(unsigned num_vertices, float* positions, float* normals, float* texture_coords, unsigned num_indices,
+           unsigned* indices)
 		: Entity3D({ 0.f, 0.f, 0.f }, { 0.f, 0.f, 0.f })
 {
 	setupRendering(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT);

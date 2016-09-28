@@ -27,7 +27,7 @@ link_libraries(${Freetype_LIBRARIES})
 file(GLOB_RECURSE SOURCES *.cpp)
 
 add_library(engine ${SOURCES})
-target_include_directories (engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Copy shader files
 configure_file(engine/glsl/2d/basic_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/2d/basic_fs.glsl COPYONLY)
@@ -36,3 +36,5 @@ configure_file(engine/glsl/3d/globals.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gls
 configure_file(engine/glsl/3d/lights.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/3d/lights.glsl COPYONLY)
 configure_file(engine/glsl/3d/phong_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/3d/phong_fs.glsl COPYONLY)
 configure_file(engine/glsl/3d/phong_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/3d/phong_vs.glsl COPYONLY)
+configure_file(engine/glsl/fonts/font_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/fonts/font_fs.glsl COPYONLY)
+configure_file(engine/glsl/fonts/font_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/fonts/font_vs.glsl COPYONLY)

@@ -14,14 +14,14 @@ namespace engine
 class engine::Scene
 {
 public:
-	Scene(Renderer *renderer);
+	Scene(Renderer* renderer);
 
-	void setRenderer(Renderer *renderer);
+	void setRenderer(Renderer* renderer);
 	virtual void render() const;
 protected:
-	Renderer *m_renderer;
+	Renderer* m_renderer;
 
-	ShaderProgram *getShaderProgram() const;
+	ShaderProgram* getShaderProgram() const;
 };
 
 #endif /* GRAPHICS_ENGINE_SCENE_HPP */

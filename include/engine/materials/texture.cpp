@@ -7,12 +7,12 @@
 using engine::Texture;
 
 
-std::map<std::string, Texture *> Texture::s_textures;
+std::map<std::string, Texture*> Texture::s_textures;
 
 Texture::Texture()
 {}
 
-Texture::Texture(unsigned width, unsigned height, GLubyte *pixels, GLint internal_format, GLenum format,
+Texture::Texture(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format,
                  bool generate_mipmaps)
 {
 	loadFromMemory(width, height, pixels, internal_format, format, generate_mipmaps);
@@ -25,12 +25,12 @@ Texture::~Texture()
 
 	if (m_is_static_instance)
 	{
-		for (const auto &texture : s_textures)
+		for (const auto& texture : s_textures)
 			delete texture.second;
 	}
 }
 
-Texture *Texture::loadFromFile(const boost::filesystem::path &path)
+Texture* Texture::loadFromFile(const boost::filesystem::path& path)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -41,7 +41,7 @@ Texture *Texture::loadFromFile(const boost::filesystem::path &path)
 
 	getStaticInstance();
 	ImageLoader loader(path);
-	Texture *texture = new Texture();
+	Texture* texture = new Texture();
 	texture->loadFromMemory(loader.getWidth(), loader.getHeight(), loader.getPixels(),
 	                        GL_RGBA, GL_BGRA, true, string_path);
 	s_textures[string_path] = texture;
@@ -59,7 +59,7 @@ void Texture::unbind() const
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte *pixels, GLint internal_format, GLenum format,
+void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format,
                              bool generate_mipmaps, std::string image_name /* = "" */)
 {
 	m_width = width;
@@ -71,7 +71,7 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte *pixels, G
 		if (image_name.empty())
 		{
 			std::stringstream ss;
-			ss << (void *) pixels;
+			ss << (void*) pixels;
 			image_name = "In memory object at 0x" + ss.str();
 		}
 		auto dimensions = std::to_string(m_width) + " x " + std::to_string(m_height);
@@ -99,13 +99,13 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte *pixels, G
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	unbind();
 }
 
-Texture &Texture::getStaticInstance()
+Texture& Texture::getStaticInstance()
 {
 	static Texture instance;
 	instance.m_is_static_instance = true;
