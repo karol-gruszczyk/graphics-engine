@@ -4,7 +4,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <boost/filesystem.hpp>
-#include "engine/materials/texture.hpp"
+#include "glyph.hpp"
 
 
 namespace engine
@@ -20,13 +20,14 @@ public:
 
 	static const std::string getFreeTypeVersion();
 
-	std::map<char, Texture*> getGlyphs();
+	const std::map<char, Glyph*>& getGlyphs() const;
+	const int& getLineSpacing() const;
 
 private:
 	FontLoader();
 	bool m_is_global = false;
-	FT_Face m_face;
-	std::map<char, Texture*> m_glyphs;
+	std::map<char, Glyph*> m_glyphs;
+	int m_line_spacing;
 
 	static FT_Library s_ft_lib;
 	FontLoader& getGlobalInstance();

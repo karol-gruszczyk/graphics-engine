@@ -1,7 +1,9 @@
 # TODO`S
 
 ## alpha 1.1.2
-* Implement FreeType font loading
+* Rewrite Config class to Engine
+  * supervisor class storing all global data, such as window size
+* ~~Implement FreeType font loading~~
 * Add dynamic text(one quad per glyph)
 
 ## alpha 1.1.3
@@ -13,6 +15,8 @@
 * Add static text handling(using FrameBufferObject)
 
 ## non-release
+* Implement a system for uniform location storage  
+  * Add locations as shader program members with appropriate setters
 * Add support for non ASCII characters in paths
 * Improve scene loader
   * light loading

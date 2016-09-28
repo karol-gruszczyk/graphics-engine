@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -10,7 +11,7 @@
 unsigned window_width = 800;
 unsigned window_height = 600;
 
-int last_frame_time;
+std::chrono::steady_clock::time_point last_frame_time;
 
 using namespace engine;
 
@@ -61,15 +62,16 @@ void updateCameraPosition()
 
 void draw(void)
 {
-	int current_time = glutGet(GLUT_ELAPSED_TIME);
-	int fps = (int) round(1000.f / (current_time - last_frame_time));
+	auto current_time = std::chrono::steady_clock::now();
+	int fps = (int) round(
+			1e+6 / std::chrono::duration_cast<std::chrono::microseconds>(current_time - last_frame_time).count());
 	last_frame_time = current_time;
 
 	std::string title = " FPS: " + std::to_string(fps);
 	glutSetWindowTitle(title.c_str());
 
 	updateCameraPosition();
-	rect->rotate(glm::radians(1.f));
+	//rect->rotate(glm::radians(1.f));
 	auto scale = (sin(counter) + 2.f) / 3.f;
 	rect->setScale({ scale, scale });
 	box->setScale({ scale, scale, scale });
@@ -80,8 +82,8 @@ void draw(void)
 
 	scene3d->render();
 
-	scene2d->render();
-	font->renderText("test");
+	//scene2d->render();
+	font->renderText("(this is a test message,\n(cheers", { 100, 200 });
 	glutSwapBuffers();
 }
 
@@ -139,7 +141,7 @@ void setup()
 	dir_light = new DirectionalLight({ -1.f, -1.f, -1.f });
 	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
-	                                   glm::radians(5.f));
+	                           glm::radians(5.f));
 	scene3d->addLight(dir_light);
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
@@ -204,9 +206,10 @@ void mouse_move(int x, int y)
 
 void idle()
 {
-	int delay = (int) round(1000.f / 60.f) - (glutGet(GLUT_ELAPSED_TIME) - last_frame_time);
+	int delay = (int) round(1e+6 / 60.f - std::chrono::duration_cast<std::chrono::microseconds>(
+			std::chrono::steady_clock::now() - last_frame_time).count());
 	if (delay > 0)
-		usleep((unsigned) delay * 1000);
+		usleep((unsigned) delay);
 	glutPostRedisplay();
 }
 
@@ -240,5 +243,5 @@ int main(int argc, char** argv)
 	setup();
 	glutMainLoop();
 	cleanup();
-	return 0;
+	return EXIT_SUCCESS;
 }

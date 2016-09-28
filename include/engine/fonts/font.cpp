@@ -1,3 +1,4 @@
+#include <glm/gtc/matrix_transform.hpp>
 #include "font.hpp"
 #include "font_loader.hpp"
 #include "engine/config.hpp"
@@ -26,24 +27,46 @@ Font* Font::loadFromFile(const boost::filesystem::path& path)
 	s_fonts[full_path] = font;
 
 	FontLoader loader(path);
-	font->m_glyph_bitmaps = loader.getGlyphs();
+	font->m_glyphs = loader.getGlyphs();
+	font->m_line_spacing = loader.getLineSpacing();
 
 	return font;
 }
 
-void Font::renderText(const std::string& text)
+void Font::renderText(const std::string& text, glm::uvec2 position)
 {
+	s_shader->bind();
+	glDisable(GL_CULL_FACE); // temporary, for dev purposes
+
+	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	Rectangle rect({ 200.f, 200.f });
-	m_glyph_bitmaps['X']->bind();
-	rect.render();
+	glm::mat4 cursor_position;
+	glm::ivec2 advance = position;
+	int line_num = 0;
+	for (const auto& ch : text)
+	{
+		if (ch == '\n')
+		{
+			line_num++;
+			advance = { position.x, position.y + line_num * m_line_spacing };
+			cursor_position = glm::translate(glm::mat4(), glm::vec3(advance, 0));
+			advance = { 0, 0 };
+			continue;
+		}
+		auto offset = m_glyphs[ch]->getSize().y - m_glyphs[ch]->getBearing().y;
+		advance.y += offset;
+		cursor_position = glm::translate(cursor_position, glm::vec3(advance, 0.f));
+		s_shader->setUniformMatrix4("model_matrix", cursor_position);
+		m_glyphs[ch]->render();
+		advance = { m_glyphs[ch]->getAdvance(), -offset };
+	}
 	glDisable(GL_BLEND);
 }
 
 Font::~Font()
 {
-	for (const auto& glyph : m_glyph_bitmaps)
+	for (const auto& glyph : m_glyphs)
 		delete glyph.second;
 
 	if (m_is_static_instance)
@@ -71,7 +94,8 @@ void Font::loadShader()
 	const auto& shader_path = Config::getInstance().getShaderPath();
 	VertexShader vertexShader(shader_path / "fonts/font_vs.glsl");
 	FragmentShader fragmentShader(shader_path / "fonts/font_fs.glsl");
-	s_shader = new ShaderProgram({&vertexShader, &fragmentShader});
+	s_shader = new ShaderProgram({ &vertexShader, &fragmentShader });
+	s_shader->setUniformMatrix4("projection_matrix", glm::ortho(0.f, 800.f, 600.f, 0.f));
 }
 
 void Font::unloadShader()

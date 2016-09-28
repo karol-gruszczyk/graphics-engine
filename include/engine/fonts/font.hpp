@@ -3,7 +3,7 @@
 
 #include <boost/filesystem.hpp>
 #include <map>
-#include "engine/materials/texture.hpp"
+#include "glyph.hpp"
 #include "engine/shaders/shader_program.hpp"
 
 
@@ -17,7 +17,7 @@ class engine::Font
 public:
 	~Font();
 	static Font* loadFromFile(const boost::filesystem::path& path);
-	void renderText(const std::string& text);
+	void renderText(const std::string& text, glm::uvec2 position);
 
 private:
 	Font();
@@ -26,7 +26,8 @@ private:
 	static ShaderProgram* s_shader;
 
 	bool m_is_static_instance = false;
-	std::map<char, Texture*> m_glyph_bitmaps;
+	std::map<char, Glyph*> m_glyphs;
+	GLint m_line_spacing;
 
 	static Font& getStaticInstance();
 

@@ -23,8 +23,8 @@ void Scene2D::addEntity(Entity2D* entity)
 
 void Scene2D::render() const
 {
-	glDisable(GL_DEPTH_TEST);
 	Scene::render();
+	glDisable(GL_DEPTH_TEST);
 	for (auto& entity : m_entities)
 	{
 		getShaderProgram()->setUniformMatrix4("model_matrix", entity->getModelMatrix());
