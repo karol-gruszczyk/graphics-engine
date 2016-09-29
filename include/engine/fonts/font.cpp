@@ -2,7 +2,6 @@
 #include "font.hpp"
 #include "font_loader.hpp"
 #include "engine/engine.hpp"
-#include "engine/primitives/rectangle.hpp"
 #include "engine/shaders/vertex_shader.hpp"
 #include "engine/shaders/fragment_shader.hpp"
 
@@ -59,7 +58,7 @@ void Font::renderText(const std::string& text, glm::uvec2 position)
 		cursor_position = glm::translate(cursor_position, glm::vec3(advance, 0.f));
 		s_shader->setUniformMatrix4("model_matrix", cursor_position);
 		m_glyphs[ch]->render();
-		advance = { m_glyphs[ch]->getAdvance(), -offset };
+		advance = m_glyphs[ch]->getAdvance() + glm::ivec2(0, -offset);
 	}
 	glDisable(GL_BLEND);
 }

@@ -23,9 +23,12 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 	}
 
 	FT_Set_Pixel_Sizes(face, 0, 48);
-	m_line_spacing = (int)face->size->metrics.height >> 6;
+	m_line_spacing = (int) face->size->metrics.height >> 6;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);  // disable byte-alignment restriction, for dev purposes only
-	for (GLubyte ch = 0; ch < 128; ch++)
+
+	//unsigned atlas_width, atlas_height;
+	//GLubyte* atlas = new GLubyte[atlas_width * atlas_height];
+	for (GLubyte ch = 32; ch < 128; ch++)
 	{
 		if (FT_Load_Char(face, ch, FT_LOAD_RENDER) != 0)
 		{
@@ -34,12 +37,16 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 			return;
 		}
 		const auto& glyph = face->glyph;
+		GLubyte* pixels = new GLubyte[glyph->bitmap.width * glyph->bitmap.rows];
+		//for (unsigned i = 0; i < glyph->bitmap.width * glyph->bitmap.rows; i++)
+		//	pixels[i] = glyph->bitmap.buffer[glyph->bitmap.width * glyph->bitmap.rows - 1 - i];
 		auto texture = new Texture(glyph->bitmap.width, glyph->bitmap.rows, glyph->bitmap.buffer, GL_RED, GL_RED,
 		                           false);
+		texture->save("_" + std::to_string(ch) + ".png");
 		m_glyphs[ch] = new Glyph(texture,
 		                         { glyph->bitmap.width, glyph->bitmap.rows },
 		                         { glyph->bitmap_left, glyph->bitmap_top },
-		                         (GLint) glyph->advance.x >> 6);
+		                         { (GLint) glyph->advance.x >> 6, (GLint) glyph->advance.y >> 6 });
 	}
 	FT_Done_Face(face);
 

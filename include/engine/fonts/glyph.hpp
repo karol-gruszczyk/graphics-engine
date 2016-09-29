@@ -14,18 +14,18 @@ namespace engine
 class engine::Glyph
 {
 public:
-	Glyph(Texture* bitmap, const glm::uvec2& size, const glm::ivec2& bearing, const GLint& advance);
+	Glyph(Texture* bitmap, const glm::uvec2& size, const glm::ivec2& bearing, const glm::ivec2& advance);
 	~Glyph();
 
 	const glm::uvec2& getSize() const;
 	const glm::ivec2& getBearing() const;
-	const GLint& getAdvance() const;
+	const glm::ivec2& getAdvance() const;
 	void render() const;
 private:
 	Texture* m_bitmap;
 	glm::uvec2 m_size;
 	glm::ivec2 m_bearing;
-	GLint m_advance;
+	glm::ivec2 m_advance;
 	Rectangle* m_rect;
 };
 

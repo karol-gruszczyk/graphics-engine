@@ -4,7 +4,7 @@
 using engine::Glyph;
 
 
-Glyph::Glyph(Texture* bitmap, const glm::uvec2& size, const glm::ivec2& bearing, const GLint& advance)
+Glyph::Glyph(Texture* bitmap, const glm::uvec2& size, const glm::ivec2& bearing, const glm::ivec2& advance)
 		: m_size(size), m_bitmap(bitmap), m_bearing(bearing), m_advance(advance)
 {
 	m_rect = new Rectangle({ (float) m_size.x, (float) m_size.y });
@@ -26,7 +26,7 @@ const glm::ivec2& Glyph::getBearing() const
 	return m_bearing;
 }
 
-const GLint& Glyph::getAdvance() const
+const glm::ivec2& Glyph::getAdvance() const
 {
 	return m_advance;
 }
