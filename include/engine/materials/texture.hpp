@@ -21,6 +21,7 @@ public:
 	static Texture* loadFromFile(const boost::filesystem::path& path);
 	void loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format,
 	                    bool generate_mipmaps, std::string image_name = "");
+	void save(const boost::filesystem::path& path);
 	void bind(unsigned short texture_level = 0) const;
 	void unbind() const;
 

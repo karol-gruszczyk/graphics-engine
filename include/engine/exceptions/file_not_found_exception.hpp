@@ -18,8 +18,7 @@ public:
 	{}
 
 private:
-	std::string
-	toAbsolutePath(boost::filesystem::path path) // as boost::filesystem::canonical excpects the given path to exist
+	std::string toAbsolutePath(boost::filesystem::path path)
 	{
 		if (path.is_absolute())
 			return path.string();

@@ -2,6 +2,7 @@
 #include "texture.hpp"
 #include "engine/engine.hpp"
 #include "image_loader.hpp"
+#include "engine/exceptions/unknown_extension_exception.hpp"
 
 
 using engine::Texture;
@@ -110,4 +111,26 @@ Texture& Texture::getStaticInstance()
 	static Texture instance;
 	instance.m_is_static_instance = true;
 	return instance;
+}
+
+void Texture::save(const boost::filesystem::path& path)
+{
+	auto fif = FreeImage_GetFIFFromFilename(path.filename().c_str());
+	if (fif == FIF_UNKNOWN)
+		throw UnknownExtensionException(path.filename().string());
+
+	unsigned channels = 4;
+	GLubyte* pixels = new GLubyte[channels * m_width * m_height];
+
+	bind();
+	glGetTexImage(GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
+
+	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, m_width, m_height,
+	                                               channels * m_width, channels * 8,
+	                                               FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK,
+	                                               FALSE);
+	FreeImage_Save(fif, image, path.c_str());
+
+	FreeImage_Unload(image);
+	delete[] pixels;
 }
