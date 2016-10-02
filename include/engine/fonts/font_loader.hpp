@@ -27,7 +27,8 @@ public:
 private:
 	struct GlyphBitmap
 	{
-		GLuint width, height;
+		glm::uvec2 size;
+		glm::ivec2 bearing, advance;
 		GLubyte* pixels;
 
 		~GlyphBitmap()

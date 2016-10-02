@@ -1,3 +1,4 @@
+#include <chrono>
 #include "font_loader.hpp"
 #include "engine/engine.hpp"
 
@@ -14,6 +15,8 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 
 	auto full_path = boost::filesystem::canonical(path).string();
 	Engine::getInstance().logInfo("Loading font '" + full_path + "'");
+	using namespace std::chrono;
+	auto loading_start_time = steady_clock::now();
 
 	FT_Face face;
 	if (FT_New_Face(s_ft_lib, path.string().c_str(), 0, &face) != 0)
@@ -39,23 +42,16 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 		const auto& glyph = face->glyph;
 
 		auto& glyph_bitmap = glyph_bitmaps[ch - s_first_char];
-		glyph_bitmap.width = glyph->bitmap.width;
-		glyph_bitmap.height = glyph->bitmap.rows;
+		glyph_bitmap.size = { glyph->bitmap.width, glyph->bitmap.rows };
+		glyph_bitmap.bearing = { glyph->bitmap_left, glyph->bitmap_top };
+		glyph_bitmap.advance = { (GLint) glyph->advance.x >> 6, (GLint) glyph->advance.y >> 6 };
 		glyph_bitmap.pixels = new GLubyte[glyph->bitmap.width * glyph->bitmap.rows];
-		memcpy(glyph_bitmap.pixels, glyph->bitmap.buffer,
-		       glyph->bitmap.width * glyph->bitmap.rows * sizeof(GLubyte));  // change to c++14
+		std::memcpy(glyph_bitmap.pixels, glyph->bitmap.buffer,
+		            glyph->bitmap.width * glyph->bitmap.rows * sizeof(GLubyte));
 
 
-		max_glyph_width = std::max(max_glyph_width, glyph_bitmap.width);
-		max_glyph_height = std::max(max_glyph_height, glyph_bitmap.height);
-
-		auto texture = new Texture(glyph->bitmap.width, glyph->bitmap.rows, glyph->bitmap.buffer, GL_RED, GL_RED,
-		                           false);
-		m_glyphs[ch] = new Glyph(texture,
-		                         { glyph->bitmap.width, glyph->bitmap.rows },
-		                         { glyph->bitmap_left, glyph->bitmap_top },
-		                         { (GLint) glyph->advance.x >> 6, (GLint) glyph->advance.y >> 6 });
-
+		max_glyph_width = std::max(max_glyph_width, glyph_bitmap.size.x);
+		max_glyph_height = std::max(max_glyph_height, glyph_bitmap.size.y);
 	}
 	FT_Done_Face(face);
 
@@ -63,7 +59,8 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 
 	delete[] glyph_bitmaps;
 
-	Engine::getInstance().logInfo("Font '" + full_path + "' loaded");
+	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
+	Engine::getInstance().logInfo("Font '" + full_path + "' loaded in " + std::to_string(loading_time.count()) + " ms");
 }
 
 FontLoader::~FontLoader()
@@ -116,25 +113,39 @@ void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& g
                                   const GlyphBitmap* const glyph_bitmaps)
 {
 	unsigned num_glyphs = s_last_char - s_first_char;
-	unsigned atlas_glyphs_dimension = (unsigned)ceil(sqrt(num_glyphs));
-	unsigned atlas_width = nextPowerOf2(atlas_glyphs_dimension * glyph_width);
-	unsigned atlas_height = nextPowerOf2(atlas_glyphs_dimension * glyph_height);
+	unsigned atlas_glyphs_per_line = (unsigned) ceil(sqrt(num_glyphs));
+	unsigned atlas_width = nextPowerOf2(atlas_glyphs_per_line * glyph_width);
+	unsigned atlas_height = nextPowerOf2(atlas_glyphs_per_line * glyph_height);
 	GLubyte* atlas_pixels = new GLubyte[atlas_width * atlas_height];
-	memset(atlas_pixels, 0, atlas_width * atlas_height * sizeof(GLubyte));
+	std::memset(atlas_pixels, 0, atlas_width * atlas_height * sizeof(GLubyte));
 	unsigned current_row(0), current_column(0);
 	for (auto i = 0; i < num_glyphs; i++)
 	{
 		const auto& glyph = glyph_bitmaps[i];
-		for (auto h = 0; h < glyph.height; h++)
+		for (auto h = 0; h < glyph.size.y; h++)
 		{
-			for (auto w = 0; w < glyph.width; w++)
+			for (auto w = 0; w < glyph.size.x; w++)
 			{
 				auto offset = current_row * glyph_height * atlas_width
 				              + current_column * glyph_width;
-				atlas_pixels[offset + h * atlas_width + w] = glyph.pixels[h * glyph.width + w];
+				atlas_pixels[offset + h * atlas_width + w] = glyph.pixels[h * glyph.size.x + w];
 			}
 		}
-		if (++current_column >= atlas_glyphs_dimension)
+
+		GLfloat x_min = current_column * glyph_width / (GLfloat) atlas_width,
+				x_max = (current_column * glyph_width + glyph.size.x) / (GLfloat) atlas_width,
+				y_min = (atlas_height - current_row * glyph_height - glyph.size.y) / (GLfloat) atlas_height,
+				y_max = (atlas_height - current_row * glyph_height) / (GLfloat) atlas_height;
+		GLfloat texture_coords[] = {
+				x_min, y_max,
+				x_max, y_max,
+				x_max, y_min,
+				x_min, y_min
+		};
+		m_glyphs[i + s_first_char] = new Glyph(texture_coords, glyph.size, glyph.bearing, glyph.advance);
+
+
+		if (++current_column >= atlas_glyphs_per_line)
 		{
 			current_column = 0;
 			current_row++;
@@ -152,7 +163,6 @@ void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& g
 		}
 	}
 	m_glyph_atlas = new Texture(atlas_width, atlas_height, atlas_pixels, GL_RED, GL_RED, false);
-	m_glyph_atlas->save("atlas.png");  // only for dev
 }
 
 inline unsigned FontLoader::nextPowerOf2(unsigned x)

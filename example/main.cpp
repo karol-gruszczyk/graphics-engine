@@ -85,7 +85,7 @@ void draw(void)
 
 	//scene2d->render();
 	font->renderText("(this is a test message,\n(cheers", { 100, 200 });
-	text->render();
+	//text->render();
 	glutSwapBuffers();
 }
 

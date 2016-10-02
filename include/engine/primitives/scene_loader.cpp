@@ -15,7 +15,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path)
 	using namespace std::chrono;
 
 	Engine::getInstance().logInfo("Loading scene '" + boost::filesystem::canonical(path).string() + "'");
-	auto loading_start_time = high_resolution_clock::now();
+	auto loading_start_time = steady_clock::now();
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path.string(), aiProcessPreset_TargetRealtime_Fast);
@@ -29,7 +29,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path)
 	processMaterials(scene);
 	processNode(scene->mRootNode, scene);
 
-	duration<double, std::milli> loading_time = high_resolution_clock::now() - loading_start_time;
+	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
 	Engine::getInstance().logInfo("Scene '" + boost::filesystem::canonical(path).string() + "' loaded in " +
 	                              std::to_string(loading_time.count()) + " ms");
 }

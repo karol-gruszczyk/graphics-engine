@@ -54,12 +54,11 @@ void Font::renderText(const std::string& text, glm::uvec2 position)
 			advance = { 0, 0 };
 			continue;
 		}
-		auto offset = m_glyphs[ch]->getSize().y - m_glyphs[ch]->getBearing().y;
-		advance.y += offset;
 		cursor_position = glm::translate(cursor_position, glm::vec3(advance, 0.f));
 		s_shader->setUniformMatrix4("model_matrix", cursor_position);
+		m_glyph_atlas->bind();
 		m_glyphs[ch]->render();
-		advance = m_glyphs[ch]->getAdvance() + glm::ivec2(0, -offset);
+		advance = m_glyphs[ch]->getAdvance();
 	}
 	glDisable(GL_BLEND);
 }
