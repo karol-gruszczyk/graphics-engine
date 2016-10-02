@@ -28,6 +28,7 @@ Font* Font::loadFromFile(const boost::filesystem::path& path)
 	FontLoader loader(path);
 	font->m_glyphs = loader.getGlyphs();
 	font->m_line_spacing = loader.getLineSpacing();
+	font->m_glyph_atlas = loader.getGlyphAtlas();
 
 	return font;
 }
@@ -63,10 +64,17 @@ void Font::renderText(const std::string& text, glm::uvec2 position)
 	glDisable(GL_BLEND);
 }
 
+void Font::bind() const
+{
+	m_glyph_atlas->bind();
+}
+
 Font::~Font()
 {
 	for (const auto& glyph : m_glyphs)
 		delete glyph.second;
+	if (m_glyph_atlas)
+		delete m_glyph_atlas;
 
 	if (m_is_static_instance)
 	{

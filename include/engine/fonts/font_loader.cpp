@@ -26,9 +26,9 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 	m_line_spacing = (int) face->size->metrics.height >> 6;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);  // disable byte-alignment restriction, for dev purposes only
 
-	//unsigned atlas_width, atlas_height;
-	//GLubyte* atlas = new GLubyte[atlas_width * atlas_height];
-	for (GLubyte ch = 32; ch < 128; ch++)
+	GlyphBitmap* glyph_bitmaps = new GlyphBitmap[s_last_char - s_first_char];
+	unsigned max_glyph_width(0), max_glyph_height(0);
+	for (GLubyte ch = s_first_char; ch < s_last_char; ch++)
 	{
 		if (FT_Load_Char(face, ch, FT_LOAD_RENDER) != 0)
 		{
@@ -37,18 +37,31 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 			return;
 		}
 		const auto& glyph = face->glyph;
-		GLubyte* pixels = new GLubyte[glyph->bitmap.width * glyph->bitmap.rows];
-		//for (unsigned i = 0; i < glyph->bitmap.width * glyph->bitmap.rows; i++)
-		//	pixels[i] = glyph->bitmap.buffer[glyph->bitmap.width * glyph->bitmap.rows - 1 - i];
+
+		auto& glyph_bitmap = glyph_bitmaps[ch - s_first_char];
+		glyph_bitmap.width = glyph->bitmap.width;
+		glyph_bitmap.height = glyph->bitmap.rows;
+		glyph_bitmap.pixels = new GLubyte[glyph->bitmap.width * glyph->bitmap.rows];
+		memcpy(glyph_bitmap.pixels, glyph->bitmap.buffer,
+		       glyph->bitmap.width * glyph->bitmap.rows * sizeof(GLubyte));  // change to c++14
+
+
+		max_glyph_width = std::max(max_glyph_width, glyph_bitmap.width);
+		max_glyph_height = std::max(max_glyph_height, glyph_bitmap.height);
+
 		auto texture = new Texture(glyph->bitmap.width, glyph->bitmap.rows, glyph->bitmap.buffer, GL_RED, GL_RED,
 		                           false);
-		texture->save("_" + std::to_string(ch) + ".png");
 		m_glyphs[ch] = new Glyph(texture,
 		                         { glyph->bitmap.width, glyph->bitmap.rows },
 		                         { glyph->bitmap_left, glyph->bitmap_top },
 		                         { (GLint) glyph->advance.x >> 6, (GLint) glyph->advance.y >> 6 });
+
 	}
 	FT_Done_Face(face);
+
+	createGlyphAtlas(max_glyph_width, max_glyph_height, glyph_bitmaps);
+
+	delete[] glyph_bitmaps;
 
 	Engine::getInstance().logInfo("Font '" + full_path + "' loaded");
 }
@@ -79,6 +92,11 @@ const int& FontLoader::getLineSpacing() const
 	return m_line_spacing;
 }
 
+Texture* FontLoader::getGlyphAtlas() const
+{
+	return m_glyph_atlas;
+}
+
 FontLoader::FontLoader()
 		: m_is_global(true)
 {
@@ -92,4 +110,54 @@ FontLoader& FontLoader::getGlobalInstance()
 {
 	static FontLoader instance;
 	return instance;
+}
+
+void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& glyph_height,
+                                  const GlyphBitmap* const glyph_bitmaps)
+{
+	unsigned num_glyphs = s_last_char - s_first_char;
+	unsigned atlas_glyphs_dimension = (unsigned)ceil(sqrt(num_glyphs));
+	unsigned atlas_width = nextPowerOf2(atlas_glyphs_dimension * glyph_width);
+	unsigned atlas_height = nextPowerOf2(atlas_glyphs_dimension * glyph_height);
+	GLubyte* atlas_pixels = new GLubyte[atlas_width * atlas_height];
+	memset(atlas_pixels, 0, atlas_width * atlas_height * sizeof(GLubyte));
+	unsigned current_row(0), current_column(0);
+	for (auto i = 0; i < num_glyphs; i++)
+	{
+		const auto& glyph = glyph_bitmaps[i];
+		for (auto h = 0; h < glyph.height; h++)
+		{
+			for (auto w = 0; w < glyph.width; w++)
+			{
+				auto offset = current_row * glyph_height * atlas_width
+				              + current_column * glyph_width;
+				atlas_pixels[offset + h * atlas_width + w] = glyph.pixels[h * glyph.width + w];
+			}
+		}
+		if (++current_column >= atlas_glyphs_dimension)
+		{
+			current_column = 0;
+			current_row++;
+		}
+	}
+
+	// inverting all pixels vertically
+	for (auto i = 0; i < atlas_height / 2; i++)
+	{
+		for (auto j = 0; j < atlas_width; j++)
+		{
+			const auto temp = atlas_pixels[i * atlas_width + j];
+			atlas_pixels[i * atlas_width + j] = atlas_pixels[(atlas_height - i - 1) * atlas_width + j];
+			atlas_pixels[(atlas_height - i - 1) * atlas_width + j] = temp;
+		}
+	}
+	m_glyph_atlas = new Texture(atlas_width, atlas_height, atlas_pixels, GL_RED, GL_RED, false);
+	m_glyph_atlas->save("atlas.png");  // only for dev
+}
+
+inline unsigned FontLoader::nextPowerOf2(unsigned x)
+{
+	unsigned num(1);
+	while ((num = num << 1) < x);
+	return num;
 }

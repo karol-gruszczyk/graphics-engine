@@ -22,6 +22,7 @@ public:
 	const glm::ivec2& getAdvance() const;
 	void render() const;
 private:
+	GLuint m_vao_id;
 	Texture* m_bitmap;
 	glm::uvec2 m_size;
 	glm::ivec2 m_bearing;

@@ -30,6 +30,7 @@ BasicMaterial* basic_tile_material;
 Material* box_material, * tile_material;
 Texture* box_texture, * tile_texture;
 Font* font;
+Text* text;
 
 float counter;
 bool button_pressed[128];
@@ -63,8 +64,8 @@ void updateCameraPosition()
 void draw(void)
 {
 	auto current_time = std::chrono::steady_clock::now();
-	int fps = (int) round(
-			1e+6 / std::chrono::duration_cast<std::chrono::microseconds>(current_time - last_frame_time).count());
+	int fps = (int) round(1e+6 / std::chrono::duration_cast<std::chrono::microseconds>
+			                             (current_time - last_frame_time).count());
 	last_frame_time = current_time;
 
 	std::string title = " FPS: " + std::to_string(fps);
@@ -84,6 +85,7 @@ void draw(void)
 
 	//scene2d->render();
 	font->renderText("(this is a test message,\n(cheers", { 100, 200 });
+	text->render();
 	glutSwapBuffers();
 }
 
@@ -157,6 +159,7 @@ void setup()
 	}
 
 	font = Font::loadFromFile("res/comic_sans.ttf");
+	text = new Text(font, "(this is a test message,\n(cheers");
 
 	draw();
 	Engine::getInstance().checkErrors(); // checking if any errors were raised

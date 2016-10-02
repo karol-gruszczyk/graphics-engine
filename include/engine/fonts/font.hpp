@@ -18,6 +18,7 @@ public:
 	~Font();
 	static Font* loadFromFile(const boost::filesystem::path& path);
 	void renderText(const std::string& text, glm::uvec2 position);
+	void bind() const;
 
 private:
 	Font();
@@ -28,6 +29,7 @@ private:
 	bool m_is_static_instance = false;
 	std::map<char, Glyph*> m_glyphs;
 	GLint m_line_spacing;
+	Texture* m_glyph_atlas = nullptr;
 
 	static Font& getStaticInstance();
 

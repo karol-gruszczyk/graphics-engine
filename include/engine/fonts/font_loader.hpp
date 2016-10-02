@@ -22,15 +22,35 @@ public:
 
 	const std::map<char, Glyph*>& getGlyphs() const;
 	const int& getLineSpacing() const;
+	Texture* getGlyphAtlas() const;
 
 private:
+	struct GlyphBitmap
+	{
+		GLuint width, height;
+		GLubyte* pixels;
+
+		~GlyphBitmap()
+		{
+			delete[] pixels;
+		}
+	};
+
 	FontLoader();
 	bool m_is_global = false;
 	std::map<char, Glyph*> m_glyphs;
 	int m_line_spacing;
+	Texture* m_glyph_atlas = nullptr;
 
 	static FT_Library s_ft_lib;
+	static const unsigned s_first_char = 32;
+	static const unsigned s_last_char = 128;
+
 	FontLoader& getGlobalInstance();
+	void createGlyphAtlas(const unsigned& glyph_width, const unsigned& glyph_height,
+	                      const GlyphBitmap* const glyph_bitmaps);
+
+	static inline unsigned nextPowerOf2(unsigned x);
 };
 
 #endif /* GRAPHICS_ENGINE_FONT_LOADER_HPP */

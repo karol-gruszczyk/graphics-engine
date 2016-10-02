@@ -9,6 +9,7 @@
 #include "materials/texture.hpp"
 #include "materials/basic_material.hpp"
 #include "fonts/font.hpp"
+#include "fonts/text.hpp"
 
 
 #endif /* GRAPHICS_ENGINE_ENGINE2D_HPP */
