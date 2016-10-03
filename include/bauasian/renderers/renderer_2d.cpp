@@ -14,8 +14,8 @@ Renderer2D::Renderer2D()
 void Renderer2D::loadShader()
 {
 	auto path = Bauasian::getInstance().getShaderPath();
-	VertexShader vertex_shader(path / "2d/basic_vs.glsl");
-	FragmentShader fragment_shader(path / "2d/basic_fs.glsl");
+	Shader vertex_shader(path / "2d/basic_vs.glsl", Shader::VERTEX_SHADER);
+	Shader fragment_shader(path / "2d/basic_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_shader_program = new ShaderProgram({ &vertex_shader, &fragment_shader });
 	BasicMaterial::setDefaultShader(m_shader_program);
 }

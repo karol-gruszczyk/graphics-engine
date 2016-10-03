@@ -1,6 +1,7 @@
 #ifndef GRAPHICS_ENGINE_SHADER_HPP
 #define GRAPHICS_ENGINE_SHADER_HPP
 
+#include <map>
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
 #include "preprocessor.hpp"
@@ -16,12 +17,17 @@ namespace bauasian
 class bauasian::Shader
 {
 	friend class ShaderProgram;
-
 public:
-	Shader(const boost::filesystem::path& path, const GLenum& type);
+	enum ShaderType
+	{
+		VERTEX_SHADER, FRAGMENT_SHADER
+	};
+
+	Shader(const boost::filesystem::path& path, const ShaderType& type);
 	virtual ~Shader();
 protected:
 	GLuint m_shader_id;
+	static std::map<ShaderType, GLenum> s_shader_type;
 
 	std::string openShaderFile(const boost::filesystem::path& path) const;
 };

@@ -5,13 +5,17 @@
 using bauasian::Shader;
 using bauasian::Preprocessor;
 
+std::map<Shader::ShaderType, GLenum> Shader::s_shader_type = {
+		{ VERTEX_SHADER,   GL_VERTEX_SHADER },
+		{ FRAGMENT_SHADER, GL_FRAGMENT_SHADER },
+};
 
-Shader::Shader(const boost::filesystem::path& path, const GLenum& type)
+Shader::Shader(const boost::filesystem::path& path, const ShaderType& type)
 {
 	std::string shader_code(openShaderFile(path));
 
 	const GLchar* const gl_shader_code = shader_code.c_str();
-	m_shader_id = glCreateShader(type);
+	m_shader_id = glCreateShader(s_shader_type[type]);
 	glShaderSource(m_shader_id, 1, &gl_shader_code, NULL);
 	glCompileShader(m_shader_id);
 
