@@ -1,5 +1,5 @@
 #include "font_loader.hpp"
-#include "bauasian/engine.hpp"
+#include "bauasian/bauasian.hpp"
 #include <chrono>
 
 
@@ -14,14 +14,14 @@ FontLoader::FontLoader(const boost::filesystem::path& path, unsigned font_size)
 	getGlobalInstance();
 
 	auto full_path = boost::filesystem::canonical(path).string();
-	Engine::getInstance().logInfo("Loading font '" + full_path + "'");
+	Bauasian::getInstance().logInfo("Loading font '" + full_path + "'");
 	using namespace std::chrono;
 	auto loading_start_time = steady_clock::now();
 
 	FT_Face face;
 	if (FT_New_Face(s_ft_lib, path.string().c_str(), 0, &face) != 0)
 	{
-		Engine::getInstance().logError("FreeType failed to load font '" + full_path + "'");
+		Bauasian::getInstance().logError("FreeType failed to load font '" + full_path + "'");
 		return;
 	}
 
@@ -34,7 +34,7 @@ FontLoader::FontLoader(const boost::filesystem::path& path, unsigned font_size)
 	{
 		if (FT_Load_Char(face, ch, FT_LOAD_RENDER) != 0)
 		{
-			Engine::getInstance().logError("FreeType failed loading glyph '" + std::to_string(ch) + "' for font '"
+			Bauasian::getInstance().logError("FreeType failed loading glyph '" + std::to_string(ch) + "' for font '"
 			                               + full_path + "'");
 			return;
 		}
@@ -59,7 +59,7 @@ FontLoader::FontLoader(const boost::filesystem::path& path, unsigned font_size)
 	delete[] glyph_bitmaps;
 
 	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
-	Engine::getInstance().logInfo("Font '" + full_path + "' loaded in " + std::to_string(loading_time.count()) + " ms");
+	Bauasian::getInstance().logInfo("Font '" + full_path + "' loaded in " + std::to_string(loading_time.count()) + " ms");
 }
 
 FontLoader::~FontLoader()
@@ -67,7 +67,7 @@ FontLoader::~FontLoader()
 	if (m_is_global)
 	{
 		FT_Done_FreeType(s_ft_lib);
-		Engine::getInstance().logInfo("FreeType unloaded");
+		Bauasian::getInstance().logInfo("FreeType unloaded");
 	}
 }
 
@@ -97,9 +97,9 @@ FontLoader::FontLoader()
 		: m_is_global(true)
 {
 	if (FT_Init_FreeType(&s_ft_lib) != 0)
-		Engine::getInstance().logError("FreeType failed to initialize");
+		Bauasian::getInstance().logError("FreeType failed to initialize");
 	else
-		Engine::getInstance().logInfo("FreeType " + getFreeTypeVersion() + " loaded");
+		Bauasian::getInstance().logInfo("FreeType " + getFreeTypeVersion() + " loaded");
 }
 
 FontLoader& FontLoader::getGlobalInstance()

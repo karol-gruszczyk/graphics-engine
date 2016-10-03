@@ -1,10 +1,10 @@
 #include "preprocessor.hpp"
-#include "bauasian/engine.hpp"
+#include "bauasian/bauasian.hpp"
 #include <sstream>
 
 
 using bauasian::Preprocessor;
-using bauasian::Engine;
+using bauasian::Bauasian;
 
 
 Preprocessor::Preprocessor(const boost::filesystem::path& path)
@@ -30,7 +30,7 @@ void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 		{
 			auto exception = GLSLSyntaxErrorException(current_file,
 			                                          m_source_code.substr(position, line_end - position));
-			Engine::getInstance().logError(exception.what());
+			Bauasian::getInstance().logError(exception.what());
 			throw exception;
 		}
 		auto filename = m_source_code.substr(start + 1, end - start - 1);

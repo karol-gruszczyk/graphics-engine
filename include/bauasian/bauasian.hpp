@@ -11,10 +11,10 @@
 
 namespace bauasian
 {
-	class Engine;
+	class Bauasian;
 }
 
-class bauasian::Engine final
+class bauasian::Bauasian final
 {
 public:
 	enum LogLevel
@@ -22,7 +22,7 @@ public:
 		DEBUG, INFO, WARNING, ERROR
 	};
 
-	static Engine& getInstance();
+	static Bauasian& getInstance();
 
 	void setShaderPath(const boost::filesystem::path& path);
 	const boost::filesystem::path& getShaderPath() const;
@@ -36,10 +36,10 @@ public:
 
 	void checkErrors() const;
 private:
-	Engine();
-	Engine(const Engine&) = delete;
-	Engine& operator=(const Engine&) = delete;
-	~Engine();
+	Bauasian();
+	Bauasian(const Bauasian&) = delete;
+	Bauasian& operator=(const Bauasian&) = delete;
+	~Bauasian();
 
 	static std::map<GLenum, const char* const> s_gl_errors;
 	static std::map<LogLevel, const char* const> s_log_level_string;

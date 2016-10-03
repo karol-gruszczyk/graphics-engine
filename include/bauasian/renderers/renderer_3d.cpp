@@ -24,7 +24,7 @@ GLfloat bauasian::Renderer3D::getFieldOfView() const
 
 void bauasian::Renderer3D::loadShader()
 {
-	const auto& path = Engine::getInstance().getShaderPath();
+	const auto& path = Bauasian::getInstance().getShaderPath();
 	VertexShader vertex_shader(path / "3d/phong_vs.glsl");
 	FragmentShader fragment_shader(path / "3d/phong_fs.glsl");
 	m_shader_program = new ShaderProgram({ &vertex_shader, &fragment_shader });

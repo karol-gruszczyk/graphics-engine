@@ -1,6 +1,6 @@
 #include "font.hpp"
 #include "font_loader.hpp"
-#include "bauasian/engine.hpp"
+#include "bauasian/bauasian.hpp"
 #include "bauasian/shaders/vertex_shader.hpp"
 #include "bauasian/shaders/fragment_shader.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -68,7 +68,7 @@ Font& Font::getStaticInstance()
 
 void Font::loadShader()
 {
-	const auto& shader_path = Engine::getInstance().getShaderPath();
+	const auto& shader_path = Bauasian::getInstance().getShaderPath();
 	VertexShader vertexShader(shader_path / "fonts/font_vs.glsl");
 	FragmentShader fragmentShader(shader_path / "fonts/font_fs.glsl");
 	s_shader = new ShaderProgram({ &vertexShader, &fragmentShader });

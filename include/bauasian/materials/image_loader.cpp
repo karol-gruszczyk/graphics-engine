@@ -1,5 +1,5 @@
 #include "image_loader.hpp"
-#include "bauasian/engine.hpp"
+#include "bauasian/bauasian.hpp"
 
 
 using bauasian::ImageLoader;
@@ -37,8 +37,8 @@ ImageLoader::ImageLoader()
 		: m_is_static_instance(true)
 {
 	FreeImage_Initialise();
-	Engine::getInstance().logInfo("FreeImage " + std::string(FreeImage_GetVersion()) + " loaded");
-	Engine::getInstance().logInfo(FreeImage_GetCopyrightMessage());
+	Bauasian::getInstance().logInfo("FreeImage " + std::string(FreeImage_GetVersion()) + " loaded");
+	Bauasian::getInstance().logInfo(FreeImage_GetCopyrightMessage());
 }
 
 ImageLoader::~ImageLoader()
@@ -48,7 +48,7 @@ ImageLoader::~ImageLoader()
 	if (m_is_static_instance)
 	{
 		FreeImage_DeInitialise();
-		Engine::getInstance().logInfo("FreeImage unloaded");
+		Bauasian::getInstance().logInfo("FreeImage unloaded");
 	}
 }
 
