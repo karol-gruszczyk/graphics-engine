@@ -2,6 +2,7 @@
 #define GRAPHICS_ENGINE_RENDERER_2D_HPP
 
 #include "renderer.hpp"
+#include "engine/context_width_interface.hpp"
 
 
 namespace engine
@@ -12,12 +13,11 @@ namespace engine
 class engine::Renderer2D : public Renderer
 {
 public:
-	Renderer2D(const unsigned& context_width, const unsigned& context_height);
+	Renderer2D();
 
-	virtual void setContextWidth(const unsigned& context_width, const unsigned& context_height) override;
 protected:
-	void updateProjectionMatrix() override;
 	void loadShader();
+	void updateContextSize() override;
 };
 
 #endif /* GRAPHICS_ENGINE_RENDERER_2D_HPP */

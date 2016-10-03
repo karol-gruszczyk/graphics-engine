@@ -5,6 +5,7 @@
 #include <map>
 #include "glyph.hpp"
 #include "engine/shaders/shader_program.hpp"
+#include "engine/context_width_interface.hpp"
 
 
 namespace engine
@@ -12,7 +13,7 @@ namespace engine
 	class Font;
 }
 
-class engine::Font
+class engine::Font : public engine::ContextWidthInterface
 {
 	friend class Text;
 public:
@@ -35,6 +36,7 @@ private:
 
 	void loadShader();
 	void unloadShader();
+	void updateContextSize() override;
 };
 
 #endif /* GRAPHICS_ENGINE_FONT_HPP */

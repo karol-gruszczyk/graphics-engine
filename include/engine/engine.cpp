@@ -1,4 +1,5 @@
 #include "engine.hpp"
+#include "context_width_interface.hpp"
 #include <boost/filesystem/operations.hpp>
 
 
@@ -95,6 +96,11 @@ void Engine::logInitial() const
 	logInfo(std::string("Using OpenGL ") + (char*) glGetString(GL_VERSION));
 	logInfo(std::string("OpenGL Shading Language version: ") + (char*) glGetString(GL_SHADING_LANGUAGE_VERSION));
 	logInfo(std::string("Graphics card: ") + (char*) glGetString(GL_VENDOR) + " " + (char*) glGetString(GL_RENDERER));
+}
+
+void Engine::setContextSize(const glm::uvec2& context_size)
+{
+	ContextWidthInterface::setContextSize(context_size);
 }
 
 void Engine::checkErrors() const

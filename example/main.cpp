@@ -40,8 +40,7 @@ void resize(unsigned int width, unsigned int height)
 {
 	window_width = width;
 	window_height = height;
-	renderer2d->setContextWidth(width, height);
-	renderer3d->setContextWidth(width, height);
+	Engine::getInstance().setContextSize({ width, height });
 }
 
 void updateCameraPosition()
@@ -82,7 +81,7 @@ void draw(void)
 
 	scene3d->render();
 
-	//scene2d->render();
+	scene2d->render();
 	text->render();
 	glutSwapBuffers();
 }
@@ -92,10 +91,12 @@ void setup()
 	Engine::getInstance().initializeLogger(
 			std::cout.rdbuf()); // initializing logger with stdout as output stream
 //    Engine::getInstance().initializeLogger(); // initializing logger with default log file path
+	Engine::getInstance().setContextSize({ window_width, window_height });
+
 	try
 	{
-		renderer2d = new Renderer2D(window_width, window_height);
-		renderer3d = new Renderer3D(window_width, window_height);
+		renderer2d = new Renderer2D();
+		renderer3d = new Renderer3D();
 	}
 	catch (std::exception& e)
 	{

@@ -4,6 +4,7 @@
 #include "engine/shaders/vertex_shader.hpp"
 #include "engine/shaders/fragment_shader.hpp"
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
 
 
 using engine::Font;
@@ -71,11 +72,17 @@ void Font::loadShader()
 	VertexShader vertexShader(shader_path / "fonts/font_vs.glsl");
 	FragmentShader fragmentShader(shader_path / "fonts/font_fs.glsl");
 	s_shader = new ShaderProgram({ &vertexShader, &fragmentShader });
-	s_shader->setUniformMatrix4("projection_matrix", glm::ortho(0.f, 800.f, 600.f, 0.f));
+	updateContextSize();
 }
 
 void Font::unloadShader()
 {
 	if (s_shader)
 		delete s_shader;
+}
+
+void Font::updateContextSize()
+{
+	s_shader->setUniformMatrix4("projection_matrix",
+	                            glm::ortho(0.f, (float)s_context_size.x, (float)s_context_size.y, 0.f));
 }

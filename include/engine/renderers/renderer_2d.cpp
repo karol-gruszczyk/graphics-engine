@@ -6,17 +6,9 @@
 using engine::Renderer2D;
 
 
-Renderer2D::Renderer2D(const unsigned& context_width, const unsigned& context_height)
+Renderer2D::Renderer2D()
 {
 	loadShader();
-	setContextWidth(context_width, context_height);
-}
-
-void Renderer2D::updateProjectionMatrix()
-{
-	m_projection_matrix = glm::ortho(0.f, (float) m_context_width, (float) m_context_height, 0.f);
-	m_shader_program->setUniformMatrix4("projection_matrix", m_projection_matrix);
-	m_shader_program->setUniformMatrix4("model_matrix", glm::mat4());
 }
 
 void Renderer2D::loadShader()
@@ -28,8 +20,9 @@ void Renderer2D::loadShader()
 	BasicMaterial::setDefaultShader(m_shader_program);
 }
 
-void Renderer2D::setContextWidth(const unsigned& context_width, const unsigned& context_height)
+void Renderer2D::updateContextSize()
 {
-	Renderer::setContextWidth(context_width, context_height);
-	updateProjectionMatrix();
+	Renderer::updateContextSize();
+	m_projection_matrix = glm::ortho(0.f, (float)s_context_size.x, (float)s_context_size.y, 0.f);
+	m_shader_program->setUniformMatrix4("projection_matrix", m_projection_matrix);
 }

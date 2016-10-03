@@ -6,6 +6,7 @@
 #include <map>
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
+#include <glm/glm.hpp>
 
 
 namespace engine
@@ -31,6 +32,7 @@ public:
 	void logWarning(const std::string& message) const;
 	void logError(const std::string& message) const;
 	void logDebug(const std::string& message) const;
+	void setContextSize(const glm::uvec2& context_size);
 
 	void checkErrors() const;
 private:
