@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_SHADER_PROFRAM_HPP
-#define GRAPHICS_ENGINE_SHADER_PROFRAM_HPP
+#ifndef BAUASIAN_SHADER_PROFRAM_HPP
+#define BAUASIAN_SHADER_PROFRAM_HPP
 
 #include <initializer_list>
 #include <glm/glm.hpp>
@@ -32,4 +32,4 @@ private:
 	bool m_shader_program_created;
 };
 
-#endif /* GRAPHICS_ENGINE_SHADER_PROFRAM_HPP */
+#endif /* BAUASIAN_SHADER_PROFRAM_HPP */

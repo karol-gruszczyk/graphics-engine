@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_TEXT_HPP
-#define GRAPHICS_ENGINE_TEXT_HPP
+#ifndef BAUASIAN_TEXT_HPP
+#define BAUASIAN_TEXT_HPP
 
 #include "font.hpp"
 
@@ -28,4 +28,4 @@ private:
 	void updateBufferObjects();
 };
 
-#endif /* GRAPHICS_ENGINE_TEXT_HPP */
+#endif /* BAUASIAN_TEXT_HPP */

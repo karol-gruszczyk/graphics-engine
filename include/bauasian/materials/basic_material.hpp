@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_BASIC_MATERIAL_HPP
-#define GRAPHICS_ENGINE_BASIC_MATERIAL_HPP
+#ifndef BAUASIAN_BASIC_MATERIAL_HPP
+#define BAUASIAN_BASIC_MATERIAL_HPP
 
 #include <glm/glm.hpp>
 
@@ -41,4 +41,4 @@ private:
 	static ShaderProgram* s_shader;
 };
 
-#endif /* GRAPHICS_ENGINE_BASIC_MATERIAL_HPP */
+#endif /* BAUASIAN_BASIC_MATERIAL_HPP */

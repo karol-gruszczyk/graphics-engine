@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_CAMERA_HPP
-#define GRAPHICS_ENGINE_CAMERA_HPP
+#ifndef BAUASIAN_CAMERA_HPP
+#define BAUASIAN_CAMERA_HPP
 
 #include <glm/glm.hpp>
 
@@ -36,4 +36,4 @@ private:
 	inline void updateForwardVector();
 };
 
-#endif /* GRAPHICS_ENGINE_CAMERA_HPP */
+#endif /* BAUASIAN_CAMERA_HPP */

@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_TEXTURE_HPP
-#define GRAPHICS_ENGINE_TEXTURE_HPP
+#ifndef BAUASIAN_TEXTURE_HPP
+#define BAUASIAN_TEXTURE_HPP
 
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
@@ -38,4 +38,4 @@ private:
 	static Texture& getStaticInstance();
 };
 
-#endif /* GRAPHICS_ENGINE_TEXTURE_HPP */
+#endif /* BAUASIAN_TEXTURE_HPP */

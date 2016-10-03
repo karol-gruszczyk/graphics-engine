@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_PLANE_HPP
-#define GRAPHICS_ENGINE_PLANE_HPP
+#ifndef BAUASIAN_PLANE_HPP
+#define BAUASIAN_PLANE_HPP
 
 #include "entities/entity_3d.hpp"
 
@@ -20,4 +20,4 @@ private:
 	GLfloat m_width, m_length;
 };
 
-#endif /* GRAPHICS_ENGINE_PLANE_HPP */
+#endif /* BAUASIAN_PLANE_HPP */

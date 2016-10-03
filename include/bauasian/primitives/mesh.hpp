@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_MESH_HPP
-#define GRAPHICS_ENGINE_MESH_HPP
+#ifndef BAUASIAN_MESH_HPP
+#define BAUASIAN_MESH_HPP
 
 #include "entities/entity_3d.hpp"
 
@@ -18,4 +18,4 @@ public:
 private:
 };
 
-#endif /* GRAPHICS_ENGINE_MESH_HPP */
+#endif /* BAUASIAN_MESH_HPP */

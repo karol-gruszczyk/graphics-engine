@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_ENGINE2D_HPP
-#define GRAPHICS_ENGINE_ENGINE2D_HPP
+#ifndef BAUASIAN_ENGINE2D_HPP
+#define BAUASIAN_ENGINE2D_HPP
 
 #include "bauasian.hpp"
 #include "renderers/renderer_2d.hpp"
@@ -12,4 +12,4 @@
 #include "fonts/text.hpp"
 
 
-#endif /* GRAPHICS_ENGINE_ENGINE2D_HPP */
+#endif /* BAUASIAN_ENGINE2D_HPP */

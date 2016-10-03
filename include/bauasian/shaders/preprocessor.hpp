@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_PREPROCESSOR_HPP
-#define GRAPHICS_ENGINE_PREPROCESSOR_HPP
+#ifndef BAUASIAN_PREPROCESSOR_HPP
+#define BAUASIAN_PREPROCESSOR_HPP
 
 #include <string>
 #include <boost/filesystem/path.hpp>
@@ -25,4 +25,4 @@ private:
 	std::string getFileContent(const boost::filesystem::path& path) const;
 };
 
-#endif /* GRAPHICS_ENGINE_PREPROCESSOR_HPP */
+#endif /* BAUASIAN_PREPROCESSOR_HPP */

@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_SCENE_HPP
-#define GRAPHICS_ENGINE_SCENE_HPP
+#ifndef BAUASIAN_SCENE_HPP
+#define BAUASIAN_SCENE_HPP
 
 #include <list>
 #include <memory>
@@ -24,4 +24,4 @@ protected:
 	ShaderProgram* getShaderProgram() const;
 };
 
-#endif /* GRAPHICS_ENGINE_SCENE_HPP */
+#endif /* BAUASIAN_SCENE_HPP */

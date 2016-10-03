@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_ENGINE_HPP
-#define GRAPHICS_ENGINE_ENGINE_HPP
+#ifndef BAUASIAN_ENGINE_HPP
+#define BAUASIAN_ENGINE_HPP
 
 #include <string>
 #include <fstream>
@@ -52,4 +52,4 @@ private:
 	void logInitial() const;
 };
 
-#endif /* GRAPHICS_ENGINE_ENGINE_HPP */
+#endif /* BAUASIAN_ENGINE_HPP */

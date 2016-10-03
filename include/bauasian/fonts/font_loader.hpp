@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_FONT_LOADER_HPP
-#define GRAPHICS_ENGINE_FONT_LOADER_HPP
+#ifndef BAUASIAN_FONT_LOADER_HPP
+#define BAUASIAN_FONT_LOADER_HPP
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -54,4 +54,4 @@ private:
 	static inline unsigned nextPowerOf2(unsigned x);
 };
 
-#endif /* GRAPHICS_ENGINE_FONT_LOADER_HPP */
+#endif /* BAUASIAN_FONT_LOADER_HPP */

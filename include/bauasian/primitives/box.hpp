@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_BOX_HPP
-#define GRAPHICS_ENGINE_BOX_HPP
+#ifndef BAUASIAN_BOX_HPP
+#define BAUASIAN_BOX_HPP
 
 #include "entities/entity_3d.hpp"
 
@@ -21,4 +21,4 @@ private:
 	GLfloat m_width, m_length, m_height;
 };
 
-#endif /* GRAPHICS_ENGINE_BOX_HPP */
+#endif /* BAUASIAN_BOX_HPP */

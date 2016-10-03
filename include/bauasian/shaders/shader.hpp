@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_SHADER_HPP
-#define GRAPHICS_ENGINE_SHADER_HPP
+#ifndef BAUASIAN_SHADER_HPP
+#define BAUASIAN_SHADER_HPP
 
 #include <map>
 #include <GL/glew.h>
@@ -32,4 +32,4 @@ protected:
 	std::string openShaderFile(const boost::filesystem::path& path) const;
 };
 
-#endif /* GRAPHICS_ENGINE_SHADER_HPP */
+#endif /* BAUASIAN_SHADER_HPP */

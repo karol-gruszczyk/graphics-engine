@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_FONT_HPP
-#define GRAPHICS_ENGINE_FONT_HPP
+#ifndef BAUASIAN_FONT_HPP
+#define BAUASIAN_FONT_HPP
 
 #include <boost/filesystem.hpp>
 #include <map>
@@ -39,4 +39,4 @@ private:
 	void updateContextSize() override;
 };
 
-#endif /* GRAPHICS_ENGINE_FONT_HPP */
+#endif /* BAUASIAN_FONT_HPP */

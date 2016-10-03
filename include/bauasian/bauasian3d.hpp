@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_ENGINE3D_HPP
-#define GRAPHICS_ENGINE_ENGINE3D_HPP
+#ifndef BAUASIAN_ENGINE3D_HPP
+#define BAUASIAN_ENGINE3D_HPP
 
 #include "bauasian.hpp"
 #include "renderers/renderer_3d.hpp"
@@ -12,4 +12,4 @@
 #include "materials/material.hpp"
 
 
-#endif /* GRAPHICS_ENGINE_ENGINE3D_HPP */
+#endif /* BAUASIAN_ENGINE3D_HPP */

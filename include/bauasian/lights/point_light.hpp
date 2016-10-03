@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_POINT_LIGHT_HPP
-#define GRAPHICS_ENGINE_POINT_LIGHT_HPP
+#ifndef BAUASIAN_POINT_LIGHT_HPP
+#define BAUASIAN_POINT_LIGHT_HPP
 
 #include "light.hpp"
 
@@ -24,4 +24,4 @@ protected:
 	float m_range;
 };
 
-#endif /* GRAPHICS_ENGINE_POINT_LIGHT_HPP */
+#endif /* BAUASIAN_POINT_LIGHT_HPP */

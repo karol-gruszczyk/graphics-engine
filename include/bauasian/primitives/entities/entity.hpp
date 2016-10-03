@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_ENTITY_HPP
-#define GRAPHICS_ENGINE_ENTITY_HPP
+#ifndef BAUASIAN_ENTITY_HPP
+#define BAUASIAN_ENTITY_HPP
 
 #include <list>
 #include "bauasian/shaders/shader_program.hpp"
@@ -37,4 +37,4 @@ protected:
 	void createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage = GL_STATIC_DRAW);
 };
 
-#endif /* GRAPHICS_ENGINE_ENTITY_HPP */
+#endif /* BAUASIAN_ENTITY_HPP */

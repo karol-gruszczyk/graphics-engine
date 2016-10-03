@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_ENTITY_3D
-#define GRAPHICS_ENGINE_ENTITY_3D
+#ifndef BAUASIAN_ENTITY_3D
+#define BAUASIAN_ENTITY_3D
 
 #include "entity.hpp"
 #include "bauasian/materials/material.hpp"
@@ -41,4 +41,4 @@ protected:
 	Material* m_material = nullptr;
 };
 
-#endif /* GRAPHICS_ENGINE_ENTITY_3D */
+#endif /* BAUASIAN_ENTITY_3D */

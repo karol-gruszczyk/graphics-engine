@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_MATERIAL_HPP
-#define GRAPHICS_ENGINE_MATERIAL_HPP
+#ifndef BAUASIAN_MATERIAL_HPP
+#define BAUASIAN_MATERIAL_HPP
 
 #include "basic_material.hpp"
 
@@ -33,4 +33,4 @@ protected:
 	float m_shininess = 0.f;
 };
 
-#endif /* GRAPHICS_ENGINE_MATERIAL_HPP */
+#endif /* BAUASIAN_MATERIAL_HPP */

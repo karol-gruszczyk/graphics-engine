@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_IMAGE_LOADER_HPP
-#define GRAPHICS_ENGINE_IMAGE_LOADER_HPP
+#ifndef BAUASIAN_IMAGE_LOADER_HPP
+#define BAUASIAN_IMAGE_LOADER_HPP
 
 #include <FreeImage.h>
 #include "bauasian/exceptions/file_not_found_exception.hpp"
@@ -34,4 +34,4 @@ private:
 	static ImageLoader& getStaticInstance();
 };
 
-#endif /* GRAPHICS_ENGINE_IMAGE_LOADER_HPP */
+#endif /* BAUASIAN_IMAGE_LOADER_HPP */

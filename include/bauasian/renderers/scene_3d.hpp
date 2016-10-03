@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_SCENE_3D_HPP
-#define GRAPHICS_ENGINE_SCENE_3D_HPP
+#ifndef BAUASIAN_SCENE_3D_HPP
+#define BAUASIAN_SCENE_3D_HPP
 
 #include <boost/filesystem.hpp>
 
@@ -38,4 +38,4 @@ private:
 	std::vector<SpotLight*> m_spot_lights;
 };
 
-#endif /* GRAPHICS_ENGINE_SCENE_3D_HPP */
+#endif /* BAUASIAN_SCENE_3D_HPP */

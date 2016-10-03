@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_RECTANGLE_HPP
-#define GRAPHICS_ENGINE_RECTANGLE_HPP
+#ifndef BAUASIAN_RECTANGLE_HPP
+#define BAUASIAN_RECTANGLE_HPP
 
 #include "entities/entity_2d.hpp"
 
@@ -19,4 +19,4 @@ protected:
 	GLfloat m_length, m_width;
 };
 
-#endif /* GRAPHICS_ENGINE_RECTANGLE_HPP */
+#endif /* BAUASIAN_RECTANGLE_HPP */

@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_RENDERER_3D_HPP
-#define GRAPHICS_ENGINE_RENDERER_3D_HPP
+#ifndef BAUASIAN_RENDERER_3D_HPP
+#define BAUASIAN_RENDERER_3D_HPP
 
 #include "renderer.hpp"
 #include "bauasian/context_width_interface.hpp"
@@ -25,4 +25,4 @@ private:
 	void updateContextSize() override;
 };
 
-#endif /* GRAPHICS_ENGINE_RENDERER_3D_HPP */
+#endif /* BAUASIAN_RENDERER_3D_HPP */

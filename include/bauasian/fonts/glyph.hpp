@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_GLYPH_HPP
-#define GRAPHICS_ENGINE_GLYPH_HPP
+#ifndef BAUASIAN_GLYPH_HPP
+#define BAUASIAN_GLYPH_HPP
 
 #include <glm/glm.hpp>
 #include "bauasian/materials/texture.hpp"
@@ -28,4 +28,4 @@ private:
 	GLfloat* m_texture_coords;
 };
 
-#endif /* GRAPHICS_ENGINE_GLYPH_HPP */
+#endif /* BAUASIAN_GLYPH_HPP */

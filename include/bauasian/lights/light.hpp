@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_LIGHT_HPP
-#define GRAPHICS_ENGINE_LIGHT_HPP
+#ifndef BAUASIAN_LIGHT_HPP
+#define BAUASIAN_LIGHT_HPP
 
 #include <glm/glm.hpp>
 
@@ -23,4 +23,4 @@ protected:
 	bool m_active;
 };
 
-#endif /* GRAPHICS_ENGINE_LIGHT_HPP */
+#endif /* BAUASIAN_LIGHT_HPP */

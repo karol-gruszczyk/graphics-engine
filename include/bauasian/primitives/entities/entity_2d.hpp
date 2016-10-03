@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_ENTITY_2D_HPP
-#define GRAPHICS_ENGINE_ENTITY_2D_HPP
+#ifndef BAUASIAN_ENTITY_2D_HPP
+#define BAUASIAN_ENTITY_2D_HPP
 
 #include "entity.hpp"
 #include "bauasian/materials/basic_material.hpp"
@@ -38,4 +38,4 @@ protected:
 	glm::vec2 m_pivot;
 };
 
-#endif /* GRAPHICS_ENGINE_ENTITY_2D_HPP */
+#endif /* BAUASIAN_ENTITY_2D_HPP */

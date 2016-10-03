@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_SHADER_COMPILE_EXCEPPTION_HPP
-#define GRAPHICS_ENGINE_SHADER_COMPILE_EXCEPPTION_HPP
+#ifndef BAUASIAN_SHADER_COMPILE_EXCEPPTION_HPP
+#define BAUASIAN_SHADER_COMPILE_EXCEPPTION_HPP
 
 #include <exception>
 #include <boost/filesystem/operations.hpp>
@@ -27,4 +27,4 @@ private:
 	std::string m_error_message;
 };
 
-#endif /* GRAPHICS_ENGINE_SHADER_COMPILE_EXCEPPTION_HPP */
+#endif /* BAUASIAN_SHADER_COMPILE_EXCEPPTION_HPP */

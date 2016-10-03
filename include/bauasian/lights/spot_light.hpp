@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_SPOT_LIGHT_HPP
-#define GRAPHICS_ENGINE_SPOT_LIGHT_HPP
+#ifndef BAUASIAN_SPOT_LIGHT_HPP
+#define BAUASIAN_SPOT_LIGHT_HPP
 
 #include "point_light.hpp"
 
@@ -26,4 +26,4 @@ private:
 	float m_inner_angle, m_outer_angle;
 };
 
-#endif /* GRAPHICS_ENGINE_SPOT_LIGHT_HPP */
+#endif /* BAUASIAN_SPOT_LIGHT_HPP */

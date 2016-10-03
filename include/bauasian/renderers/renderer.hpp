@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_RENDERER_HPP
-#define GRAPHICS_ENGINE_RENDERER_HPP
+#ifndef BAUASIAN_RENDERER_HPP
+#define BAUASIAN_RENDERER_HPP
 
 #include <memory>
 #include <glm/glm.hpp>
@@ -32,4 +32,4 @@ protected:
 	virtual void updateContextSize() override;
 };
 
-#endif /* GRAPHICS_ENGINE_RENDERER_HPP */
+#endif /* BAUASIAN_RENDERER_HPP */

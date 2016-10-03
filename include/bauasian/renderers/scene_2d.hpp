@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_ENGINE_SCENE_2D_HPP
-#define GRAPHICS_ENGINE_SCENE_2D_HPP
+#ifndef BAUASIAN_SCENE_2D_HPP
+#define BAUASIAN_SCENE_2D_HPP
 
 #include "scene.hpp"
 #include "bauasian/primitives/entities/entity_2d.hpp"
@@ -22,4 +22,4 @@ private:
 	std::list<Entity2D*> m_entities;
 };
 
-#endif /* GRAPHICS_ENGINE_SCENE_2D_HPP */
+#endif /* BAUASIAN_SCENE_2D_HPP */
