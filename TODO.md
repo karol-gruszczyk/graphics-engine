@@ -22,4 +22,4 @@
   * Project 2D without depth test
 
 ## bugs
-* Directional light wont show if its the only light in the scene
+* Currently none

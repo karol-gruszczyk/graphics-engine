@@ -63,7 +63,6 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path)
 void Scene3D::render() const
 {
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
 	Scene::render();
 
 	for (unsigned i = 0; i < m_directional_lights.size(); i++)
@@ -73,7 +72,7 @@ void Scene3D::render() const
 		getShaderProgram()->setUniformVector3("dir_lights[" + i_str + "].direction",
 		                                      m_directional_lights[i]->getDirection());
 	}
-	getShaderProgram()->setUniformUInt("num_dir_lights", (unsigned) m_point_lights.size());
+	getShaderProgram()->setUniformUInt("num_dir_lights", (unsigned) m_directional_lights.size());
 
 	for (unsigned i = 0; i < m_point_lights.size(); i++)
 	{
