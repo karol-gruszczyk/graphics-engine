@@ -171,9 +171,6 @@ void cleanup()
 	delete renderer3d;
 	delete scene2d;
 	delete camera;
-	delete dir_light;
-	delete point_light;
-	delete spot_light;
 	delete scene3d;
 }
 

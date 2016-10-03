@@ -16,6 +16,13 @@ Scene3D::~Scene3D()
 {
 	for (auto& entity : m_entities)
 		delete entity;
+
+	for (auto& light : m_directional_lights)
+		delete light;
+	for (auto& light : m_point_lights)
+		delete light;
+	for (auto& light : m_spot_lights)
+		delete light;
 }
 
 void bauasian::Scene3D::setCamera(Camera* camera)
