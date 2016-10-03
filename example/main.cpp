@@ -4,8 +4,8 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include <engine/engine2d.hpp>
-#include <engine/engine3d.hpp>
+#include <bauasian/engine2d.hpp>
+#include <bauasian/engine3d.hpp>
 
 
 unsigned window_width = 800;
@@ -13,7 +13,7 @@ unsigned window_height = 600;
 
 std::chrono::steady_clock::time_point last_frame_time;
 
-using namespace engine;
+using namespace bauasian;
 
 Renderer2D* renderer2d;
 Renderer3D* renderer3d;

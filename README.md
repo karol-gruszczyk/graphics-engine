@@ -1,5 +1,5 @@
-# graphics-engine
-A modern OpenGL based graphics engine using modern C++14 with boost.
+# Bauasian
+A modern OpenGL based graphics engine using C++14 with boost.
 
 ## Setup
 
