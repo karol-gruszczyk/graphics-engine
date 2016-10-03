@@ -6,16 +6,9 @@
 using engine::Renderer3D;
 
 
-Renderer3D::Renderer3D(const unsigned& context_width, const unsigned& context_height)
+Renderer3D::Renderer3D()
 {
 	loadShader();
-	setContextWidth(context_width, context_height);
-}
-
-void engine::Renderer3D::setContextWidth(const unsigned& context_width, const unsigned& context_height)
-{
-	Renderer::setContextWidth(context_width, context_height);
-	updateProjectionMatrix();
 }
 
 void engine::Renderer3D::setFieldOfView(GLfloat fov)
@@ -29,11 +22,6 @@ GLfloat engine::Renderer3D::getFieldOfView() const
 	return m_field_of_view;
 }
 
-void engine::Renderer3D::updateProjectionMatrix()
-{
-	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat) m_context_width / m_context_height, 0.1f, 1000.f);
-}
-
 void engine::Renderer3D::loadShader()
 {
 	const auto& path = Engine::getInstance().getShaderPath();
@@ -41,4 +29,16 @@ void engine::Renderer3D::loadShader()
 	FragmentShader fragment_shader(path / "3d/phong_fs.glsl");
 	m_shader_program = new ShaderProgram({ &vertex_shader, &fragment_shader });
 	Material::setDefaultShader(m_shader_program);
+}
+
+void Renderer3D::updateContextSize()
+{
+	Renderer::updateContextSize();
+	updateProjectionMatrix();
+}
+
+void Renderer3D::updateProjectionMatrix()
+{
+	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat) s_context_size.x / s_context_size.y,
+	                                       0.1f, 1000.f);
 }
