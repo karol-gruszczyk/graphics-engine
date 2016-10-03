@@ -1,6 +1,6 @@
 #include <sstream>
 #include "texture.hpp"
-#include "bauasian/engine.hpp"
+#include "bauasian/bauasian.hpp"
 #include "image_loader.hpp"
 #include "bauasian/exceptions/unknown_extension_exception.hpp"
 
@@ -76,7 +76,7 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 			image_name = "In memory object at 0x" + ss.str();
 		}
 		auto dimensions = std::to_string(m_width) + " x " + std::to_string(m_height);
-		bauasian::Engine::getInstance().logWarning(
+		bauasian::Bauasian::getInstance().logWarning(
 				"Performance warning, image '" + image_name + "' - dimensions " + dimensions + " are not a power of 2");
 	}
 

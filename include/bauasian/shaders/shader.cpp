@@ -1,5 +1,5 @@
 #include "shader.hpp"
-#include "bauasian/engine.hpp"
+#include "bauasian/bauasian.hpp"
 
 
 using bauasian::Shader;
@@ -31,10 +31,10 @@ Shader::Shader(const boost::filesystem::path& path, const GLenum& type)
 		           info_log;
 		if (success == GL_FALSE)
 		{
-			Engine::getInstance().logError(info_log);
+			Bauasian::getInstance().logError(info_log);
 			throw ShaderCompileException(path, info_log);
 		}
-		Engine::getInstance().logWarning(info_log);
+		Bauasian::getInstance().logWarning(info_log);
 	}
 }
 

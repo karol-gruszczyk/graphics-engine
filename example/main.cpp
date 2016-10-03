@@ -4,8 +4,8 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include <bauasian/engine2d.hpp>
-#include <bauasian/engine3d.hpp>
+#include <bauasian/bauasian2d.hpp>
+#include <bauasian/bauasian3d.hpp>
 
 
 unsigned window_width = 800;
@@ -40,7 +40,7 @@ void resize(unsigned int width, unsigned int height)
 {
 	window_width = width;
 	window_height = height;
-	Engine::getInstance().setContextSize({ width, height });
+	Bauasian::getInstance().setContextSize({ width, height });
 }
 
 void updateCameraPosition()
@@ -88,10 +88,10 @@ void draw(void)
 
 void setup()
 {
-	Engine::getInstance().initializeLogger(
+	Bauasian::getInstance().initializeLogger(
 			std::cout.rdbuf()); // initializing logger with stdout as output stream
-//    Engine::getInstance().initializeLogger(); // initializing logger with default log file path
-	Engine::getInstance().setContextSize({ window_width, window_height });
+//    Bauasian::getInstance().initializeLogger(); // initializing logger with default log file path
+	Bauasian::getInstance().setContextSize({ window_width, window_height });
 
 	try
 	{
@@ -100,7 +100,7 @@ void setup()
 	}
 	catch (std::exception& e)
 	{
-		Engine::getInstance().logError(e.what());
+		Bauasian::getInstance().logError(e.what());
 		exit(EXIT_FAILURE);
 	}
 
@@ -111,7 +111,7 @@ void setup()
 	}
 	catch (FileNotFoundException& e)
 	{
-		Engine::getInstance().logError(e.what());
+		Bauasian::getInstance().logError(e.what());
 	}
 
 	// 2D
@@ -154,7 +154,7 @@ void setup()
 	}
 	catch (FileNotFoundException& e)
 	{
-		Engine::getInstance().logError(e.what());
+		Bauasian::getInstance().logError(e.what());
 	}
 
 	text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14), "(this is a test message,\n(cheers");
@@ -162,7 +162,7 @@ void setup()
 	text->setTextColor({ 1.f, 0.f, 0.f });
 
 	draw();
-	Engine::getInstance().checkErrors(); // checking if any errors were raised
+	Bauasian::getInstance().checkErrors(); // checking if any errors were raised
 }
 
 void cleanup()

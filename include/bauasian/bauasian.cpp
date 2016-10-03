@@ -1,11 +1,11 @@
-#include "engine.hpp"
+#include "bauasian.hpp"
 #include "context_width_interface.hpp"
 #include <boost/filesystem/operations.hpp>
 
 
-using bauasian::Engine;
+using bauasian::Bauasian;
 
-std::map<GLenum, const char* const> Engine::s_gl_errors = {
+std::map<GLenum, const char* const> Bauasian::s_gl_errors = {
 		{ GL_INVALID_ENUM,                  "GL_INVALID_ENUM" },
 		{ GL_INVALID_VALUE,                 "GL_INVALID_VALUE" },
 		{ GL_INVALID_OPERATION,             "GL_INVALID_OPERATION" },
@@ -15,41 +15,41 @@ std::map<GLenum, const char* const> Engine::s_gl_errors = {
 		{ GL_INVALID_FRAMEBUFFER_OPERATION, "GL_INVALID_FRAMEBUFFER_OPERATION" },
 		{ GL_CONTEXT_LOST,                  "GL_CONTEXT_LOST" }
 };
-std::map<Engine::LogLevel, const char* const> Engine::s_log_level_string = {
+std::map<Bauasian::LogLevel, const char* const> Bauasian::s_log_level_string = {
 		{ DEBUG,   "[ DEBUG ] " },
 		{ INFO,    "[ INFO ] " },
 		{ WARNING, "[ WARNING ] " },
 		{ ERROR,   "[ ERROR ] " }
 };
 
-Engine::Engine()
+Bauasian::Bauasian()
 {
 	m_working_dir = boost::filesystem::current_path();
 }
 
-Engine::~Engine()
+Bauasian::~Bauasian()
 {
 	if (m_logger_file)
 		m_logger_file->close();
 }
 
-Engine& Engine::getInstance()
+Bauasian& Bauasian::getInstance()
 {
-	static Engine instance;
+	static Bauasian instance;
 	return instance;
 }
 
-void Engine::setShaderPath(const boost::filesystem::path& path)
+void Bauasian::setShaderPath(const boost::filesystem::path& path)
 {
 	getInstance().m_shader_path = path;
 }
 
-const boost::filesystem::path& Engine::getShaderPath() const
+const boost::filesystem::path& Bauasian::getShaderPath() const
 {
 	return getInstance().m_shader_path;
 }
 
-void Engine::initializeLogger(const boost::filesystem::path& path /* = "log.txt" */)
+void Bauasian::initializeLogger(const boost::filesystem::path& path /* = "log.txt" */)
 {
 	if (m_logger_file)
 	{
@@ -65,45 +65,45 @@ void Engine::initializeLogger(const boost::filesystem::path& path /* = "log.txt"
 	}
 }
 
-void Engine::initializeLogger(std::streambuf* ostream)
+void Bauasian::initializeLogger(std::streambuf* ostream)
 {
 	m_logger = std::make_unique<std::ostream>(ostream);
 	logInitial();
 }
 
-void Engine::logInfo(const std::string& message) const
+void Bauasian::logInfo(const std::string& message) const
 {
 	*m_logger << s_log_level_string[INFO] << message << std::endl;
 }
 
-void Engine::logWarning(const std::string& message) const
+void Bauasian::logWarning(const std::string& message) const
 {
 	*m_logger << s_log_level_string[WARNING] << message << std::endl;
 }
 
-void Engine::logError(const std::string& message) const
+void Bauasian::logError(const std::string& message) const
 {
 	*m_logger << s_log_level_string[ERROR] << message << std::endl;
 }
 
-void Engine::logDebug(const std::string& message) const
+void Bauasian::logDebug(const std::string& message) const
 {
 	*m_logger << s_log_level_string[DEBUG] << message << std::endl;
 }
 
-void Engine::logInitial() const
+void Bauasian::logInitial() const
 {
 	logInfo(std::string("Using OpenGL ") + (char*) glGetString(GL_VERSION));
 	logInfo(std::string("OpenGL Shading Language version: ") + (char*) glGetString(GL_SHADING_LANGUAGE_VERSION));
 	logInfo(std::string("Graphics card: ") + (char*) glGetString(GL_VENDOR) + " " + (char*) glGetString(GL_RENDERER));
 }
 
-void Engine::setContextSize(const glm::uvec2& context_size)
+void Bauasian::setContextSize(const glm::uvec2& context_size)
 {
 	ContextWidthInterface::setContextSize(context_size);
 }
 
-void Engine::checkErrors() const
+void Bauasian::checkErrors() const
 {
 	GLenum error;
 	while ((error = glGetError()) != GL_NO_ERROR)

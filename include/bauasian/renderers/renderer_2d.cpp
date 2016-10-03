@@ -13,7 +13,7 @@ Renderer2D::Renderer2D()
 
 void Renderer2D::loadShader()
 {
-	auto path = Engine::getInstance().getShaderPath();
+	auto path = Bauasian::getInstance().getShaderPath();
 	VertexShader vertex_shader(path / "2d/basic_vs.glsl");
 	FragmentShader fragment_shader(path / "2d/basic_fs.glsl");
 	m_shader_program = new ShaderProgram({ &vertex_shader, &fragment_shader });
