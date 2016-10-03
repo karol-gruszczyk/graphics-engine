@@ -13,8 +13,8 @@ Entity::~Entity()
 {
 	glDeleteVertexArrays(1, &m_vao_id);
 
-	for (auto vbo : m_vbos)
-		glDeleteBuffers(1, &vbo);
+	if (m_vbos.size())
+		glDeleteBuffers((GLsizei)m_vbos.size(), &m_vbos[0]);
 }
 
 void Entity::render() const
