@@ -27,3 +27,8 @@ void Renderer2D::updateContextSize()
 	m_projection_matrix = glm::ortho(0.f, (float)size.x, (float)size.y, 0.f);
 	m_shader_program->setUniformMatrix4("projection_matrix", m_projection_matrix);
 }
+
+void Renderer2D::render(const bauasian::Scene2D* scene) const
+{
+	scene->render(m_shader_program, m_projection_matrix);
+}

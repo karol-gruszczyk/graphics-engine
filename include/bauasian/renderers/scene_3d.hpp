@@ -20,7 +20,7 @@ namespace bauasian
 class bauasian::Scene3D : public Scene
 {
 public:
-	Scene3D(Renderer* renderer);
+	Scene3D();
 	~Scene3D();
 
 	void setCamera(Camera* camera);
@@ -29,7 +29,7 @@ public:
 	void addLight(PointLight* point_light);
 	void addLight(SpotLight* spot_light);
 	void loadFromFile(const boost::filesystem::path& path);
-	void render() const override;
+	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const override;
 private:
 	Camera* m_camera_ptr;
 	std::list<Entity3D*> m_entities;
@@ -37,9 +37,9 @@ private:
 	std::vector<PointLight*> m_point_lights;
 	std::vector<SpotLight*> m_spot_lights;
 
-	void updateDirectionalLights();
-	void updatePointLights();
-	void updateSpotLights();
+	void updateDirectionalLights(const ShaderProgram* shader) const;
+	void updatePointLights(const ShaderProgram* shader) const;
+	void updateSpotLights(const ShaderProgram* shader) const;
 };
 
 #endif /* BAUASIAN_SCENE_3D_HPP */

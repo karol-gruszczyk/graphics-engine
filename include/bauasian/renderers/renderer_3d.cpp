@@ -4,7 +4,7 @@
 
 
 using bauasian::Renderer3D;
-
+using bauasian::Scene3D;
 
 Renderer3D::Renderer3D()
 {
@@ -41,4 +41,9 @@ void Renderer3D::updateProjectionMatrix()
 {
 	const auto& size = getContextSize();
 	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat) size.x / size.y, 0.1f, 1000.f);
+}
+
+void Renderer3D::render(const Scene3D* scene) const
+{
+	scene->render(m_shader_program, m_projection_matrix);
 }

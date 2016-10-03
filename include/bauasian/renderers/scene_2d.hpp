@@ -13,11 +13,11 @@ namespace bauasian
 class bauasian::Scene2D : public Scene
 {
 public:
-	Scene2D(Renderer* renderer);
+	Scene2D();
 	~Scene2D();
 
 	void addEntity(Entity2D* entity);
-	void render() const override;
+	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const override;
 private:
 	std::list<Entity2D*> m_entities;
 };

@@ -14,14 +14,10 @@ namespace bauasian
 class bauasian::Scene
 {
 public:
-	Scene(Renderer* renderer);
+	Scene();
 
-	void setRenderer(Renderer* renderer);
-	virtual void render() const;
+	virtual void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const;
 protected:
-	Renderer* m_renderer;
-
-	ShaderProgram* getShaderProgram() const;
 };
 
 #endif /* BAUASIAN_SCENE_HPP */

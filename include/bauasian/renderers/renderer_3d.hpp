@@ -2,6 +2,7 @@
 #define BAUASIAN_RENDERER_3D_HPP
 
 #include "renderer.hpp"
+#include "scene_3d.hpp"
 #include "bauasian/context_width_interface.hpp"
 
 
@@ -17,6 +18,7 @@ public:
 
 	void setFieldOfView(GLfloat fov);
 	GLfloat getFieldOfView() const;
+	void render(const Scene3D* scene) const;
 private:
 	GLfloat m_field_of_view = 45.f;
 

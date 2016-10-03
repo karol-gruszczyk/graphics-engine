@@ -79,9 +79,9 @@ void draw(void)
 
 	renderer3d->clearScreen();
 
-	scene3d->render();
+	renderer3d->render(scene3d);
 
-	scene2d->render();
+	renderer2d->render(scene2d);
 	text->render();
 	glutSwapBuffers();
 }
@@ -119,7 +119,7 @@ void setup()
 	basic_tile_material = new BasicMaterial(renderer2d->getShaderProgram());
 	basic_tile_material->setDiffuse(tile_texture);
 	rect->setMaterial(basic_tile_material);
-	scene2d = new Scene2D(renderer2d);
+	scene2d = new Scene2D();
 	scene2d->addEntity(rect);
 
 	// 3D
@@ -134,7 +134,7 @@ void setup()
 	box->setMaterial(box_material);
 	plane = new Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
 	plane->setMaterial(tile_material);
-	scene3d = new Scene3D(renderer3d);
+	scene3d = new Scene3D();
 	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
 	scene3d->addEntity(box);
