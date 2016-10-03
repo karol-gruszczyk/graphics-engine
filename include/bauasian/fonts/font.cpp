@@ -1,7 +1,6 @@
 #include "font.hpp"
 #include "font_loader.hpp"
 #include "bauasian/bauasian.hpp"
-#include "bauasian/shaders/shader.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
@@ -82,6 +81,6 @@ void Font::unloadShader()
 
 void Font::updateContextSize()
 {
-	s_shader->setUniformMatrix4("projection_matrix",
-	                            glm::ortho(0.f, (float)s_context_size.x, (float)s_context_size.y, 0.f));
+	const auto& size = getContextSize();
+	s_shader->setUniformMatrix4("projection_matrix", glm::ortho(0.f, (float) size.x, (float) size.y, 0.f));
 }

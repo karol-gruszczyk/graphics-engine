@@ -31,5 +31,6 @@ const glm::mat4& Renderer::getProjectionMatrix() const
 
 void Renderer::updateContextSize()
 {
-	glViewport(0, 0, s_context_size.x, s_context_size.y);
+	const auto& size = getContextSize();
+	glViewport(0, 0, size.x, size.y);
 }

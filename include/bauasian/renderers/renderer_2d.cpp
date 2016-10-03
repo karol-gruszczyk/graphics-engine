@@ -23,6 +23,7 @@ void Renderer2D::loadShader()
 void Renderer2D::updateContextSize()
 {
 	Renderer::updateContextSize();
-	m_projection_matrix = glm::ortho(0.f, (float)s_context_size.x, (float)s_context_size.y, 0.f);
+	const auto& size = getContextSize();
+	m_projection_matrix = glm::ortho(0.f, (float)size.x, (float)size.y, 0.f);
 	m_shader_program->setUniformMatrix4("projection_matrix", m_projection_matrix);
 }

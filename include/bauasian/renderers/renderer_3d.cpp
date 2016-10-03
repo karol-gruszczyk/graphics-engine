@@ -39,6 +39,6 @@ void Renderer3D::updateContextSize()
 
 void Renderer3D::updateProjectionMatrix()
 {
-	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat) s_context_size.x / s_context_size.y,
-	                                       0.1f, 1000.f);
+	const auto& size = getContextSize();
+	m_projection_matrix = glm::perspective(m_field_of_view, (GLfloat) size.x / size.y, 0.1f, 1000.f);
 }

@@ -17,3 +17,8 @@ void ContextWidthInterface::setContextSize(const glm::uvec2& context_size)
 	for (const auto& instance : s_context_size_instances)
 		instance->updateContextSize();
 }
+
+const glm::uvec2& ContextWidthInterface::getContextSize()
+{
+	return s_context_size;
+}
