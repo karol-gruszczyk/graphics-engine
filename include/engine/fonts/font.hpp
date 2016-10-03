@@ -14,10 +14,10 @@ namespace engine
 
 class engine::Font
 {
+	friend class Text;
 public:
 	~Font();
-	static Font* loadFromFile(const boost::filesystem::path& path);
-	void renderText(const std::string& text, glm::uvec2 position);
+	static Font* loadFromFile(const boost::filesystem::path& path, unsigned font_size);
 	void bind() const;
 
 private:

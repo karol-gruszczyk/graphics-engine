@@ -15,7 +15,7 @@ namespace engine
 class engine::FontLoader final
 {
 public:
-	FontLoader(const boost::filesystem::path& path);
+	FontLoader(const boost::filesystem::path& path, unsigned font_size);
 	~FontLoader();
 
 	static const std::string getFreeTypeVersion();

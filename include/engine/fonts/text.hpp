@@ -24,6 +24,8 @@ private:
 	std::string m_text;
 	glm::vec3 m_color;
 	Font* m_font;
+
+	void updateBufferObjects();
 };
 
 #endif /* GRAPHICS_ENGINE_TEXT_HPP */

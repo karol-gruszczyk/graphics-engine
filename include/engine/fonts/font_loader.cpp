@@ -1,6 +1,6 @@
-#include <chrono>
 #include "font_loader.hpp"
 #include "engine/engine.hpp"
+#include <chrono>
 
 
 using engine::FontLoader;
@@ -9,7 +9,7 @@ using engine::Texture;
 
 FT_Library FontLoader::s_ft_lib;
 
-FontLoader::FontLoader(const boost::filesystem::path& path)
+FontLoader::FontLoader(const boost::filesystem::path& path, unsigned font_size)
 {
 	getGlobalInstance();
 
@@ -25,9 +25,8 @@ FontLoader::FontLoader(const boost::filesystem::path& path)
 		return;
 	}
 
-	FT_Set_Pixel_Sizes(face, 0, 48);
+	FT_Set_Pixel_Sizes(face, 0, font_size);
 	m_line_spacing = (int) face->size->metrics.height >> 6;
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);  // disable byte-alignment restriction, for dev purposes only
 
 	GlyphBitmap* glyph_bitmaps = new GlyphBitmap[s_last_char - s_first_char];
 	unsigned max_glyph_width(0), max_glyph_height(0);
@@ -156,11 +155,7 @@ void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& g
 	for (auto i = 0; i < atlas_height / 2; i++)
 	{
 		for (auto j = 0; j < atlas_width; j++)
-		{
-			const auto temp = atlas_pixels[i * atlas_width + j];
-			atlas_pixels[i * atlas_width + j] = atlas_pixels[(atlas_height - i - 1) * atlas_width + j];
-			atlas_pixels[(atlas_height - i - 1) * atlas_width + j] = temp;
-		}
+			std::swap(atlas_pixels[i * atlas_width + j], atlas_pixels[(atlas_height - i - 1) * atlas_width + j]);
 	}
 	m_glyph_atlas = new Texture(atlas_width, atlas_height, atlas_pixels, GL_RED, GL_RED, false);
 }

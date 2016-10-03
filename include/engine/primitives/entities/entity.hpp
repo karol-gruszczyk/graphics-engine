@@ -26,7 +26,7 @@ public:
 
 protected:
 	GLuint m_vao_id;
-	std::list<GLuint> m_vbos;
+	std::vector<GLuint> m_vbos;
 	GLenum m_draw_mode;
 	GLuint m_indices_size;
 	GLenum m_elements_type;

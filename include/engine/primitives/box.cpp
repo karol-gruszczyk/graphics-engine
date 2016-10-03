@@ -164,7 +164,13 @@ Box::Box(const glm::vec3& size, const glm::vec3& position /* = { 0.f, 0.f, 0.f }
 
 	createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+	glBindVertexArray(0);
+}
+
+void Box::render() const
+{
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(0xFFFF);
-	glBindVertexArray(0);
+	Entity3D::render();
+	glDisable(GL_PRIMITIVE_RESTART);
 }

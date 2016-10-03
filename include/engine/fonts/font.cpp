@@ -1,9 +1,9 @@
-#include <glm/gtc/matrix_transform.hpp>
 #include "font.hpp"
 #include "font_loader.hpp"
 #include "engine/engine.hpp"
 #include "engine/shaders/vertex_shader.hpp"
 #include "engine/shaders/fragment_shader.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 
 using engine::Font;
@@ -12,7 +12,7 @@ using engine::ShaderProgram;
 std::map<std::string, Font*> Font::s_fonts;
 ShaderProgram* Font::s_shader = nullptr;
 
-Font* Font::loadFromFile(const boost::filesystem::path& path)
+Font* Font::loadFromFile(const boost::filesystem::path& path, unsigned font_size)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -25,42 +25,12 @@ Font* Font::loadFromFile(const boost::filesystem::path& path)
 	Font* font = new Font();
 	s_fonts[full_path] = font;
 
-	FontLoader loader(path);
+	FontLoader loader(path, font_size);
 	font->m_glyphs = loader.getGlyphs();
 	font->m_line_spacing = loader.getLineSpacing();
 	font->m_glyph_atlas = loader.getGlyphAtlas();
 
 	return font;
-}
-
-void Font::renderText(const std::string& text, glm::uvec2 position)
-{
-	s_shader->bind();
-	glDisable(GL_CULL_FACE); // temporary, for dev purposes
-
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glm::mat4 cursor_position;
-	glm::ivec2 advance = position;
-	int line_num = 0;
-	for (const auto& ch : text)
-	{
-		if (ch == '\n')
-		{
-			line_num++;
-			advance = { position.x, position.y + line_num * m_line_spacing };
-			cursor_position = glm::translate(glm::mat4(), glm::vec3(advance, 0));
-			advance = { 0, 0 };
-			continue;
-		}
-		cursor_position = glm::translate(cursor_position, glm::vec3(advance, 0.f));
-		s_shader->setUniformMatrix4("model_matrix", cursor_position);
-		m_glyph_atlas->bind();
-		m_glyphs[ch]->render();
-		advance = m_glyphs[ch]->getAdvance();
-	}
-	glDisable(GL_BLEND);
 }
 
 void Font::bind() const

@@ -29,7 +29,6 @@ Box* box;
 BasicMaterial* basic_tile_material;
 Material* box_material, * tile_material;
 Texture* box_texture, * tile_texture;
-Font* font;
 Text* text;
 
 float counter;
@@ -65,7 +64,7 @@ void draw(void)
 {
 	auto current_time = std::chrono::steady_clock::now();
 	int fps = (int) round(1e+6 / std::chrono::duration_cast<std::chrono::microseconds>
-			                             (current_time - last_frame_time).count());
+			(current_time - last_frame_time).count());
 	last_frame_time = current_time;
 
 	std::string title = " FPS: " + std::to_string(fps);
@@ -84,8 +83,7 @@ void draw(void)
 	scene3d->render();
 
 	//scene2d->render();
-	font->renderText("(this is a test message,\n(cheers", { 100, 200 });
-	//text->render();
+	text->render();
 	glutSwapBuffers();
 }
 
@@ -158,8 +156,9 @@ void setup()
 		Engine::getInstance().logError(e.what());
 	}
 
-	font = Font::loadFromFile("res/comic_sans.ttf");
-	text = new Text(font, "(this is a test message,\n(cheers");
+	text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14), "(this is a test message,\n(cheers");
+	text->setPosition({ 100, 200 });
+	text->setTextColor({ 1.f, 0.f, 0.f });
 
 	draw();
 	Engine::getInstance().checkErrors(); // checking if any errors were raised
