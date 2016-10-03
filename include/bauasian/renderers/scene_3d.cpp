@@ -35,6 +35,7 @@ void bauasian::Scene3D::addLight(DirectionalLight* directional_light)
 	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
 		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
 	m_directional_lights.push_back(directional_light);
+	updateDirectionalLights();
 }
 
 void bauasian::Scene3D::addLight(PointLight* point_light)
@@ -42,6 +43,7 @@ void bauasian::Scene3D::addLight(PointLight* point_light)
 	if (m_directional_lights.size() == MAX_POINT_LIGHTS)
 		throw LightLimitReachedException("point", MAX_POINT_LIGHTS);
 	m_point_lights.push_back(point_light);
+	updatePointLights();
 }
 
 void bauasian::Scene3D::addLight(SpotLight* spot_light)
@@ -49,6 +51,7 @@ void bauasian::Scene3D::addLight(SpotLight* spot_light)
 	if (m_directional_lights.size() == MAX_SPOT_LIGHTS)
 		throw LightLimitReachedException("spot", MAX_SPOT_LIGHTS);
 	m_spot_lights.push_back(spot_light);
+	updateSpotLights();
 }
 
 void Scene3D::addEntity(Entity3D* entity)
@@ -72,6 +75,20 @@ void Scene3D::render() const
 	glEnable(GL_DEPTH_TEST);
 	Scene::render();
 
+	getShaderProgram()->setUniformVector3("camera_position", m_camera_ptr->getPosition());
+	auto projection_view_matrix = m_renderer->getProjectionMatrix() * m_camera_ptr->getViewMatrix();
+	for (auto& entity : m_entities)
+	{
+		getShaderProgram()->setUniformMatrix4("projection_view_model_matrix",
+		                                      projection_view_matrix * entity->getModelMatrix());
+		getShaderProgram()->setUniformMatrix4("model_matrix", entity->getModelMatrix());
+		getShaderProgram()->setUniformMatrix3("normal_matrix", entity->getNormalMatrix());
+		entity->render();
+	}
+}
+
+void Scene3D::updateDirectionalLights()
+{
 	for (unsigned i = 0; i < m_directional_lights.size(); i++)
 	{
 		auto i_str = std::to_string(i);
@@ -80,7 +97,10 @@ void Scene3D::render() const
 		                                      m_directional_lights[i]->getDirection());
 	}
 	getShaderProgram()->setUniformUInt("num_dir_lights", (unsigned) m_directional_lights.size());
+}
 
+void Scene3D::updatePointLights()
+{
 	for (unsigned i = 0; i < m_point_lights.size(); i++)
 	{
 		auto i_str = std::to_string(i);
@@ -89,7 +109,10 @@ void Scene3D::render() const
 		getShaderProgram()->setUniformFloat("point_lights[" + i_str + "].range", m_point_lights[i]->getRange());
 	}
 	getShaderProgram()->setUniformUInt("num_point_lights", (unsigned) m_point_lights.size());
+}
 
+void Scene3D::updateSpotLights()
+{
 	for (unsigned i = 0; i < m_spot_lights.size(); i++)
 	{
 		auto i_str = std::to_string(i);
@@ -103,15 +126,4 @@ void Scene3D::render() const
 		                                    m_spot_lights[i]->getOuterAngle());
 	}
 	getShaderProgram()->setUniformUInt("num_spot_lights", (unsigned) m_spot_lights.size());
-
-	getShaderProgram()->setUniformVector3("camera_position", m_camera_ptr->getPosition());
-	auto projection_view_matrix = m_renderer->getProjectionMatrix() * m_camera_ptr->getViewMatrix();
-	for (auto& entity : m_entities)
-	{
-		getShaderProgram()->setUniformMatrix4("projection_view_model_matrix",
-		                                      projection_view_matrix * entity->getModelMatrix());
-		getShaderProgram()->setUniformMatrix4("model_matrix", entity->getModelMatrix());
-		getShaderProgram()->setUniformMatrix3("normal_matrix", entity->getNormalMatrix());
-		entity->render();
-	}
 }

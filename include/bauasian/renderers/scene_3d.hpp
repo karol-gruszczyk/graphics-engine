@@ -36,6 +36,10 @@ private:
 	std::vector<DirectionalLight*> m_directional_lights;
 	std::vector<PointLight*> m_point_lights;
 	std::vector<SpotLight*> m_spot_lights;
+
+	void updateDirectionalLights();
+	void updatePointLights();
+	void updateSpotLights();
 };
 
 #endif /* BAUASIAN_SCENE_3D_HPP */
