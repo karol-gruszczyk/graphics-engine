@@ -14,16 +14,20 @@ namespace bauasian
 class bauasian::Texture final
 {
 public:
-	Texture(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format,
-	        bool generate_mipmaps);
+	Texture(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
+	        const GLint& internal_format, const GLenum& format, const bool& generate_mipmaps);
+	Texture(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format);
 	~Texture();
 
+	void update(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format);
 	static Texture* loadFromFile(const boost::filesystem::path& path);
-	void loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format,
-	                    bool generate_mipmaps, std::string image_name = "");
+	void loadFromMemory(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
+	                    const GLint& internal_format, const GLenum& format,
+	                    const bool& generate_mipmaps, std::string image_name = "");
 	void save(const boost::filesystem::path& path);
 	void bind(unsigned short texture_level = 0) const;
 	void unbind() const;
+	const GLuint& getTextureId() const;
 
 private:
 	Texture();
@@ -31,8 +35,8 @@ private:
 	static std::map<std::string, Texture*> s_textures;
 
 	bool m_is_static_instance = false;
-	GLuint m_texture_id;
-	bool m_texture_created;
+	GLuint m_texture_id = 0;
+private:
 	unsigned m_width, m_height;
 
 	static Texture& getStaticInstance();

@@ -9,6 +9,13 @@ using bauasian::Scene3D;
 Renderer3D::Renderer3D()
 {
 	loadShader();
+	const auto& size = getContextSize();
+	m_frame_buffer = new FrameBuffer(size.x, size.y);
+}
+
+Renderer3D::~Renderer3D()
+{
+	delete m_frame_buffer;
 }
 
 void bauasian::Renderer3D::setFieldOfView(GLfloat fov)
@@ -35,6 +42,8 @@ void Renderer3D::updateContextSize()
 {
 	Renderer::updateContextSize();
 	updateProjectionMatrix();
+	const auto& size = getContextSize();
+	m_frame_buffer->updateSize(size.x, size.y);
 }
 
 void Renderer3D::updateProjectionMatrix()

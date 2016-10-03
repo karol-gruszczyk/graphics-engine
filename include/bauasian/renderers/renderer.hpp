@@ -19,7 +19,7 @@ class bauasian::Renderer : public ContextWidthInterface
 
 public:
 	Renderer();
-	~Renderer();
+	virtual ~Renderer();
 
 	void clearScreen() const;
 

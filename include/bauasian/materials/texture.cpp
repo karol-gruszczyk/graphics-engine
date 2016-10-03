@@ -13,15 +13,28 @@ std::map<std::string, Texture*> Texture::s_textures;
 Texture::Texture()
 {}
 
-Texture::Texture(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format,
-                 bool generate_mipmaps)
+Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
+                 const GLint& internal_format, const GLenum& format, const bool& generate_mipmaps)
 {
 	loadFromMemory(width, height, pixels, internal_format, format, generate_mipmaps);
 }
 
+Texture::Texture(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format)
+		: m_width(width), m_height(height)
+{
+	glGenTextures(1, &m_texture_id);
+	glBindTexture(GL_TEXTURE_2D, m_texture_id);
+	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, nullptr);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	unbind();
+}
+
 Texture::~Texture()
 {
-	if (m_texture_created)
+	if (m_texture_id)
 		glDeleteTextures(1, &m_texture_id);
 
 	if (m_is_static_instance)
@@ -29,6 +42,15 @@ Texture::~Texture()
 		for (const auto& texture : s_textures)
 			delete texture.second;
 	}
+}
+
+void Texture::update(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format)
+{
+	m_width = width;
+	m_height = height;
+	bind();
+	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, nullptr);
+	unbind();
 }
 
 Texture* Texture::loadFromFile(const boost::filesystem::path& path)
@@ -49,6 +71,29 @@ Texture* Texture::loadFromFile(const boost::filesystem::path& path)
 	return texture;
 }
 
+void Texture::save(const boost::filesystem::path& path)
+{
+	auto fif = FreeImage_GetFIFFromFilename(path.filename().c_str());
+	if (fif == FIF_UNKNOWN)
+		throw UnknownExtensionException(path.filename().string());
+
+	unsigned channels = 4;
+	GLubyte* pixels = new GLubyte[channels * m_width * m_height];
+
+	bind();
+	glGetTexImage(GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
+	unbind();
+
+	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, m_width, m_height,
+	                                               channels * m_width, channels * 8,
+	                                               FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK,
+	                                               FALSE);
+	FreeImage_Save(fif, image, path.c_str());
+
+	FreeImage_Unload(image);
+	delete[] pixels;
+}
+
 void Texture::bind(unsigned short texture_level /* = 0*/) const
 {
 	glActiveTexture(GL_TEXTURE0 + texture_level);
@@ -60,8 +105,14 @@ void Texture::unbind() const
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, GLint internal_format, GLenum format,
-                             bool generate_mipmaps, std::string image_name /* = "" */)
+const GLuint& Texture::getTextureId() const
+{
+	return m_texture_id;
+}
+
+void Texture::loadFromMemory(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
+                             const GLint& internal_format, const GLenum& format,
+                             const bool& generate_mipmaps, std::string image_name /* = "" */)
 {
 	m_width = width;
 	m_height = height;
@@ -81,10 +132,7 @@ void Texture::loadFromMemory(unsigned width, unsigned height, GLubyte* pixels, G
 	}
 
 	glGenTextures(1, &m_texture_id);
-	m_texture_created = true;
-
 	glBindTexture(GL_TEXTURE_2D, m_texture_id);
-
 	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, pixels);
 
 	if (generate_mipmaps)
@@ -111,26 +159,4 @@ Texture& Texture::getStaticInstance()
 	static Texture instance;
 	instance.m_is_static_instance = true;
 	return instance;
-}
-
-void Texture::save(const boost::filesystem::path& path)
-{
-	auto fif = FreeImage_GetFIFFromFilename(path.filename().c_str());
-	if (fif == FIF_UNKNOWN)
-		throw UnknownExtensionException(path.filename().string());
-
-	unsigned channels = 4;
-	GLubyte* pixels = new GLubyte[channels * m_width * m_height];
-
-	bind();
-	glGetTexImage(GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
-
-	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, m_width, m_height,
-	                                               channels * m_width, channels * 8,
-	                                               FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK,
-	                                               FALSE);
-	FreeImage_Save(fif, image, path.c_str());
-
-	FreeImage_Unload(image);
-	delete[] pixels;
 }
