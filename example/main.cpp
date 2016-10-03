@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -10,22 +11,25 @@
 unsigned window_width = 800;
 unsigned window_height = 600;
 
-int last_frame_time;
+std::chrono::steady_clock::time_point last_frame_time;
 
-engine::Renderer2D *renderer2d;
-engine::Renderer3D *renderer3d;
-engine::Camera *camera;
-engine::Scene2D *scene2d;
-engine::Scene3D *scene3d;
-engine::DirectionalLight *dir_light;
-engine::PointLight *point_light;
-engine::SpotLight *spot_light;
-engine::Rectangle *rect;
-engine::Plane *plane;
-engine::Box *box;
-engine::BasicMaterial *basic_tile_material;
-engine::Material *box_material, *tile_material;
-engine::Texture *box_texture, *tile_texture;
+using namespace engine;
+
+Renderer2D* renderer2d;
+Renderer3D* renderer3d;
+Camera* camera;
+Scene2D* scene2d;
+Scene3D* scene3d;
+DirectionalLight* dir_light;
+PointLight* point_light;
+SpotLight* spot_light;
+Rectangle* rect;
+Plane* plane;
+Box* box;
+BasicMaterial* basic_tile_material;
+Material* box_material, * tile_material;
+Texture* box_texture, * tile_texture;
+Text* text;
 
 float counter;
 bool button_pressed[128];
@@ -58,15 +62,16 @@ void updateCameraPosition()
 
 void draw(void)
 {
-	int current_time = glutGet(GLUT_ELAPSED_TIME);
-	int fps = (int) round(1000.f / (current_time - last_frame_time));
+	auto current_time = std::chrono::steady_clock::now();
+	int fps = (int) round(1e+6 / std::chrono::duration_cast<std::chrono::microseconds>
+			(current_time - last_frame_time).count());
 	last_frame_time = current_time;
 
 	std::string title = " FPS: " + std::to_string(fps);
 	glutSetWindowTitle(title.c_str());
 
 	updateCameraPosition();
-	rect->rotate(glm::radians(1.f));
+	//rect->rotate(glm::radians(1.f));
 	auto scale = (sin(counter) + 2.f) / 3.f;
 	rect->setScale({ scale, scale });
 	box->setScale({ scale, scale, scale });
@@ -78,65 +83,65 @@ void draw(void)
 	scene3d->render();
 
 	//scene2d->render();
+	text->render();
 	glutSwapBuffers();
 }
 
 void setup()
 {
-	engine::Config::getInstance().initializeLogger(
+	Engine::getInstance().initializeLogger(
 			std::cout.rdbuf()); // initializing logger with stdout as output stream
-//    engine::Config::getInstance().initializeLogger(); // initializing logger with default log file path
-	engine::Config::getInstance().setShaderPath("glsl/");
+//    Engine::getInstance().initializeLogger(); // initializing logger with default log file path
 	try
 	{
-		renderer2d = new engine::Renderer2D(window_width, window_height);
-		renderer3d = new engine::Renderer3D(window_width, window_height);
+		renderer2d = new Renderer2D(window_width, window_height);
+		renderer3d = new Renderer3D(window_width, window_height);
 	}
-	catch (std::exception &e)
+	catch (std::exception& e)
 	{
-		engine::Config::getInstance().logError(e.what());
+		Engine::getInstance().logError(e.what());
 		exit(EXIT_FAILURE);
 	}
 
 	try
 	{
-		box_texture = engine::Texture::loadFromFile("res/box.jpg");
-		tile_texture = engine::Texture::loadFromFile("res/tile.jpg");
+		box_texture = Texture::loadFromFile("res/box.jpg");
+		tile_texture = Texture::loadFromFile("res/tile.jpg");
 	}
-	catch (engine::FileNotFoundException &e)
+	catch (FileNotFoundException& e)
 	{
-		engine::Config::getInstance().logError(e.what());
+		Engine::getInstance().logError(e.what());
 	}
 
 	// 2D
-	rect = new engine::Rectangle({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
-	basic_tile_material = new engine::BasicMaterial(renderer2d->getShaderProgram());
+	rect = new Rectangle({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
+	basic_tile_material = new BasicMaterial(renderer2d->getShaderProgram());
 	basic_tile_material->setDiffuse(tile_texture);
 	rect->setMaterial(basic_tile_material);
-	scene2d = new engine::Scene2D(renderer2d);
+	scene2d = new Scene2D(renderer2d);
 	scene2d->addEntity(rect);
 
 	// 3D
-	box_material = new engine::Material();
+	box_material = new Material();
 	box_material->setDiffuse(box_texture);
 	box_material->setAmbient(box_texture);
-	tile_material = new engine::Material();
+	tile_material = new Material();
 	tile_material->setDiffuse(tile_texture);
 	tile_material->setShininess(32);
-	box = new engine::Box({ 5.f, 5.f, 5.f }, { 20.f, 2.5f, 10.f });
+	box = new Box({ 5.f, 5.f, 5.f }, { 20.f, 2.5f, 10.f });
 	box->setPivot({ 2.5f, 2.5f, 2.5f });
 	box->setMaterial(box_material);
-	plane = new engine::Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
+	plane = new Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
 	plane->setMaterial(tile_material);
-	scene3d = new engine::Scene3D(renderer3d);
-	camera = new engine::Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
+	scene3d = new Scene3D(renderer3d);
+	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
-	dir_light = new engine::DirectionalLight({ -1.f, -1.f, -1.f });
-	point_light = new engine::PointLight({ 50.f, 2.f, 50.f }, 10.f);
-	spot_light = new engine::SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
-	                                   glm::radians(5.f));
+	dir_light = new DirectionalLight({ -1.f, -1.f, -1.f });
+	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
+	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
+	                           glm::radians(5.f));
 	scene3d->addLight(dir_light);
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
@@ -146,13 +151,17 @@ void setup()
 		scene3d->loadFromFile("res/aventador/Avent.obj");
 		scene3d->loadFromFile("res/cube.obj");
 	}
-	catch (engine::FileNotFoundException &e)
+	catch (FileNotFoundException& e)
 	{
-		engine::Config::getInstance().logError(e.what());
+		Engine::getInstance().logError(e.what());
 	}
 
+	text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14), "(this is a test message,\n(cheers");
+	text->setPosition({ 100, 200 });
+	text->setTextColor({ 1.f, 0.f, 0.f });
+
 	draw();
-	engine::Config::getInstance().logErrors(); // checking if any errors were raised
+	Engine::getInstance().checkErrors(); // checking if any errors were raised
 }
 
 void cleanup()
@@ -199,18 +208,20 @@ void mouse_move(int x, int y)
 
 void idle()
 {
-	int delay = (int) round(1000.f / 60.f) - (glutGet(GLUT_ELAPSED_TIME) - last_frame_time);
+	int delay = (int) round(1e+6 / 60.f - std::chrono::duration_cast<std::chrono::microseconds>(
+			std::chrono::steady_clock::now() - last_frame_time).count());
 	if (delay > 0)
-		usleep((unsigned) delay * 1000);
+		usleep((unsigned) delay);
 	glutPostRedisplay();
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitContextVersion(4, 1);
 	glutInitContextFlags(GLUT_DEBUG);
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
 	glutInitWindowSize(window_width, window_height);
 	glutInitWindowPosition(50, 50);
@@ -234,5 +245,5 @@ int main(int argc, char **argv)
 	setup();
 	glutMainLoop();
 	cleanup();
-	return 0;
+	return EXIT_SUCCESS;
 }

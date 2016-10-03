@@ -1,5 +1,6 @@
 #include "scene.hpp"
 
+
 using engine::Scene;
 using engine::Renderer;
 using engine::ShaderProgram;
@@ -22,5 +23,5 @@ void Scene::render() const
 
 ShaderProgram* Scene::getShaderProgram() const
 {
-	return m_renderer->m_shader_program.get();
+	return m_renderer->m_shader_program;
 }

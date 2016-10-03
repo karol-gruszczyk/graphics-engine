@@ -1,5 +1,5 @@
-#ifndef SCENE_HPP_
-#define SCENE_HPP_
+#ifndef GRAPHICS_ENGINE_SCENE_HPP
+#define GRAPHICS_ENGINE_SCENE_HPP
 
 #include <list>
 #include <memory>
@@ -24,4 +24,4 @@ protected:
 	ShaderProgram* getShaderProgram() const;
 };
 
-#endif /* SCENE_HPP_ */
+#endif /* GRAPHICS_ENGINE_SCENE_HPP */

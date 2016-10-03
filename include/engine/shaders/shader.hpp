@@ -1,11 +1,11 @@
-#ifndef SHADER_HPP_
-#define SHADER_HPP_
+#ifndef GRAPHICS_ENGINE_SHADER_HPP
+#define GRAPHICS_ENGINE_SHADER_HPP
 
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
 #include "preprocessor.hpp"
-#include "../exceptions/shader_compile_exception.hpp"
-#include "../exceptions/file_not_found_exception.hpp"
+#include "engine/exceptions/shader_compile_exception.hpp"
+#include "engine/exceptions/file_not_found_exception.hpp"
 
 
 namespace engine
@@ -16,6 +16,7 @@ namespace engine
 class engine::Shader
 {
 	friend class ShaderProgram;
+
 public:
 	Shader(const boost::filesystem::path& path, const GLenum& type);
 	virtual ~Shader();
@@ -25,4 +26,4 @@ protected:
 	std::string openShaderFile(const boost::filesystem::path& path) const;
 };
 
-#endif /* SHADER_HPP_ */
+#endif /* GRAPHICS_ENGINE_SHADER_HPP */

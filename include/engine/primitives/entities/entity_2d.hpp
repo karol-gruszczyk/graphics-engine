@@ -1,8 +1,8 @@
-#ifndef ENTITY_2D_HPP_
-#define ENTITY_2D_HPP_
+#ifndef GRAPHICS_ENGINE_ENTITY_2D_HPP
+#define GRAPHICS_ENGINE_ENTITY_2D_HPP
 
 #include "entity.hpp"
-#include "../../materials/basic_material.hpp"
+#include "engine/materials/basic_material.hpp"
 
 
 namespace engine
@@ -13,7 +13,8 @@ namespace engine
 class engine::Entity2D : public Entity
 {
 public:
-	Entity2D(const glm::vec2& position, const GLfloat& rotation = 0.f, const glm::vec2& scale = { 1.f, 1.f }, const glm::vec2& pivot = { 0.f, 0.f });
+	Entity2D(const glm::vec2& position, const GLfloat& rotation = 0.f, const glm::vec2& scale = { 1.f, 1.f },
+	         const glm::vec2& pivot = { 0.f, 0.f });
 
 	void translate(const glm::vec2& position);
 	void setPosition(const glm::vec2& position);
@@ -26,10 +27,10 @@ public:
 	void setPivot(const glm::vec2& pivot);
 	const glm::vec2& getPivot() const;
 
-    void setMaterial(BasicMaterial* material);
-    virtual void render() const override;
+	void setMaterial(BasicMaterial* material);
+	virtual void render() const override;
 protected:
-    BasicMaterial* m_material = nullptr;
+	BasicMaterial* m_material = nullptr;
 
 	glm::vec2 m_position;
 	GLfloat m_rotation;
@@ -37,4 +38,4 @@ protected:
 	glm::vec2 m_pivot;
 };
 
-#endif /* ENTITY_2D_HPP_ */
+#endif /* GRAPHICS_ENGINE_ENTITY_2D_HPP */

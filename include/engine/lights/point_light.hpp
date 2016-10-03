@@ -1,5 +1,5 @@
-#ifndef POINT_LIGHT_HPP_
-#define POINT_LIGHT_HPP_
+#ifndef GRAPHICS_ENGINE_POINT_LIGHT_HPP
+#define GRAPHICS_ENGINE_POINT_LIGHT_HPP
 
 #include "light.hpp"
 
@@ -12,7 +12,8 @@ namespace engine
 class engine::PointLight : public Light
 {
 public:
-	PointLight(const glm::vec3& position, const float& range, const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);
+	PointLight(const glm::vec3& position, const float& range, const glm::vec3& color = { 1.f, 1.f, 1.f },
+	           const bool& active = true);
 
 	void setPosition(const glm::vec3& position);
 	const glm::vec3& getPosition() const;
@@ -23,4 +24,4 @@ protected:
 	float m_range;
 };
 
-#endif /* POINT_LIGHT_HPP_ */
+#endif /* GRAPHICS_ENGINE_POINT_LIGHT_HPP */

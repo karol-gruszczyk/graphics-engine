@@ -1,7 +1,7 @@
-#ifndef GRAPHICS_ENGINE_ENGINE3D_HPP_H
-#define GRAPHICS_ENGINE_ENGINE3D_HPP_H
+#ifndef GRAPHICS_ENGINE_ENGINE3D_HPP
+#define GRAPHICS_ENGINE_ENGINE3D_HPP
 
-#include "engine/config.hpp"
+#include "engine.hpp"
 #include "renderers/renderer_3d.hpp"
 #include "renderers/scene_3d.hpp"
 #include "renderers/scene_3d.hpp"
@@ -11,4 +11,5 @@
 #include "materials/texture.hpp"
 #include "materials/material.hpp"
 
-#endif  // GRAPHICS_ENGINE_ENGINE3D_HPP_H
+
+#endif /* GRAPHICS_ENGINE_ENGINE3D_HPP */

@@ -1,6 +1,7 @@
 #include "shader_program.hpp"
-#include "../config.hpp"
+#include "engine/engine.hpp"
 #include <glm/gtc/type_ptr.hpp>
+
 
 using engine::ShaderProgram;
 using engine::Shader;
@@ -22,16 +23,16 @@ ShaderProgram::ShaderProgram(const std::initializer_list<Shader*>& shaders)
 		std::string info_log;
 		if (info_log_length > 0)
 		{
-			info_log.resize(info_log_length);
+			info_log.resize((unsigned)info_log_length);
 			glGetProgramInfoLog(m_shader_program_id, info_log_length, nullptr, &info_log[0]);
 		}
 
 		if (success == GL_FALSE)
 		{
-			Config::getInstance().log(info_log, Config::ERROR);
+			Engine::getInstance().logError(info_log);
 			throw ShaderLinkException(info_log);
 		}
-		Config::getInstance().log(info_log, Config::WARNING);
+		Engine::getInstance().logWarning(info_log);
 	}
 	for (auto& shader : shaders)
 		glDetachShader(m_shader_program_id, shader->m_shader_id);
@@ -67,7 +68,7 @@ void ShaderProgram::setUniformInt(const std::string& uniform_name, const int& va
 	glUniform1i(location, value);
 }
 
-void ShaderProgram::setUniformUInt(const std::string &uniform_name, const unsigned &value) const
+void ShaderProgram::setUniformUInt(const std::string& uniform_name, const unsigned& value) const
 {
 	bind();
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());

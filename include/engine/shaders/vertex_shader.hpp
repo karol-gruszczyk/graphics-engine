@@ -1,5 +1,5 @@
-#ifndef VERTEX_SHADER_HPP_
-#define VERTEX_SHADER_HPP_
+#ifndef GRAPHICS_ENGINE_VERTEX_SHADER_HPP
+#define GRAPHICS_ENGINE_VERTEX_SHADER_HPP
 
 #include "shader.hpp"
 
@@ -15,4 +15,4 @@ public:
 	VertexShader(const boost::filesystem::path& path);
 };
 
-#endif /* VERTEX_SHADER_HPP_ */
+#endif /* GRAPHICS_ENGINE_VERTEX_SHADER_HPP */

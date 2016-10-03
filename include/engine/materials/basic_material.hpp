@@ -1,10 +1,10 @@
-#ifndef GRAPHICS_ENGINE_BASICMATERIAL_HPP
-#define GRAPHICS_ENGINE_BASICMATERIAL_HPP
+#ifndef GRAPHICS_ENGINE_BASIC_MATERIAL_HPP
+#define GRAPHICS_ENGINE_BASIC_MATERIAL_HPP
 
 #include <glm/glm.hpp>
 
 #include "texture.hpp"
-#include "../shaders/shader_program.hpp"
+#include "engine/shaders/shader_program.hpp"
 
 
 namespace engine
@@ -16,29 +16,29 @@ class engine::BasicMaterial
 {
 public:
 	BasicMaterial();
-	BasicMaterial(const glm::vec3 &diffuse_color);
-	BasicMaterial(Texture *diffuse_texture);
-	BasicMaterial(ShaderProgram *shader);
+	BasicMaterial(const glm::vec3& diffuse_color);
+	BasicMaterial(Texture* diffuse_texture);
+	BasicMaterial(ShaderProgram* shader);
 
 	void setName(const std::string& name);
 	const std::string& getName();
-	void setDiffuse(const glm::vec3 &color);
-	void setDiffuse(Texture *texture);
+	void setDiffuse(const glm::vec3& color);
+	void setDiffuse(Texture* texture);
 
 	virtual void bind() const;
 	virtual void unbind() const;
 
-	static void setDefaultShader(ShaderProgram *shader);
+	static void setDefaultShader(ShaderProgram* shader);
 
 protected:
-	ShaderProgram *m_shader;
+	ShaderProgram* m_shader;
 
 	std::string m_name;
 	glm::vec3 m_diffuse_color = { 1.f, 1.f, 1.f };
-	Texture *m_diffuse_texture = nullptr;
+	Texture* m_diffuse_texture = nullptr;
 
 private:
-	static ShaderProgram *s_shader;
+	static ShaderProgram* s_shader;
 };
 
-#endif  // GRAPHICS_ENGINE_BASICMATERIAL_HPP
+#endif /* GRAPHICS_ENGINE_BASIC_MATERIAL_HPP */

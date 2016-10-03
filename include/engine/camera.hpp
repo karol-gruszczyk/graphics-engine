@@ -1,5 +1,5 @@
-#ifndef CAMERA_HPP_
-#define CAMERA_HPP_
+#ifndef GRAPHICS_ENGINE_CAMERA_HPP
+#define GRAPHICS_ENGINE_CAMERA_HPP
 
 #include <glm/glm.hpp>
 
@@ -36,4 +36,4 @@ private:
 	inline void updateForwardVector();
 };
 
-#endif /* CAMERA_HPP_ */
+#endif /* GRAPHICS_ENGINE_CAMERA_HPP */

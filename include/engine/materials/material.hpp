@@ -1,5 +1,5 @@
-#ifndef MATERIAL_HPP_
-#define MATERIAL_HPP_
+#ifndef GRAPHICS_ENGINE_MATERIAL_HPP
+#define GRAPHICS_ENGINE_MATERIAL_HPP
 
 #include "basic_material.hpp"
 
@@ -13,15 +13,15 @@ class engine::Material : public engine::BasicMaterial
 {
 public:
 	Material();
-	Material(const glm::vec3 &diffuse_color, float shininess = 0);
-	Material(Texture *diffuse_texture, float shininess = 0);
-	Material(ShaderProgram *shader);
+	Material(const glm::vec3& diffuse_color, float shininess = 0);
+	Material(Texture* diffuse_texture, float shininess = 0);
+	Material(ShaderProgram* shader);
 
-	void setAmbient(const glm::vec3 &color);
-	void setAmbient(Texture *texture);
-	void setSpecular(const glm::vec3 &color);
-	void setSpecular(Texture *texture);
-	void setShininess(const float &shininess);
+	void setAmbient(const glm::vec3& color);
+	void setAmbient(Texture* texture);
+	void setSpecular(const glm::vec3& color);
+	void setSpecular(Texture* texture);
+	void setShininess(const float& shininess);
 
 	void bind() const override;
 
@@ -33,4 +33,4 @@ protected:
 	float m_shininess = 0.f;
 };
 
-#endif /* MATERIAL_HPP_ */
+#endif /* GRAPHICS_ENGINE_MATERIAL_HPP */

@@ -1,5 +1,5 @@
-#ifndef SPOT_LIGHT_HPP_
-#define SPOT_LIGHT_HPP_
+#ifndef GRAPHICS_ENGINE_SPOT_LIGHT_HPP
+#define GRAPHICS_ENGINE_SPOT_LIGHT_HPP
 
 #include "point_light.hpp"
 
@@ -12,7 +12,8 @@ namespace engine
 class engine::SpotLight final : public PointLight
 {
 public:
-	SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range, const float& inner_angle, const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);
+	SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range, const float& inner_angle,
+	          const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);
 
 	void setDirection(const glm::vec3& direction);
 	const glm::vec3& getDirection() const;
@@ -25,4 +26,4 @@ private:
 	float m_inner_angle, m_outer_angle;
 };
 
-#endif /* SPOT_LIGHT_HPP_ */
+#endif /* GRAPHICS_ENGINE_SPOT_LIGHT_HPP */

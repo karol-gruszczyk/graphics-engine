@@ -1,8 +1,9 @@
-#ifndef ENTITY_HPP_
-#define ENTITY_HPP_
+#ifndef GRAPHICS_ENGINE_ENTITY_HPP
+#define GRAPHICS_ENGINE_ENTITY_HPP
 
 #include <list>
-#include "../../shaders/shader_program.hpp"
+#include "engine/shaders/shader_program.hpp"
+
 
 #define POSITION_ATTRIB_POINTER 0
 #define TEXTURE_COORD_ATTRIB_POINTER 1
@@ -25,7 +26,7 @@ public:
 
 protected:
 	GLuint m_vao_id;
-	std::list<GLuint> m_vbos;
+	std::vector<GLuint> m_vbos;
 	GLenum m_draw_mode;
 	GLuint m_indices_size;
 	GLenum m_elements_type;
@@ -36,4 +37,4 @@ protected:
 	void createBufferObject(GLenum target, GLsizeiptr data_length, const void* data, GLenum usage = GL_STATIC_DRAW);
 };
 
-#endif /* ENTITY_HPP_ */
+#endif /* GRAPHICS_ENGINE_ENTITY_HPP */

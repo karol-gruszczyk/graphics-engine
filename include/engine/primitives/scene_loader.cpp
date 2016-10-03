@@ -1,59 +1,58 @@
 #include "scene_loader.hpp"
-#include "../config.hpp"
+#include "engine/engine.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include <iostream>
 #include <chrono>
 
 
 using engine::SceneLoader;
 using engine::Material;
 using engine::Mesh;
-using engine::Config;
+using engine::Engine;
 
-SceneLoader::SceneLoader(const boost::filesystem::path &path)
+SceneLoader::SceneLoader(const boost::filesystem::path& path)
 {
 	using namespace std::chrono;
 
-	Config::getInstance().logInfo("Loading scene '" + boost::filesystem::canonical(path).string() + "'");
-	auto loading_start_time = high_resolution_clock::now();
+	Engine::getInstance().logInfo("Loading scene '" + boost::filesystem::canonical(path).string() + "'");
+	auto loading_start_time = steady_clock::now();
 
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(path.string(), aiProcessPreset_TargetRealtime_Fast);
+	const aiScene* scene = importer.ReadFile(path.string(), aiProcessPreset_TargetRealtime_Fast);
 
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		Config::getInstance().logError("Failed to open file(" + path.string() + "): " + importer.GetErrorString());
+		Engine::getInstance().logError("Failed to open file(" + path.string() + "): " + importer.GetErrorString());
 		return;
 	}
 	m_directory = path.parent_path();
 	processMaterials(scene);
 	processNode(scene->mRootNode, scene);
 
-	duration<double, std::milli> loading_time = high_resolution_clock::now() - loading_start_time;
-	Config::getInstance().logInfo("Scene '" + boost::filesystem::canonical(path).string() + "' loaded in " +
+	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
+	Engine::getInstance().logInfo("Scene '" + boost::filesystem::canonical(path).string() + "' loaded in " +
 	                              std::to_string(loading_time.count()) + " ms");
 }
 
-const std::vector<Material *> &SceneLoader::getMaterials()
+const std::vector<Material*>& SceneLoader::getMaterials()
 {
 	return m_materials;
 }
 
-const std::vector<Mesh *> &SceneLoader::getMeshes()
+const std::vector<Mesh*>& SceneLoader::getMeshes()
 {
 	return m_meshes;
 }
 
-void SceneLoader::processMaterials(const aiScene *scene)
+void SceneLoader::processMaterials(const aiScene* scene)
 {
 	for (unsigned i = 0; i < scene->mNumMaterials; i++)
 		m_materials.push_back(processMaterial(scene->mMaterials[i]));
 }
 
-Material *SceneLoader::processMaterial(const aiMaterial *material)
+Material* SceneLoader::processMaterial(const aiMaterial* material)
 {
-	Material *result_mat = new Material();
+	Material* result_mat = new Material();
 
 	aiString tmp_string;
 	aiColor3D tmp_color3d = { 0.f, 0.f, 0.f };
@@ -67,9 +66,9 @@ Material *SceneLoader::processMaterial(const aiMaterial *material)
 		{
 			result_mat->setAmbient(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
 		}
-		catch (FileNotFoundException &e)
+		catch (FileNotFoundException& e)
 		{
-			Config::getInstance().logError(e.what());
+			Engine::getInstance().logError(e.what());
 		}
 	}
 	material->Get(AI_MATKEY_COLOR_AMBIENT, tmp_color3d);
@@ -81,9 +80,9 @@ Material *SceneLoader::processMaterial(const aiMaterial *material)
 		{
 			result_mat->setDiffuse(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
 		}
-		catch (FileNotFoundException &e)
+		catch (FileNotFoundException& e)
 		{
-			Config::getInstance().logError(e.what());
+			Engine::getInstance().logError(e.what());
 		}
 	}
 	material->Get(AI_MATKEY_COLOR_DIFFUSE, tmp_color3d);
@@ -95,9 +94,9 @@ Material *SceneLoader::processMaterial(const aiMaterial *material)
 		{
 			result_mat->setSpecular(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
 		}
-		catch (FileNotFoundException &e)
+		catch (FileNotFoundException& e)
 		{
-			Config::getInstance().logError(e.what());
+			Engine::getInstance().logError(e.what());
 		}
 	}
 	material->Get(AI_MATKEY_COLOR_SPECULAR, tmp_color3d);
@@ -110,11 +109,11 @@ Material *SceneLoader::processMaterial(const aiMaterial *material)
 	return result_mat;
 }
 
-void SceneLoader::processNode(aiNode *node, const aiScene *scene)
+void SceneLoader::processNode(aiNode* node, const aiScene* scene)
 {
 	for (unsigned i = 0; i < node->mNumMeshes; i++)
 	{
-		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		m_meshes.push_back(processMesh(mesh));
 	}
 
@@ -122,15 +121,15 @@ void SceneLoader::processNode(aiNode *node, const aiScene *scene)
 		processNode(node->mChildren[i], scene);
 }
 
-Mesh *SceneLoader::processMesh(aiMesh *mesh)
+Mesh* SceneLoader::processMesh(aiMesh* mesh)
 {
 	unsigned num_vertices(mesh->mNumVertices), num_indices(mesh->mNumFaces * 3);
 	bool has_texture_coords = mesh->mTextureCoords[0] != nullptr;
 
-	float *positions = new float[num_vertices * 3];
-	float *normals = new float[num_vertices * 3];
-	float *texture_coords = new float[num_vertices * 2];
-	unsigned *indices = new unsigned[num_indices];
+	float* positions = new float[num_vertices * 3];
+	float* normals = new float[num_vertices * 3];
+	float* texture_coords = new float[num_vertices * 2];
+	unsigned* indices = new unsigned[num_indices];
 
 
 	for (unsigned i = 0; i < num_vertices; i++)
@@ -152,12 +151,12 @@ Mesh *SceneLoader::processMesh(aiMesh *mesh)
 	for (unsigned i = 0; i < mesh->mNumFaces; i++)
 	{
 		// meshes are triangulated, so faces will always have 3 indices
-		const aiFace &face = mesh->mFaces[i];
+		const aiFace& face = mesh->mFaces[i];
 		indices[i * 3] = face.mIndices[0];
 		indices[i * 3 + 1] = face.mIndices[1];
 		indices[i * 3 + 2] = face.mIndices[2];
 	}
-	Mesh *result_mesh = new Mesh(num_vertices, positions, normals, texture_coords, num_indices, indices);
+	Mesh* result_mesh = new Mesh(num_vertices, positions, normals, texture_coords, num_indices, indices);
 	delete[] positions;
 	delete[] normals;
 	delete[] texture_coords;

@@ -1,5 +1,5 @@
-#ifndef LIGHT_HPP_
-#define LIGHT_HPP_
+#ifndef GRAPHICS_ENGINE_LIGHT_HPP
+#define GRAPHICS_ENGINE_LIGHT_HPP
 
 #include <glm/glm.hpp>
 
@@ -23,4 +23,4 @@ protected:
 	bool m_active;
 };
 
-#endif /* LIGHT_HPP_ */
+#endif /* GRAPHICS_ENGINE_LIGHT_HPP */

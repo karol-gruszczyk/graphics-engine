@@ -1,11 +1,18 @@
 #include "renderer.hpp"
 
+
 using engine::Renderer;
 using engine::ShaderProgram;
 
 
 Renderer::Renderer()
 {}
+
+Renderer::~Renderer()
+{
+	if (m_shader_program)
+		delete m_shader_program;
+}
 
 void Renderer::setContextWidth(const unsigned& context_width, const unsigned& context_height)
 {
@@ -21,7 +28,7 @@ void Renderer::clearScreen() const
 
 ShaderProgram* Renderer::getShaderProgram() const
 {
-	return m_shader_program.get();
+	return m_shader_program;
 }
 
 const glm::mat4& Renderer::getProjectionMatrix() const

@@ -10,19 +10,19 @@ Material::Material()
 		: BasicMaterial()
 {}
 
-Material::Material(const glm::vec3 &diffuse_color, float shininess /* = 0 */)
+Material::Material(const glm::vec3& diffuse_color, float shininess /* = 0 */)
 		: BasicMaterial(diffuse_color)
 {
 	m_shininess = shininess;
 }
 
-Material::Material(Texture *diffuse_texture, float shininess /* = 0 */)
+Material::Material(Texture* diffuse_texture, float shininess /* = 0 */)
 		: BasicMaterial(diffuse_texture)
 {
 	m_shininess = shininess;
 }
 
-Material::Material(ShaderProgram *shader)
+Material::Material(ShaderProgram* shader)
 		: BasicMaterial(shader)
 {}
 
@@ -57,27 +57,27 @@ void Material::bind() const
 	m_shader->setUniformFloat("material.shininess", m_shininess);
 }
 
-void Material::setAmbient(const glm::vec3 &color)
+void Material::setAmbient(const glm::vec3& color)
 {
 	m_ambient_color = color;
 }
 
-void Material::setAmbient(Texture *texture)
+void Material::setAmbient(Texture* texture)
 {
 	m_ambient_texture = texture;
 }
 
-void Material::setSpecular(const glm::vec3 &color)
+void Material::setSpecular(const glm::vec3& color)
 {
 	m_specular_color = color;
 }
 
-void Material::setSpecular(Texture *texture)
+void Material::setSpecular(Texture* texture)
 {
 	m_specular_texture = texture;
 }
 
-void engine::Material::setShininess(const float &shininess)
+void engine::Material::setShininess(const float& shininess)
 {
 	m_shininess = shininess;
 }

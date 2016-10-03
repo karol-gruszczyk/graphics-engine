@@ -1,6 +1,6 @@
 #include "camera.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/constants.hpp>
+
 
 using engine::Camera;
 
@@ -78,11 +78,11 @@ const glm::mat4& Camera::getViewMatrix() const
 inline void Camera::updateForwardVector()
 {
 	m_forward_vector = glm::vec3(
-		cos(m_rotation.x) * glm::sin(m_rotation.y),
-		sin(m_rotation.x),
-		-cos(m_rotation.x) * glm::cos(m_rotation.y));
+			cos(m_rotation.x) * glm::sin(m_rotation.y),
+			sin(m_rotation.x),
+			-cos(m_rotation.x) * glm::cos(m_rotation.y));
 	m_right_vector = glm::vec3(
-		glm::cos(m_rotation.y),
-		0.f,
-		glm::sin(m_rotation.y));
+			glm::cos(m_rotation.y),
+			0.f,
+			glm::sin(m_rotation.y));
 }

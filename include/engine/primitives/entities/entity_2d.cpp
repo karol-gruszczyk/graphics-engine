@@ -1,11 +1,13 @@
 #include "entity_2d.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
+
 using engine::Texture;
 using engine::Entity2D;
 
 
-Entity2D::Entity2D(const glm::vec2& position, const GLfloat& rotation /* = 0.f */, const glm::vec2& scale /* = { 1.f, 1.f } */, const glm::vec2& pivot /* = { 0.f, 0.f } */)
+Entity2D::Entity2D(const glm::vec2& position, const GLfloat& rotation /* = 0.f */,
+                   const glm::vec2& scale /* = { 1.f, 1.f } */, const glm::vec2& pivot /* = { 0.f, 0.f } */)
 {
 	setPivot(pivot);
 	setRotation(rotation);
@@ -13,7 +15,7 @@ Entity2D::Entity2D(const glm::vec2& position, const GLfloat& rotation /* = 0.f *
 	setScale(scale);
 }
 
-void Entity2D::translate(const glm::vec2 &position)
+void Entity2D::translate(const glm::vec2& position)
 {
 	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(position, 0.f));
 	m_position += position;
@@ -72,19 +74,19 @@ const glm::vec2& Entity2D::getPivot() const
 	return m_pivot;
 }
 
-void Entity2D::setMaterial(engine::BasicMaterial *material)
+void Entity2D::setMaterial(engine::BasicMaterial* material)
 {
-    m_material = material;
+	m_material = material;
 }
 
 void Entity2D::render() const
 {
-    if (m_material)
-    {
-        m_material->bind();
-        Entity::render();
-        m_material->unbind();
-    }
-    else
-        Entity::render();
+	if (m_material)
+	{
+		m_material->bind();
+		Entity::render();
+		m_material->unbind();
+	}
+	else
+		Entity::render();
 }

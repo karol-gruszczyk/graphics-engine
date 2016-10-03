@@ -1,10 +1,10 @@
 #include "preprocessor.hpp"
-#include "../config.hpp"
-#include <fstream>
+#include "engine/engine.hpp"
 #include <sstream>
 
+
 using engine::Preprocessor;
-using engine::Config;
+using engine::Engine;
 
 
 Preprocessor::Preprocessor(const boost::filesystem::path& path)
@@ -28,8 +28,9 @@ void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 		auto line_end = m_source_code.find('\n', start + 1);
 		if (start == std::string::npos || end == std::string::npos || end >= line_end)
 		{
-			auto exception = GLSLSyntaxErrorException(current_file, m_source_code.substr(position, line_end - position));
-			Config::getInstance().log(exception.what(), Config::ERROR);
+			auto exception = GLSLSyntaxErrorException(current_file,
+			                                          m_source_code.substr(position, line_end - position));
+			Engine::getInstance().logError(exception.what());
 			throw exception;
 		}
 		auto filename = m_source_code.substr(start + 1, end - start - 1);

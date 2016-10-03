@@ -5,44 +5,44 @@ using engine::BasicMaterial;
 using engine::ShaderProgram;
 
 
-ShaderProgram *BasicMaterial::s_shader;
+ShaderProgram* BasicMaterial::s_shader;
 
 BasicMaterial::BasicMaterial()
 		: m_shader(s_shader)
 {}
 
-BasicMaterial::BasicMaterial(const glm::vec3 &diffuse_color)
+BasicMaterial::BasicMaterial(const glm::vec3& diffuse_color)
 		: BasicMaterial()
 {
 	m_diffuse_color = diffuse_color;
 }
 
-BasicMaterial::BasicMaterial(engine::Texture *diffuse_texture)
+BasicMaterial::BasicMaterial(engine::Texture* diffuse_texture)
 		: BasicMaterial()
 {
 	m_diffuse_texture = diffuse_texture;
 }
 
-BasicMaterial::BasicMaterial(ShaderProgram *shader)
+BasicMaterial::BasicMaterial(ShaderProgram* shader)
 		: m_shader(shader)
 {}
 
-void BasicMaterial::setName(const std::string &name)
+void BasicMaterial::setName(const std::string& name)
 {
 	m_name = name;
 }
 
-const std::string &BasicMaterial::getName()
+const std::string& BasicMaterial::getName()
 {
 	return m_name;
 }
 
-void BasicMaterial::setDiffuse(const glm::vec3 &color)
+void BasicMaterial::setDiffuse(const glm::vec3& color)
 {
 	m_diffuse_color = color;
 }
 
-void BasicMaterial::setDiffuse(Texture *texture)
+void BasicMaterial::setDiffuse(Texture* texture)
 {
 	m_diffuse_texture = texture;
 }
@@ -69,7 +69,7 @@ void BasicMaterial::unbind() const
 		m_diffuse_texture->unbind();
 }
 
-void BasicMaterial::setDefaultShader(ShaderProgram *shader)
+void BasicMaterial::setDefaultShader(ShaderProgram* shader)
 {
 	s_shader = shader;
 }

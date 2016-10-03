@@ -1,10 +1,10 @@
-#ifndef PREPROCESSOR_HPP_
-#define PREPROCESSOR_HPP_
+#ifndef GRAPHICS_ENGINE_PREPROCESSOR_HPP
+#define GRAPHICS_ENGINE_PREPROCESSOR_HPP
 
 #include <string>
 #include <boost/filesystem/path.hpp>
-#include "../exceptions/file_not_found_exception.hpp"
-#include "../exceptions/glsl_syntax_error_exception.hpp"
+#include "engine/exceptions/file_not_found_exception.hpp"
+#include "engine/exceptions/glsl_syntax_error_exception.hpp"
 
 
 namespace engine
@@ -25,4 +25,4 @@ private:
 	std::string getFileContent(const boost::filesystem::path& path) const;
 };
 
-#endif /* PREPROCESSOR_HPP_ */
+#endif /* GRAPHICS_ENGINE_PREPROCESSOR_HPP */

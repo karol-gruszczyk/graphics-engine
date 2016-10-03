@@ -1,5 +1,5 @@
-#ifndef FRAGMENT_SHADER_HPP_
-#define FRAGMENT_SHADER_HPP_
+#ifndef GRAPHICS_ENGINE_FRAGMENT_SHADER_HPP
+#define GRAPHICS_ENGINE_FRAGMENT_SHADER_HPP
 
 #include "shader.hpp"
 
@@ -15,4 +15,4 @@ public:
 	FragmentShader(const boost::filesystem::path& path);
 };
 
-#endif /* FRAGMENT_SHADER_HPP_ */
+#endif /* GRAPHICS_ENGINE_FRAGMENT_SHADER_HPP */

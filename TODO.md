@@ -1,7 +1,11 @@
 # TODO`S
 
 ## alpha 1.1.2
-* Implement FreeType font loading
+* ~~Rewrite Config class to Engine~~
+  * add functionality for setting context sizes where it is needed  
+    - this could be done by creating an interface ContextWidthInterface, 
+      and it would add method and instance pointers to the main Engine class
+* ~~Implement FreeType font loading~~
 * Add dynamic text(one quad per glyph)
 
 ## alpha 1.1.3
@@ -13,6 +17,9 @@
 * Add static text handling(using FrameBufferObject)
 
 ## non-release
+* Implement a system for uniform location storage  
+  * Add locations as shader program members with appropriate setters
+* Add support for non ASCII characters in paths
 * Improve scene loader
   * light loading
   * affine transformations

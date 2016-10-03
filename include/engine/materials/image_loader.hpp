@@ -1,13 +1,10 @@
-#ifndef IMAGE_LOADER_HPP_
-#define IMAGE_LOADER_HPP_
+#ifndef GRAPHICS_ENGINE_IMAGE_LOADER_HPP
+#define GRAPHICS_ENGINE_IMAGE_LOADER_HPP
 
 #include <FreeImage.h>
-#include "../exceptions/file_not_found_exception.hpp"
-#include "../exceptions/unknown_file_type_exception.hpp"
-#include "../exceptions/file_type_not_supported_exception.hpp"
-
-
-#pragma comment(lib, "FreeImage.lib")
+#include "engine/exceptions/file_not_found_exception.hpp"
+#include "engine/exceptions/unknown_file_type_exception.hpp"
+#include "engine/exceptions/file_type_not_supported_exception.hpp"
 
 
 namespace engine
@@ -18,23 +15,23 @@ namespace engine
 class engine::ImageLoader final
 {
 public:
-	ImageLoader();
-	ImageLoader(const boost::filesystem::path &path);
+	ImageLoader(const boost::filesystem::path& path);
 	~ImageLoader();
 
 	unsigned getWidth() const;
 	unsigned getHeight() const;
-	unsigned char *getPixels() const;
+	unsigned char* getPixels() const;
 	unsigned getSize() const;
-	static ImageLoader &getGlobalInstance();
 
 private:
-	ImageLoader(const bool &global_instance);
-	bool m_is_global = false;
+	ImageLoader();
 
-	FIBITMAP *m_bitmap;
+	bool m_is_static_instance = false;
+	FIBITMAP* m_bitmap;
 	unsigned m_width, m_height;
-	unsigned char *m_pixels;
+	unsigned char* m_pixels;
+
+	static ImageLoader& getStaticInstance();
 };
 
-#endif /* IMAGE_LOADER_HPP_ */
+#endif /* GRAPHICS_ENGINE_IMAGE_LOADER_HPP */

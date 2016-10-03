@@ -1,15 +1,15 @@
-#ifndef SCENE_3D_HPP_
-#define SCENE_3D_HPP_
+#ifndef GRAPHICS_ENGINE_SCENE_3D_HPP
+#define GRAPHICS_ENGINE_SCENE_3D_HPP
 
 #include <boost/filesystem.hpp>
 
 #include "scene.hpp"
-#include "../camera.hpp"
-#include "../primitives/entities/entity_3d.hpp"
-#include "../lights/directional_light.hpp"
-#include "../lights/point_light.hpp"
-#include "../lights/spot_light.hpp"
-#include "../exceptions/light_limit_reached_exception.hpp"
+#include "engine/camera.hpp"
+#include "engine/primitives/entities/entity_3d.hpp"
+#include "engine/lights/directional_light.hpp"
+#include "engine/lights/point_light.hpp"
+#include "engine/lights/spot_light.hpp"
+#include "engine/exceptions/light_limit_reached_exception.hpp"
 
 
 namespace engine
@@ -21,7 +21,7 @@ class engine::Scene3D : public Scene
 {
 public:
 	Scene3D(Renderer* renderer);
-    ~Scene3D();
+	~Scene3D();
 
 	void setCamera(Camera* camera);
 	void addEntity(Entity3D* entity);
@@ -38,4 +38,4 @@ private:
 	std::vector<SpotLight*> m_spot_lights;
 };
 
-#endif /* SCENE_3D_HPP_ */
+#endif /* GRAPHICS_ENGINE_SCENE_3D_HPP */

@@ -1,10 +1,11 @@
 #include "light.hpp"
 
+
 using engine::Light;
 
 
 Light::Light(const glm::vec3& color /* = { 1.f, 1.f, 1.f } */, const bool& active /* = true */)
-	: m_color(color), m_active(active)
+		: m_color(color), m_active(active)
 {}
 
 void Light::setColor(const glm::vec3& color)

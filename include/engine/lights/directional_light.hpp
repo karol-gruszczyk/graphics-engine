@@ -1,5 +1,5 @@
-#ifndef DIRECTIONAL_LIGHT_HPP_
-#define DIRECTIONAL_LIGHT_HPP_
+#ifndef GRAPHICS_ENGINE_DIRECTIONAL_LIGHT_HPP
+#define GRAPHICS_ENGINE_DIRECTIONAL_LIGHT_HPP
 
 #include "light.hpp"
 
@@ -20,4 +20,4 @@ private:
 	glm::vec3 m_direction;
 };
 
-#endif /* DIRECTIONAL_LIGHT_HPP_ */
+#endif /* GRAPHICS_ENGINE_DIRECTIONAL_LIGHT_HPP */

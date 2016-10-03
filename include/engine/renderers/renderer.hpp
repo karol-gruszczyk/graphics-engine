@@ -1,12 +1,12 @@
-#ifndef RENDERER_HPP_
-#define RENDERER_HPP_
+#ifndef GRAPHICS_ENGINE_RENDERER_HPP
+#define GRAPHICS_ENGINE_RENDERER_HPP
 
 #include <memory>
 #include <glm/glm.hpp>
-#include "../shaders/shader_program.hpp"
-#include "../shaders/vertex_shader.hpp"
-#include "../shaders/fragment_shader.hpp"
-#include "../config.hpp"
+#include "engine/shaders/shader_program.hpp"
+#include "engine/shaders/vertex_shader.hpp"
+#include "engine/shaders/fragment_shader.hpp"
+#include "engine/engine.hpp"
 
 
 namespace engine
@@ -17,8 +17,10 @@ namespace engine
 class engine::Renderer
 {
 	friend class Scene;
+
 public:
 	Renderer();
+	~Renderer();
 
 	virtual void setContextWidth(const unsigned& context_width, const unsigned& context_height);
 	void clearScreen() const;
@@ -29,10 +31,8 @@ protected:
 	unsigned m_context_width, m_context_height;
 	glm::mat4 m_projection_matrix;
 
-	std::unique_ptr<VertexShader> m_vertex_shader;
-	std::unique_ptr<FragmentShader> m_fragment_shader;
-	std::unique_ptr<ShaderProgram> m_shader_program;
+	ShaderProgram* m_shader_program = nullptr;
 	virtual void updateProjectionMatrix() = 0;
 };
 
-#endif /* RENDERER_HPP_ */
+#endif /* GRAPHICS_ENGINE_RENDERER_HPP */
