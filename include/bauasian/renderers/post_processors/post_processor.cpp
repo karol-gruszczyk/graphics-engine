@@ -8,7 +8,7 @@ PostProcessor::PostProcessor(const boost::filesystem::path& fragment_shader_path
 {
 	glGenFramebuffers(1, &m_fbo_id);
 
-	int size = 1;
+	unsigned size = 1;
 	m_color_texture = new Texture(size, size, GL_RGB, GL_RGB);
 
 	glGenRenderbuffers(1, &m_rbo_id);
@@ -25,7 +25,7 @@ PostProcessor::PostProcessor(const boost::filesystem::path& fragment_shader_path
 	m_screen_quad = new ScreenQuad();
 
 	Shader* vertex_shader = new Shader("post_processing/basic_vs.glsl", Shader::VERTEX_SHADER);
-	Shader* fragment_shader = new Shader("post_processing/kernel_fs.glsl", Shader::FRAGMENT_SHADER);
+	Shader* fragment_shader = new Shader("post_processing/" / fragment_shader_path, Shader::FRAGMENT_SHADER);
 	m_shader = new ShaderProgram({ vertex_shader, fragment_shader });
 	delete vertex_shader;
 	delete fragment_shader;

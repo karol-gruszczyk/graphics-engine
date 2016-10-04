@@ -38,5 +38,6 @@ configure_file(bauasian/glsl/3d/phong_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
 configure_file(bauasian/glsl/3d/phong_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/3d/phong_vs.glsl COPYONLY)
 configure_file(bauasian/glsl/fonts/font_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/fonts/font_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/fonts/font_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/fonts/font_vs.glsl COPYONLY)
-configure_file(bauasian/glsl/post_processing/kernel_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/kernel_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/post_processing/basic_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/basic_vs.glsl COPYONLY)
+configure_file(bauasian/glsl/post_processing/kernel_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/kernel_fs.glsl COPYONLY)
+configure_file(bauasian/glsl/post_processing/black_white_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/black_white_fs.glsl COPYONLY)

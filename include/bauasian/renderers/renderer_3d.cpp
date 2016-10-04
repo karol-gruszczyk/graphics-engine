@@ -77,15 +77,27 @@ void Renderer3D::render(const Scene3D* scene) const
 {
 	if (m_filters.size())
 	{
-		m_filters.front()->bind();
-		m_filters.front()->clear();
+		auto it = m_filters.begin();
+
+		(*it)->bind();
+		(*it)->clear();
+		scene->render(m_shader_program, m_projection_matrix);
+
+		while (true)
+		{
+			const auto& next = std::next(it);
+			if (next == m_filters.end())
+				break;
+			(*next)->bind();
+			(*next)->clear();
+			(*it)->renderToScreen();
+			it = next;
+		}
+
+		(*it)->unbind();
+		(*it)->renderToScreen();
 	}
 	scene->render(m_shader_program, m_projection_matrix);
-	if (m_filters.size())
-	{
-		m_filters.front()->unbind();
-		m_filters.front()->renderToScreen();
-	}
 }
 
 void Renderer3D::addFilter(PostProcessor* filter)

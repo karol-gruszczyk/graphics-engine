@@ -11,6 +11,7 @@
 #include "materials/texture.hpp"
 #include "materials/material.hpp"
 #include "renderers/post_processors/kernel_filter.hpp"
+#include "renderers/post_processors/black_white_filter.hpp"
 
 
 #endif /* BAUASIAN_ENGINE3D_HPP */
