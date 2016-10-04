@@ -4,7 +4,7 @@
 using bauasian::Blur;
 
 Blur::Blur(const GLuint& radius)
-		: PostProcessor("blur_fs.glsl")
+		: Filter("blur_fs.glsl")
 {
 	setRadius(radius);
 }
@@ -22,6 +22,6 @@ void Blur::setRadius(const GLuint& radius)
 
 void Blur::setContextSize(const unsigned& width, const unsigned& height) const
 {
-	PostProcessor::setContextSize(width, height);
+	Filter::setContextSize(width, height);
 	m_shader->setUniformVector2("offset", { 1.f / width, 1.f / height });
 }

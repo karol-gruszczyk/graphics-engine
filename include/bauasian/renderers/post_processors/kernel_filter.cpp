@@ -4,7 +4,7 @@
 using bauasian::KernelFilter;
 
 KernelFilter::KernelFilter(const bauasian::KernelFilter::KernelFilterType& type)
-		: PostProcessor("kernel_fs.glsl")
+		: AreaFilter("kernel_fs.glsl")
 {
 	auto kernel = getKernel(type);
 	m_shader->setUniformMatrix3("kernel_matrix", std::get<1>(kernel));
@@ -33,10 +33,4 @@ const std::tuple<GLfloat, glm::mat3> KernelFilter::getKernel(const KernelFilter:
 			                                               1, 2, 1 }));
 	}
 	throw new std::invalid_argument("type");
-}
-
-void KernelFilter::setContextSize(const unsigned& width, const unsigned& height) const
-{
-	PostProcessor::setContextSize(width, height);
-	m_shader->setUniformVector2("offset", { 1.f / width, 1.f / height });
 }

@@ -100,7 +100,7 @@ void Renderer3D::render(const Scene3D* scene) const
 	scene->render(m_shader_program, m_projection_matrix);
 }
 
-void Renderer3D::addFilter(PostProcessor* filter)
+void Renderer3D::addFilter(Filter* filter)
 {
 	const auto& size = getContextSize();
 	filter->setContextSize(size.x, size.y);

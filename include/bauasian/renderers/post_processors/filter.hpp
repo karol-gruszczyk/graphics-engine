@@ -1,5 +1,5 @@
-#ifndef BAUASIAN_FRAME_BUFFER_HPP
-#define BAUASIAN_FRAME_BUFFER_HPP
+#ifndef BAUASIAN_FILTER_HPP
+#define BAUASIAN_FILTER_HPP
 
 
 #include "bauasian/materials/texture.hpp"
@@ -10,14 +10,14 @@
 
 namespace bauasian
 {
-	class PostProcessor;
+	class Filter;
 }
 
-class bauasian::PostProcessor
+class bauasian::Filter
 {
 public:
-	PostProcessor(const boost::filesystem::path& fragment_shader_path);
-	virtual ~PostProcessor();
+	Filter(const boost::filesystem::path& fragment_shader_path);
+	virtual ~Filter();
 
 	virtual void setContextSize(const unsigned& width, const unsigned& height) const;
 	void bind() const;
@@ -34,4 +34,4 @@ private:
 	ScreenQuad* m_screen_quad = nullptr;
 };
 
-#endif /* BAUASIAN_FRAME_BUFFER_HPP */
+#endif /* BAUASIAN_FILTER_HPP */

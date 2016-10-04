@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_ENGINE_BLACK_WHITE_FILTER_HPP
 #define BAUASIAN_ENGINE_BLACK_WHITE_FILTER_HPP
 
-#include "post_processor.hpp"
+#include "filter.hpp"
 
 
 namespace bauasian
@@ -9,7 +9,7 @@ namespace bauasian
 	class BlackWhiteFilter;
 }
 
-class bauasian::BlackWhiteFilter : public PostProcessor
+class bauasian::BlackWhiteFilter : public Filter
 {
 public:
 	BlackWhiteFilter(const glm::vec3& color_weights = { 0.2126, 0.7152, 0.0722 });

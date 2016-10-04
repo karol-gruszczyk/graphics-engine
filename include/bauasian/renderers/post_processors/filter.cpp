@@ -1,10 +1,10 @@
-#include "post_processor.hpp"
+#include "filter.hpp"
 #include "bauasian/bauasian.hpp"
 
 
-using bauasian::PostProcessor;
+using bauasian::Filter;
 
-PostProcessor::PostProcessor(const boost::filesystem::path& fragment_shader_path)
+Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 {
 	glGenFramebuffers(1, &m_fbo_id);
 
@@ -31,7 +31,7 @@ PostProcessor::PostProcessor(const boost::filesystem::path& fragment_shader_path
 	delete fragment_shader;
 }
 
-PostProcessor::~PostProcessor()
+Filter::~Filter()
 {
 	glDeleteFramebuffers(1, &m_fbo_id);
 	glDeleteRenderbuffers(1, &m_rbo_id);
@@ -40,7 +40,7 @@ PostProcessor::~PostProcessor()
 	delete m_shader;
 }
 
-void PostProcessor::setContextSize(const unsigned& width, const unsigned& height) const
+void Filter::setContextSize(const unsigned& width, const unsigned& height) const
 {
 	m_color_texture->update(width, height, GL_RGB, GL_RGB);
 
@@ -49,22 +49,22 @@ void PostProcessor::setContextSize(const unsigned& width, const unsigned& height
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
-void PostProcessor::bind() const
+void Filter::bind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo_id);
 }
 
-void PostProcessor::unbind() const
+void Filter::unbind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void PostProcessor::clear() const
+void Filter::clear() const
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void PostProcessor::renderToScreen() const
+void Filter::renderToScreen() const
 {
 	m_shader->bind();
 	m_color_texture->bind(0);

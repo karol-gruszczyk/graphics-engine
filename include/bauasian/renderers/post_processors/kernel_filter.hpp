@@ -2,7 +2,7 @@
 #define BAUASIAN_KERNEL_FILTER_HPP
 
 
-#include "post_processor.hpp"
+#include "area_filter.hpp"
 
 
 namespace bauasian
@@ -10,7 +10,7 @@ namespace bauasian
 	class KernelFilter;
 }
 
-class bauasian::KernelFilter : public PostProcessor
+class bauasian::KernelFilter : public AreaFilter
 {
 public:
 	enum KernelFilterType
@@ -18,7 +18,6 @@ public:
 		EDGE_DETECTION, SHARPEN, BOX_BLUR, GAUSSIAN_BLUR
 	};
 	KernelFilter(const KernelFilterType& type);
-	virtual void setContextSize(const unsigned& width, const unsigned& height) const override;
 
 protected:
 	const std::tuple<GLfloat, glm::mat3> getKernel(const KernelFilterType& type);

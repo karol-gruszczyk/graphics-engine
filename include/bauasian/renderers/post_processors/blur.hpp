@@ -2,7 +2,7 @@
 #define BAUASIAN_ENGINE_BLUR_HPP
 
 
-#include "post_processor.hpp"
+#include "filter.hpp"
 
 
 namespace bauasian
@@ -10,7 +10,7 @@ namespace bauasian
 	class Blur;
 }
 
-class bauasian::Blur : public PostProcessor
+class bauasian::Blur : public Filter
 {
 public:
 	Blur(const GLuint& radius);
