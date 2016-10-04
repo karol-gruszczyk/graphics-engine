@@ -96,7 +96,8 @@ void setup()
 	renderer2d = new Renderer2D();
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
-	renderer3d->addFilter(new KernelFilter(KernelFilter::LEFT_SOBEL));
+	renderer3d->addFilter(new KernelFilter(KernelFilter::GRADIENT_DETECTION_VERTICAL));
+	//renderer3d->addFilter(new LargeKernelFilter(LargeKernelFilter::GAUSSIAN_BLUR));
 
 	try
 	{

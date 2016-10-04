@@ -82,6 +82,14 @@ void ShaderProgram::setUniformFloat(const std::string& uniform_name, const float
 	assert(location != -1);
 	glUniform1f(location, value);
 }
+void ShaderProgram::setUniformFloatVector(const std::string& uniform_name, const float* const value,
+                                          const GLsizei& count)
+{
+	bind();
+	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	assert(location != -1);
+	glUniform1fv(location, count, value);
+}
 
 void ShaderProgram::setUniformVector2(const std::string& uniform_name, const glm::vec2& vector) const
 {

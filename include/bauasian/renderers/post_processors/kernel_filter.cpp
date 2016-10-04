@@ -17,10 +17,34 @@ const glm::mat3 KernelFilter::getKernelMatrix(const KernelFilter::KernelFilterTy
 			return glm::mat3(-1, -1, -1,
 			                 -1, 8, -1,
 			                 -1, -1, -1);
+		case EXCESSIVE_OUTLINE:
+			return glm::mat3(1, 1, 1,
+			                 1, -7, 1,
+			                 1, 1, 1);
+		case OUTLINE_HORIZONTAL:
+			return glm::mat3(0, 0, 0,
+			                 -1, 2, -1,
+			                 0, 0, 0);
+		case OUTLINE_VERTICAL:
+			return glm::mat3(0, -1, 0,
+			                 0, 2, 0,
+			                 0, -1, 0);
+		case GRADIENT_DETECTION_HORIZONTAL:
+			return glm::mat3(-1, -1, -1,
+			                 0, 0, 0,
+			                 1, 1, 1);
+		case GRADIENT_DETECTION_VERTICAL:
+			return glm::mat3(-1, 0, 1,
+			                 -1, 0, 1,
+			                 -1, 0, 1);
 		case SHARPEN:
 			return glm::mat3(0, -1, 0,
 			                 -1, 5, -1,
 			                 0, -1, 0);
+		case INTENSE_SHARPEN:
+			return glm::mat3(-1, -1, -1,
+			                 -1, 9, -1,
+			                 -1, -1, -1);
 		case BOX_BLUR:
 			return glm::mat3(1, 1, 1,
 			                 1, 1, 1,
