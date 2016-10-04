@@ -6,31 +6,49 @@ using bauasian::KernelFilter;
 KernelFilter::KernelFilter(const bauasian::KernelFilter::KernelFilterType& type)
 		: AreaFilter("kernel_fs.glsl")
 {
-	auto kernel = getKernel(type);
-	m_shader->setUniformMatrix3("kernel_matrix", std::get<1>(kernel));
-	m_shader->setUniformFloat("kernel_multiplier", std::get<0>(kernel));
+	m_shader->setUniformMatrix3("kernel_matrix", getKernelMatrix(type));
 }
 
-const std::tuple<GLfloat, glm::mat3> KernelFilter::getKernel(const KernelFilter::KernelFilterType& type)
+const glm::mat3 KernelFilter::getKernelMatrix(const KernelFilter::KernelFilterType& type)
 {
 	switch (type)
 	{
-		case EDGE_DETECTION:
-			return std::make_tuple(1.f, glm::mat3({ -1, -1, -1,
-			                                        -1, 8, -1,
-			                                        -1, -1, -1, }));
+		case OUTLINE:
+			return glm::mat3(-1, -1, -1,
+			                 -1, 8, -1,
+			                 -1, -1, -1);
 		case SHARPEN:
-			return std::make_tuple(1.f, glm::mat3({ 0, -1, 0,
-			                                        -1, 5, -1,
-			                                        0, -1, 0, }));
+			return glm::mat3(0, -1, 0,
+			                 -1, 5, -1,
+			                 0, -1, 0);
 		case BOX_BLUR:
-			return std::make_tuple(1.f / 9.f, glm::mat3({ 1, 1, 1,
-			                                              1, 1, 1,
-			                                              1, 1, 1 }));
+			return glm::mat3(1, 1, 1,
+			                 1, 1, 1,
+			                 1, 1, 1) / 9.f;
 		case GAUSSIAN_BLUR:
-			return std::make_tuple(1.f / 16.f, glm::mat3({ 1, 2, 1,
-			                                               2, 4, 2,
-			                                               1, 2, 1 }));
+			return glm::mat3(1, 2, 1,
+			                 2, 4, 2,
+			                 1, 2, 1) / 16.f;
+		case EMBOSS:
+			return glm::mat3(-2, -1, 0,
+			                 -1, 1, 1,
+			                 0, 1, 2);
+		case BOTTOM_SOBEL:
+			return glm::mat3(-1, -2, -1,
+			                 0, 0, 0,
+			                 1, 2, 1);
+		case TOP_SOBEL:
+			return glm::mat3(1, 2, 1,
+			                 0, 0, 0,
+			                 -1, -2, -1);
+		case LEFT_SOBEL:
+			return glm::mat3(1, 0, -1,
+			                 2, 0, -2,
+			                 1, 0, -1);
+		case RIGHT_SOBEL:
+			return glm::mat3(-1, 0, 1,
+			                 -2, 0, 2,
+			                 01, 0, 1);
 	}
 	throw new std::invalid_argument("type");
 }

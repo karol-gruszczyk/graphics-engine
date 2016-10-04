@@ -6,7 +6,6 @@ out vec4 out_color;
 
 uniform sampler2D screen_texture;
 uniform mat3 kernel_matrix;
-uniform float kernel_multiplier;
 uniform vec2 offset;
 
 
@@ -26,5 +25,5 @@ void main()
         current_offset.y -= offset.y;
     }
 
-	out_color = vec4(kernel_multiplier * final_color, 1.f);
+	out_color = vec4(final_color, 1.f);
 }

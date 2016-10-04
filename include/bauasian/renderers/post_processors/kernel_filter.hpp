@@ -15,12 +15,12 @@ class bauasian::KernelFilter : public AreaFilter
 public:
 	enum KernelFilterType
 	{
-		EDGE_DETECTION, SHARPEN, BOX_BLUR, GAUSSIAN_BLUR
+		OUTLINE, SHARPEN, BOX_BLUR, GAUSSIAN_BLUR, EMBOSS, BOTTOM_SOBEL, TOP_SOBEL, LEFT_SOBEL, RIGHT_SOBEL
 	};
 	KernelFilter(const KernelFilterType& type);
 
 protected:
-	const std::tuple<GLfloat, glm::mat3> getKernel(const KernelFilterType& type);
+	const glm::mat3 getKernelMatrix(const KernelFilterType& type);
 
 };
 

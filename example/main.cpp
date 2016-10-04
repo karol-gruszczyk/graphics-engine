@@ -96,8 +96,7 @@ void setup()
 	renderer2d = new Renderer2D();
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
-	renderer3d->addFilter(new Blur(5));
-	renderer3d->addFilter(new KernelFilter(KernelFilter::EDGE_DETECTION));
+	renderer3d->addFilter(new KernelFilter(KernelFilter::LEFT_SOBEL));
 
 	try
 	{
