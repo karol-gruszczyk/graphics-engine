@@ -1,5 +1,9 @@
 # TODO`S
 
+## Optimizations
+* Get uniform locations only once
+* Set sampler2D textures in shaders only once
+
 ## alpha 1.1.4
 * Rewrite dynamic text(one quad per glyph line)
 * Add static text handling(using FrameBufferObject)
@@ -18,4 +22,4 @@
   * Project 2D without depth test
 
 ## bugs
-* Currently none
+* Fix recognizing backslashes as path separator in boost::path
