@@ -94,7 +94,7 @@ void Texture::save(const boost::filesystem::path& path)
 	delete[] pixels;
 }
 
-void Texture::bind(unsigned short texture_level /* = 0*/) const
+void Texture::bind(unsigned short texture_level /* = 0 */) const
 {
 	glActiveTexture(GL_TEXTURE0 + texture_level);
 	glBindTexture(GL_TEXTURE_2D, m_texture_id);

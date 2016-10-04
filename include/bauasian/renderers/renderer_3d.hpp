@@ -3,7 +3,7 @@
 
 #include "renderer.hpp"
 #include "scene_3d.hpp"
-#include "frame_buffer.hpp"
+#include "bauasian/renderers/post_processors/post_processor.hpp"
 #include "bauasian/context_width_interface.hpp"
 
 
@@ -18,12 +18,19 @@ public:
 	Renderer3D();
 	~Renderer3D();
 
+	const GLfloat& getFieldOfView() const;
 	void setFieldOfView(GLfloat fov);
-	GLfloat getFieldOfView() const;
+	const GLfloat& getZNear() const;
+	void setZNear(GLfloat z_near);
+	const GLfloat& getZFar() const;
+	void setZFar(GLfloat z_far);
+	void addFilter(PostProcessor* filter);
 	void render(const Scene3D* scene) const;
 private:
 	GLfloat m_field_of_view = 45.f;
-	FrameBuffer* m_frame_buffer;
+	GLfloat m_z_near = 0.1f;
+	GLfloat m_z_far = 1000.f;
+	std::list<PostProcessor*> m_filters;
 
 	void updateProjectionMatrix();
 	virtual void loadShader();

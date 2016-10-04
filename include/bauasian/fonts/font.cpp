@@ -66,11 +66,12 @@ Font& Font::getStaticInstance()
 
 void Font::loadShader()
 {
-	const auto& shader_path = Bauasian::getInstance().getShaderPath();
-	Shader vertexShader(shader_path / "fonts/font_vs.glsl", Shader::VERTEX_SHADER);
-	Shader fragmentShader(shader_path / "fonts/font_fs.glsl", Shader::FRAGMENT_SHADER);
-	s_shader = new ShaderProgram({ &vertexShader, &fragmentShader });
+	Shader* vertex_shader = new Shader("fonts/font_vs.glsl", Shader::VERTEX_SHADER);
+	Shader* fragment_shader = new Shader("fonts/font_fs.glsl", Shader::FRAGMENT_SHADER);
+	s_shader = new ShaderProgram({ vertex_shader, fragment_shader });
 	updateContextSize();
+	delete vertex_shader;
+	delete fragment_shader;
 }
 
 void Font::unloadShader()

@@ -2,7 +2,7 @@
 #define BAUASIAN_SCENE_2D_HPP
 
 #include "scene.hpp"
-#include "bauasian/primitives/entities/entity_2d.hpp"
+#include "bauasian/primitives/abstract/entity_2d.hpp"
 
 
 namespace bauasian

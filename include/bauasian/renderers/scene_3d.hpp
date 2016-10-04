@@ -5,7 +5,7 @@
 
 #include "scene.hpp"
 #include "bauasian/camera.hpp"
-#include "bauasian/primitives/entities/entity_3d.hpp"
+#include "bauasian/primitives/abstract/entity_3d.hpp"
 #include "bauasian/lights/directional_light.hpp"
 #include "bauasian/lights/point_light.hpp"
 #include "bauasian/lights/spot_light.hpp"

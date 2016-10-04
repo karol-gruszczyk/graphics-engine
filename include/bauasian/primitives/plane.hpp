@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_PLANE_HPP
 #define BAUASIAN_PLANE_HPP
 
-#include "entities/entity_3d.hpp"
+#include "abstract/entity_3d.hpp"
 
 
 namespace bauasian

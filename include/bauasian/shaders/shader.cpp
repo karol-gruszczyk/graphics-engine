@@ -12,7 +12,9 @@ std::map<Shader::ShaderType, GLenum> Shader::s_shader_type = {
 
 Shader::Shader(const boost::filesystem::path& path, const ShaderType& type)
 {
-	std::string shader_code(openShaderFile(path));
+	const auto& shader_path = Bauasian::getInstance().getShaderPath() / path;
+
+	std::string shader_code(openShaderFile(shader_path));
 
 	const GLchar* const gl_shader_code = shader_code.c_str();
 	m_shader_id = glCreateShader(s_shader_type[type]);
@@ -28,15 +30,15 @@ Shader::Shader(const boost::filesystem::path& path, const ShaderType& type)
 		std::string info_log;
 		if (info_log_length > 0)
 		{
-			info_log.resize(info_log_length);
+			info_log.resize((unsigned long)info_log_length);
 			glGetShaderInfoLog(m_shader_id, info_log_length, nullptr, &info_log[0]);
 		}
-		info_log = "Shader file '" + boost::filesystem::canonical(path).string() + "' raised the following message:\n" +
+		info_log = "Shader file '" + boost::filesystem::canonical(shader_path).string() + "' raised the following message:\n" +
 		           info_log;
 		if (success == GL_FALSE)
 		{
 			Bauasian::getInstance().logError(info_log);
-			throw ShaderCompileException(path, info_log);
+			throw ShaderCompileException(shader_path, info_log);
 		}
 		Bauasian::getInstance().logWarning(info_log);
 	}

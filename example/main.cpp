@@ -46,13 +46,13 @@ void resize(unsigned int width, unsigned int height)
 void updateCameraPosition()
 {
 	if (button_pressed['A'])
-		camera->moveRight(-0.5f);
+		camera->moveRight(-10.f);
 	if (button_pressed['D'])
-		camera->moveRight(0.5f);
+		camera->moveRight(10.f);
 	if (button_pressed['W'])
-		camera->moveForward(0.5f);
+		camera->moveForward(10.f);
 	if (button_pressed['S'])
-		camera->moveForward(-0.5f);
+		camera->moveForward(-10.f);
 	if (button_pressed['Q'])
 		camera->rotate({ 0.f, 0.f, -0.01f });
 	if (button_pressed['E'])
@@ -66,8 +66,8 @@ void draw(void)
 			(current_time - last_frame_time).count());
 	last_frame_time = current_time;
 
-	std::string title = " FPS: " + std::to_string(fps);
-	glutSetWindowTitle(title.c_str());
+	std::string title = "FPS: " + std::to_string(fps);
+	text->setText(title);
 
 	updateCameraPosition();
 	//rect->rotate(glm::radians(1.f));
@@ -93,16 +93,10 @@ void setup()
 //    Bauasian::getInstance().initializeLogger(); // initializing logger with default log file path
 	Bauasian::getInstance().setContextSize({ window_width, window_height });
 
-	try
-	{
-		renderer2d = new Renderer2D();
-		renderer3d = new Renderer3D();
-	}
-	catch (std::exception& e)
-	{
-		Bauasian::getInstance().logError(e.what());
-		exit(EXIT_FAILURE);
-	}
+	renderer2d = new Renderer2D();
+	renderer3d = new Renderer3D();
+	renderer3d->setZFar(10000);
+	renderer3d->addFilter(new KernelFilter(KernelFilter::SHARPEN));
 
 	try
 	{
@@ -120,7 +114,7 @@ void setup()
 	basic_tile_material->setDiffuse(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	scene2d->addEntity(rect);
+	//scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
@@ -137,8 +131,8 @@ void setup()
 	scene3d = new Scene3D();
 	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
-	scene3d->addEntity(box);
-	scene3d->addEntity(plane);
+	//scene3d->addEntity(box);
+	//scene3d->addEntity(plane);
 	dir_light = new DirectionalLight({ -1.f, -1.f, -1.f });
 	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
@@ -149,17 +143,17 @@ void setup()
 
 	try
 	{
-		scene3d->loadFromFile("res/aventador/Avent.obj");
-		scene3d->loadFromFile("res/cube.obj");
+		//scene3d->loadFromFile("res/aventador/Avent.obj");
+		scene3d->loadFromFile("res/cs_office.obj");
 	}
 	catch (FileNotFoundException& e)
 	{
 		Bauasian::getInstance().logError(e.what());
 	}
 
-	text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14), "(this is a test message,\n(cheers");
-	text->setPosition({ 100, 200 });
-	text->setTextColor({ 1.f, 0.f, 0.f });
+	text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14));
+	text->setPosition({ 0, 14 });
+	text->setTextColor({ 1.f, 1.f, 1.f });
 
 	draw();
 	Bauasian::getInstance().checkErrors(); // checking if any errors were raised
@@ -231,6 +225,7 @@ int main(int argc, char** argv)
 		std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
 	if (glGetError() == GL_INVALID_ENUM)
 		std::cout << "GL_INVALID_ENUM on glewInit()" << std::endl;
+	glutSetWindowTitle((std::string("OpenGL ") + (char*)glGetString(GL_VERSION)).c_str());
 
 	glutDisplayFunc(draw);
 	glutIdleFunc(idle);

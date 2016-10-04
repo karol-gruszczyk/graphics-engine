@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_RECTANGLE_HPP
 #define BAUASIAN_RECTANGLE_HPP
 
-#include "entities/entity_2d.hpp"
+#include "abstract/entity_2d.hpp"
 
 
 namespace bauasian
