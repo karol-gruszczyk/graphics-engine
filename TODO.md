@@ -1,9 +1,5 @@
 # TODO`S
 
-## alpha 1.1.3
-* Implement FrameBufferObject
-* Implement basic kernel filters
-
 ## alpha 1.1.4
 * Rewrite dynamic text(one quad per glyph line)
 * Add static text handling(using FrameBufferObject)
