@@ -46,15 +46,18 @@ void Text::render() const
 	m_font->s_shader->setUniformMatrix4("model_matrix", glm::translate(glm::mat4(), glm::vec3(m_position, 0.f)));
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(0xFFFFFFFF);
-	Entity2D::render();
+	glBindVertexArray(m_vao_id);
+	glDrawElements(m_draw_mode, m_indices_size, m_elements_type, nullptr);
+	glBindVertexArray(0);
 	glDisable(GL_PRIMITIVE_RESTART);
 	glDisable(GL_BLEND);
 }
 
 void Text::updateBufferObjects()
 {
-	unsigned num_vertices = (unsigned) m_text.size() * 4;
-	GLfloat* positions = new GLfloat[num_vertices * 4];
+	const unsigned short floats_per_glyph = 16;
+	unsigned num_vertices_data_floats = (unsigned) m_text.size() * floats_per_glyph;
+	GLfloat* vertices_data = new GLfloat[num_vertices_data_floats];
 	unsigned num_indices = (unsigned) m_text.size() * 5;
 	GLuint* indices = new GLuint[num_indices];
 
@@ -68,12 +71,11 @@ void Text::updateBufferObjects()
 			continue;
 		}
 		const auto& glyph = m_font->m_glyphs[c];
+		std::memcpy(vertices_data + i * floats_per_glyph, glyph->getPositions(), sizeof(GLfloat) * floats_per_glyph);
 		for (unsigned j = 0; j < 4; j++)
 		{
-			positions[i * 16 + j * 4 + 0] = glyph->getPositions()[j * 4 + 0] + advance.x;
-			positions[i * 16 + j * 4 + 1] = glyph->getPositions()[j * 4 + 1] + advance.y;
-			positions[i * 16 + j * 4 + 2] = glyph->getPositions()[j * 4 + 2];
-			positions[i * 16 + j * 4 + 3] = glyph->getPositions()[j * 4 + 3];
+			vertices_data[i * floats_per_glyph + j * 4 + 0] += advance.x;
+			vertices_data[i * floats_per_glyph + j * 4 + 1] += advance.y;
 		}
 		advance += glyph->getAdvance();
 
@@ -89,7 +91,7 @@ void Text::updateBufferObjects()
 	glBindVertexArray(m_vao_id);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * num_vertices * 4, positions, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * num_vertices_data_floats, vertices_data, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(POSITION_ATTRIB_POINTER, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
 	glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
 
@@ -98,6 +100,6 @@ void Text::updateBufferObjects()
 
 	glBindVertexArray(0);
 
-	delete[] positions;
+	delete[] vertices_data;
 	delete[] indices;
 }
