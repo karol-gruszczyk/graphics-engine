@@ -12,8 +12,7 @@ namespace bauasian
 class bauasian::Mesh : public bauasian::Entity3D
 {
 public:
-	Mesh(unsigned num_vertices, float* vertices, float* normals, float* texture_coords, unsigned num_indices,
-	     unsigned* indices);
+	Mesh(unsigned num_vertices, float* vertices, unsigned num_indices, unsigned* indices);
 
 private:
 };

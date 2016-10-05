@@ -31,7 +31,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path)
 
 	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
 	Bauasian::getInstance().logInfo("Scene '" + boost::filesystem::canonical(path).string() + "' loaded in " +
-	                              std::to_string(loading_time.count()) + " ms");
+	                                std::to_string(loading_time.count()) + " ms");
 }
 
 const std::vector<Material*>& SceneLoader::getMaterials()
@@ -124,29 +124,23 @@ void SceneLoader::processNode(aiNode* node, const aiScene* scene)
 Mesh* SceneLoader::processMesh(aiMesh* mesh)
 {
 	unsigned num_vertices(mesh->mNumVertices), num_indices(mesh->mNumFaces * 3);
-	bool has_texture_coords = mesh->mTextureCoords[0] != nullptr;
-
-	float* positions = new float[num_vertices * 3];
-	float* normals = new float[num_vertices * 3];
-	float* texture_coords = new float[num_vertices * 2];
+	const unsigned floats_per_vertex = 3 + 3 + 2;
+	float* vertex_data = new float[num_vertices * floats_per_vertex];
 	unsigned* indices = new unsigned[num_indices];
 
 
 	for (unsigned i = 0; i < num_vertices; i++)
 	{
-		positions[i * 3] = mesh->mVertices[i].x;
-		positions[i * 3 + 1] = mesh->mVertices[i].y;
-		positions[i * 3 + 2] = mesh->mVertices[i].z;
+		vertex_data[i * floats_per_vertex + 0] = mesh->mVertices[i].x;
+		vertex_data[i * floats_per_vertex + 1] = mesh->mVertices[i].y;
+		vertex_data[i * floats_per_vertex + 2] = mesh->mVertices[i].z;
 
-		normals[i * 3] = mesh->mNormals[i].x;
-		normals[i * 3 + 1] = mesh->mNormals[i].y;
-		normals[i * 3 + 2] = mesh->mNormals[i].z;
+		vertex_data[i * floats_per_vertex + 3] = mesh->mNormals[i].x;
+		vertex_data[i * floats_per_vertex + 4] = mesh->mNormals[i].y;
+		vertex_data[i * floats_per_vertex + 5] = mesh->mNormals[i].z;
 
-		if (has_texture_coords)
-		{
-			texture_coords[i * 2] = mesh->mTextureCoords[0][i].x;
-			texture_coords[i * 2 + 1] = mesh->mTextureCoords[0][i].y;
-		}
+		vertex_data[i * floats_per_vertex + 6] = mesh->mTextureCoords[0][i].x;
+		vertex_data[i * floats_per_vertex + 7] = mesh->mTextureCoords[0][i].y;
 	}
 	for (unsigned i = 0; i < mesh->mNumFaces; i++)
 	{
@@ -156,10 +150,8 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 		indices[i * 3 + 1] = face.mIndices[1];
 		indices[i * 3 + 2] = face.mIndices[2];
 	}
-	Mesh* result_mesh = new Mesh(num_vertices, positions, normals, texture_coords, num_indices, indices);
-	delete[] positions;
-	delete[] normals;
-	delete[] texture_coords;
+	Mesh* result_mesh = new Mesh(num_vertices, vertex_data, num_indices, indices);
+	delete[] vertex_data;
 	delete[] indices;
 	result_mesh->setMaterial(m_materials[mesh->mMaterialIndex]);
 	return result_mesh;

@@ -132,8 +132,8 @@ void setup()
 	scene3d = new Scene3D();
 	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
-	scene3d->addEntity(box);
-	scene3d->addEntity(plane);
+	//scene3d->addEntity(box);
+	//scene3d->addEntity(plane);
 	dir_light = new DirectionalLight({ -1.f, -1.f, -1.f });
 	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
@@ -226,7 +226,7 @@ int main(int argc, char** argv)
 		std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
 	if (glGetError() == GL_INVALID_ENUM)
 		std::cout << "GL_INVALID_ENUM on glewInit()" << std::endl;
-	glutSetWindowTitle((std::string("OpenGL ") + (char*)glGetString(GL_VERSION)).c_str());
+	glutSetWindowTitle((std::string("OpenGL ") + (char*) glGetString(GL_VERSION)).c_str());
 
 	glutDisplayFunc(draw);
 	glutIdleFunc(idle);
