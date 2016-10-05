@@ -132,8 +132,8 @@ void setup()
 	scene3d = new Scene3D();
 	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
-	//scene3d->addEntity(box);
-	//scene3d->addEntity(plane);
+	scene3d->addEntity(box);
+	scene3d->addEntity(plane);
 	dir_light = new DirectionalLight({ -1.f, -1.f, -1.f });
 	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
