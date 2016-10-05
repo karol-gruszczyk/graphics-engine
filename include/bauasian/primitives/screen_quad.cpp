@@ -6,6 +6,8 @@ using bauasian::ScreenQuad;
 ScreenQuad::ScreenQuad()
 		: Entity()
 {
+	m_num_vertices = 4;
+	m_num_faces = 2;
 	GLfloat vertices[] =
 			{
 					-1.f, -1.f, 0.f, 0.f,

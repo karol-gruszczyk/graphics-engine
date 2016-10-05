@@ -11,8 +11,8 @@
 * ~~Join vertex position, normal and texture coordinates buffers~~
 
 ## alpha 1.1.4
-* Rewrite dynamic text(one quad per glyph line)
-* Add static text handling(using FrameBufferObject)
+* Rewrite dynamic fps_text(one quad per glyph line)
+* Add static fps_text handling(using FrameBufferObject)
 
 ## non-release
 * Implement a system for uniform location storage  
@@ -29,3 +29,5 @@
 
 ## bugs
 * Fix recognizing backslashes as path separator in boost::path
+* Fix material memory leaks from scene loader
+* Fix font caching (does not consider font size)

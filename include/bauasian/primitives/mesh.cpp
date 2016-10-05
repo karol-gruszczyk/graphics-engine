@@ -7,6 +7,8 @@ using bauasian::Mesh;
 Mesh::Mesh(unsigned num_vertices, float* vertex_data, unsigned num_indices, unsigned* indices)
 		: Entity3D({ 0.f, 0.f, 0.f }, { 0.f, 0.f, 0.f })
 {
+	m_num_vertices = num_vertices;
+	m_num_faces = num_indices / 3;
 	setupRendering(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT);
 
 	const unsigned floats_per_vertex = 3 + 3 + 2;

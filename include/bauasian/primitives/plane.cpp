@@ -10,6 +10,8 @@ Plane::Plane(const glm::vec2& size, const glm::vec3& position /* = { 0.f, 0.f, 0
 		: Entity3D(position, rotation, scale, pivot),
 		  m_width(size.x), m_length(size.y)
 {
+	m_num_vertices = 4;
+	m_num_faces = 2;
 	const unsigned floats_per_vertex = 3 + 3 + 2;
 	GLfloat vertex_data[] = // position(3) | normal(3) | texture_coordinates(2)
 			{

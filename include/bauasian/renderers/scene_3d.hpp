@@ -29,6 +29,9 @@ public:
 	void addLight(PointLight* point_light);
 	void addLight(SpotLight* spot_light);
 	void loadFromFile(const boost::filesystem::path& path);
+	const unsigned int getNumVertices() const;
+	const unsigned int getNumFaces() const;
+	const unsigned int getNumMeshes() const;
 	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const override;
 private:
 	Camera* m_camera_ptr;

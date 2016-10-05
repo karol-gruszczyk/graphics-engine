@@ -124,6 +124,7 @@ void SceneLoader::processNode(aiNode* node, const aiScene* scene)
 Mesh* SceneLoader::processMesh(aiMesh* mesh)
 {
 	unsigned num_vertices(mesh->mNumVertices), num_indices(mesh->mNumFaces * 3);
+	bool has_texture_coordinates = mesh->HasTextureCoords(0);
 	const unsigned floats_per_vertex = 3 + 3 + 2;
 	float* vertex_data = new float[num_vertices * floats_per_vertex];
 	unsigned* indices = new unsigned[num_indices];
@@ -139,8 +140,11 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 		vertex_data[i * floats_per_vertex + 4] = mesh->mNormals[i].y;
 		vertex_data[i * floats_per_vertex + 5] = mesh->mNormals[i].z;
 
-		vertex_data[i * floats_per_vertex + 6] = mesh->mTextureCoords[0][i].x;
-		vertex_data[i * floats_per_vertex + 7] = mesh->mTextureCoords[0][i].y;
+		if (has_texture_coordinates)
+		{
+			vertex_data[i * floats_per_vertex + 6] = mesh->mTextureCoords[0][i].x;
+			vertex_data[i * floats_per_vertex + 7] = mesh->mTextureCoords[0][i].y;
+		}
 	}
 	for (unsigned i = 0; i < mesh->mNumFaces; i++)
 	{

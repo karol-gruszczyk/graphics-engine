@@ -29,7 +29,7 @@ Box* box;
 BasicMaterial* basic_tile_material;
 Material* box_material, * tile_material;
 Texture* box_texture, * tile_texture;
-Text* text;
+Text* fps_text, * stat_text;
 
 float counter;
 bool button_pressed[128];
@@ -66,8 +66,8 @@ void draw(void)
 			(current_time - last_frame_time).count());
 	last_frame_time = current_time;
 
-	std::string title = "FPS: " + std::to_string(fps);
-	text->setText(title);
+	std::string title = "fps: " + std::to_string(fps);
+	fps_text->setText(title);
 
 	updateCameraPosition();
 	rect->rotate(glm::radians(1.f));
@@ -82,7 +82,8 @@ void draw(void)
 	renderer3d->render(scene3d);
 
 	renderer2d->render(scene2d);
-	text->render();
+	fps_text->render();
+	stat_text->render();
 	glutSwapBuffers();
 }
 
@@ -151,9 +152,16 @@ void setup()
 		Bauasian::getInstance().logError(e.what());
 	}
 
-	text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14));
-	text->setPosition({ 0, 14 });
-	text->setTextColor({ 1.f, 1.f, 1.f });
+	fps_text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14));
+	fps_text->setPosition({ 0, 14 });
+	fps_text->setTextColor({ 1.f, 1.f, 0.f });
+	auto text = "vertices: " + std::to_string(scene3d->getNumVertices()) +
+	            "\nfaces: " + std::to_string(scene3d->getNumFaces()) +
+	            "\nentities: " + std::to_string(scene3d->getNumMeshes());
+	stat_text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14), text);
+	stat_text->setPosition({ 0, 32 });
+	stat_text->setTextColor({ 1.f, 1.f, 1.f });
+
 
 	draw();
 	Bauasian::getInstance().checkErrors(); // checking if any errors were raised
@@ -166,6 +174,8 @@ void cleanup()
 	delete scene2d;
 	delete camera;
 	delete scene3d;
+	delete fps_text;
+	delete stat_text;
 }
 
 void keyboard(unsigned char key, int x, int y)

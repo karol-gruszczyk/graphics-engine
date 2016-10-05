@@ -10,7 +10,9 @@ using bauasian::Renderer;
 
 Scene3D::Scene3D()
 		: Scene()
-{}
+{
+	m_location_camera_position = m_sh
+}
 
 Scene3D::~Scene3D()
 {
@@ -123,4 +125,25 @@ void Scene3D::updateSpotLights(const ShaderProgram* shader) const
 		shader->setUniformFloat("spot_lights[" + i_str + "].outer_angle", m_spot_lights[i]->getOuterAngle());
 	}
 	shader->setUniformUInt("num_spot_lights", (unsigned) m_spot_lights.size());
+}
+
+const unsigned Scene3D::getNumVertices() const
+{
+	unsigned num_vertices = 0;
+	for (const auto& entity : m_entities)
+		num_vertices += entity->getNumVertices();
+	return num_vertices;
+}
+
+const unsigned Scene3D::getNumFaces() const
+{
+	unsigned num_faces = 0;
+	for (const auto& entity : m_entities)
+		num_faces += entity->getNumFaces();
+	return num_faces;
+}
+
+const unsigned Scene3D::getNumMeshes() const
+{
+	return (unsigned)m_entities.size();
 }

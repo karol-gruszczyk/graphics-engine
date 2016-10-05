@@ -22,6 +22,8 @@ Box::Box(const glm::vec3& size, const glm::vec3& position /* = { 0.f, 0.f, 0.f }
 	0.f, m_height, m_length			// 7
 	*/
 	const unsigned floats_per_vertex = 3 + 3 + 2;
+	m_num_vertices = 24;
+	m_num_faces = 6;
 	GLfloat vertex_data[] =  // position(3) | normal(3) | texture_coordinates(2)
 			{
 					// bottom
