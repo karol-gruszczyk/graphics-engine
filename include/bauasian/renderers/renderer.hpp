@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include "bauasian/shaders/shader_program.hpp"
 #include "bauasian/bauasian.hpp"
-#include "bauasian/context_width_interface.hpp"
+#include "bauasian/context_size_interface.hpp"
 
 
 namespace bauasian
@@ -13,7 +13,7 @@ namespace bauasian
 	class Renderer;
 }
 
-class bauasian::Renderer : public ContextWidthInterface
+class bauasian::Renderer : public ContextSizeInterface
 {
 	friend class Scene;
 

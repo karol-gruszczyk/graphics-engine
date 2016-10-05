@@ -4,7 +4,7 @@
 #include "renderer.hpp"
 #include "scene_3d.hpp"
 #include "bauasian/renderers/post_processors/filter.hpp"
-#include "bauasian/context_width_interface.hpp"
+#include "bauasian/context_size_interface.hpp"
 
 
 namespace bauasian

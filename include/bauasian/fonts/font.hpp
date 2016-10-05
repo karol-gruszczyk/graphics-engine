@@ -5,7 +5,7 @@
 #include <map>
 #include "glyph.hpp"
 #include "bauasian/shaders/shader_program.hpp"
-#include "bauasian/context_width_interface.hpp"
+#include "bauasian/context_size_interface.hpp"
 
 
 namespace bauasian
@@ -13,7 +13,7 @@ namespace bauasian
 	class Font;
 }
 
-class bauasian::Font : public bauasian::ContextWidthInterface
+class bauasian::Font : public bauasian::ContextSizeInterface
 {
 	friend class Text;
 public:

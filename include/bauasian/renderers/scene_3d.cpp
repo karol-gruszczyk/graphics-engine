@@ -10,9 +10,7 @@ using bauasian::Renderer;
 
 Scene3D::Scene3D()
 		: Scene()
-{
-	m_location_camera_position = m_sh
-}
+{}
 
 Scene3D::~Scene3D()
 {

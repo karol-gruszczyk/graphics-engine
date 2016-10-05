@@ -1,5 +1,5 @@
 #include "bauasian.hpp"
-#include "context_width_interface.hpp"
+#include "context_size_interface.hpp"
 #include "exceptions/open_gl_version_too_low.hpp"
 #include <boost/filesystem/operations.hpp>
 
@@ -94,7 +94,7 @@ void Bauasian::logDebug(const std::string& message) const
 
 void Bauasian::setContextSize(const glm::uvec2& context_size)
 {
-	ContextWidthInterface::setContextSize(context_size);
+	ContextSizeInterface::setContextSize(context_size);
 }
 
 void Bauasian::checkErrors() const
