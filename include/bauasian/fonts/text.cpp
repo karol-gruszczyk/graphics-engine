@@ -7,9 +7,9 @@ using bauasian::Text;
 Text::Text(bauasian::Font* font, const std::string& text /* = "" */, const glm::vec3& color /* = { 0.f, 0.f, 0.f } */)
 		: Entity2D({ 0.f, 0.f }), m_font(font), m_text(text), m_color(color)
 {
-	GLuint vbo[3];
-	glGenBuffers(3, vbo);
-	for (short i = 0; i < 3; i++)
+	GLuint vbo[2];
+	glGenBuffers(2, vbo);
+	for (short i = 0; i < 2; i++)
 		m_vbos.push_back(vbo[i]);
 
 	setupRendering(GL_TRIANGLE_STRIP, 0, GL_UNSIGNED_INT);
@@ -54,8 +54,7 @@ void Text::render() const
 void Text::updateBufferObjects()
 {
 	unsigned num_vertices = (unsigned) m_text.size() * 4;
-	GLfloat* positions = new GLfloat[num_vertices * 2];
-	GLfloat* texture_coords = new GLfloat[num_vertices * 2];
+	GLfloat* positions = new GLfloat[num_vertices * 4];
 	unsigned num_indices = (unsigned) m_text.size() * 5;
 	GLuint* indices = new GLuint[num_indices];
 
@@ -71,10 +70,11 @@ void Text::updateBufferObjects()
 		const auto& glyph = m_font->m_glyphs[c];
 		for (unsigned j = 0; j < 4; j++)
 		{
-			positions[i * 8 + j * 2 + 0] = glyph->getPositions()[j * 2 + 0] + advance.x;
-			positions[i * 8 + j * 2 + 1] = glyph->getPositions()[j * 2 + 1] + advance.y;
+			positions[i * 16 + j * 4 + 0] = glyph->getPositions()[j * 4 + 0] + advance.x;
+			positions[i * 16 + j * 4 + 1] = glyph->getPositions()[j * 4 + 1] + advance.y;
+			positions[i * 16 + j * 4 + 2] = glyph->getPositions()[j * 4 + 2];
+			positions[i * 16 + j * 4 + 3] = glyph->getPositions()[j * 4 + 3];
 		}
-		std::memcpy(&texture_coords[i * 8], glyph->getTextureCoords(), sizeof(GLfloat) * 8);
 		advance += glyph->getAdvance();
 
 		indices[i * 5 + 0] = i * 4 + 1;
@@ -89,21 +89,15 @@ void Text::updateBufferObjects()
 	glBindVertexArray(m_vao_id);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * num_vertices * 2, positions, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer(POSITION_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * num_vertices * 4, positions, GL_DYNAMIC_DRAW);
+	glVertexAttribPointer(POSITION_ATTRIB_POINTER, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
 	glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbos[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * num_vertices * 2, texture_coords, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer(TEXTURE_COORD_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), nullptr);
-	glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vbos[2]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vbos[1]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * num_indices, indices, GL_DYNAMIC_DRAW);
 
 	glBindVertexArray(0);
 
 	delete[] positions;
-	delete[] texture_coords;
 	delete[] indices;
 }
