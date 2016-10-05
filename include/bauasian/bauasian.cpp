@@ -1,5 +1,6 @@
 #include "bauasian.hpp"
 #include "context_width_interface.hpp"
+#include "exceptions/open_gl_version_too_low.hpp"
 #include <boost/filesystem/operations.hpp>
 
 
@@ -49,7 +50,7 @@ const boost::filesystem::path& Bauasian::getShaderPath() const
 	return getInstance().m_shader_path;
 }
 
-void Bauasian::initializeLogger(const boost::filesystem::path& path /* = "log.txt" */)
+void Bauasian::initialize(const boost::filesystem::path& path /* = "log.txt" */)
 {
 	if (m_logger_file)
 	{
@@ -65,7 +66,7 @@ void Bauasian::initializeLogger(const boost::filesystem::path& path /* = "log.tx
 	}
 }
 
-void Bauasian::initializeLogger(std::streambuf* ostream)
+void Bauasian::initialize(std::streambuf* ostream)
 {
 	m_logger = std::make_unique<std::ostream>(ostream);
 	logInitial();
@@ -91,13 +92,6 @@ void Bauasian::logDebug(const std::string& message) const
 	*m_logger << s_log_level_string[DEBUG] << message << std::endl;
 }
 
-void Bauasian::logInitial() const
-{
-	logInfo(std::string("Using OpenGL ") + (char*) glGetString(GL_VERSION));
-	logInfo(std::string("OpenGL Shading Language version: ") + (char*) glGetString(GL_SHADING_LANGUAGE_VERSION));
-	logInfo(std::string("Graphics card: ") + (char*) glGetString(GL_VENDOR) + " " + (char*) glGetString(GL_RENDERER));
-}
-
 void Bauasian::setContextSize(const glm::uvec2& context_size)
 {
 	ContextWidthInterface::setContextSize(context_size);
@@ -115,4 +109,16 @@ void Bauasian::checkErrors() const
 			error_message = "Error code not recognized";
 		logError(error_message);
 	}
+}
+
+void Bauasian::logInitial() const
+{
+	GLint major, minor;
+	glGetIntegerv(GL_MAJOR_VERSION, &major);
+	glGetIntegerv(GL_MINOR_VERSION, &minor);
+	if (major <= BAUASIAN_REQUIRED_OPEN_GL_MAJOR && minor < BAUASIAN_REQUIRED_OPEN_GL_MINOR)
+		throw OpenGLVersionTooLow(major, minor);
+	logInfo(std::string("Using OpenGL ") + (char*) glGetString(GL_VERSION));
+	logInfo(std::string("OpenGL Shading Language version: ") + (char*) glGetString(GL_SHADING_LANGUAGE_VERSION));
+	logInfo(std::string("Graphics card: ") + (char*) glGetString(GL_VENDOR) + " " + (char*) glGetString(GL_RENDERER));
 }

@@ -11,5 +11,5 @@ Scene::Scene()
 
 void Scene::render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const
 {
-	shader->bind();
+	shader->use();
 }

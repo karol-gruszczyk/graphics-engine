@@ -66,7 +66,7 @@ void Filter::clear() const
 
 void Filter::renderToScreen() const
 {
-	m_shader->bind();
+	m_shader->use();
 	m_color_texture->bind(0);
 	m_screen_quad->render();
 }

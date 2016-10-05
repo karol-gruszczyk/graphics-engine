@@ -88,9 +88,8 @@ void draw(void)
 
 void setup()
 {
-	Bauasian::getInstance().initializeLogger(
-			std::cout.rdbuf()); // initializing logger with stdout as output stream
-//    Bauasian::getInstance().initializeLogger(); // initializing logger with default log file path
+	Bauasian::getInstance().initialize(std::cout.rdbuf()); // initializing logger with stdout as output stream
+//    Bauasian::getInstance().initialize(); // initializing logger with default log file path
 	Bauasian::getInstance().setContextSize({ window_width, window_height });
 
 	renderer2d = new Renderer2D();
@@ -212,7 +211,7 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitContextVersion(4, 1);
+	glutInitContextVersion(4, 5);
 	glutInitContextFlags(GLUT_DEBUG);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 

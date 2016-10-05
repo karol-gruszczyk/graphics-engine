@@ -1,9 +1,14 @@
 # TODO`S
 
 ## Optimizations
+* Create UniformBufferObjects for:
+  * materials
+  * scene lights
 * Get uniform locations only once
-* Set sampler2D textures in shaders only once
-* Join vertex position, normal and texture coordinates buffers
+* Set sampler2D textures in shader`s only once
+* Create DSA methods for settings gl objects attributes
+  * ~~shader`s~~
+* ~~Join vertex position, normal and texture coordinates buffers~~
 
 ## alpha 1.1.4
 * Rewrite dynamic text(one quad per glyph line)
