@@ -51,9 +51,8 @@ void Texture::update(const unsigned& width, const unsigned& height, const GLint&
 {
 	m_width = width;
 	m_height = height;
-	bind();
-	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, nullptr);
-	unbind();
+	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format,
+	                    GL_UNSIGNED_BYTE, nullptr);
 }
 
 Texture* Texture::loadFromFile(const boost::filesystem::path& path)
@@ -83,9 +82,7 @@ void Texture::save(const boost::filesystem::path& path)
 	unsigned channels = 4;
 	GLubyte* pixels = new GLubyte[channels * m_width * m_height];
 
-	bind();
-	glGetTexImage(GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
-	unbind();
+	glGetTextureImage(m_texture_id, GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
 
 	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, m_width, m_height,
 	                                               channels * m_width, channels * 8,

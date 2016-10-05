@@ -79,11 +79,11 @@ Box::Box(const glm::vec3& size)
 	glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
 
 	glVertexAttribPointer(NORMAL_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE,
-	                      floats_per_vertex * sizeof(GLfloat), (void*) (sizeof(GLfloat) * 3));
+	                      floats_per_vertex * sizeof(GLfloat), reinterpret_cast<void*>(sizeof(GLfloat) * 3));
 	glEnableVertexAttribArray(NORMAL_ATTRIB_POINTER);
 
 	glVertexAttribPointer(TEXTURE_COORD_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE,
-	                      floats_per_vertex * sizeof(GLfloat), (void*) (sizeof(GLfloat) * 6));
+	                      floats_per_vertex * sizeof(GLfloat), reinterpret_cast<void*>(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
 
 	createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);

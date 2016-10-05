@@ -2,7 +2,10 @@
 #define BAUASIAN_OPEN_GL_VERSION_TOO_LOW_EXCEPTION_HPP
 
 #define BAUASIAN_REQUIRED_OPEN_GL_MAJOR 4
-#define BAUASIAN_REQUIRED_OPEN_GL_MINOR 5
+#define BAUASIAN_REQUIRED_OPEN_GL_MINOR 1
+/* requirements:
+ * 4.1 - glProgramUniform
+ */
 
 #include <exception>
 

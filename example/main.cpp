@@ -225,8 +225,8 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitContextVersion(4, 5);
-	glutInitContextFlags(GLUT_DEBUG);
+	glutInitContextVersion(4, 1);
+	glutInitContextFlags(GLUT_DEBUG | GLUT_CORE_PROFILE);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
 	glutInitWindowSize(window_width, window_height);
