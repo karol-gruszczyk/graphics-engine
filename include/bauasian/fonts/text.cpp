@@ -5,7 +5,7 @@
 using bauasian::Text;
 
 Text::Text(bauasian::Font* font, const std::string& text /* = "" */, const glm::vec3& color /* = { 0.f, 0.f, 0.f } */)
-		: Entity2D({ 0.f, 0.f }), m_font(font), m_text(text), m_color(color)
+		: m_font(font), m_text(text), m_color(color)
 {
 	GLuint vbo[2];
 	glGenBuffers(2, vbo);

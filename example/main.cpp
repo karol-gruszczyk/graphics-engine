@@ -110,12 +110,14 @@ void setup()
 	}
 
 	// 2D
-	rect = new Rectangle({ 300.f, 300.f }, { 400.f, 300.f }, { 150.f, 150.f });
+	rect = new Rectangle(glm::vec2(300.f, 300.f));
+	rect->setPosition({ 400.f, 300.f });
+	rect->setPivot({ 150.f, 150.f });
 	basic_tile_material = new BasicMaterial(renderer2d->getShaderProgram());
 	basic_tile_material->setDiffuse(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	//scene2d->addEntity(rect);
+	scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
@@ -124,17 +126,19 @@ void setup()
 	tile_material = new Material();
 	tile_material->setDiffuse(tile_texture);
 	tile_material->setShininess(32);
-	box = new Box({ 5.f, 5.f, 5.f }, { 20.f, 2.5f, 10.f });
+	box = new Box(glm::vec3(5.f, 5.f, 5.f));
+	box->setPosition({ 20.f, 2.5f, 10.f });
 	box->setPivot({ 2.5f, 2.5f, 2.5f });
 	box->setMaterial(box_material);
-	plane = new Plane({ 200.f, 200.f }, { -100.f, 0.f, -100.f }, 100);
+	plane = new Plane({ 200.f, 200.f }, 100);
+	plane->setPosition({ -100.f, 0.f, -100.f });
 	plane->setMaterial(tile_material);
 	scene3d = new Scene3D();
 	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
-	dir_light = new DirectionalLight({ -1.f, -1.f, -1.f });
+	dir_light = new DirectionalLight(glm::vec3(-1.f, -1.f, -1.f));
 	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
 	                           glm::radians(5.f));

@@ -6,15 +6,6 @@ using bauasian::Texture;
 using bauasian::Entity2D;
 
 
-Entity2D::Entity2D(const glm::vec2& position, const GLfloat& rotation /* = 0.f */,
-                   const glm::vec2& scale /* = { 1.f, 1.f } */, const glm::vec2& pivot /* = { 0.f, 0.f } */)
-{
-	setPivot(pivot);
-	setRotation(rotation);
-	setPosition(position);
-	setScale(scale);
-}
-
 void Entity2D::translate(const glm::vec2& position)
 {
 	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(position, 0.f));

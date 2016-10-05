@@ -13,10 +13,6 @@ namespace bauasian
 class bauasian::Entity3D : public Entity
 {
 public:
-	Entity3D(const glm::vec3& position, const glm::vec3& rotation = { 0.f, 0.f, 0.f },
-	         const glm::vec3& scale = { 1.f, 1.f, 1.f }, const glm::vec3& pivot = { 0.f, 0.f, 0.f });
-	virtual ~Entity3D();
-
 	void translate(const glm::vec3& position);
 	void setPosition(const glm::vec3& position);
 	const glm::vec3& getPosition() const;

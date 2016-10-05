@@ -7,19 +7,6 @@ using bauasian::Entity3D;
 using bauasian::Material;
 
 
-Entity3D::Entity3D(const glm::vec3& position, const glm::vec3& rotation /* = { 0.f, 0.f, 0.f } */,
-                   const glm::vec3& scale /* = { 1.f, 1.f, 1.f } */,
-                   const glm::vec3& pivot /* = { 0.f, 0.f, 0.f } */)
-{
-	setPosition(position);
-	setRotation(rotation);
-	setScale(scale);
-	setPivot(pivot);
-}
-
-Entity3D::~Entity3D()
-{}
-
 void Entity3D::translate(const glm::vec3& position)
 {
 	m_model_matrix = glm::translate(m_model_matrix, position);

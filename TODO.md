@@ -4,7 +4,7 @@
 * Create UniformBufferObjects for:
   * materials
   * scene lights
-* Remove position initialization etc. from constructors
+* ~~Remove position initialization etc. from constructors~~
 * Get uniform locations only once
 * Set sampler2D textures in shader`s only once
 * Create DSA methods for settings gl objects attributes

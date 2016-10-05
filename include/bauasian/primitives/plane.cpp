@@ -4,21 +4,19 @@
 using bauasian::Plane;
 
 
-Plane::Plane(const glm::vec2& size, const glm::vec3& position /* = { 0.f, 0.f, 0.f } */, const unsigned& tile /* = 1 */,
-             const glm::vec3& rotation /* = { 0.f, 0.f, 0.f } */, const glm::vec3& scale /* = { 1.f, 1.f, 1.f } */,
-             const glm::vec3& pivot /* = { 0.f, 0.f, 0.f } */)
-		: Entity3D(position, rotation, scale, pivot),
-		  m_width(size.x), m_length(size.y)
+Plane::Plane(const glm::vec2& size, const unsigned& tile /* = 1 */)
+		: m_size(size), m_tile(tile)
 {
 	m_num_vertices = 4;
 	m_num_faces = 2;
 	const unsigned floats_per_vertex = 3 + 3 + 2;
+	const float& width(size.x), & height(size.y);
 	GLfloat vertex_data[] = // position(3) | normal(3) | texture_coordinates(2)
 			{
-					0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f * tile,
-					0.f, 0.f, m_length, 0.f, 1.f, 0.f, 0.f, 0.f,
-					m_width, 0.f, 0.f, 0.f, 1.f, 0.f, 1.f * tile, 1.f * tile,
-					m_width, 0.f, m_length, 0.f, 1.f, 0.f, 1.f * tile, 0.f,
+					0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f * m_tile,
+					0.f, 0.f, height, 0.f, 1.f, 0.f, 0.f, 0.f,
+					width, 0.f, 0.f, 0.f, 1.f, 0.f, 1.f * m_tile, 1.f * m_tile,
+					width, 0.f, height, 0.f, 1.f, 0.f, 1.f * m_tile, 0.f,
 			};
 	GLushort indices[] =
 			{
@@ -43,4 +41,14 @@ Plane::Plane(const glm::vec2& size, const glm::vec3& position /* = { 0.f, 0.f, 0
 
 	createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	glBindVertexArray(0);
+}
+
+const glm::vec2& Plane::getSize() const
+{
+	return m_size;
+}
+
+const float& Plane::getTile() const
+{
+	return m_tile;
 }

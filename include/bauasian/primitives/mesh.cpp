@@ -5,7 +5,6 @@ using bauasian::Mesh;
 
 
 Mesh::Mesh(unsigned num_vertices, float* vertex_data, unsigned num_indices, unsigned* indices)
-		: Entity3D({ 0.f, 0.f, 0.f }, { 0.f, 0.f, 0.f })
 {
 	m_num_vertices = num_vertices;
 	m_num_faces = num_indices / 3;

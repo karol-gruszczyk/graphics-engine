@@ -13,9 +13,6 @@ namespace bauasian
 class bauasian::Entity2D : public Entity
 {
 public:
-	Entity2D(const glm::vec2& position, const GLfloat& rotation = 0.f, const glm::vec2& scale = { 1.f, 1.f },
-	         const glm::vec2& pivot = { 0.f, 0.f });
-
 	void translate(const glm::vec2& position);
 	void setPosition(const glm::vec2& position);
 	const glm::vec2& getPosition() const;
@@ -34,7 +31,7 @@ protected:
 
 	glm::vec2 m_position;
 	GLfloat m_rotation;
-	glm::vec2 m_scale;
+	glm::vec2 m_scale = { 1.f, 1.f };
 	glm::vec2 m_pivot;
 };
 

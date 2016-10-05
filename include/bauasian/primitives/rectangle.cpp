@@ -4,11 +4,8 @@
 using bauasian::Rectangle;
 
 
-Rectangle::Rectangle(const glm::vec2& size, const glm::vec2& position /* =  { 0.f, 0.f } */,
-                     const glm::vec2& pivot /* = { 0.f, 0.f } */,
-                     const GLfloat& rotation /* = 0.f */, const glm::vec2& scale /* = { 1.f, 1.f } */)
-		: Entity2D(position, rotation, scale, pivot),
-		  m_width(size.x), m_length(size.y)
+Rectangle::Rectangle(const glm::vec2& size)
+		: m_width(size.x), m_length(size.y)
 {
 	m_num_vertices = 4;
 	m_num_faces = 2;

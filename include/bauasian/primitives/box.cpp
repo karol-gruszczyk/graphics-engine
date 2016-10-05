@@ -4,63 +4,61 @@
 using bauasian::Box;
 
 
-Box::Box(const glm::vec3& size, const glm::vec3& position /* = { 0.f, 0.f, 0.f } */,
-         const glm::vec3& rotation /* = { 0.f, 0.f, 0.f } */,
-         const glm::vec3& scale /* = { 1.f, 1.f, 1.f } */, const glm::vec3& pivot /* = { 0.f, 0.f, 0.f } */)
-		: Entity3D(position, rotation, scale, pivot),
-		  m_width(size.x), m_length(size.y), m_height(size.z)
+Box::Box(const glm::vec3& size)
+		: m_size(size)
 {
-	/* VERTIVES:
-	0.f, 0.f, 0.f,					// 0
-	m_width, 0.f, 0.f,				// 1
-	m_width, 0.f, m_length,			// 2
-	0.f, 0.f, m_length,				// 3
-
-	0.f, m_height, 0.f,				// 4
-	m_width, m_height, 0.f,			// 5
-	m_width, m_height, m_length,	// 6
-	0.f, m_height, m_length			// 7
-	*/
-	const unsigned floats_per_vertex = 3 + 3 + 2;
 	m_num_vertices = 24;
 	m_num_faces = 6;
+	const unsigned floats_per_vertex = 3 + 3 + 2;
+	/* VERTIVES:
+	0.f, 0.f, 0.f,					// 0
+	width, 0.f, 0.f,				// 1
+	width, 0.f, length,			// 2
+	0.f, 0.f, length,				// 3
+
+	0.f, height, 0.f,				// 4
+	width, height, 0.f,			// 5
+	width, height, length,	// 6
+	0.f, height, length			// 7
+	*/
+	const float& width(size.x), & length(size.y), & height(size.z);
 	GLfloat vertex_data[] =  // position(3) | normal(3) | texture_coordinates(2)
 			{
 					// bottom
 					0.f, 0.f, 0.f, 0.f, -1.f, 0.f, 0.f, 0.f,                    // 0
-					m_width, 0.f, 0.f, 0.f, -1.f, 0.f, 1.f, 0.f,                // 1
-					0.f, 0.f, m_length, 0.f, -1.f, 0.f, 0.f, 1.f,               // 3
-					m_width, 0.f, m_length, 0.f, -1.f, 0.f, 1.f, 1.f,           // 2
+					width, 0.f, 0.f, 0.f, -1.f, 0.f, 1.f, 0.f,                // 1
+					0.f, 0.f, length, 0.f, -1.f, 0.f, 0.f, 1.f,               // 3
+					width, 0.f, length, 0.f, -1.f, 0.f, 1.f, 1.f,           // 2
 
 					// up
-					0.f, m_height, m_length, 0.f, 1.f, 0.f, 0.f, 0.f,           // 7
-					m_width, m_height, m_length, 0.f, 1.f, 0.f, 1.f, 0.f,       // 6
-					0.f, m_height, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,                // 4
-					m_width, m_height, 0.f, 0.f, 1.f, 0.f, 1.f, 1.f,            // 5
+					0.f, height, length, 0.f, 1.f, 0.f, 0.f, 0.f,           // 7
+					width, height, length, 0.f, 1.f, 0.f, 1.f, 0.f,       // 6
+					0.f, height, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,                // 4
+					width, height, 0.f, 0.f, 1.f, 0.f, 1.f, 1.f,            // 5
 
 					// front
-					m_width, m_height, m_length, 0.f, 0.f, 1.f, 1.f, 1.f,       // 6
-					0.f, m_height, m_length, 0.f, 0.f, 1.f, 0.f, 1.f,           // 7
-					m_width, 0.f, m_length, 0.f, 0.f, 1.f, 1.f, 0.f,            // 2
-					0.f, 0.f, m_length, 0.f, 0.f, 1.f, 0.f, 0.f,                // 3
+					width, height, length, 0.f, 0.f, 1.f, 1.f, 1.f,       // 6
+					0.f, height, length, 0.f, 0.f, 1.f, 0.f, 1.f,           // 7
+					width, 0.f, length, 0.f, 0.f, 1.f, 1.f, 0.f,            // 2
+					0.f, 0.f, length, 0.f, 0.f, 1.f, 0.f, 0.f,                // 3
 
 					// back
 					0.f, 0.f, 0.f, 0.f, 0.f, -1.f, 1.f, 0.f,                    // 0
-					0.f, m_height, 0.f, 0.f, 0.f, -1.f, 1.f, 1.f,               // 4
-					m_width, 0.f, 0.f, 0.f, 0.f, -1.f, 0.f, 0.f,                // 1
-					m_width, m_height, 0.f, 0.f, 0.f, -1.f, 0.f, 1.f,           // 5
+					0.f, height, 0.f, 0.f, 0.f, -1.f, 1.f, 1.f,               // 4
+					width, 0.f, 0.f, 0.f, 0.f, -1.f, 0.f, 0.f,                // 1
+					width, height, 0.f, 0.f, 0.f, -1.f, 0.f, 1.f,           // 5
 
 					// left
-					0.f, m_height, 0.f, -1.f, 0.f, 0.f, 0.f, 1.f,               // 4
+					0.f, height, 0.f, -1.f, 0.f, 0.f, 0.f, 1.f,               // 4
 					0.f, 0.f, 0.f, -1.f, 0.f, 0.f, 0.f, 0.f,                    // 0
-					0.f, m_height, m_length, -1.f, 0.f, 0.f, 1.f, 1.f,          // 7
-					0.f, 0.f, m_length, -1.f, 0.f, 0.f, 1.f, 0.f,               // 3
+					0.f, height, length, -1.f, 0.f, 0.f, 1.f, 1.f,          // 7
+					0.f, 0.f, length, -1.f, 0.f, 0.f, 1.f, 0.f,               // 3
 
 					// right
-					m_width, m_height, 0.f, 1.f, 0.f, 0.f, 1.f, 1.f,            // 5
-					m_width, m_height, m_length, 1.f, 0.f, 0.f, 0.f, 1.f,       // 6
-					m_width, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,                 // 1
-					m_width, 0.f, m_length, 1.f, 0.f, 0.f, 0.f, 0.f,            // 2
+					width, height, 0.f, 1.f, 0.f, 0.f, 1.f, 1.f,            // 5
+					width, height, length, 1.f, 0.f, 0.f, 0.f, 1.f,       // 6
+					width, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,                 // 1
+					width, 0.f, length, 1.f, 0.f, 0.f, 0.f, 0.f,            // 2
 			};
 	GLushort indices[] =
 			{
@@ -99,4 +97,9 @@ void Box::render() const
 	glPrimitiveRestartIndex(0xFFFF);
 	Entity3D::render();
 	glDisable(GL_PRIMITIVE_RESTART);
+}
+
+const glm::vec3& Box::getSize() const
+{
+	return m_size;
 }

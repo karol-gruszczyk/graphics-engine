@@ -4,7 +4,6 @@
 using bauasian::ScreenQuad;
 
 ScreenQuad::ScreenQuad()
-		: Entity()
 {
 	m_num_vertices = 4;
 	m_num_faces = 2;
