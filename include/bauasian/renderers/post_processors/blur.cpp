@@ -4,8 +4,9 @@
 using bauasian::Blur;
 
 Blur::Blur(const GLuint& radius)
-		: Filter("blur_fs.glsl")
+		: AreaFilter("blur_fs.glsl")
 {
+	m_location_radius = m_shader->getUniformLocation("radius");
 	setRadius(radius);
 }
 
@@ -17,11 +18,5 @@ const GLuint& Blur::getRadius() const
 void Blur::setRadius(const GLuint& radius)
 {
 	m_radius = radius;
-	m_shader->setUniformUInt("radius", radius);
-}
-
-void Blur::setContextSize(const unsigned& width, const unsigned& height) const
-{
-	Filter::setContextSize(width, height);
-	m_shader->setUniformVector2("offset", { 1.f / width, 1.f / height });
+	m_shader->setUniform(m_location_radius, radius);
 }

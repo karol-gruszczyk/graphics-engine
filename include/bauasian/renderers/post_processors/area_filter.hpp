@@ -16,7 +16,9 @@ public:
 	AreaFilter(const boost::filesystem::path& fragment_shader_path);
 
 	virtual void setContextSize(const unsigned& width, const unsigned& height) const override;
-};
 
+private:
+	GLint m_location_pixel_size;
+};
 
 #endif /* BAUASIAN_ENGINE_AREA_FILTER_HPP */

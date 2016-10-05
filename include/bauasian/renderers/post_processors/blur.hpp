@@ -2,7 +2,7 @@
 #define BAUASIAN_ENGINE_BLUR_HPP
 
 
-#include "filter.hpp"
+#include "area_filter.hpp"
 
 
 namespace bauasian
@@ -10,17 +10,18 @@ namespace bauasian
 	class Blur;
 }
 
-class bauasian::Blur : public Filter
+class bauasian::Blur : public AreaFilter
 {
 public:
 	Blur(const GLuint& radius);
 
 	const GLuint& getRadius() const;
 	void setRadius(const GLuint& radius);
-	virtual void setContextSize(const unsigned& width, const unsigned& height) const override;
 
 private:
 	GLuint m_radius;
+
+	GLint m_location_radius;
 };
 
 #endif /* BAUASIAN_ENGINE_BLUR_HPP */

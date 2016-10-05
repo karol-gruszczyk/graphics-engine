@@ -33,6 +33,7 @@ private:
 	Texture();
 
 	static std::map<std::string, Texture*> s_textures;
+	static bool m_anisotropy_ext_supported;
 
 	bool m_is_static_instance = false;
 	GLuint m_texture_id = 0;

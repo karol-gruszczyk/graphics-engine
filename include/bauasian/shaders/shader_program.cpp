@@ -47,10 +47,10 @@ void ShaderProgram::use() const
 	glUseProgram(m_shader_program_id);
 }
 
-const GLint& ShaderProgram::getUniformLocation(const std::string& uniform_name)
+const GLint ShaderProgram::getUniformLocation(const std::string& uniform_name) const
 {
 	use();
-	const auto& location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
+	const auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
 	assert(location != GL_INVALID_INDEX);
 	return location;
 }
@@ -82,23 +82,6 @@ void ShaderProgram::setUniformFloat(const std::string& uniform_name, const float
 	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
 	assert(location != -1);
 	glUniform1f(location, value);
-}
-
-void ShaderProgram::setUniformFloatVector(const std::string& uniform_name, const float* const value,
-                                          const GLsizei& count)
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	assert(location != -1);
-	glUniform1fv(location, count, value);
-}
-
-void ShaderProgram::setUniformVector2(const std::string& uniform_name, const glm::vec2& vector) const
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	assert(location != -1);
-	glUniform2fv(location, 1, glm::value_ptr(vector));
 }
 
 void ShaderProgram::setUniformVector3(const std::string& uniform_name, const glm::vec3& vector) const

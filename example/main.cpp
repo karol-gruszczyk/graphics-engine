@@ -115,7 +115,7 @@ void setup()
 	basic_tile_material->setDiffuse(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	scene2d->addEntity(rect);
+	//scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();

@@ -6,7 +6,8 @@ using bauasian::KernelFilter;
 KernelFilter::KernelFilter(const bauasian::KernelFilter::KernelFilterType& type)
 		: AreaFilter("kernel_fs.glsl")
 {
-	m_shader->setUniformMatrix3("kernel_matrix", getKernelMatrix(type));
+	const auto& location = m_shader->getUniformLocation("kernel_matrix");
+	m_shader->setUniform(location, getKernelMatrix(type));
 }
 
 const glm::mat3 KernelFilter::getKernelMatrix(const KernelFilter::KernelFilterType& type)
