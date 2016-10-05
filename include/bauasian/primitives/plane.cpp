@@ -10,26 +10,26 @@ Plane::Plane(const glm::vec2& size, const glm::vec3& position /* = { 0.f, 0.f, 0
 		: Entity3D(position, rotation, scale, pivot),
 		  m_width(size.x), m_length(size.y)
 {
-	GLfloat positions[] =
+	GLfloat positions[][3] =
 			{
-					0.f, 0.f, 0.f,
-					0.f, 0.f, m_length,
-					m_width, 0.f, 0.f,
-					m_width, 0.f, m_length,
+					{ 0.f,     0.f, 0.f },
+					{ 0.f,     0.f, m_length },
+					{ m_width, 0.f, 0.f },
+					{ m_width, 0.f, m_length },
 			};
-	GLfloat texture_coords[] =
+	GLfloat texture_coords[][2] =
 			{
-					0.f, 1.f * tile,
-					0.f, 0.f,
-					1.f * tile, 1.f * tile,
-					1.f * tile, 0.f
+					{ 0.f,        1.f * tile },
+					{ 0.f,        0.f },
+					{ 1.f * tile, 1.f * tile },
+					{ 1.f * tile, 0.f },
 			};
-	GLfloat normals[] =
+	GLfloat normals[][3] =
 			{
-					0.f, 1.f, 0.f,
-					0.f, 1.f, 0.f,
-					0.f, 1.f, 0.f,
-					0.f, 1.f, 0.f
+					{ 0.f, 1.f, 0.f },
+					{ 0.f, 1.f, 0.f },
+					{ 0.f, 1.f, 0.f },
+					{ 0.f, 1.f, 0.f },
 			};
 	GLushort indices[] =
 			{

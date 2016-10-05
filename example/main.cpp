@@ -70,7 +70,7 @@ void draw(void)
 	text->setText(title);
 
 	updateCameraPosition();
-	//rect->rotate(glm::radians(1.f));
+	rect->rotate(glm::radians(1.f));
 	auto scale = (sin(counter) + 2.f) / 3.f;
 	rect->setScale({ scale, scale });
 	box->setScale({ scale, scale, scale });
@@ -96,7 +96,7 @@ void setup()
 	renderer2d = new Renderer2D();
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
-	renderer3d->addFilter(new KernelFilter(KernelFilter::GRADIENT_DETECTION_VERTICAL));
+	//renderer3d->addFilter(new KernelFilter(KernelFilter::GRADIENT_DETECTION_VERTICAL));
 	//renderer3d->addFilter(new LargeKernelFilter(LargeKernelFilter::GAUSSIAN_BLUR));
 
 	try
@@ -115,7 +115,7 @@ void setup()
 	basic_tile_material->setDiffuse(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	//scene2d->addEntity(rect);
+	scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
@@ -132,8 +132,8 @@ void setup()
 	scene3d = new Scene3D();
 	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
 	scene3d->setCamera(camera);
-	//scene3d->addEntity(box);
-	//scene3d->addEntity(plane);
+	scene3d->addEntity(box);
+	scene3d->addEntity(plane);
 	dir_light = new DirectionalLight({ -1.f, -1.f, -1.f });
 	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),

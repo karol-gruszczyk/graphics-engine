@@ -13,8 +13,8 @@ class bauasian::Material : public bauasian::BasicMaterial
 {
 public:
 	Material();
-	Material(const glm::vec3& diffuse_color, float shininess = 0);
-	Material(Texture* diffuse_texture, float shininess = 0);
+	Material(const glm::vec3& diffuse_color, float shininess = 0.f);
+	Material(Texture* diffuse_texture, float shininess = 0.f);
 	Material(ShaderProgram* shader);
 
 	void setAmbient(const glm::vec3& color);
