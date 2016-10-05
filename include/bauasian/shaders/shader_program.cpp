@@ -51,7 +51,7 @@ const GLint& ShaderProgram::getUniformLocation(const std::string& uniform_name)
 {
 	use();
 	const auto& location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	assert(location != -1);
+	assert(location != GL_INVALID_INDEX);
 	return location;
 }
 
