@@ -37,11 +37,6 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_u
 	                                std::to_string(loading_time.count()) + " ms");
 }
 
-const std::vector<Material*>& SceneLoader::getMaterials()
-{
-	return m_materials;
-}
-
 const std::vector<Mesh*>& SceneLoader::getMeshes()
 {
 	return m_meshes;
@@ -53,13 +48,12 @@ void SceneLoader::processMaterials(const aiScene* scene)
 		m_materials.push_back(processMaterial(scene->mMaterials[i]));
 }
 
-Material* SceneLoader::processMaterial(const aiMaterial* material)
+std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* material)
 {
-	Material* result_mat = new Material();
+	auto result_mat = std::make_shared<Material>();
 
 	aiString tmp_string;
 	aiColor3D tmp_color3d = { 0.f, 0.f, 0.f };
-	float ai_float = 0;
 	material->Get(AI_MATKEY_NAME, tmp_string);
 	result_mat->setName(tmp_string.C_Str());
 

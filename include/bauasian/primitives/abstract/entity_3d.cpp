@@ -76,9 +76,14 @@ glm::mat3 Entity3D::getNormalMatrix() const
 	return glm::inverseTranspose(glm::mat3(m_model_matrix));
 }
 
-void Entity3D::setMaterial(Material* material)
+void Entity3D::setMaterial(std::shared_ptr<Material> material)
 {
 	m_material = material;
+}
+
+void Entity3D::setMaterial(Material* material)
+{
+	m_material.reset(material);
 }
 
 void Entity3D::render() const

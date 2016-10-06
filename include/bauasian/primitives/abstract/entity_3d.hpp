@@ -25,6 +25,7 @@ public:
 	const glm::vec3& getPivot() const;
 
 	glm::mat3 getNormalMatrix() const;
+	void setMaterial(std::shared_ptr<Material> material);
 	void setMaterial(Material* material);
 	void render() const override;
 
@@ -34,7 +35,7 @@ protected:
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
 
-	Material* m_material = nullptr;
+	std::shared_ptr<Material> m_material;
 };
 
 #endif /* BAUASIAN_ENTITY_3D */

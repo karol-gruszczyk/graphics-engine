@@ -37,5 +37,5 @@
 ## bugs
 * ~~Add flip UV option for scene loading~~
 * Fix recognizing backslashes as path separator in boost::path
-* Fix material memory leaks from scene loader
+* ~~Fix material memory leaks from scene loader~~
 * Fix font caching (does not consider font size)
