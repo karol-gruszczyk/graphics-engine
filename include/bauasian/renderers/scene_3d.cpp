@@ -56,12 +56,12 @@ void Scene3D::addEntity(Entity3D* entity)
 	m_entities.push_back(entity);
 }
 
-void Scene3D::loadFromFile(const boost::filesystem::path& path)
+void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs /* = false */)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
 
-	SceneLoader* loader = new SceneLoader(path);
+	SceneLoader* loader = new SceneLoader(path, flip_uvs);
 	for (Mesh* mesh : loader->getMeshes())
 		addEntity(mesh);
 	delete loader;

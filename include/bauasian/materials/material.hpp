@@ -34,7 +34,7 @@ public:
 	static UniformBuffer* getUniformBuffer();
 
 protected:
-	struct alignas(16) Material_T
+	struct alignas(16) UniformMaterial
 	{
 		glm::vec4 ambient_color = glm::vec4(1.f);
 		glm::vec4 diffuse_color = glm::vec4(1.f);

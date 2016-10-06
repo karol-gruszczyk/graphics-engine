@@ -12,7 +12,7 @@ using bauasian::Material;
 using bauasian::Mesh;
 using bauasian::Bauasian;
 
-SceneLoader::SceneLoader(const boost::filesystem::path& path)
+SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs /* = false */)
 {
 	using namespace std::chrono;
 
@@ -20,7 +20,8 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path)
 	auto loading_start_time = steady_clock::now();
 
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path.string(), aiProcessPreset_TargetRealtime_Fast);
+	unsigned flags = flip_uvs ? aiProcess_FlipUVs : 0;
+	const aiScene* scene = importer.ReadFile(path.string(), aiProcessPreset_TargetRealtime_Fast | flags);
 
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{

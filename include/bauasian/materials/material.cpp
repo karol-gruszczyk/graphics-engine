@@ -67,6 +67,6 @@ void Material::bind() const
 
 UniformBuffer* Material::getUniformBuffer()
 {
-	static auto ptr = std::make_unique<UniformBuffer>(sizeof(Material_T), UniformBuffer::MATERIAL);
+	static auto ptr = std::make_unique<UniformBuffer>(sizeof(UniformMaterial), UniformBuffer::MATERIAL);
 	return ptr.get();
 }

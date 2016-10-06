@@ -151,7 +151,7 @@ void setup()
 	try
 	{
 		//scene3d->loadFromFile("res/aventador/Avent.obj");
-		scene3d->loadFromFile("res/cs_office.obj");
+		scene3d->loadFromFile("res/cs_office.obj", true);
 	}
 	catch (FileNotFoundException& e)
 	{

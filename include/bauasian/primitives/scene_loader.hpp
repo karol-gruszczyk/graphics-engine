@@ -16,7 +16,7 @@ namespace bauasian
 class bauasian::SceneLoader final
 {
 public:
-	SceneLoader(const boost::filesystem::path& path);
+	SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs = false);
 
 	const std::vector<Material*>& getMaterials();
 	const std::vector<Mesh*>& getMeshes();

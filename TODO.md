@@ -17,6 +17,7 @@
   * Font
 
 ## alpha 1.1.4
+* Add normal mapping
 * Add dynamic font(one quad per glyph line)
 * Add static fps_text handling(using FrameBufferObject)
 
@@ -34,7 +35,7 @@
   * Project 2D without depth test
 
 ## bugs
-* Add flip UV option for scene loading
+* ~~Add flip UV option for scene loading~~
 * Fix recognizing backslashes as path separator in boost::path
 * Fix material memory leaks from scene loader
 * Fix font caching (does not consider font size)
