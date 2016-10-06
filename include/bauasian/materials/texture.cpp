@@ -141,6 +141,7 @@ void Texture::loadFromMemory(const unsigned& width, const unsigned& height, cons
 	if (generate_mipmaps)
 	{
 		glGenerateMipmap(GL_TEXTURE_2D);
+		// TODO: try something better
 		if (glewIsExtensionSupported("GL_EXT_texture_filter_anisotropic"))
 		{
 			GLfloat max_anisotropy;

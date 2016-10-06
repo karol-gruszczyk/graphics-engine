@@ -37,8 +37,8 @@ void Camera::rotate(const glm::vec3& rotation)
 	m_view_matrix = glm::rotate(m_view_matrix, m_rotation.y + rotation.y, { 0.f, 1.f, 0.f });
 	m_view_matrix = glm::translate(m_view_matrix, -m_position);
 
-	updateForwardVector();
 	m_rotation += rotation;
+	updateForwardVector();
 }
 
 void Camera::setRotation(const glm::vec3& rotation)
