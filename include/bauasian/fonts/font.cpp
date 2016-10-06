@@ -8,28 +8,34 @@
 using bauasian::Font;
 using bauasian::ShaderProgram;
 
-std::map<std::string, Font*> Font::s_fonts;
+std::map<std::tuple<std::string, unsigned>, Font*> Font::s_fonts;
 ShaderProgram* Font::s_shader = nullptr;
 
-Font* Font::loadFromFile(const boost::filesystem::path& path, unsigned font_size)
+Font* Font::loadFromFile(const boost::filesystem::path& path, unsigned font_size /* = 48 */)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
 
 	getStaticInstance();  // called to initialize
-	auto full_path = boost::filesystem::canonical(path).string();
-	if (s_fonts.count(full_path))
-		return s_fonts[full_path];
+	auto key = std::make_tuple(boost::filesystem::canonical(path).string(), font_size);
+	if (s_fonts.count(key))
+		return s_fonts[key];
 
 	Font* font = new Font();
-	s_fonts[full_path] = font;
+	s_fonts[key] = font;
 
 	FontLoader loader(path, font_size);
+	font->m_font_size = font_size;
 	font->m_glyphs = loader.getGlyphs();
 	font->m_line_spacing = loader.getLineSpacing();
 	font->m_glyph_atlas = loader.getGlyphAtlas();
 
 	return font;
+}
+
+float Font::getScale(const unsigned int& font_size) const
+{
+	return font_size / (float)m_font_size;
 }
 
 void Font::bind() const

@@ -83,7 +83,9 @@ void Texture::save(const boost::filesystem::path& path)
 	unsigned channels = 4;
 	GLubyte* pixels = new GLubyte[channels * m_width * m_height];
 
-	glGetTextureImage(m_texture_id, GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
+	glBindTexture(GL_TEXTURE_2D, m_texture_id);
+	glGetTexImage(GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, m_width, m_height,
 	                                               channels * m_width, channels * 8,

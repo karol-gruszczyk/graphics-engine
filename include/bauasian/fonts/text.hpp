@@ -12,17 +12,23 @@ namespace bauasian
 class bauasian::Text : public Entity2D
 {
 public:
-	Text(Font* font, const std::string& text = "", const glm::vec3& color = { 0.f, 0.f, 0.f });
+	// TODO: ambiguous constructors
+	Text(Font* font, const std::string& text = "", const unsigned& font_size = 0, const glm::vec3& color = { 0.f, 0.f, 0.f });
 
 	const std::string& getText() const;
 	void setText(const std::string& text);
 	const glm::vec3& getTextColor() const;
 	void setTextColor(const glm::vec3& text_color);
+	const unsigned& getFontSize() const;
+	void setFontSize(const unsigned& font_size);
+
+	void setScale(const glm::vec2& scale) override;
 	void render() const override;
 
 private:
 	std::string m_text;
 	glm::vec3 m_color;
+	unsigned m_font_size;
 	Font* m_font;
 
 	void updateBufferObjects();

@@ -5,9 +5,11 @@
 
 using bauasian::Text;
 
-Text::Text(bauasian::Font* font, const std::string& text /* = "" */, const glm::vec3& color /* = { 0.f, 0.f, 0.f } */)
+Text::Text(bauasian::Font* font, const std::string& text /* = "" */, const unsigned& font_size /* = 0 */
+		, const glm::vec3& color /* = { 0.f, 0.f, 0.f } */)
 		: m_font(font), m_text(text), m_color(color)
 {
+	setFontSize(font_size ?: m_font->m_font_size);
 	GLuint vbo[2];
 	glGenBuffers(2, vbo);
 	for (short i = 0; i < 2; i++)
@@ -38,13 +40,30 @@ void Text::setTextColor(const glm::vec3& text_color)
 	m_color = text_color;
 }
 
+const unsigned& Text::getFontSize() const
+{
+	return m_font_size;
+}
+
+void Text::setFontSize(const unsigned& font_size)
+{
+	m_font_size = font_size;
+	setScale({ 1.f, 1.f });
+}
+
+void Text::setScale(const glm::vec2& scale)
+{
+	const auto& font_scale = m_font->getScale(m_font_size);
+	Entity2D::setScale(scale * glm::vec2(font_scale));
+}
+
 void Text::render() const
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	m_font->bind();
 	m_font->s_shader->setUniformVector3("text_color", m_color);
-	m_font->s_shader->setUniformMatrix4("model_matrix", glm::translate(glm::mat4(), glm::vec3(m_position, 0.f)));
+	m_font->s_shader->setUniformMatrix4("model_matrix", m_model_matrix);
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(0xFFFFFFFF);
 	glBindVertexArray(m_vao_id);
