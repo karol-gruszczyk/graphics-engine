@@ -28,6 +28,7 @@ private:
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh* processMesh(aiMesh* mesh);
 	void processMaterials(const aiScene* scene);
+	const std::string getPath(const std::string& path);
 };
 
 #endif /* BAUASIAN_MODEL_LOADER_HPP */

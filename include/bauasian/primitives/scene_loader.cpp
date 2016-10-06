@@ -61,7 +61,7 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	{
 		try
 		{
-			result_mat->setAmbient(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
+			result_mat->setAmbient(Texture::loadFromFile(getPath(tmp_string.C_Str())));
 		}
 		catch (FileNotFoundException& e)
 		{
@@ -75,7 +75,7 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	{
 		try
 		{
-			result_mat->setDiffuse(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
+			result_mat->setDiffuse(Texture::loadFromFile(getPath(tmp_string.C_Str())));
 		}
 		catch (FileNotFoundException& e)
 		{
@@ -89,7 +89,7 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	{
 		try
 		{
-			result_mat->setSpecular(Texture::loadFromFile(m_directory / tmp_string.C_Str()));
+			result_mat->setSpecular(Texture::loadFromFile(getPath(tmp_string.C_Str())));
 		}
 		catch (FileNotFoundException& e)
 		{
@@ -156,4 +156,11 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 	delete[] indices;
 	result_mesh->setMaterial(m_materials[mesh->mMaterialIndex]);
 	return result_mesh;
+}
+
+const std::string SceneLoader::getPath(const std::string& path)
+{
+	auto full_dir = (m_directory / path).string();
+	std::replace(full_dir.begin(), full_dir.end(), '\\', '/');
+	return full_dir;
 }
