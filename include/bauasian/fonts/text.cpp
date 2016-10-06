@@ -17,6 +17,9 @@ Text::Text(bauasian::Font* font, const std::string& text /* = "" */, const unsig
 
 	setupRendering(GL_TRIANGLE_STRIP, 0, GL_UNSIGNED_INT);
 	updateBufferObjects();
+
+	m_location_text_color = m_font->s_shader->getUniformLocation("text_color");
+	m_location_model_matrix = m_font->s_shader->getUniformLocation("model_matrix");
 }
 
 const std::string& Text::getText() const
@@ -62,8 +65,8 @@ void Text::render() const
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	m_font->bind();
-	m_font->s_shader->setUniformVector3("text_color", m_color);
-	m_font->s_shader->setUniformMatrix4("model_matrix", m_model_matrix);
+	m_font->s_shader->setUniform(m_location_text_color, m_color);
+	m_font->s_shader->setUniform(m_location_model_matrix, m_model_matrix);
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(0xFFFFFFFF);
 	glBindVertexArray(m_vao_id);

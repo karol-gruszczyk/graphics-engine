@@ -41,6 +41,7 @@ float Font::getScale(const unsigned int& font_size) const
 void Font::bind() const
 {
 	m_glyph_atlas->bind();
+	s_shader->use();
 }
 
 void Font::unbind() const

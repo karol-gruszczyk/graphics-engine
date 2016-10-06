@@ -31,6 +31,9 @@ private:
 	unsigned m_font_size;
 	Font* m_font;
 
+	GLint m_location_text_color;
+	GLint m_location_model_matrix;
+
 	void updateBufferObjects();
 };
 

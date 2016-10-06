@@ -74,13 +74,6 @@ void ShaderProgram::setUniformInt(const std::string& uniform_name, const int& va
 	glUniform1i(location, value);
 }
 
-void ShaderProgram::setUniformUInt(const std::string& uniform_name, const unsigned& value) const
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	glUniform1ui(location, value);
-}
-
 void ShaderProgram::setUniformFloat(const std::string& uniform_name, const float& value) const
 {
 	use();
