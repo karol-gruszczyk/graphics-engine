@@ -4,80 +4,69 @@
 using bauasian::Material;
 using bauasian::ShaderProgram;
 using bauasian::Texture;
+using bauasian::UniformBuffer;
 
 
-Material::Material()
-		: BasicMaterial()
-{}
-
-Material::Material(const glm::vec3& diffuse_color, float shininess /* = 0 */)
-		: BasicMaterial(diffuse_color)
+void Material::setName(const std::string& name)
 {
-	m_shininess = shininess;
+	m_name = name;
 }
 
-Material::Material(Texture* diffuse_texture, float shininess /* = 0 */)
-		: BasicMaterial(diffuse_texture)
+const std::string& Material::getName()
 {
-	m_shininess = shininess;
-}
-
-Material::Material(ShaderProgram* shader)
-		: BasicMaterial(shader)
-{}
-
-void Material::bind() const
-{
-	BasicMaterial::bind();
-
-	if (m_ambient_texture)
-	{
-		m_shader->setUniformBool("material.use_ambient_texture", true);
-		m_ambient_texture->bind(1);
-		m_shader->setUniformInt("material.ambient_texture", 1);
-	}
-	else
-	{
-		m_shader->setUniformBool("material.use_ambient_texture", false);
-		m_shader->setUniformVector3("material.ambient_color", m_ambient_color);
-	}
-
-	if (m_specular_texture)
-	{
-		m_shader->setUniformBool("material.use_specular_texture", true);
-		m_specular_texture->bind(2);
-		m_shader->setUniformInt("material.specular_texture", 2);
-	}
-	else
-	{
-		m_shader->setUniformBool("material.use_specular_texture", false);
-		m_shader->setUniformVector3("material.specular_color", m_specular_color);
-	}
-
-	m_shader->setUniformFloat("material.shininess", m_shininess);
+	return m_name;
 }
 
 void Material::setAmbient(const glm::vec3& color)
 {
-	m_ambient_color = color;
+	m_material.ambient_color = glm::vec4(color, 1.f);
 }
 
 void Material::setAmbient(Texture* texture)
 {
 	m_ambient_texture = texture;
+	m_material.use_ambient_texture = 1;
+}
+void Material::setDiffuse(const glm::vec3& color)
+{
+	m_material.diffuse_color = glm::vec4(color, 1.f);
+}
+
+void Material::setDiffuse(Texture* texture)
+{
+	m_diffuse_texture = texture;
+	m_material.use_diffuse_texture = 1;
 }
 
 void Material::setSpecular(const glm::vec3& color)
 {
-	m_specular_color = color;
+	m_material.specular_color = glm::vec4(color, 1.f);
 }
 
 void Material::setSpecular(Texture* texture)
 {
 	m_specular_texture = texture;
+	m_material.use_specular_texture = 1;
 }
 
-void bauasian::Material::setShininess(const float& shininess)
+void Material::setShininess(const float& shininess)
 {
-	m_shininess = shininess;
+	m_material.shininess = shininess;
+}
+
+void Material::bind() const
+{
+	if (m_material.use_ambient_texture)
+		m_ambient_texture->bind(AMBIENT_TEXTURE);
+	if (m_material.use_diffuse_texture)
+		m_diffuse_texture->bind(DIFFUSE_TEXTURE);
+	if (m_material.use_specular_texture)
+		m_specular_texture->bind(SPECULAR_TEXTURE);
+	getUniformBuffer()->setData(&m_material);
+}
+
+UniformBuffer* Material::getUniformBuffer()
+{
+	static auto ptr = std::make_unique<UniformBuffer>(sizeof(Material_T), UniformBuffer::MATERIAL);
+	return ptr.get();
 }

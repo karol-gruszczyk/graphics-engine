@@ -95,7 +95,7 @@ void Scene3D::updateDirectionalLights(const ShaderProgram* shader) const
 		shader->setUniformVector3("dir_lights[" + i_str + "].color", m_directional_lights[i]->getColor());
 		shader->setUniformVector3("dir_lights[" + i_str + "].direction", m_directional_lights[i]->getDirection());
 	}
-	shader->setUniformUInt("num_dir_lights", (unsigned) m_directional_lights.size());
+	shader->setUniformInt("num_dir_lights", (unsigned) m_directional_lights.size());
 }
 
 void Scene3D::updatePointLights(const ShaderProgram* shader) const
@@ -107,7 +107,7 @@ void Scene3D::updatePointLights(const ShaderProgram* shader) const
 		shader->setUniformVector3("point_lights[" + i_str + "].position", m_point_lights[i]->getPosition());
 		shader->setUniformFloat("point_lights[" + i_str + "].range", m_point_lights[i]->getRange());
 	}
-	shader->setUniformUInt("num_point_lights", (unsigned) m_point_lights.size());
+	shader->setUniformInt("num_point_lights", (unsigned) m_point_lights.size());
 }
 
 void Scene3D::updateSpotLights(const ShaderProgram* shader) const
@@ -122,7 +122,7 @@ void Scene3D::updateSpotLights(const ShaderProgram* shader) const
 		shader->setUniformFloat("spot_lights[" + i_str + "].inner_angle", m_spot_lights[i]->getInnerAngle());
 		shader->setUniformFloat("spot_lights[" + i_str + "].outer_angle", m_spot_lights[i]->getOuterAngle());
 	}
-	shader->setUniformUInt("num_spot_lights", (unsigned) m_spot_lights.size());
+	shader->setUniformInt("num_spot_lights", (unsigned) m_spot_lights.size());
 }
 
 const unsigned Scene3D::getNumVertices() const

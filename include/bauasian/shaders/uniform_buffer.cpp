@@ -3,14 +3,13 @@
 
 using bauasian::UniformBuffer;
 
-UniformBuffer::UniformBuffer(const GLsizeiptr& data_size, const void* data,
-                             const bauasian::UniformBuffer::BindingPoint& binding_point)
+UniformBuffer::UniformBuffer(const GLsizeiptr& data_size, const bauasian::UniformBuffer::BindingPoint& binding_point)
 		: m_uniform_block_size(data_size), m_binding_point(binding_point)
 {
 	glGenBuffers(1, &m_ubo_id);
+	glBindBuffer(GL_UNIFORM_BUFFER, m_ubo_id);
 	glBufferData(GL_UNIFORM_BUFFER, m_uniform_block_size, nullptr, GL_DYNAMIC_DRAW);
 	glBindBufferBase(GL_UNIFORM_BUFFER, m_binding_point, m_ubo_id);
-	updateData(data);
 }
 
 UniformBuffer::~UniformBuffer()
@@ -18,13 +17,13 @@ UniformBuffer::~UniformBuffer()
 	glDeleteBuffers(1, &m_ubo_id);
 }
 
-void UniformBuffer::updateData(const void* data) const
+void UniformBuffer::setData(const void* data) const
 {
 	glBindBuffer(GL_UNIFORM_BUFFER, m_ubo_id);
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, m_uniform_block_size, data);
 }
 
-void UniformBuffer::updateSubData(const GLintptr& offset, const GLsizeiptr& size, const void* data) const
+void UniformBuffer::setSubData(const GLintptr& offset, const GLsizeiptr& size, const void* data) const
 {
 	glBindBuffer(GL_UNIFORM_BUFFER, m_ubo_id);
 	glBufferSubData(GL_UNIFORM_BUFFER, offset, size, data);

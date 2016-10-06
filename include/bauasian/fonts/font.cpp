@@ -37,6 +37,11 @@ void Font::bind() const
 	m_glyph_atlas->bind();
 }
 
+void Font::unbind() const
+{
+	m_glyph_atlas->unbind();
+}
+
 Font::~Font()
 {
 	for (const auto& glyph : m_glyphs)

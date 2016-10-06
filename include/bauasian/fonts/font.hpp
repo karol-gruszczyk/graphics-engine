@@ -23,6 +23,7 @@ public:
 	~Font();
 	static Font* loadFromFile(const boost::filesystem::path& path, unsigned font_size);
 	void bind() const;
+	void unbind() const;
 
 private:
 	Font();

@@ -45,14 +45,15 @@ void resize(unsigned int width, unsigned int height)
 
 void updateCameraPosition()
 {
+	const float speed = 10.f;
 	if (button_pressed['A'])
-		camera->moveRight(-10.f);
+		camera->moveRight(-speed);
 	if (button_pressed['D'])
-		camera->moveRight(10.f);
+		camera->moveRight(speed);
 	if (button_pressed['W'])
-		camera->moveForward(10.f);
+		camera->moveForward(speed);
 	if (button_pressed['S'])
-		camera->moveForward(-10.f);
+		camera->moveForward(-speed);
 	if (button_pressed['Q'])
 		camera->rotate({ 0.f, 0.f, -0.01f });
 	if (button_pressed['E'])
@@ -117,13 +118,14 @@ void setup()
 	basic_tile_material->setDiffuse(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	scene2d->addEntity(rect);
+	//scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
 	box_material->setDiffuse(box_texture);
 	box_material->setAmbient(box_texture);
 	tile_material = new Material();
+	tile_material->setAmbient(tile_texture);
 	tile_material->setDiffuse(tile_texture);
 	tile_material->setShininess(32);
 	box = new Box(glm::vec3(5.f, 5.f, 5.f));

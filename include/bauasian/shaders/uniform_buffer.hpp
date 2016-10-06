@@ -18,11 +18,11 @@ public:
 	{
 		MATERIAL
 	};
-	UniformBuffer(const GLsizeiptr& data_size, const void* data, const BindingPoint& binding_point);
+	UniformBuffer(const GLsizeiptr& data_size, const BindingPoint& binding_point);
 	~UniformBuffer();
 
-	void updateData(const void* data) const;
-	void updateSubData(const GLintptr& offset, const GLsizeiptr& size, const void* data) const;
+	void setData(const void* data) const;
+	void setSubData(const GLintptr& offset, const GLsizeiptr& size, const void* data) const;
 	void attachUniformBlock(ShaderProgram* shader, const std::string& block_name) const;
 
 private:

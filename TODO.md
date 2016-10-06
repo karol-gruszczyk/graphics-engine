@@ -2,7 +2,8 @@
 
 ## Optimizations
 * Create UniformBufferObjects for:
-  * materials
+  * ~~materials~~
+  * Scene entities
   * scene lights
 * ~~Remove position initialization etc. from constructors~~
 * Get uniform locations only once
@@ -11,9 +12,12 @@
   * ~~shader`s~~
   * ~~textures~~
 * ~~Join vertex position, normal and texture coordinates buffers~~
+* Create Fabrics for:
+  * Texture
+  * Font
 
 ## alpha 1.1.4
-* Rewrite dynamic fps_text(one quad per glyph line)
+* Add dynamic font(one quad per glyph line)
 * Add static fps_text handling(using FrameBufferObject)
 
 ## non-release
@@ -30,6 +34,7 @@
   * Project 2D without depth test
 
 ## bugs
+* Add flip UV option for scene loading
 * Fix recognizing backslashes as path separator in boost::path
 * Fix material memory leaks from scene loader
 * Fix font caching (does not consider font size)

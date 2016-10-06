@@ -87,7 +87,6 @@ void Entity3D::render() const
 	{
 		m_material->bind();
 		Entity::render();
-		m_material->unbind();
 	}
 	else
 		Entity::render();
