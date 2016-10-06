@@ -1,8 +1,10 @@
 #include "scene_loader.hpp"
 #include "bauasian/bauasian.hpp"
+
+#include <chrono>
+
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include <chrono>
 
 
 using bauasian::SceneLoader;

@@ -1,8 +1,6 @@
 #ifndef BAUASIAN_SCENE_HPP
 #define BAUASIAN_SCENE_HPP
 
-#include <list>
-#include <memory>
 #include "renderer.hpp"
 
 

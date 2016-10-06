@@ -1,8 +1,8 @@
 #include "font.hpp"
 #include "font_loader.hpp"
 #include "bauasian/bauasian.hpp"
+
 #include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
 
 
 using bauasian::Font;

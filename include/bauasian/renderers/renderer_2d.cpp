@@ -1,6 +1,6 @@
 #include "renderer_2d.hpp"
+
 #include <glm/gtc/matrix_transform.hpp>
-#include "bauasian/materials/basic_material.hpp"
 
 
 using bauasian::Renderer2D;

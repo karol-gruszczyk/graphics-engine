@@ -1,8 +1,6 @@
 #ifndef BAUASIAN_SCENE_3D_HPP
 #define BAUASIAN_SCENE_3D_HPP
 
-#include <boost/filesystem.hpp>
-
 #include "scene.hpp"
 #include "bauasian/camera.hpp"
 #include "bauasian/primitives/abstract/entity_3d.hpp"
@@ -10,6 +8,8 @@
 #include "bauasian/lights/point_light.hpp"
 #include "bauasian/lights/spot_light.hpp"
 #include "bauasian/exceptions/light_limit_reached_exception.hpp"
+
+#include <boost/filesystem.hpp>
 
 
 namespace bauasian

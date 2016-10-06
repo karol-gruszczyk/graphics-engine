@@ -1,10 +1,11 @@
 #ifndef BAUASIAN_FONT_LOADER_HPP
 #define BAUASIAN_FONT_LOADER_HPP
 
+#include "glyph.hpp"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <boost/filesystem.hpp>
-#include "glyph.hpp"
 
 
 namespace bauasian

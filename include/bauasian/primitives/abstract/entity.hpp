@@ -1,13 +1,13 @@
 #ifndef BAUASIAN_ENTITY_HPP
 #define BAUASIAN_ENTITY_HPP
 
-#include <list>
-#include "bauasian/shaders/shader_program.hpp"
-
-
 #define POSITION_ATTRIB_POINTER 0
 #define TEXTURE_COORD_ATTRIB_POINTER 1
 #define NORMAL_ATTRIB_POINTER 2
+
+#include "bauasian/shaders/shader_program.hpp"
+
+#include <list>
 
 
 namespace bauasian

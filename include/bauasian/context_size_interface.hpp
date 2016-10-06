@@ -1,8 +1,8 @@
 #ifndef BAUASIAN_CONTEXT_SIZE_INTERFACE_HPP
 #define BAUASIAN_CONTEXT_SIZE_INTERFACE_HPP
 
-
 #include <list>
+
 #include <glm/glm.hpp>
 
 

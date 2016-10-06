@@ -1,10 +1,10 @@
 #ifndef BAUASIAN_BASIC_MATERIAL_HPP
 #define BAUASIAN_BASIC_MATERIAL_HPP
 
-#include <glm/glm.hpp>
-
 #include "texture.hpp"
 #include "bauasian/shaders/shader_program.hpp"
+
+#include <glm/glm.hpp>
 
 
 namespace bauasian

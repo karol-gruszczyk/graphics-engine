@@ -1,10 +1,10 @@
 #ifndef BAUASIAN_FILTER_HPP
 #define BAUASIAN_FILTER_HPP
 
-
 #include "bauasian/materials/texture.hpp"
 #include "bauasian/primitives/screen_quad.hpp"
 #include "bauasian/shaders/shader_program.hpp"
+
 #include <GL/glew.h>
 
 

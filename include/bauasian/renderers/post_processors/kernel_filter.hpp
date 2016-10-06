@@ -1,7 +1,6 @@
 #ifndef BAUASIAN_KERNEL_FILTER_HPP
 #define BAUASIAN_KERNEL_FILTER_HPP
 
-
 #include "area_filter.hpp"
 
 

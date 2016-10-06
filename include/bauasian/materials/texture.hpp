@@ -1,9 +1,10 @@
 #ifndef BAUASIAN_TEXTURE_HPP
 #define BAUASIAN_TEXTURE_HPP
 
+#include <map>
+
 #include <GL/glew.h>
 #include <boost/filesystem/path.hpp>
-#include <map>
 
 
 namespace bauasian

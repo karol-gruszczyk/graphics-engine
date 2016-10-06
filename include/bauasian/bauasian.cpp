@@ -1,6 +1,7 @@
 #include "bauasian.hpp"
 #include "context_size_interface.hpp"
 #include "exceptions/open_gl_version_too_low.hpp"
+
 #include <boost/filesystem/operations.hpp>
 
 

@@ -1,10 +1,11 @@
 #ifndef BAUASIAN_MODEL_LOADER_HPP
 #define BAUASIAN_MODEL_LOADER_HPP
 
-#include <boost/filesystem/path.hpp>
-#include <assimp/scene.h>
 #include "mesh.hpp"
 #include "bauasian/materials/material.hpp"
+
+#include <assimp/scene.h>
+#include <boost/filesystem/path.hpp>
 
 
 namespace bauasian

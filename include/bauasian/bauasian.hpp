@@ -1,12 +1,13 @@
 #ifndef BAUASIAN_ENGINE_HPP
 #define BAUASIAN_ENGINE_HPP
 
+#include <map>
 #include <string>
 #include <fstream>
-#include <map>
+
 #include <GL/glew.h>
-#include <boost/filesystem/path.hpp>
 #include <glm/glm.hpp>
+#include <boost/filesystem/path.hpp>
 
 
 namespace bauasian

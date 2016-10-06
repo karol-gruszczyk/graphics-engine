@@ -1,8 +1,9 @@
-#include <sstream>
 #include "texture.hpp"
-#include "bauasian/bauasian.hpp"
 #include "image_loader.hpp"
+#include "bauasian/bauasian.hpp"
 #include "bauasian/exceptions/unknown_extension_exception.hpp"
+
+#include <sstream>
 
 
 using bauasian::Texture;

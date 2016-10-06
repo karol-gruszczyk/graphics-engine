@@ -1,5 +1,6 @@
 #include "font_loader.hpp"
 #include "bauasian/bauasian.hpp"
+
 #include <chrono>
 
 
@@ -35,7 +36,7 @@ FontLoader::FontLoader(const boost::filesystem::path& path, unsigned font_size)
 		if (FT_Load_Char(face, ch, FT_LOAD_RENDER) != 0)
 		{
 			Bauasian::getInstance().logError("FreeType failed loading glyph '" + std::to_string(ch) + "' for font '"
-			                               + full_path + "'");
+			                                 + full_path + "'");
 			return;
 		}
 		const auto& glyph = face->glyph;
@@ -59,7 +60,8 @@ FontLoader::FontLoader(const boost::filesystem::path& path, unsigned font_size)
 	delete[] glyph_bitmaps;
 
 	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
-	Bauasian::getInstance().logInfo("Font '" + full_path + "' loaded in " + std::to_string(loading_time.count()) + " ms");
+	Bauasian::getInstance().logInfo(
+			"Font '" + full_path + "' loaded in " + std::to_string(loading_time.count()) + " ms");
 }
 
 FontLoader::~FontLoader()

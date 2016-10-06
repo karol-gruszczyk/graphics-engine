@@ -1,10 +1,11 @@
 #ifndef BAUASIAN_IMAGE_LOADER_HPP
 #define BAUASIAN_IMAGE_LOADER_HPP
 
-#include <FreeImage.h>
 #include "bauasian/exceptions/file_not_found_exception.hpp"
 #include "bauasian/exceptions/unknown_file_type_exception.hpp"
 #include "bauasian/exceptions/file_type_not_supported_exception.hpp"
+
+#include <FreeImage.h>
 
 
 namespace bauasian

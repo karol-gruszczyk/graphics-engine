@@ -1,8 +1,8 @@
 #ifndef BAUASIAN_UNIFORM_BUFFER_HPP
 #define BAUASIAN_UNIFORM_BUFFER_HPP
 
-
 #include "shader_program.hpp"
+
 #include <GL/glew.h>
 
 

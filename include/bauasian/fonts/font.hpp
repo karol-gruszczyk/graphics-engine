@@ -1,11 +1,13 @@
 #ifndef BAUASIAN_FONT_HPP
 #define BAUASIAN_FONT_HPP
 
-#include <boost/filesystem.hpp>
-#include <map>
 #include "glyph.hpp"
-#include "bauasian/shaders/shader_program.hpp"
 #include "bauasian/context_size_interface.hpp"
+#include "bauasian/shaders/shader_program.hpp"
+
+#include <map>
+
+#include <boost/filesystem.hpp>
 
 
 namespace bauasian
@@ -16,6 +18,7 @@ namespace bauasian
 class bauasian::Font : public bauasian::ContextSizeInterface
 {
 	friend class Text;
+
 public:
 	~Font();
 	static Font* loadFromFile(const boost::filesystem::path& path, unsigned font_size);

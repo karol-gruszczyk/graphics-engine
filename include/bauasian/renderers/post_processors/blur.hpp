@@ -1,7 +1,6 @@
 #ifndef BAUASIAN_ENGINE_BLUR_HPP
 #define BAUASIAN_ENGINE_BLUR_HPP
 
-
 #include "area_filter.hpp"
 
 

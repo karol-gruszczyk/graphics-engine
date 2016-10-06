@@ -1,11 +1,11 @@
 #ifndef BAUASIAN_RENDERER_HPP
 #define BAUASIAN_RENDERER_HPP
 
-#include <memory>
-#include <glm/glm.hpp>
-#include "bauasian/shaders/shader_program.hpp"
 #include "bauasian/bauasian.hpp"
 #include "bauasian/context_size_interface.hpp"
+#include "bauasian/shaders/shader_program.hpp"
+
+#include <glm/glm.hpp>
 
 
 namespace bauasian
