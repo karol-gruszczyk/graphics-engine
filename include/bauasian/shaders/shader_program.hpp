@@ -18,6 +18,7 @@ public:
 	ShaderProgram(const std::initializer_list<Shader*>& shaders);
 	~ShaderProgram();
 
+	const GLuint& getId() const;
 	void use() const;
 
 	// TODO: should be removed in next release, as its extremely slow

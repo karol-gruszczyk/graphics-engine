@@ -42,6 +42,11 @@ ShaderProgram::~ShaderProgram()
 	glDeleteProgram(m_shader_program_id);
 }
 
+const GLuint& ShaderProgram::getId() const
+{
+	return m_shader_program_id;
+}
+
 void ShaderProgram::use() const
 {
 	glUseProgram(m_shader_program_id);
