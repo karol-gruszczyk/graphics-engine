@@ -32,7 +32,9 @@ public:
 	const unsigned int getNumVertices() const;
 	const unsigned int getNumFaces() const;
 	const unsigned int getNumMeshes() const;
+
 	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const override;
+
 private:
 	Camera* m_camera_ptr;
 	std::list<Entity3D*> m_entities;

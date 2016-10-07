@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_UNIFORM_BUFFER_HPP
 #define BAUASIAN_UNIFORM_BUFFER_HPP
 
-#include "shader_program.hpp"
+#include "bauasian/shaders/shader_program.hpp"
 
 #include <GL/glew.h>
 
@@ -16,7 +16,7 @@ class bauasian::UniformBuffer
 public:
 	enum BindingPoint
 	{
-		MATERIAL
+		MATERIAL, MODEL_MATRICES
 	};
 	UniformBuffer(const GLsizeiptr& data_size, const BindingPoint& binding_point);
 	~UniformBuffer();

@@ -1,12 +1,12 @@
 #include "scene_3d.hpp"
 #include "bauasian/glsl/3d/globals.glsl"
 #include "bauasian/primitives/scene_loader.hpp"
+#include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 
 
 using bauasian::Scene3D;
 using bauasian::Entity3D;
 using bauasian::Renderer;
-
 
 Scene3D::Scene3D()
 		: Scene()
@@ -80,9 +80,10 @@ void Scene3D::render(const ShaderProgram* shader, const glm::mat4& projection_ma
 	auto projection_view_matrix = projection_matrix * m_camera_ptr->getViewMatrix();
 	for (auto& entity : m_entities)
 	{
-		shader->setUniformMatrix4("projection_view_model_matrix", projection_view_matrix * entity->getModelMatrix());
-		shader->setUniformMatrix4("model_matrix", entity->getModelMatrix());
-		shader->setUniformMatrix3("normal_matrix", entity->getNormalMatrix());
+		const auto& buffer = ModelMatricesBuffer::getInstance();
+		buffer.setProjectionViewMatrix(projection_view_matrix * entity->getModelMatrix());
+		buffer.setModelMatrix(entity->getModelMatrix());
+		buffer.setNormalMatrix(glm::mat4(entity->getNormalMatrix()));
 		entity->render();
 	}
 }
@@ -143,5 +144,5 @@ const unsigned Scene3D::getNumFaces() const
 
 const unsigned Scene3D::getNumMeshes() const
 {
-	return (unsigned)m_entities.size();
+	return (unsigned) m_entities.size();
 }

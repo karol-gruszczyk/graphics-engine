@@ -62,11 +62,5 @@ void Material::bind() const
 		m_diffuse_texture->bind(DIFFUSE_TEXTURE);
 	if (m_material.use_specular_texture)
 		m_specular_texture->bind(SPECULAR_TEXTURE);
-	getUniformBuffer()->setData(&m_material);
-}
-
-UniformBuffer* Material::getUniformBuffer()
-{
-	static auto ptr = std::make_unique<UniformBuffer>(sizeof(UniformMaterial), UniformBuffer::MATERIAL);
-	return ptr.get();
+	MaterialBuffer::getInstance().setData(&m_material);
 }

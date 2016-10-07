@@ -2,6 +2,7 @@
 
 
 using bauasian::UniformBuffer;
+using bauasian::ShaderProgram;
 
 UniformBuffer::UniformBuffer(const GLsizeiptr& data_size, const bauasian::UniformBuffer::BindingPoint& binding_point)
 		: m_uniform_block_size(data_size), m_binding_point(binding_point)
@@ -29,7 +30,7 @@ void UniformBuffer::setSubData(const GLintptr& offset, const GLsizeiptr& size, c
 	glBufferSubData(GL_UNIFORM_BUFFER, offset, size, data);
 }
 
-void UniformBuffer::attachUniformBlock(bauasian::ShaderProgram* shader, const std::string& block_name) const
+void UniformBuffer::attachUniformBlock(ShaderProgram* shader, const std::string& block_name) const
 {
 	const GLuint block_index = glGetUniformBlockIndex(shader->getId(), block_name.c_str());
 	assert(block_index != GL_INVALID_INDEX);

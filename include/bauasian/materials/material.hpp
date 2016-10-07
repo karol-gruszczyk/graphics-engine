@@ -6,7 +6,7 @@
 #define SPECULAR_TEXTURE 2
 
 #include "basic_material.hpp"
-#include "bauasian/shaders/uniform_buffer.hpp"
+#include "bauasian/shaders/buffers/material_buffer.hpp"
 
 #include <memory>
 
@@ -31,22 +31,8 @@ public:
 
 	void bind() const;
 
-	static UniformBuffer* getUniformBuffer();
-
 protected:
-	struct alignas(16) UniformMaterial
-	{
-		glm::vec4 ambient_color = glm::vec4(1.f);
-		glm::vec4 diffuse_color = glm::vec4(1.f);
-		glm::vec4 specular_color = glm::vec4(1.f);
-
-		GLint use_ambient_texture = 0;
-		GLint use_diffuse_texture = 0;
-		GLint use_specular_texture = 0;
-		GLint use_normal_texture = 0;
-
-		float shininess = 0.f;
-	} m_material;
+	MaterialBuffer::GlslMaterial m_material;
 	Texture* m_ambient_texture = nullptr;
 	Texture* m_diffuse_texture = nullptr;
 	Texture* m_specular_texture = nullptr;

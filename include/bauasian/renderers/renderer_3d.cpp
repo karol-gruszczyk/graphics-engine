@@ -1,5 +1,6 @@
 #include "renderer_3d.hpp"
-#include "bauasian/materials/material.hpp"
+#include "bauasian/shaders/buffers/material_buffer.hpp"
+#include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -63,7 +64,9 @@ void bauasian::Renderer3D::loadShader()
 	m_shader_program->setUniform(ambient_texture, AMBIENT_TEXTURE);
 	m_shader_program->setUniform(diffuse_texture, DIFFUSE_TEXTURE);
 	m_shader_program->setUniform(specular_texture, SPECULAR_TEXTURE);
-	Material::getUniformBuffer()->attachUniformBlock(m_shader_program, "Material");
+
+	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader_program, "ModelMatrices");
+	MaterialBuffer::getInstance().attachUniformBlock(m_shader_program, "Material");
 }
 
 void Renderer3D::updateContextSize()
