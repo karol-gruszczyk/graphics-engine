@@ -9,6 +9,7 @@
 #include "materials/texture.hpp"
 #include "materials/basic_material.hpp"
 #include "fonts/font.hpp"
+#include "fonts/font_factory.hpp"
 #include "fonts/text.hpp"
 
 

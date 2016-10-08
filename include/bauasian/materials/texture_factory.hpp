@@ -1,7 +1,6 @@
 #ifndef BAUASIAN_TEXTURE_FACTORY_HPP
 #define BAUASIAN_TEXTURE_FACTORY_HPP
 
-#include "image_loader.hpp"
 #include "texture.hpp"
 
 
@@ -27,6 +26,5 @@ private:
 	std::map<std::string, Texture*> m_textures;
 
 };
-
 
 #endif /* BAUASIAN_TEXTURE_FACTORY_HPP */

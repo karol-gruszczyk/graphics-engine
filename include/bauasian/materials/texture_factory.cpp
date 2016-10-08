@@ -1,4 +1,5 @@
 #include "texture_factory.hpp"
+#include "image_loader.hpp"
 
 
 using bauasian::TextureFactory;

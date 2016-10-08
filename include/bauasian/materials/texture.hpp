@@ -14,7 +14,6 @@ namespace bauasian
 
 class bauasian::Texture final
 {
-	friend class TextureFactory;
 public:
 	Texture(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
 	        const GLint& internal_format, const GLenum& format, const bool& generate_mipmaps,

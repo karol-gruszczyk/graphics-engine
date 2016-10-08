@@ -20,29 +20,25 @@ class bauasian::Font : public bauasian::ContextSizeInterface
 	friend class Text;
 
 public:
-	static Font* loadFromFile(const boost::filesystem::path& path, unsigned font_size = 48);
-	float getScale(const unsigned& font_size) const;
+	Font(const unsigned& font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas,
+	     const int& line_spacing);
+	~Font();
 
+	static void loadShader();
+	static void unloadShader();
+
+	float getScale(const unsigned& font_size) const;
 	void bind() const;
 	void unbind() const;
 
 private:
-	Font();
-	~Font();
-
-	static std::map<std::tuple<std::string, unsigned>, Font*> s_fonts;
 	static ShaderProgram* s_shader;
 
-	bool m_is_static_instance = false;
 	unsigned m_font_size;
 	std::map<char, Glyph*> m_glyphs;
 	GLint m_line_spacing;
 	Texture* m_glyph_atlas = nullptr;
 
-	static Font& getStaticInstance();
-
-	void loadShader();
-	void unloadShader();
 	void updateContextSize() override;
 };
 

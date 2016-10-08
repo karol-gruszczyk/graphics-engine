@@ -158,13 +158,13 @@ void setup()
 		Bauasian::getInstance().logError(e.what());
 	}
 
-	fps_text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14));
+	fps_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14));
 	fps_text->setPosition({ 0, 14 });
 	fps_text->setTextColor({ 1.f, 1.f, 0.f });
 	auto text = "vertices: " + std::to_string(scene3d->getNumVertices()) +
 	            "\nfaces: " + std::to_string(scene3d->getNumFaces()) +
 	            "\nentities: " + std::to_string(scene3d->getNumMeshes());
-	stat_text = new Text(Font::loadFromFile("res/comic_sans.ttf", 14), text);
+	stat_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14), text);
 	stat_text->setPosition({ 0, 32 });
 	stat_text->setTextColor({ 1.f, 1.f, 1.f });
 
