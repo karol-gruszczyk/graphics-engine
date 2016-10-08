@@ -90,14 +90,6 @@ void ShaderProgram::setUniformVector3(const std::string& uniform_name, const glm
 	glUniform3fv(location, 1, glm::value_ptr(vector));
 }
 
-void ShaderProgram::setUniformMatrix3(const std::string& uniform_name, const glm::mat3& matrix) const
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	assert(location != -1);
-	glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
-}
-
 void ShaderProgram::setUniformMatrix4(const std::string& uniform_name, const glm::mat4& matrix) const
 {
 	use();

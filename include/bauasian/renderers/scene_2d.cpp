@@ -3,12 +3,7 @@
 
 using bauasian::Scene2D;
 using bauasian::Entity2D;
-using bauasian::Renderer;
 
-
-Scene2D::Scene2D()
-		: Scene()
-{}
 
 Scene2D::~Scene2D()
 {
@@ -23,7 +18,7 @@ void Scene2D::addEntity(Entity2D* entity)
 
 void Scene2D::render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const
 {
-	Scene::render(shader, projection_matrix);
+	shader->use();
 	glDisable(GL_DEPTH_TEST);
 	for (auto& entity : m_entities)
 	{

@@ -6,11 +6,6 @@
 
 using bauasian::Scene3D;
 using bauasian::Entity3D;
-using bauasian::Renderer;
-
-Scene3D::Scene3D()
-		: Scene()
-{}
 
 Scene3D::~Scene3D()
 {
@@ -69,8 +64,8 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 
 void Scene3D::render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const
 {
+	shader->use();
 	glEnable(GL_DEPTH_TEST);
-	Scene::render(shader, projection_matrix);
 
 	updateDirectionalLights(shader);
 	updatePointLights(shader);

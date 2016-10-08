@@ -9,7 +9,7 @@ namespace bauasian
 	class Light;
 }
 
-class bauasian::Light
+class alignas(16) bauasian::Light
 {
 public:
 	Light(const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);

@@ -1,7 +1,6 @@
 #ifndef BAUASIAN_SCENE_3D_HPP
 #define BAUASIAN_SCENE_3D_HPP
 
-#include "scene.hpp"
 #include "bauasian/camera.hpp"
 #include "bauasian/primitives/abstract/entity_3d.hpp"
 #include "bauasian/lights/directional_light.hpp"
@@ -17,10 +16,9 @@ namespace bauasian
 	class Scene3D;
 }
 
-class bauasian::Scene3D : public Scene
+class bauasian::Scene3D
 {
 public:
-	Scene3D();
 	~Scene3D();
 
 	void setCamera(Camera* camera);
@@ -33,7 +31,7 @@ public:
 	const unsigned int getNumFaces() const;
 	const unsigned int getNumMeshes() const;
 
-	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const override;
+	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const;
 
 private:
 	Camera* m_camera_ptr;
