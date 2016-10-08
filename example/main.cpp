@@ -102,8 +102,8 @@ void setup()
 
 	try
 	{
-		box_texture = Texture::loadFromFile("res/box.jpg");
-		tile_texture = Texture::loadFromFile("res/tile.jpg");
+		box_texture = TextureFactory::getInstance().getTexture("res/box.jpg");
+		tile_texture = TextureFactory::getInstance().getTexture("res/tile.jpg");
 	}
 	catch (FileNotFoundException& e)
 	{

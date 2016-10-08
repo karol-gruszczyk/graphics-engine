@@ -9,6 +9,7 @@
 #include "primitives/plane.hpp"
 #include "primitives/mesh.hpp"
 #include "materials/texture.hpp"
+#include "materials/texture_factory.hpp"
 #include "materials/material.hpp"
 #include "renderers/post_processors/kernel_filter.hpp"
 #include "renderers/post_processors/large_kernel_filter.hpp"

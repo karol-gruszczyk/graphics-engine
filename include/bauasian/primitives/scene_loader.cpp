@@ -1,4 +1,5 @@
 #include "scene_loader.hpp"
+#include "bauasian/materials/texture_factory.hpp"
 #include "bauasian/bauasian.hpp"
 
 #include <chrono>
@@ -61,7 +62,7 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	{
 		try
 		{
-			result_mat->setAmbient(Texture::loadFromFile(getPath(tmp_string.C_Str())));
+			result_mat->setAmbient(TextureFactory::getInstance().getTexture(getPath(tmp_string.C_Str())));
 		}
 		catch (FileNotFoundException& e)
 		{
@@ -75,7 +76,7 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	{
 		try
 		{
-			result_mat->setDiffuse(Texture::loadFromFile(getPath(tmp_string.C_Str())));
+			result_mat->setDiffuse(TextureFactory::getInstance().getTexture(getPath(tmp_string.C_Str())));
 		}
 		catch (FileNotFoundException& e)
 		{
@@ -89,7 +90,7 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	{
 		try
 		{
-			result_mat->setSpecular(Texture::loadFromFile(getPath(tmp_string.C_Str())));
+			result_mat->setSpecular(TextureFactory::getInstance().getTexture(getPath(tmp_string.C_Str())));
 		}
 		catch (FileNotFoundException& e)
 		{
