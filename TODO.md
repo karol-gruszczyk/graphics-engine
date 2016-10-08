@@ -8,13 +8,13 @@
 * ~~Remove position initialization etc. from constructors~~
 * Get uniform locations only once
 * ~~Set sampler2D textures in shader`s only once~~
-* Create DSA methods for settings gl objects attributes
+* ~~Create DSA methods for settings gl objects attributes~~
   * ~~shader`s~~
   * ~~textures~~
 * ~~Join vertex position, normal and texture coordinates buffers~~
-* Create Fabrics for:
-  * Texture
-  * Font
+* ~~Create Fabrics for:~~
+  * ~~Texture~~
+  * ~~Font~~
 
 ## alpha 1.1.4
 * Add normal mapping

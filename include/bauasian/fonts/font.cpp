@@ -9,6 +9,7 @@ using bauasian::ShaderProgram;
 using bauasian::Texture;
 
 ShaderProgram* Font::s_shader = nullptr;
+GLint Font::m_location_projection_matrix;
 
 Font::Font(const unsigned& font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas,
            const int& line_spacing)
@@ -46,6 +47,7 @@ void Font::loadShader()
 	s_shader = new ShaderProgram({ vertex_shader, fragment_shader });
 	delete vertex_shader;
 	delete fragment_shader;
+	m_location_projection_matrix = s_shader->getUniformLocation("projection_matrix");
 }
 
 void Font::unloadShader()
@@ -57,5 +59,5 @@ void Font::unloadShader()
 void Font::updateContextSize()
 {
 	const auto& size = getContextSize();
-	s_shader->setUniformMatrix4("projection_matrix", glm::ortho(0.f, (float) size.x, (float) size.y, 0.f));
+	s_shader->setUniform(m_location_projection_matrix, glm::ortho(0.f, (float) size.x, (float) size.y, 0.f));
 }

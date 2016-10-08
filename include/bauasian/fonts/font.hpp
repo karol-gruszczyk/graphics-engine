@@ -33,6 +33,7 @@ public:
 
 private:
 	static ShaderProgram* s_shader;
+	static GLint m_location_projection_matrix;
 
 	unsigned m_font_size;
 	std::map<char, Glyph*> m_glyphs;
