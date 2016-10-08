@@ -9,6 +9,7 @@ using bauasian::Renderer2D;
 Renderer2D::Renderer2D()
 {
 	loadShader();
+	updateContextSize();
 }
 
 void Renderer2D::loadShader()
@@ -19,17 +20,17 @@ void Renderer2D::loadShader()
 	BasicMaterial::setDefaultShader(m_shader_program);
 	delete vertex_shader;
 	delete fragment_shader;
+	m_location_projection_matrix = m_shader_program->getUniformLocation("projection_matrix");
 }
 
 void Renderer2D::updateContextSize()
 {
-	Renderer::updateContextSize();
 	const auto& size = getContextSize();
 	m_projection_matrix = glm::ortho(0.f, (float)size.x, (float)size.y, 0.f);
-	m_shader_program->setUniformMatrix4("projection_matrix", m_projection_matrix);
+	m_shader_program->setUniform(m_location_projection_matrix, m_projection_matrix);
 }
 
-void Renderer2D::render(const bauasian::Scene2D* scene) const
+void Renderer2D::render(const Scene2D* scene) const
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);

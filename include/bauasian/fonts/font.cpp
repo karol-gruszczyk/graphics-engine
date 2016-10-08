@@ -14,7 +14,9 @@ GLint Font::m_location_projection_matrix;
 Font::Font(const unsigned& font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas,
            const int& line_spacing)
 		: m_font_size(font_size), m_glyphs(glyphs), m_glyph_atlas(glyph_atlas), m_line_spacing(line_spacing)
-{}
+{
+	updateContextSize();
+}
 
 float Font::getScale(const unsigned int& font_size) const
 {

@@ -29,7 +29,6 @@ protected:
 	glm::mat4 m_projection_matrix;
 
 	ShaderProgram* m_shader_program = nullptr;
-	virtual void updateContextSize() override;
 };
 
 #endif /* BAUASIAN_RENDERER_HPP */

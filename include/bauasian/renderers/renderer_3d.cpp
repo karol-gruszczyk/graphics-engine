@@ -11,6 +11,7 @@ using bauasian::Scene3D;
 Renderer3D::Renderer3D()
 {
 	loadShader();
+	updateContextSize();
 }
 
 Renderer3D::~Renderer3D()
@@ -48,6 +49,7 @@ const GLfloat& Renderer3D::getZFar() const
 void Renderer3D::setZFar(GLfloat z_far)
 {
 	m_z_far = z_far;
+	updateProjectionMatrix();
 }
 
 void bauasian::Renderer3D::loadShader()
@@ -71,7 +73,6 @@ void bauasian::Renderer3D::loadShader()
 
 void Renderer3D::updateContextSize()
 {
-	Renderer::updateContextSize();
 	updateProjectionMatrix();
 	const auto& size = getContextSize();
 	for (auto& filter : m_filters)

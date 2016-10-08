@@ -19,8 +19,11 @@ public:
 	void render(const Scene2D* scene) const;
 
 protected:
+	GLint m_location_projection_matrix;
+
 	void loadShader();
 	void updateContextSize() override;
+
 };
 
 #endif /* BAUASIAN_RENDERER_2D_HPP */

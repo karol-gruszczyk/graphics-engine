@@ -22,7 +22,7 @@ void Entity2D::render() const
 	{
 		m_material->bind();
 		Renderable::render();
-		m_material->unbind();
+		//m_material->unbind();
 	}
 	else
 		Renderable::render();

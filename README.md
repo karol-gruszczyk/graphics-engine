@@ -20,11 +20,11 @@ sudo apt-get install libglew-dev libglm-dev libboost-filesystem-dev libfreeimage
 ```
 
 #### Example usage program
-* FreeGLUT
+* GLFW3
 
 ###### Ubuntu / Linux copy-paste
 ```bash
-sudo apt-get install freeglut3-dev libxmu-dev libxi-dev
+sudo apt-get install libglfw3-dev
 ```
 
 ## Utilized OpenGL features:

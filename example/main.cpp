@@ -3,16 +3,18 @@
 #include <thread>
 
 #include <GL/glew.h>
-#include <GL/freeglut.h>
+#include <GLFW/glfw3.h>
 
 #include <bauasian/bauasian2d.hpp>
 #include <bauasian/bauasian3d.hpp>
 
 
+GLFWwindow* window, * offscreen_window;
 unsigned window_width = 800;
 unsigned window_height = 600;
 
 int fps = 0;
+bool initialization_done = false;
 std::chrono::steady_clock::time_point last_frame_time;
 
 using namespace bauasian;
@@ -34,8 +36,8 @@ Texture* box_texture, * tile_texture;
 Text* fps_text, * stat_text, * loading_text;
 
 float counter;
-bool button_pressed[128];
-int last_mouse_x, last_mouse_y;
+bool button_pressed[128], mouse_button_pressed;
+double last_mouse_x, last_mouse_y;
 
 
 void calc_fps()
@@ -46,50 +48,59 @@ void calc_fps()
 	last_frame_time = current_time;
 }
 
-void resize(unsigned int width, unsigned int height)
-{
-	window_width = width;
-	window_height = height;
-	Bauasian::getInstance().setContextSize({ width, height });
-}
-
-void keyboard(unsigned char key, int x, int y)
-{
-	button_pressed[toupper(key)] = true;
-	if (key == 27)
-		glutLeaveMainLoop();
-}
-
-void keyboard_up(unsigned char key, int x, int y)
-{
-	button_pressed[toupper(key)] = false;
-}
-
-void mouse(int button, int state, int x, int y)
-{
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-	{
-		last_mouse_x = x;
-		last_mouse_y = y;
-	}
-}
-
-void mouse_move(int x, int y)
-{
-	int rotate_x = y - last_mouse_y;
-	int rotate_y = last_mouse_x - x;
-	camera->rotate({ rotate_x / 200.f, rotate_y / 200.f, 0.f });
-	last_mouse_x = x;
-	last_mouse_y = y;
-}
-
 void idle()
 {
 	int delay = (int) round(1e+6 / 60.f - std::chrono::duration_cast<std::chrono::microseconds>(
 			std::chrono::steady_clock::now() - last_frame_time).count());
 	if (delay > 0)
 		usleep((unsigned) delay);
-	glutPostRedisplay();
+}
+
+void error_callback(int error, const char* description)
+{
+	std::cerr << description << std::endl;
+}
+
+void window_size_callback(GLFWwindow* window, int width, int height)
+{
+	window_width = (unsigned) width;
+	window_height = (unsigned) height;
+	Bauasian::getInstance().setContextSize({ width, height });
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+	if (action == GLFW_PRESS)
+	{
+		if (key == GLFW_KEY_ESCAPE)
+			glfwSetWindowShouldClose(window, GL_TRUE);
+		button_pressed[toupper(key)] = true;
+	}
+	else if (action == GLFW_RELEASE)
+		button_pressed[toupper(key)] = false;
+}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT)
+	{
+		if (action == GLFW_PRESS)
+			mouse_button_pressed = true;
+		else if (action == GLFW_RELEASE)
+			mouse_button_pressed = false;
+	}
+}
+
+void mouse_pos_callback(GLFWwindow* window, double x, double y)
+{
+	if (mouse_button_pressed)
+	{
+		const double rotate_x = y - last_mouse_y;
+		const double rotate_y = last_mouse_x - x;
+		camera->rotate({ rotate_x / 200.f, rotate_y / 200.f, 0.f });
+	}
+	last_mouse_x = x;
+	last_mouse_y = y;
 }
 
 void updateCameraPosition()
@@ -111,6 +122,7 @@ void updateCameraPosition()
 
 void draw(void)
 {
+	glfwPollEvents();
 	calc_fps();
 	std::string title = "fps: " + std::to_string(fps);
 	fps_text->setText(title);
@@ -130,7 +142,8 @@ void draw(void)
 	renderer2d->render(scene2d);
 	fps_text->render();
 	stat_text->render();
-	glutSwapBuffers();
+	idle();
+	glfwSwapBuffers(window);
 }
 
 void setup()
@@ -208,12 +221,9 @@ void setup()
 	stat_text->setPosition({ 0, 32 });
 	stat_text->setTextColor({ 1.f, 1.f, 1.f });
 
-	draw();
-	Bauasian::getInstance().checkErrors(); // checking if any errors were raised
-
-	glutMouseFunc(mouse);
-	glutMotionFunc(mouse_move);
-	glutDisplayFunc(draw);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
+	glfwSetCursorPosCallback(window, mouse_pos_callback);
+	initialization_done = true;
 }
 
 void cleanup()
@@ -248,25 +258,38 @@ void setup_loading()
 
 void draw_loading()
 {
+	glfwPollEvents();
 	calc_fps();
 	renderer2d->clearScreen();
 	renderer2d->render(loading_scene);
 	loading_rect->rotate(glm::radians(5.f));
 	loading_text->render();
-	glutSwapBuffers();
+	idle();
+	glfwSwapBuffers(window);
 }
 
 int main(int argc, char** argv)
 {
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitContextVersion(4, 1);
-	glutInitContextFlags(GLUT_DEBUG | GLUT_CORE_PROFILE);
-	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
+	glfwInit();
+	glfwSetErrorCallback(error_callback);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	glutInitWindowSize(window_width, window_height);
-	glutInitWindowPosition(50, 50);
-	glutCreateWindow("");
+	window = glfwCreateWindow(window_width, window_height, "", nullptr, nullptr);
+	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+	offscreen_window = glfwCreateWindow(640, 480, "", nullptr, window);
+
+	glfwMakeContextCurrent(window);
+	if (!window || !offscreen_window)
+	{
+		std::cerr << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		return EXIT_FAILURE;
+	}
+	glfwSetWindowPos(window, 50, 50);
+	glfwSetKeyCallback(window, key_callback);
+	glfwSetWindowSizeCallback(window, window_size_callback);
 
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
@@ -274,13 +297,7 @@ int main(int argc, char** argv)
 		std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
 	if (glGetError() == GL_INVALID_ENUM)
 		std::cout << "GL_INVALID_ENUM on glewInit()" << std::endl;
-	glutSetWindowTitle((std::string("OpenGL ") + (char*) glGetString(GL_VERSION)).c_str());
-
-	glutDisplayFunc(draw_loading);
-	glutIdleFunc(idle);
-	glutReshapeFunc((void (*)(int, int)) resize);
-	glutKeyboardFunc(keyboard);
-	glutKeyboardUpFunc(keyboard_up);
+	glfwSetWindowTitle(window, (std::string("OpenGL ") + (char*) glGetString(GL_VERSION)).c_str());
 
 	Bauasian::getInstance().initialize(std::cout.rdbuf(), std::cerr.rdbuf());
 	//Bauasian::getInstance().initialize();
@@ -288,7 +305,14 @@ int main(int argc, char** argv)
 
 	setup_loading();
 	setup();
-	glutMainLoop();
+
+	while (!glfwWindowShouldClose(window) && !initialization_done)
+		draw_loading();
+
+	while (!glfwWindowShouldClose(window))
+		draw();
+
+	glfwTerminate();
 	cleanup();
 	return EXIT_SUCCESS;
 }

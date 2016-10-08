@@ -96,6 +96,7 @@ void Bauasian::logDebug(const std::string& message) const
 
 void Bauasian::setContextSize(const glm::uvec2& context_size)
 {
+	glViewport(0, 0, context_size.x, context_size.y);
 	ContextSizeInterface::setContextSize(context_size);
 }
 
