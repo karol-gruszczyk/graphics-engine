@@ -31,8 +31,10 @@ Bauasian::Bauasian()
 
 Bauasian::~Bauasian()
 {
-	if (m_logger_file)
-		m_logger_file->close();
+	if (m_logger_file.good())
+		m_logger_file.close();
+	if (m_error_logger_file.good())
+		m_error_logger_file.close();
 }
 
 Bauasian& Bauasian::getInstance()
@@ -51,25 +53,24 @@ const boost::filesystem::path& Bauasian::getShaderPath() const
 	return getInstance().m_shader_path;
 }
 
-void Bauasian::initialize(const boost::filesystem::path& path /* = "log.txt" */)
+void Bauasian::initialize(const boost::filesystem::path& log_file /* = "log.txt" */,
+                          const boost::filesystem::path& error_file /* = "error.log" */)
 {
-	if (m_logger_file)
+	m_logger_file.open(log_file.c_str(), std::ios::out);
+	if (m_logger_file.good())
 	{
-		m_logger_file->close();
-		m_logger_file.reset();
-	}
-	m_logger_file = std::make_unique<std::ofstream>();
-	m_logger_file->open(path.c_str(), std::ios::out);
-	if (m_logger_file->good())
-	{
-		m_logger = std::make_unique<std::ostream>(m_logger_file->rdbuf());
+		m_logger = std::make_unique<std::ostream>(m_logger_file.rdbuf());
 		logInitial();
 	}
+	m_error_logger_file.open(error_file.c_str(), std::ios::out);
+	if (m_error_logger_file.good())
+		m_error_logger = std::make_unique<std::ostream>(m_error_logger_file.rdbuf());
 }
 
-void Bauasian::initialize(std::streambuf* ostream)
+void Bauasian::initialize(std::streambuf* ostream, std::streambuf* err_ostream)
 {
 	m_logger = std::make_unique<std::ostream>(ostream);
+	m_error_logger = std::make_unique<std::ostream>(err_ostream);
 	logInitial();
 }
 
@@ -85,7 +86,7 @@ void Bauasian::logWarning(const std::string& message) const
 
 void Bauasian::logError(const std::string& message) const
 {
-	*m_logger << s_log_level_string[ERROR] << message << std::endl;
+	*m_error_logger << s_log_level_string[ERROR] << message << std::endl;
 }
 
 void Bauasian::logDebug(const std::string& message) const

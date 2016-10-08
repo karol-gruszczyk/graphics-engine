@@ -31,5 +31,8 @@ void Renderer2D::updateContextSize()
 
 void Renderer2D::render(const bauasian::Scene2D* scene) const
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	scene->render(m_shader_program, m_projection_matrix);
+	glDisable(GL_BLEND);
 }

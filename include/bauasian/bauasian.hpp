@@ -27,8 +27,9 @@ public:
 
 	void setShaderPath(const boost::filesystem::path& path);
 	const boost::filesystem::path& getShaderPath() const;
-	void initialize(const boost::filesystem::path& path = "log.txt");
-	void initialize(std::streambuf* ostream);
+	void initialize(const boost::filesystem::path& log_file = "log.txt",
+	                const boost::filesystem::path& error_file = "error.log");
+	void initialize(std::streambuf* ostream, std::streambuf* err_ostream);
 	void logInfo(const std::string& message) const;
 	void logWarning(const std::string& message) const;
 	void logError(const std::string& message) const;
@@ -47,8 +48,8 @@ private:
 
 	boost::filesystem::path m_working_dir;
 	boost::filesystem::path m_shader_path = "glsl/";
-	std::unique_ptr<std::ostream> m_logger;
-	std::unique_ptr<std::ofstream> m_logger_file;
+	std::unique_ptr<std::ostream> m_logger, m_error_logger;
+	std::ofstream m_logger_file, m_error_logger_file;
 
 	void logInitial() const;
 };

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <thread>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -11,6 +12,7 @@
 unsigned window_width = 800;
 unsigned window_height = 600;
 
+int fps = 0;
 std::chrono::steady_clock::time_point last_frame_time;
 
 using namespace bauasian;
@@ -18,29 +20,76 @@ using namespace bauasian;
 Renderer2D* renderer2d;
 Renderer3D* renderer3d;
 Camera* camera;
-Scene2D* scene2d;
+Scene2D* scene2d, * loading_scene;
 Scene3D* scene3d;
 DirectionalLight* dir_light;
 PointLight* point_light;
 SpotLight* spot_light;
-Rectangle* rect;
+Rectangle* rect, * loading_rect;
 Plane* plane;
 Box* box;
 BasicMaterial* basic_tile_material;
 Material* box_material, * tile_material;
 Texture* box_texture, * tile_texture;
-Text* fps_text, * stat_text;
+Text* fps_text, * stat_text, * loading_text;
 
 float counter;
 bool button_pressed[128];
 int last_mouse_x, last_mouse_y;
 
 
+void calc_fps()
+{
+	auto current_time = std::chrono::steady_clock::now();
+	fps = (int) round(1e+6 / std::chrono::duration_cast<std::chrono::microseconds>
+			(current_time - last_frame_time).count());
+	last_frame_time = current_time;
+}
+
 void resize(unsigned int width, unsigned int height)
 {
 	window_width = width;
 	window_height = height;
 	Bauasian::getInstance().setContextSize({ width, height });
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+	button_pressed[toupper(key)] = true;
+	if (key == 27)
+		glutLeaveMainLoop();
+}
+
+void keyboard_up(unsigned char key, int x, int y)
+{
+	button_pressed[toupper(key)] = false;
+}
+
+void mouse(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		last_mouse_x = x;
+		last_mouse_y = y;
+	}
+}
+
+void mouse_move(int x, int y)
+{
+	int rotate_x = y - last_mouse_y;
+	int rotate_y = last_mouse_x - x;
+	camera->rotate({ rotate_x / 200.f, rotate_y / 200.f, 0.f });
+	last_mouse_x = x;
+	last_mouse_y = y;
+}
+
+void idle()
+{
+	int delay = (int) round(1e+6 / 60.f - std::chrono::duration_cast<std::chrono::microseconds>(
+			std::chrono::steady_clock::now() - last_frame_time).count());
+	if (delay > 0)
+		usleep((unsigned) delay);
+	glutPostRedisplay();
 }
 
 void updateCameraPosition()
@@ -62,11 +111,7 @@ void updateCameraPosition()
 
 void draw(void)
 {
-	auto current_time = std::chrono::steady_clock::now();
-	int fps = (int) round(1e+6 / std::chrono::duration_cast<std::chrono::microseconds>
-			(current_time - last_frame_time).count());
-	last_frame_time = current_time;
-
+	calc_fps();
 	std::string title = "fps: " + std::to_string(fps);
 	fps_text->setText(title);
 
@@ -90,11 +135,6 @@ void draw(void)
 
 void setup()
 {
-	Bauasian::getInstance().initialize(std::cout.rdbuf()); // initializing logger with stdout as output stream
-//    Bauasian::getInstance().initialize(); // initializing logger with default log file path
-	Bauasian::getInstance().setContextSize({ window_width, window_height });
-
-	renderer2d = new Renderer2D();
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
 	//renderer3d->addFilter(new KernelFilter(KernelFilter::GRADIENT_DETECTION_VERTICAL));
@@ -168,9 +208,12 @@ void setup()
 	stat_text->setPosition({ 0, 32 });
 	stat_text->setTextColor({ 1.f, 1.f, 1.f });
 
-
 	draw();
 	Bauasian::getInstance().checkErrors(); // checking if any errors were raised
+
+	glutMouseFunc(mouse);
+	glutMotionFunc(mouse_move);
+	glutDisplayFunc(draw);
 }
 
 void cleanup()
@@ -182,45 +225,35 @@ void cleanup()
 	delete scene3d;
 	delete fps_text;
 	delete stat_text;
+	delete loading_scene;
 }
 
-void keyboard(unsigned char key, int x, int y)
+void setup_loading()
 {
-	button_pressed[toupper(key)] = true;
-	if (key == 27)
-		glutLeaveMainLoop();
+	renderer2d = new Renderer2D();
+	loading_rect = new Rectangle(glm::vec2(150.f, 150.f));
+	loading_rect->setPosition({ 400.f, 300.f });
+	loading_rect->setPivot({ 75.f, 75.f });
+
+	auto loading_material = new BasicMaterial(renderer2d->getShaderProgram());
+	loading_material->setDiffuse(TextureFactory::getInstance().getTexture("res/loading.png"));
+	loading_rect->setMaterial(loading_material);
+	loading_scene = new Scene2D();
+	loading_scene->addEntity(loading_rect);
+
+	loading_text = new Text(FontFactory::getInstance().getFont("res/unispace bd.ttf", 25), "Loading scene ...");
+	loading_text->setPosition({ 300, 420 });
+	loading_text->setTextColor({ 1.f, 1.f, 1.f });
 }
 
-void keyboard_up(unsigned char key, int x, int y)
+void draw_loading()
 {
-	button_pressed[toupper(key)] = false;
-}
-
-void mouse(int button, int state, int x, int y)
-{
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-	{
-		last_mouse_x = x;
-		last_mouse_y = y;
-	}
-}
-
-void mouse_move(int x, int y)
-{
-	int rotate_x = y - last_mouse_y;
-	int rotate_y = last_mouse_x - x;
-	camera->rotate({ rotate_x / 200.f, rotate_y / 200.f, 0.f });
-	last_mouse_x = x;
-	last_mouse_y = y;
-}
-
-void idle()
-{
-	int delay = (int) round(1e+6 / 60.f - std::chrono::duration_cast<std::chrono::microseconds>(
-			std::chrono::steady_clock::now() - last_frame_time).count());
-	if (delay > 0)
-		usleep((unsigned) delay);
-	glutPostRedisplay();
+	calc_fps();
+	renderer2d->clearScreen();
+	renderer2d->render(loading_scene);
+	loading_rect->rotate(glm::radians(5.f));
+	loading_text->render();
+	glutSwapBuffers();
 }
 
 int main(int argc, char** argv)
@@ -243,14 +276,17 @@ int main(int argc, char** argv)
 		std::cout << "GL_INVALID_ENUM on glewInit()" << std::endl;
 	glutSetWindowTitle((std::string("OpenGL ") + (char*) glGetString(GL_VERSION)).c_str());
 
-	glutDisplayFunc(draw);
+	glutDisplayFunc(draw_loading);
 	glutIdleFunc(idle);
 	glutReshapeFunc((void (*)(int, int)) resize);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboard_up);
-	glutMouseFunc(mouse);
-	glutMotionFunc(mouse_move);
 
+	Bauasian::getInstance().initialize(std::cout.rdbuf(), std::cerr.rdbuf());
+	//Bauasian::getInstance().initialize();
+	Bauasian::getInstance().setContextSize({ window_width, window_height });
+
+	setup_loading();
 	setup();
 	glutMainLoop();
 	cleanup();
