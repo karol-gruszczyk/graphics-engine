@@ -17,7 +17,7 @@ Renderable::~Renderable()
 	glDeleteBuffers(2, m_vbo_ids);
 }
 
-void Renderable::createVertexBuffer(const GLsizeiptr& size, const void* data,
+void Renderable::updateVertexBuffer(const GLsizeiptr& size, const void* data,
                                     const std::vector<unsigned>& offsets, const GLenum& draw_type) const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo_ids[0]);
@@ -34,10 +34,10 @@ void Renderable::createVertexBuffer(const GLsizeiptr& size, const void* data,
 	}
 }
 
-void Renderable::createIndexBuffer(const GLsizeiptr& size, const void* data) const
+void Renderable::updateIndexBuffer(const GLsizeiptr& size, const void* data, const GLenum& draw_type) const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vbo_ids[1]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, draw_type);
 }
 
 void Renderable::render() const

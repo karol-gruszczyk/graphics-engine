@@ -25,9 +25,9 @@ protected:
 	GLenum m_elements_mode, m_elements_type;
 	GLsizei m_elements_count;
 
-	void createVertexBuffer(const GLsizeiptr& size, const void* data,
+	void updateVertexBuffer(const GLsizeiptr& size, const void* data,
 	                        const std::vector<unsigned>& offsets, const GLenum& draw_type) const;
-	void createIndexBuffer(const GLsizeiptr& size, const void* data) const;
+	void updateIndexBuffer(const GLsizeiptr& size, const void* data, const GLenum& draw_type) const;
 
 };
 

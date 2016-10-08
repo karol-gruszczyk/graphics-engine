@@ -5,11 +5,8 @@ using bauasian::Box;
 
 
 Box::Box(const glm::vec3& size)
-		: m_size(size)
+		: Entity3D(GL_TRIANGLE_STRIP, 29, GL_UNSIGNED_SHORT, 24, 6), m_size(size)
 {
-	m_num_vertices = 24;
-	m_num_faces = 6;
-	const unsigned floats_per_vertex = 3 + 3 + 2;
 	/* VERTIVES:
 	0.f, 0.f, 0.f,					// 0
 	width, 0.f, 0.f,				// 1
@@ -70,25 +67,14 @@ Box::Box(const glm::vec3& size)
 					20, 21, 22, 23              // right
 			};
 
-	setupRendering(GL_TRIANGLE_STRIP, 29, GL_UNSIGNED_SHORT);
-
 	glBindVertexArray(m_vao_id);
-	createBufferObject(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
-	glVertexAttribPointer(POSITION_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE,
-	                      floats_per_vertex * sizeof(GLfloat), nullptr);
-	glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
+	updateVertexBuffer(sizeof(vertex_data), vertex_data, { 3, 3, 2 }, GL_STATIC_DRAW);
+	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
+}
 
-	glVertexAttribPointer(NORMAL_ATTRIB_POINTER, 3, GL_FLOAT, GL_FALSE,
-	                      floats_per_vertex * sizeof(GLfloat), reinterpret_cast<void*>(sizeof(GLfloat) * 3));
-	glEnableVertexAttribArray(NORMAL_ATTRIB_POINTER);
-
-	glVertexAttribPointer(TEXTURE_COORD_ATTRIB_POINTER, 2, GL_FLOAT, GL_FALSE,
-	                      floats_per_vertex * sizeof(GLfloat), reinterpret_cast<void*>(sizeof(GLfloat) * 6));
-	glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB_POINTER);
-
-	createBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	glBindVertexArray(0);
+const glm::vec3& Box::getSize() const
+{
+	return m_size;
 }
 
 void Box::render() const
@@ -97,9 +83,4 @@ void Box::render() const
 	glPrimitiveRestartIndex(0xFFFF);
 	Entity3D::render();
 	glDisable(GL_PRIMITIVE_RESTART);
-}
-
-const glm::vec3& Box::getSize() const
-{
-	return m_size;
 }

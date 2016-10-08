@@ -15,6 +15,7 @@ public:
 	Box(const glm::vec3& size);
 
 	const glm::vec3& getSize() const;
+
 	void render() const override;
 
 private:

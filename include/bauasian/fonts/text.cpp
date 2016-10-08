@@ -7,15 +7,9 @@ using bauasian::Text;
 
 Text::Text(bauasian::Font* font, const std::string& text /* = "" */, const unsigned& font_size /* = 0 */
 		, const glm::vec3& color /* = { 0.f, 0.f, 0.f } */)
-		: m_font(font), m_text(text), m_color(color)
+		: Entity2D(GL_TRIANGLE_STRIP, 0, GL_UNSIGNED_INT), m_font(font), m_text(text), m_color(color)
 {
 	setFontSize(font_size ?: m_font->m_font_size);
-	GLuint vbo[2];
-	glGenBuffers(2, vbo);
-	for (short i = 0; i < 2; i++)
-		m_vbos.push_back(vbo[i]);
-
-	setupRendering(GL_TRIANGLE_STRIP, 0, GL_UNSIGNED_INT);
 	updateBufferObjects();
 
 	m_location_text_color = m_font->s_shader->getUniformLocation("text_color");
@@ -69,9 +63,7 @@ void Text::render() const
 	m_font->s_shader->setUniform(m_location_model_matrix, m_model_matrix);
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(0xFFFFFFFF);
-	glBindVertexArray(m_vao_id);
-	glDrawElements(m_draw_mode, m_indices_size, m_elements_type, nullptr);
-	glBindVertexArray(0);
+	Renderable::render();
 	glDisable(GL_PRIMITIVE_RESTART);
 	glDisable(GL_BLEND);
 }
@@ -109,19 +101,11 @@ void Text::updateBufferObjects()
 		indices[i * 5 + 4] = 0xFFFFFFFF;
 		i++;
 	}
-	m_indices_size = num_indices;
+	m_elements_count = num_indices;
 
 	glBindVertexArray(m_vao_id);
-
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * num_vertices_data_floats, vertices_data, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer(POSITION_ATTRIB_POINTER, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
-	glEnableVertexAttribArray(POSITION_ATTRIB_POINTER);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vbos[1]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * num_indices, indices, GL_DYNAMIC_DRAW);
-
-	glBindVertexArray(0);
+	updateVertexBuffer(sizeof(GLfloat) * num_vertices_data_floats, vertices_data, { 4 }, GL_DYNAMIC_DRAW);
+	updateIndexBuffer(sizeof(GLuint) * num_indices, indices, GL_DYNAMIC_DRAW);
 
 	delete[] vertices_data;
 	delete[] indices;

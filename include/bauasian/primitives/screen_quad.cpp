@@ -19,6 +19,6 @@ ScreenQuad::ScreenQuad()
 			};
 
 	glBindVertexArray(m_vao_id);
-	createVertexBuffer(sizeof(vertices), vertices, { 4 }, GL_STATIC_DRAW);
-	createIndexBuffer(sizeof(indices), indices);
+	updateVertexBuffer(sizeof(vertices), vertices, { 4 }, GL_STATIC_DRAW);
+	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }

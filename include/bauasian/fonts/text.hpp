@@ -12,7 +12,6 @@ namespace bauasian
 class bauasian::Text : public Entity2D
 {
 public:
-	// TODO: ambiguous constructors
 	Text(Font* font, const std::string& text = "", const unsigned& font_size = 0, const glm::vec3& color = { 0.f, 0.f, 0.f });
 
 	const std::string& getText() const;
