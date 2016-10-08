@@ -24,7 +24,7 @@ public:
 	void setPivot(const glm::vec3& pivot);
 	const glm::vec3& getPivot() const;
 
-	glm::mat3 getNormalMatrix() const;
+	glm::mat4 getNormalMatrix() const;
 	void setMaterial(std::shared_ptr<Material> material);
 	void setMaterial(Material* material);
 	void render() const override;

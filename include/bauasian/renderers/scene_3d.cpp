@@ -83,7 +83,7 @@ void Scene3D::render(const ShaderProgram* shader, const glm::mat4& projection_ma
 		const auto& buffer = ModelMatricesBuffer::getInstance();
 		buffer.setProjectionViewMatrix(projection_view_matrix * entity->getModelMatrix());
 		buffer.setModelMatrix(entity->getModelMatrix());
-		buffer.setNormalMatrix(glm::mat4(entity->getNormalMatrix()));
+		buffer.setNormalMatrix(entity->getNormalMatrix());
 		entity->render();
 	}
 }

@@ -3,11 +3,11 @@
 ## Optimizations
 * Create UniformBufferObjects for:
   * ~~materials~~
-  * Scene entities
+  * ~~Scene entities~~
   * scene lights
 * ~~Remove position initialization etc. from constructors~~
 * Get uniform locations only once
-* Set sampler2D textures in shader`s only once
+* ~~Set sampler2D textures in shader`s only once~~
 * Create DSA methods for settings gl objects attributes
   * ~~shader`s~~
   * ~~textures~~
