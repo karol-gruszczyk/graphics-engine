@@ -15,6 +15,7 @@ using bauasian::Mesh;
 using bauasian::DirectionalLight;
 using bauasian::PointLight;
 using bauasian::SpotLight;
+using bauasian::Texture;
 
 SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs /* = false */)
 {
@@ -88,46 +89,22 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	result_mat->setName(tmp_string.C_Str());
 
 	if (material->GetTexture(aiTextureType_AMBIENT, 0, &tmp_string) == AI_SUCCESS)
-	{
-		try
-		{
-			result_mat->setAmbient(TextureFactory::getInstance().getTexture(getPath(tmp_string.C_Str())));
-		}
-		catch (FileNotFoundException& e)
-		{
-			Bauasian::getInstance().logError(e.what());
-		}
-	}
+		result_mat->setAmbient(getTexture(tmp_string.C_Str()));
 	material->Get(AI_MATKEY_COLOR_AMBIENT, tmp_color3d);
 	result_mat->setAmbient({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
 
 	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tmp_string) == AI_SUCCESS)
-	{
-		try
-		{
-			result_mat->setDiffuse(TextureFactory::getInstance().getTexture(getPath(tmp_string.C_Str())));
-		}
-		catch (FileNotFoundException& e)
-		{
-			Bauasian::getInstance().logError(e.what());
-		}
-	}
+		result_mat->setDiffuse(getTexture(tmp_string.C_Str()));
 	material->Get(AI_MATKEY_COLOR_DIFFUSE, tmp_color3d);
 	result_mat->setDiffuse({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
 
 	if (material->GetTexture(aiTextureType_SPECULAR, 0, &tmp_string) == AI_SUCCESS)
-	{
-		try
-		{
-			result_mat->setSpecular(TextureFactory::getInstance().getTexture(getPath(tmp_string.C_Str())));
-		}
-		catch (FileNotFoundException& e)
-		{
-			Bauasian::getInstance().logError(e.what());
-		}
-	}
+		result_mat->setSpecular(getTexture(tmp_string.C_Str()));
 	material->Get(AI_MATKEY_COLOR_SPECULAR, tmp_color3d);
 	result_mat->setSpecular({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
+
+	if (material->GetTexture(aiTextureType_NORMALS, 0, &tmp_string) == AI_SUCCESS)
+		result_mat->setNormalTexture(getTexture(tmp_string.C_Str()));
 
 	float shininess = 0.f;
 	material->Get(AI_MATKEY_SHININESS, shininess);
@@ -227,4 +204,17 @@ const std::string SceneLoader::getPath(const std::string& path)
 	auto full_dir = (m_directory / path).string();
 	std::replace(full_dir.begin(), full_dir.end(), '\\', '/');
 	return full_dir;
+}
+
+Texture* SceneLoader::getTexture(const std::string& path)
+{
+	try
+	{
+		return TextureFactory::getInstance().getTexture(getPath(path));
+	}
+	catch (FileNotFoundException& e)
+	{
+		Bauasian::getInstance().logError(e.what());
+	}
+	return nullptr;
 }

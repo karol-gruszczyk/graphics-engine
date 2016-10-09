@@ -40,6 +40,7 @@ private:
 	Mesh* processMesh(aiMesh* mesh);
 	void processLights(const aiScene* scene);
 	const std::string getPath(const std::string& path);
+	Texture* getTexture(const std::string& path);
 };
 
 #endif /* BAUASIAN_MODEL_LOADER_HPP */

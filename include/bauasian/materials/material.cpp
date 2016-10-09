@@ -15,7 +15,7 @@ void Material::setAmbient(const glm::vec3& color)
 void Material::setAmbient(Texture* texture)
 {
 	m_ambient_texture = texture;
-	m_material.use_ambient_texture = 1;
+	m_material.use_ambient_texture = texture != nullptr;
 }
 void Material::setDiffuse(const glm::vec3& color)
 {
@@ -25,7 +25,7 @@ void Material::setDiffuse(const glm::vec3& color)
 void Material::setDiffuse(Texture* texture)
 {
 	m_diffuse_texture = texture;
-	m_material.use_diffuse_texture = 1;
+	m_material.use_diffuse_texture = texture != nullptr;
 }
 
 void Material::setSpecular(const glm::vec3& color)
@@ -36,7 +36,7 @@ void Material::setSpecular(const glm::vec3& color)
 void Material::setSpecular(Texture* texture)
 {
 	m_specular_texture = texture;
-	m_material.use_specular_texture = 1;
+	m_material.use_specular_texture = texture != nullptr;
 }
 
 void Material::setShininess(const float& shininess)
@@ -47,7 +47,7 @@ void Material::setShininess(const float& shininess)
 void Material::setNormalTexture(Texture* texture)
 {
 	m_normal_texture = texture;
-	m_material.use_normal_texture = 1;
+	m_material.use_normal_texture = texture != nullptr;
 }
 
 void Material::bind() const
