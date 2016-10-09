@@ -167,7 +167,7 @@ void setup()
 	basic_tile_material = new BasicMaterial(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	scene2d->addEntity(rect);
+	//scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
@@ -200,7 +200,7 @@ void setup()
 	{
 		//scene3d->loadFromFile("res/aventador/Avent.obj");
 		scene3d->loadFromFile("res/cs_office.obj", true);
-		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", true);
+		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
 	}
 	catch (FileNotFoundException& e)
@@ -271,6 +271,7 @@ int main(int argc, char** argv)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 	window = glfwCreateWindow(window_width, window_height, "", nullptr, nullptr);
 	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);

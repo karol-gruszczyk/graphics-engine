@@ -1,11 +1,18 @@
 # TODO`S
 
 ## alpha 1.1.4
+* ~~OpenGL Debug callback~~
 * Add normal mapping
+* AntiAliasing:
+  * FXAA
 * Improve scene loader:
   * nodes
   * lights
   * cameras
+
+## alpha 1.1.5
+* Blinn-Phong
+* Stencil Shadow Volume
 
 ## non-release
 * Implement a system for uniform location storage  

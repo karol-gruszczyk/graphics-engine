@@ -23,6 +23,31 @@ std::map<Bauasian::LogLevel, const char* const> Bauasian::s_log_level_string = {
 		{ WARNING, "[ WARNING ] " },
 		{ ERROR,   "[ ERROR ] " }
 };
+std::map<GLenum, const char* const> Bauasian::s_debug_sources = {
+		{ GL_DEBUG_SOURCE_API,             "API" },
+		{ GL_DEBUG_SOURCE_WINDOW_SYSTEM,   "WINDOW_SYSTEM" },
+		{ GL_DEBUG_SOURCE_SHADER_COMPILER, "SHADER_COMPILER" },
+		{ GL_DEBUG_SOURCE_THIRD_PARTY,     "THIRD_PARTY" },
+		{ GL_DEBUG_SOURCE_APPLICATION,     "APPLICATION" },
+		{ GL_DEBUG_SOURCE_OTHER,           "OTHER" }
+};
+std::map<GLenum, const char* const> Bauasian::s_debug_types = {
+		{ GL_DEBUG_TYPE_ERROR,               "ERROR" },
+		{ GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR, "DEPRECATED_BEHAVIOR" },
+		{ GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR,  "UNDEFINED_BEHAVIOR" },
+		{ GL_DEBUG_TYPE_PORTABILITY,         "PORTABILITY" },
+		{ GL_DEBUG_TYPE_PERFORMANCE,         "PERFORMANCE" },
+		{ GL_DEBUG_TYPE_MARKER,              "MARKER" },
+		{ GL_DEBUG_TYPE_PUSH_GROUP,          "PUSH_GROUP" },
+		{ GL_DEBUG_TYPE_POP_GROUP,           "POP_GROUP" },
+		{ GL_DEBUG_TYPE_OTHER,               "OTHER" },
+};
+std::map<GLenum, const char* const> Bauasian::s_debug_severities = {
+		{ GL_DEBUG_SEVERITY_HIGH,         "HIGH" },
+		{ GL_DEBUG_SEVERITY_MEDIUM,       "MEDIUM" },
+		{ GL_DEBUG_SEVERITY_LOW,          "LOW" },
+		{ GL_DEBUG_SEVERITY_NOTIFICATION, "NOTIFICATION" },
+};
 
 Bauasian::Bauasian()
 {
@@ -61,6 +86,7 @@ void Bauasian::initialize(const boost::filesystem::path& log_file /* = "log.txt"
 	{
 		m_logger = std::make_unique<std::ostream>(m_logger_file.rdbuf());
 		logInitial();
+		initializeDebugOutput();
 	}
 	m_error_logger_file.open(error_file.c_str(), std::ios::out);
 	if (m_error_logger_file.good())
@@ -72,6 +98,7 @@ void Bauasian::initialize(std::streambuf* ostream, std::streambuf* err_ostream)
 	m_logger = std::make_unique<std::ostream>(ostream);
 	m_error_logger = std::make_unique<std::ostream>(err_ostream);
 	logInitial();
+	initializeDebugOutput();
 }
 
 void Bauasian::logInfo(const std::string& message) const
@@ -114,6 +141,21 @@ void Bauasian::checkErrors() const
 	}
 }
 
+void Bauasian::debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
+                             GLsizei length, const GLchar* message, const void* userParam)
+{
+	// ignore non-significant error/warning codes
+	if (id == 131169 || id == 131185 || id == 131218 || id == 131204)
+		return;
+
+	std::string debug_message = "[ Source: " + std::string(s_debug_sources[source]) + " ]"
+	                            + "[ ID: " + std::to_string(id) + " ]"
+	                            + "[ Type: " + std::string(s_debug_types[type]) + " ]"
+	                            + "[ Severity: " + std::string(s_debug_severities[severity]) + " ] "
+	                            + message;
+	getInstance().logDebug(debug_message);
+}
+
 void Bauasian::logInitial() const
 {
 	GLint major, minor;
@@ -124,4 +166,17 @@ void Bauasian::logInitial() const
 	logInfo(std::string("Using OpenGL ") + (char*) glGetString(GL_VERSION));
 	logInfo(std::string("OpenGL Shading Language version: ") + (char*) glGetString(GL_SHADING_LANGUAGE_VERSION));
 	logInfo(std::string("Graphics card: ") + (char*) glGetString(GL_VENDOR) + " " + (char*) glGetString(GL_RENDERER));
+}
+
+void Bauasian::initializeDebugOutput()
+{
+	GLint flags;
+	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+	if (flags & GL_CONTEXT_FLAG_DEBUG_BIT)
+	{
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(debugCallback, nullptr);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+	}
 }

@@ -45,13 +45,21 @@ private:
 
 	static std::map<GLenum, const char* const> s_gl_errors;
 	static std::map<LogLevel, const char* const> s_log_level_string;
+	static std::map<GLenum, const char* const> s_debug_sources;
+	static std::map<GLenum, const char* const> s_debug_types;
+	static std::map<GLenum, const char* const> s_debug_severities;
 
 	boost::filesystem::path m_working_dir;
 	boost::filesystem::path m_shader_path = "glsl/";
 	std::unique_ptr<std::ostream> m_logger, m_error_logger;
 	std::ofstream m_logger_file, m_error_logger_file;
 
+	static void debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
+	                          GLsizei length, const GLchar* message, const void* userParam);
+
 	void logInitial() const;
+	void initializeDebugOutput();
+
 };
 
 #endif /* BAUASIAN_ENGINE_HPP */
