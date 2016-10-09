@@ -56,6 +56,12 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 	SceneLoader* loader = new SceneLoader(path, flip_uvs);
 	for (Mesh* mesh : loader->getMeshes())
 		addEntity(mesh);
+	for (auto light : loader->getDirectionalLights())
+		addLight(*light);
+	for (auto light : loader->getPointLights())
+		addLight(*light);
+	for (auto light : loader->getSpotLights())
+		addLight(*light);
 	delete loader;
 }
 

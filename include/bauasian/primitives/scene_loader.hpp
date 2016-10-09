@@ -20,6 +20,7 @@ class bauasian::SceneLoader final
 {
 public:
 	SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs = false);
+	~SceneLoader();
 
 	const std::list<Mesh*>& getMeshes() const;
 	const std::list<DirectionalLight*>& getDirectionalLights() const;

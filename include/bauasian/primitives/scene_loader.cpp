@@ -42,6 +42,16 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_u
 	                                std::to_string(loading_time.count()) + " ms");
 }
 
+SceneLoader::~SceneLoader()
+{
+	for (auto& light : m_directional_lights)
+		delete light;
+	for (auto& light : m_point_lights)
+		delete light;
+	for (auto& light : m_spot_lights)
+		delete light;
+}
+
 const std::list<Mesh*>& SceneLoader::getMeshes() const
 {
 	return m_meshes;
@@ -183,30 +193,31 @@ void SceneLoader::processLights(const aiScene* scene)
 	for (auto i = 0; i < scene->mNumLights; i++)
 	{
 		const auto& light = scene->mLights[i];
-		auto to_vec3 = [](const aiVector3D& x) -> const glm::vec3 { return { x.x, x.y, x.z }; };
-		switch (light->mType)
+		auto vec3 = [](const aiVector3D& x) -> const glm::vec3 { return glm::vec3(x.x, x.y, x.z); };
+		auto col3 = [](const aiColor3D& x) -> const glm::vec3 { return glm::vec3(x.r, x.g, x.b); };
+		if (light->mType == aiLightSource_DIRECTIONAL)
 		{
-			case aiLightSource_DIRECTIONAL:
-				std::cout << "directional" << std::endl;
-				m_directional_lights.push_back(new DirectionalLight(to_vec3(light->mDirection)));
-				break;
-			case aiLightSource_POINT:
-				std::cout << "point" << std::endl;
-				//m_point_lights.push_back(new PointLight(
-				//		(glm::vec3)light->mPosition,
-				//        light->mAttenuationConstant
-				//));
-				break;
-			case aiLightSource_SPOT:
-				std::cout << "spot" << std::endl;
-				//m_point_lights.push_back(new SpotLight(
-				//		(glm::vec3)light->mPosition,
-				//		(glm::vec3)light->mDirection,
-				//
-				//));
-				break;
-			default:
-				Bauasian::getInstance().logWarning("Unrecognized light source in scene file");
+			auto dir = new DirectionalLight(vec3(light->mDirection));
+			dir->setColor(col3(light->mColorAmbient), col3(light->mColorDiffuse), col3(light->mColorSpecular));
+			m_directional_lights.push_back(dir);
+			break;
+		}
+		else if (light->mType == aiLightSource_POINT)
+		{
+			auto point = new PointLight(
+					vec3(light->mPosition),
+					{ light->mAttenuationConstant, light->mAttenuationLinear, light->mAttenuationQuadratic });
+			point->setColor(col3(light->mColorAmbient), col3(light->mColorDiffuse), col3(light->mColorSpecular));
+			m_point_lights.push_back(point);
+		}
+		else if (light->mType == aiLightSource_SPOT)
+		{
+			auto spot = new SpotLight(
+					vec3(light->mPosition), vec3(light->mDirection),
+					{ light->mAttenuationConstant, light->mAttenuationLinear, light->mAttenuationQuadratic },
+					light->mAngleInnerCone, light->mAngleOuterCone);
+			spot->setColor(col3(light->mColorAmbient), col3(light->mColorDiffuse), col3(light->mColorSpecular));
+			m_point_lights.push_back(spot);
 		}
 	}
 }

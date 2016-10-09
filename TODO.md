@@ -8,7 +8,7 @@
   * FXAA
 * Improve scene loader:
   * nodes
-  * lights
+  * ~~lights~~
   * cameras
 
 ## alpha 1.1.5
