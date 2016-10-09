@@ -23,26 +23,23 @@ public:
 
 	void setCamera(Camera* camera);
 	void addEntity(Entity3D* entity);
-	void addLight(DirectionalLight* directional_light);
-	void addLight(PointLight* point_light);
-	void addLight(SpotLight* spot_light);
+	void addLight(const DirectionalLight& directional_light);
+	void addLight(const PointLight& point_light);
+	void addLight(const SpotLight& spot_light);
 	void loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs = false);
 	const unsigned int getNumVertices() const;
 	const unsigned int getNumFaces() const;
 	const unsigned int getNumMeshes() const;
-
-	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const;
+	void render(const glm::mat4& projection_matrix) const;
 
 private:
 	Camera* m_camera_ptr;
 	std::list<Entity3D*> m_entities;
-	std::vector<DirectionalLight*> m_directional_lights;
-	std::vector<PointLight*> m_point_lights;
-	std::vector<SpotLight*> m_spot_lights;
+	std::vector<DirectionalLight> m_directional_lights;
+	std::vector<PointLight> m_point_lights;
+	std::vector<SpotLight> m_spot_lights;
+	unsigned m_num_lights[3] = { 0, 0, 0 };
 
-	void updateDirectionalLights(const ShaderProgram* shader) const;
-	void updatePointLights(const ShaderProgram* shader) const;
-	void updateSpotLights(const ShaderProgram* shader) const;
 };
 
 #endif /* BAUASIAN_SCENE_3D_HPP */

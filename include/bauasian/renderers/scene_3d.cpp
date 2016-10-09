@@ -2,6 +2,7 @@
 #include "bauasian/glsl/3d/globals.glsl"
 #include "bauasian/primitives/scene_loader.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
+#include "bauasian/shaders/buffers/scene_buffer.hpp"
 
 
 using bauasian::Scene3D;
@@ -11,13 +12,6 @@ Scene3D::~Scene3D()
 {
 	for (auto& entity : m_entities)
 		delete entity;
-
-	for (auto& light : m_directional_lights)
-		delete light;
-	for (auto& light : m_point_lights)
-		delete light;
-	for (auto& light : m_spot_lights)
-		delete light;
 }
 
 void bauasian::Scene3D::setCamera(Camera* camera)
@@ -25,25 +19,28 @@ void bauasian::Scene3D::setCamera(Camera* camera)
 	m_camera_ptr = camera;
 }
 
-void bauasian::Scene3D::addLight(DirectionalLight* directional_light)
+void bauasian::Scene3D::addLight(const DirectionalLight& directional_light)
 {
 	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
 		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
 	m_directional_lights.push_back(directional_light);
+	m_num_lights[0] = (unsigned) m_directional_lights.size();
 }
 
-void bauasian::Scene3D::addLight(PointLight* point_light)
+void bauasian::Scene3D::addLight(const PointLight& point_light)
 {
 	if (m_directional_lights.size() == MAX_POINT_LIGHTS)
 		throw LightLimitReachedException("point", MAX_POINT_LIGHTS);
 	m_point_lights.push_back(point_light);
+	m_num_lights[1] = (unsigned) m_point_lights.size();
 }
 
-void bauasian::Scene3D::addLight(SpotLight* spot_light)
+void bauasian::Scene3D::addLight(const SpotLight& spot_light)
 {
 	if (m_directional_lights.size() == MAX_SPOT_LIGHTS)
 		throw LightLimitReachedException("spot", MAX_SPOT_LIGHTS);
 	m_spot_lights.push_back(spot_light);
+	m_num_lights[2] = (unsigned) m_spot_lights.size();
 }
 
 void Scene3D::addEntity(Entity3D* entity)
@@ -62,16 +59,15 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 	delete loader;
 }
 
-void Scene3D::render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const
+void Scene3D::render(const glm::mat4& projection_matrix) const
 {
-	shader->use();
 	glEnable(GL_DEPTH_TEST);
 
-	updateDirectionalLights(shader);
-	updatePointLights(shader);
-	updateSpotLights(shader);
-
-	shader->setUniformVector3("camera_position", m_camera_ptr->getPosition());
+	SceneBuffer::getInstance().setDirectionalLights(&m_directional_lights[0], m_num_lights[0]);
+	SceneBuffer::getInstance().setPointLights(&m_point_lights[0], m_num_lights[1]);
+	SceneBuffer::getInstance().setSpotLights(&m_spot_lights[0], m_num_lights[2]);
+	SceneBuffer::getInstance().setCameraPosition(m_camera_ptr->getPosition());
+	SceneBuffer::getInstance().setNumLights(m_num_lights);
 	auto projection_view_matrix = projection_matrix * m_camera_ptr->getViewMatrix();
 	for (auto& entity : m_entities)
 	{
@@ -81,44 +77,6 @@ void Scene3D::render(const ShaderProgram* shader, const glm::mat4& projection_ma
 		buffer.setNormalMatrix(entity->getNormalMatrix());
 		entity->render();
 	}
-}
-
-void Scene3D::updateDirectionalLights(const ShaderProgram* shader) const
-{
-	for (unsigned i = 0; i < m_directional_lights.size(); i++)
-	{
-		auto i_str = std::to_string(i);
-		shader->setUniformVector3("dir_lights[" + i_str + "].color", m_directional_lights[i]->getColor());
-		shader->setUniformVector3("dir_lights[" + i_str + "].direction", m_directional_lights[i]->getDirection());
-	}
-	shader->setUniformInt("num_dir_lights", (unsigned) m_directional_lights.size());
-}
-
-void Scene3D::updatePointLights(const ShaderProgram* shader) const
-{
-	for (unsigned i = 0; i < m_point_lights.size(); i++)
-	{
-		auto i_str = std::to_string(i);
-		shader->setUniformVector3("point_lights[" + i_str + "].color", m_point_lights[i]->getColor());
-		shader->setUniformVector3("point_lights[" + i_str + "].position", m_point_lights[i]->getPosition());
-		shader->setUniformFloat("point_lights[" + i_str + "].range", m_point_lights[i]->getRange());
-	}
-	shader->setUniformInt("num_point_lights", (unsigned) m_point_lights.size());
-}
-
-void Scene3D::updateSpotLights(const ShaderProgram* shader) const
-{
-	for (unsigned i = 0; i < m_spot_lights.size(); i++)
-	{
-		auto i_str = std::to_string(i);
-		shader->setUniformVector3("spot_lights[" + i_str + "].color", m_spot_lights[i]->getColor());
-		shader->setUniformVector3("spot_lights[" + i_str + "].position", m_spot_lights[i]->getPosition());
-		shader->setUniformVector3("spot_lights[" + i_str + "].direction", m_spot_lights[i]->getDirection());
-		shader->setUniformFloat("spot_lights[" + i_str + "].range", m_spot_lights[i]->getRange());
-		shader->setUniformFloat("spot_lights[" + i_str + "].inner_angle", m_spot_lights[i]->getInnerAngle());
-		shader->setUniformFloat("spot_lights[" + i_str + "].outer_angle", m_spot_lights[i]->getOuterAngle());
-	}
-	shader->setUniformInt("num_spot_lights", (unsigned) m_spot_lights.size());
 }
 
 const unsigned Scene3D::getNumVertices() const

@@ -5,10 +5,6 @@
 
 using bauasian::ModelMatricesBuffer;
 
-ModelMatricesBuffer::ModelMatricesBuffer()
-		: UniformBuffer(sizeof(GlslModelMatrices), UniformBuffer::MODEL_MATRICES)
-{}
-
 ModelMatricesBuffer& ModelMatricesBuffer::getInstance()
 {
 	static ModelMatricesBuffer instance;
@@ -29,3 +25,7 @@ void ModelMatricesBuffer::setNormalMatrix(const glm::mat4& matrix) const
 {
 	setSubData(2 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
 }
+
+ModelMatricesBuffer::ModelMatricesBuffer()
+		: UniformBuffer(sizeof(GlslModelMatrices), UniformBuffer::MODEL_MATRICES)
+{}

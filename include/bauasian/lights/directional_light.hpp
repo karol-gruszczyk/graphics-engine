@@ -2,6 +2,7 @@
 #define BAUASIAN_DIRECTIONAL_LIGHT_HPP
 
 #include "light.hpp"
+#include "interfaces/direction_interface.hpp"
 
 
 namespace bauasian
@@ -9,15 +10,11 @@ namespace bauasian
 	class DirectionalLight;
 }
 
-class bauasian::DirectionalLight final : public Light
+class bauasian::DirectionalLight final : public Light, public DirectionInterface
 {
 public:
-	DirectionalLight(const glm::vec3& direction, const glm::vec3& color = { 1.f, 1.f, 1.f });
+	DirectionalLight(const glm::vec3& direction);
 
-	void setDirection(const glm::vec3& direction);
-	const glm::vec3& getDirection() const;
-private:
-	glm::vec3 m_direction;
 };
 
 #endif /* BAUASIAN_DIRECTIONAL_LIGHT_HPP */

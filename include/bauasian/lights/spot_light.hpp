@@ -2,6 +2,7 @@
 #define BAUASIAN_SPOT_LIGHT_HPP
 
 #include "point_light.hpp"
+#include "interfaces/direction_interface.hpp"
 
 
 namespace bauasian
@@ -9,23 +10,22 @@ namespace bauasian
 	class SpotLight;
 }
 
-class bauasian::SpotLight final : public PointLight
+class bauasian::SpotLight final : public PointLight, public DirectionInterface
 {
 public:
 	SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range, const float& inner_angle,
-	          const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f });
+	          const float& outer_angle);
 	SpotLight(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& attenuation,
-	          const float& inner_angle, const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f });
+	          const float& inner_angle, const float& outer_angle);
 
-	void setDirection(const glm::vec3& direction);
-	const glm::vec3& getDirection() const;
-	void setInnerAngle(const float& inner_angle);
 	float getInnerAngle() const;
-	void setOuterAngle(const float& outer_angle);
+	void setInnerAngle(const float& inner_angle);
 	float getOuterAngle() const;
+	void setOuterAngle(const float& outer_angle);
+
 private:
-	glm::vec3 m_direction;
 	float m_inner_angle, m_outer_angle;
+
 };
 
 #endif /* BAUASIAN_SPOT_LIGHT_HPP */

@@ -24,9 +24,6 @@ Renderer3D* renderer3d;
 Camera* camera;
 Scene2D* scene2d, * loading_scene;
 Scene3D* scene3d;
-DirectionalLight* dir_light;
-PointLight* point_light;
-SpotLight* spot_light;
 Rectangle* rect, * loading_rect;
 Plane* plane;
 Box* box;
@@ -193,10 +190,9 @@ void setup()
 	scene3d->setCamera(camera);
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
-	dir_light = new DirectionalLight(glm::vec3(-1.f, -1.f, -1.f));
-	point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
-	spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
-	                           glm::radians(5.f));
+	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
+	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
+	SpotLight spot_light({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
 	scene3d->addLight(dir_light);
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
@@ -205,6 +201,8 @@ void setup()
 	{
 		//scene3d->loadFromFile("res/aventador/Avent.obj");
 		scene3d->loadFromFile("res/cs_office.obj", true);
+		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", true);
+		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
 	}
 	catch (FileNotFoundException& e)
 	{

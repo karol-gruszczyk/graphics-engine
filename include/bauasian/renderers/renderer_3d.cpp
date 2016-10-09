@@ -1,6 +1,7 @@
 #include "renderer_3d.hpp"
 #include "bauasian/shaders/buffers/material_buffer.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
+#include "bauasian/shaders/buffers/scene_buffer.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -69,6 +70,7 @@ void bauasian::Renderer3D::loadShader()
 
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader_program, "ModelMatrices");
 	MaterialBuffer::getInstance().attachUniformBlock(m_shader_program, "Material");
+	SceneBuffer::getInstance().attachUniformBlock(m_shader_program, "SceneBuffer");
 }
 
 void Renderer3D::updateContextSize()
@@ -93,7 +95,8 @@ void Renderer3D::render(const Scene3D* scene) const
 
 		(*it)->bind();
 		(*it)->clear();
-		scene->render(m_shader_program, m_projection_matrix);
+		m_shader_program->use();
+		scene->render(m_projection_matrix);
 
 		while (true)
 		{
@@ -109,7 +112,11 @@ void Renderer3D::render(const Scene3D* scene) const
 		(*it)->unbind();
 		(*it)->renderToScreen();
 	}
-	scene->render(m_shader_program, m_projection_matrix);
+	else
+	{
+		m_shader_program->use();
+		scene->render(m_projection_matrix);
+	}
 }
 
 void Renderer3D::addFilter(Filter* filter)

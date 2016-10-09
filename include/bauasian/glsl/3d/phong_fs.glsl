@@ -25,13 +25,16 @@ uniform sampler2D ambient_texture;
 uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
 
-uniform vec3 camera_position;
-uniform DirectionalLight dir_lights[MAX_DIR_LIGHTS];
-uniform int num_dir_lights;
-uniform PointLight point_lights[MAX_POINT_LIGHTS];
-uniform int num_point_lights;
-uniform SpotLight spot_lights[MAX_SPOT_LIGHTS];
-uniform int num_spot_lights;
+layout(std140) uniform SceneBuffer
+{
+    DirectionalLight dir_lights[MAX_DIR_LIGHTS];
+    PointLight point_lights[MAX_POINT_LIGHTS];
+    SpotLight spot_lights[MAX_SPOT_LIGHTS];
+    vec3 camera_position;
+    int num_dir_lights;
+    int num_point_lights;
+    int num_spot_lights;
+};
 
 vec3 fragment_ambient_color;
 vec3 fragment_diffuse_color;
@@ -101,9 +104,9 @@ vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color)
 vec3 processDirectionalLight(DirectionalLight dir_light)
 {
 	vec3 light_ray_direction = normalize(-dir_light.direction);
-	vec3 ambient = processAmbientLight(dir_light.color);
-	vec3 diffuse = processDiffuseLight(light_ray_direction, dir_light.color);
-	vec3 specular = processSpecularLight(light_ray_direction, dir_light.color);
+	vec3 ambient = processAmbientLight(dir_light.ambient_color);
+	vec3 diffuse = processDiffuseLight(light_ray_direction, dir_light.diffuse_color);
+	vec3 specular = processSpecularLight(light_ray_direction, dir_light.specular_color);
 
 	return ambient + diffuse + specular;
 }
@@ -112,13 +115,13 @@ vec3 processPointLight(PointLight point_light)
 {
 	float distance = length(point_light.position - position);
 
-	float constant_factor = 1.f; float linear_factor = 2 / point_light.range; float quadratic_factor = 1 / pow(point_light.range, 2);
-	float attenuation = 1 / ((constant_factor)+(linear_factor * distance) + (quadratic_factor * pow(distance, 2)));
+	float attenuation = 1 / ((point_light.attenuation_constant) + (point_light.attenuation_linear * distance)
+	 + (point_light.attenuation_quadratic * distance * distance));
 	vec3 light_ray_direction = normalize(point_light.position - position);
 
-	vec3 ambient = processAmbientLight(point_light.color);
-	vec3 diffuse = processDiffuseLight(light_ray_direction, point_light.color);
-	vec3 specular = processSpecularLight(light_ray_direction, point_light.color);
+	vec3 ambient = processAmbientLight(point_light.ambient_color);
+	vec3 diffuse = processDiffuseLight(light_ray_direction, point_light.diffuse_color);
+	vec3 specular = processSpecularLight(light_ray_direction, point_light.specular_color);
 
 	return attenuation * (ambient + diffuse + specular);
 }
@@ -136,14 +139,14 @@ vec3 processSpotLight(SpotLight spot_light)
 	if (spot_effect < outer_cosine)
 		return vec3(0.f, 0.f, 0.f);
 
-	float constant_factor = 1.f; float linear_factor = 2 / spot_light.range; float quadratic_factor = 1 / pow(spot_light.range, 2);
-	float attenuation = 1 / ((constant_factor)+(linear_factor * distance) + (quadratic_factor * pow(distance, 2)));
+	float attenuation = 1 / ((spot_light.attenuation_constant) + (spot_light.attenuation_linear * distance)
+    	 + (spot_light.attenuation_quadratic * distance * distance));
 
 	float falloff = clamp((outer_cosine - spot_effect) / (outer_cosine - cos(spot_light.inner_angle)), 0.f, 1.f);
 
-	vec3 ambient = processAmbientLight(spot_light.color);
-	vec3 diffuse = processDiffuseLight(light_ray_direction, spot_light.color);
-	vec3 specular = processSpecularLight(light_ray_direction, spot_light.color);
+	vec3 ambient = processAmbientLight(spot_light.ambient_color);
+	vec3 diffuse = processDiffuseLight(light_ray_direction, spot_light.diffuse_color);
+	vec3 specular = processSpecularLight(light_ray_direction, spot_light.specular_color);
 
 	return falloff * attenuation * (ambient + diffuse + specular);
 }

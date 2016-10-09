@@ -4,26 +4,26 @@
 using bauasian::PointLight;
 
 
-PointLight::PointLight(const glm::vec3& position, const float& range, const glm::vec3& color /* = { 1.f, 1.f, 1.f } */)
-		: Light(color), m_position(position)
+PointLight::PointLight(const glm::vec3& position, const float& range)
 {
 	setRange(range);
+	setPosition(position);
 }
 
-PointLight::PointLight(const glm::vec3& position, const glm::vec3& attenuation, const glm::vec3& color)
-		: Light(color), m_position(position)
+PointLight::PointLight(const glm::vec3& position, const glm::vec3& attenuation)
 {
 	setAttenuation(attenuation);
+	setPosition(position);
 }
 
-const glm::vec3& PointLight::getPosition() const
+const glm::vec3 PointLight::getPosition() const
 {
-	return m_position;
+	return (glm::vec3) m_position;
 }
 
 void PointLight::setPosition(const glm::vec3& position)
 {
-	m_position = position;
+	m_position = glm::vec4(position, 0.f);
 }
 
 float PointLight::getRange() const
@@ -34,7 +34,7 @@ float PointLight::getRange() const
 void PointLight::setRange(const float& range)
 {
 	m_range = range;
-	setAttenuation({ 1.f, 1.f / range, 1.f / (range * range) });
+	setAttenuation({ 1.f, 2.f / range, 1.f / (range * range) });
 }
 
 const glm::vec3 PointLight::getAttenuation() const

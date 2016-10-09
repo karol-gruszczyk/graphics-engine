@@ -4,16 +4,39 @@
 using bauasian::Light;
 
 
-Light::Light(const glm::vec3& color /* = { 1.f, 1.f, 1.f } */)
-		: m_color(color)
-{}
-
-void Light::setColor(const glm::vec3& color)
+const glm::vec3 Light::getAmbientColor() const
 {
-	m_color = color;
+	return (glm::vec3) m_ambient_color;
 }
 
-const glm::vec3& Light::getColor() const
+void Light::setAmbientColor(const glm::vec3& color)
 {
-	return m_color;
+	m_ambient_color = glm::vec4(color, 0.f);
+}
+
+const glm::vec3 Light::getDiffuseColor() const
+{
+	return (glm::vec3) m_diffuse_color;
+}
+
+void Light::setDiffuseColor(const glm::vec3& color)
+{
+	m_diffuse_color = glm::vec4(color, 0.f);
+}
+
+const glm::vec3 Light::getSpecularColor() const
+{
+	return (glm::vec3) m_specular_color;
+}
+
+void Light::setSpecularColor(const glm::vec3& color)
+{
+	m_specular_color = glm::vec4(color, 0.f);
+}
+
+void Light::setColor(const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular)
+{
+	setAmbientColor(ambient);
+	setDiffuseColor(diffuse);
+	setSpecularColor(specular);
 }
