@@ -4,19 +4,18 @@ in vec2 texture_coord;
 
 out vec4 out_color;
 
-struct BasicMaterial
+layout(std140) uniform BasicMaterial
 {
 	vec3 diffuse_color;
-	bool use_diffuse_texture;
-	sampler2D diffuse_texture;
+	int use_diffuse_texture;
 };
 
-uniform BasicMaterial material;
+uniform sampler2D diffuse_texture;
 
 
 void main()
 {
-	out_color = vec4(material.diffuse_color, 1.f);
-    if (material.use_diffuse_texture)
-    	out_color = texture2D(material.diffuse_texture, texture_coord);
+	out_color = vec4(diffuse_color, 1.f);
+    if (use_diffuse_texture == 1)
+    	out_color = texture2D(diffuse_texture, texture_coord);
 }

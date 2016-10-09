@@ -59,36 +59,6 @@ const GLint ShaderProgram::getUniformLocation(const std::string& uniform_name) c
 	return location;
 }
 
-void ShaderProgram::setUniformBool(const std::string& uniform_name, const bool& value) const
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	glUniform1i(location, value);
-}
-
-void ShaderProgram::setUniformInt(const std::string& uniform_name, const int& value) const
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	glUniform1i(location, value);
-}
-
-void ShaderProgram::setUniformFloat(const std::string& uniform_name, const float& value) const
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	assert(location != -1);
-	glUniform1f(location, value);
-}
-
-void ShaderProgram::setUniformVector3(const std::string& uniform_name, const glm::vec3& vector) const
-{
-	use();
-	auto location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
-	assert(location != -1);
-	glUniform3fv(location, 1, glm::value_ptr(vector));
-}
-
 void ShaderProgram::setUniformMatrix4(const std::string& uniform_name, const glm::mat4& matrix) const
 {
 	use();

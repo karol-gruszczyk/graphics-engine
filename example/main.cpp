@@ -164,11 +164,10 @@ void setup()
 	rect = new Rectangle(glm::vec2(300.f, 300.f));
 	rect->setPosition({ 400.f, 300.f });
 	rect->setPivot({ 150.f, 150.f });
-	basic_tile_material = new BasicMaterial(renderer2d->getShaderProgram());
-	basic_tile_material->setDiffuse(tile_texture);
+	basic_tile_material = new BasicMaterial(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	//scene2d->addEntity(rect);
+	scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
@@ -243,8 +242,7 @@ void setup_loading()
 	loading_rect->setPosition({ 400.f, 300.f });
 	loading_rect->setPivot({ 75.f, 75.f });
 
-	auto loading_material = new BasicMaterial(renderer2d->getShaderProgram());
-	loading_material->setDiffuse(TextureFactory::getInstance().getTexture("res/loading.png"));
+	auto loading_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/loading.png"));
 	loading_rect->setMaterial(loading_material);
 	loading_scene = new Scene2D();
 	loading_scene->addEntity(loading_rect);

@@ -1,4 +1,5 @@
 #include "renderer_2d.hpp"
+#include "bauasian/shaders/buffers/basic_material_buffer.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -17,10 +18,11 @@ void Renderer2D::loadShader()
 	Shader* vertex_shader = new Shader("2d/basic_vs.glsl", Shader::VERTEX_SHADER);
 	Shader* fragment_shader = new Shader("2d/basic_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_shader_program = new ShaderProgram({ vertex_shader, fragment_shader });
-	BasicMaterial::setDefaultShader(m_shader_program);
 	delete vertex_shader;
 	delete fragment_shader;
 	m_location_projection_matrix = m_shader_program->getUniformLocation("projection_matrix");
+
+	BasicMaterialBuffer::getInstance().attachUniformBlock(m_shader_program, "BasicMaterial");
 }
 
 void Renderer2D::updateContextSize()

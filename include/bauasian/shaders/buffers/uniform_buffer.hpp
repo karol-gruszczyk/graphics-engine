@@ -16,7 +16,7 @@ class bauasian::UniformBuffer
 public:
 	enum BindingPoint
 	{
-		MATERIAL, MODEL_MATRICES, SCENE, LIGHTS
+		MATERIAL, MODEL_MATRICES, SCENE, BASIC_MATERIAL
 	};
 	UniformBuffer(const GLsizeiptr& data_size, const BindingPoint& binding_point);
 	~UniformBuffer();

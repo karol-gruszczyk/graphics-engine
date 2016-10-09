@@ -4,8 +4,9 @@
 * Create UniformBufferObjects for:
   * ~~materials~~
   * ~~Scene entities~~
-  * scene data (eq. camera position)
-  * scene lights
+  * ~~scene data (eq. camera position)~~
+  * ~~scene lights~~
+  * 2D objects
 * ~~Remove position initialization etc. from constructors~~
 * Get uniform locations only once
 * ~~Set sampler2D textures in shader`s only once~~
