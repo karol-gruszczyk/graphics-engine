@@ -13,8 +13,8 @@ layout(std140) uniform Material
 	vec4 diffuse_color;
 	vec4 specular_color;
 
-	int use_diffuse_texture;
 	int use_ambient_texture;
+	int use_diffuse_texture;
 	int use_specular_texture;
 	int use_normal_texture;
 
