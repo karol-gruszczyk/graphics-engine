@@ -12,6 +12,8 @@
 * ~~Create DSA methods for settings gl objects attributes~~
   * ~~shader`s~~
   * ~~textures~~
+  * ~~frame buffers~~
+  * ~~render buffers~~
 * ~~Join vertex position, normal and texture coordinates buffers~~
 * ~~Create Fabrics for:~~
   * ~~Texture~~

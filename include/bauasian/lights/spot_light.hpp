@@ -13,7 +13,9 @@ class bauasian::SpotLight final : public PointLight
 {
 public:
 	SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range, const float& inner_angle,
-	          const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f }, const bool& active = true);
+	          const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f });
+	SpotLight(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& attenuation,
+	          const float& inner_angle, const float& outer_angle, const glm::vec3& color = { 1.f, 1.f, 1.f });
 
 	void setDirection(const glm::vec3& direction);
 	const glm::vec3& getDirection() const;
