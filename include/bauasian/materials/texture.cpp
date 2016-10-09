@@ -31,43 +31,40 @@ Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* c
 	}
 
 	glGenTextures(1, &m_texture_id);
-	glBindTexture(GL_TEXTURE_2D, m_texture_id);
-	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, pixels);
+	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE,
+	                    pixels);
 
 	if (generate_mipmaps)
 	{
-		glGenerateMipmap(GL_TEXTURE_2D);
+		glGenerateTextureMipmap(m_texture_id);
 		// TODO: try something better
 		if (glewIsExtensionSupported("GL_EXT_texture_filter_anisotropic"))
 		{
 			GLfloat max_anisotropy;
 			glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropy);
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
+			glTextureParameterf(m_texture_id, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
 		}
 	}
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	unbind();
+	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER,
+	                    generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 Texture::Texture(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format)
 		: m_width(width), m_height(height)
 {
 	glGenTextures(1, &m_texture_id);
-	glBindTexture(GL_TEXTURE_2D, m_texture_id);
-	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, nullptr);
+	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE,
+	                    nullptr);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-
-	unbind();
+	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 }
 
 Texture::~Texture()

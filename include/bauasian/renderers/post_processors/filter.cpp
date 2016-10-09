@@ -12,15 +12,11 @@ Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 	m_color_texture = new Texture(size, size, GL_RGB, GL_RGB);
 
 	glGenRenderbuffers(1, &m_rbo_id);
-	glBindRenderbuffer(GL_RENDERBUFFER, m_rbo_id);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, size, size);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glNamedRenderbufferStorageEXT(m_rbo_id, GL_DEPTH24_STENCIL8, size, size);
 
-	bind();
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_texture->getTextureId(), 0);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo_id);
-	assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-	unbind();
+	glNamedFramebufferTexture2DEXT(m_fbo_id, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_texture->getTextureId(), 0);
+	glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo_id);
+	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 
 	m_screen_quad = new ScreenQuad();
 
@@ -44,9 +40,8 @@ void Filter::setContextSize(const unsigned& width, const unsigned& height) const
 {
 	m_color_texture->update(width, height, GL_RGB, GL_RGB);
 
-	glBindRenderbuffer(GL_RENDERBUFFER, m_rbo_id);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glNamedRenderbufferStorage(m_rbo_id, GL_DEPTH24_STENCIL8, width, height);
+
 }
 
 void Filter::bind() const
