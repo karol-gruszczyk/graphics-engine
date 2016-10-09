@@ -91,9 +91,15 @@ void Texture::save(const boost::filesystem::path& path)
 		throw UnknownExtensionException(path.filename().string());
 
 	unsigned channels = 4;
+	GLenum format = GL_BGRA;
+	if (fif == FIF_JPEG)
+	{
+		channels = 3;
+		format = GL_BGR;
+	}
 	GLubyte* pixels = new GLubyte[channels * m_width * m_height];
 
-	glGetTextureImageEXT(m_texture_id, GL_TEXTURE_2D, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
+	glGetTextureImageEXT(m_texture_id, GL_TEXTURE_2D, 0, format, GL_UNSIGNED_BYTE, pixels);
 
 	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, m_width, m_height,
 	                                               channels * m_width, channels * 8,
