@@ -67,19 +67,19 @@ void main()
 void setFragmentColors(vec2 texture_coord)
 {
 	if (material.use_ambient_texture == 1)
-		fragment_ambient_color = vec3(texture2D(ambient_texture, texture_coord));
+		fragment_ambient_color = texture2D(ambient_texture, texture_coord).rgb;
 	else
-	    fragment_ambient_color = vec3(material.ambient_color);
+	    fragment_ambient_color = material.ambient_color.rgb;
 
 	if (material.use_diffuse_texture == 1)
-		fragment_diffuse_color = vec3(texture2D(diffuse_texture, texture_coord));
+		fragment_diffuse_color = texture2D(diffuse_texture, texture_coord).rgb;
 	else
-	    fragment_diffuse_color = vec3(material.diffuse_color);
+	    fragment_diffuse_color = material.diffuse_color.rgb;
 
 	if (material.use_specular_texture == 1)
-		fragment_specular_color = vec3(texture2D(specular_texture, texture_coord));
+		fragment_specular_color = texture2D(specular_texture, texture_coord).rgb;
 	else
-	    fragment_specular_color = vec3(material.specular_color);
+	    fragment_specular_color = material.specular_color.rgb;
 }
 
 vec3 processAmbientLight(vec3 light_color)

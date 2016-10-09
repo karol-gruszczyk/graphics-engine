@@ -44,6 +44,12 @@ void Material::setShininess(const float& shininess)
 	m_material.shininess = shininess;
 }
 
+void Material::setNormalTexture(Texture* texture)
+{
+	m_normal_texture = texture;
+	m_material.use_normal_texture = 1;
+}
+
 void Material::bind() const
 {
 	if (m_material.use_ambient_texture)
@@ -52,5 +58,7 @@ void Material::bind() const
 		m_diffuse_texture->bind(DIFFUSE_TEXTURE);
 	if (m_material.use_specular_texture)
 		m_specular_texture->bind(SPECULAR_TEXTURE);
+	if (m_material.use_normal_texture)
+		m_normal_texture->bind(NORMAL_TEXTURE);
 	MaterialBuffer::getInstance().setData(&m_material);
 }

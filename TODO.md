@@ -3,6 +3,7 @@
 ## alpha 1.1.4
 * ~~OpenGL Debug callback~~
 * Add normal mapping
+* SkyBox, SkyDome
 * AntiAliasing:
   * FXAA
 * Improve scene loader:

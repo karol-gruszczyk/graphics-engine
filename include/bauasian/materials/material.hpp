@@ -4,6 +4,7 @@
 #define AMBIENT_TEXTURE 0
 #define DIFFUSE_TEXTURE 1
 #define SPECULAR_TEXTURE 2
+#define NORMAL_TEXTURE 3
 
 #include "basic_material.hpp"
 #include "bauasian/shaders/buffers/material_buffer.hpp"
@@ -27,6 +28,7 @@ public:
 	void setSpecular(const glm::vec3& color);
 	void setSpecular(Texture* texture);
 	void setShininess(const float& shininess);
+	void setNormalTexture(Texture* texture);
 
 	void bind() const;
 
@@ -35,6 +37,7 @@ protected:
 	Texture* m_ambient_texture = nullptr;
 	Texture* m_diffuse_texture = nullptr;
 	Texture* m_specular_texture = nullptr;
+	Texture* m_normal_texture = nullptr;
 
 };
 
