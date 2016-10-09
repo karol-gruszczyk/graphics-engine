@@ -2,6 +2,10 @@
 
 ## alpha 1.1.4
 * Add normal mapping
+* Improve scene loader:
+  * nodes
+  * lights
+  * cameras
 
 ## non-release
 * Implement a system for uniform location storage  
