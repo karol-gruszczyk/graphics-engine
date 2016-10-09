@@ -2,7 +2,7 @@
 #define BAUASIAN_RENDERER_3D_HPP
 
 #include "renderer.hpp"
-#include "scene_3d.hpp"
+#include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/interfaces/context_size_interface.hpp"
 #include "bauasian/renderers/post_processors/filter.hpp"
 

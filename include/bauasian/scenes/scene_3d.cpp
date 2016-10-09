@@ -1,12 +1,13 @@
 #include "scene_3d.hpp"
 #include "bauasian/glsl/3d/globals.glsl"
-#include "bauasian/primitives/scene_loader.hpp"
+#include "scene_loader.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
 
 
 using bauasian::Scene3D;
 using bauasian::Entity3D;
+using bauasian::Camera;
 
 Scene3D::~Scene3D()
 {
@@ -14,12 +15,25 @@ Scene3D::~Scene3D()
 		delete entity;
 }
 
-void bauasian::Scene3D::setCamera(Camera* camera)
+Camera* Scene3D::getCamera()
 {
-	m_camera_ptr = camera;
+	return m_current_camera;
 }
 
-void bauasian::Scene3D::addLight(const DirectionalLight& directional_light)
+void Scene3D::setCamera(Camera* camera)
+{
+	m_current_camera = camera;
+}
+
+Camera* Scene3D::addCamera(const Camera& camera)
+{
+	m_cameras.push_back(camera);
+	if (!m_current_camera)
+		setCamera(&m_cameras.front());
+	return &m_cameras.front();
+}
+
+void Scene3D::addLight(const DirectionalLight& directional_light)
 {
 	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
 		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
@@ -27,7 +41,7 @@ void bauasian::Scene3D::addLight(const DirectionalLight& directional_light)
 	m_num_lights[0] = (unsigned) m_directional_lights.size();
 }
 
-void bauasian::Scene3D::addLight(const PointLight& point_light)
+void Scene3D::addLight(const PointLight& point_light)
 {
 	if (m_directional_lights.size() == MAX_POINT_LIGHTS)
 		throw LightLimitReachedException("point", MAX_POINT_LIGHTS);
@@ -35,7 +49,7 @@ void bauasian::Scene3D::addLight(const PointLight& point_light)
 	m_num_lights[1] = (unsigned) m_point_lights.size();
 }
 
-void bauasian::Scene3D::addLight(const SpotLight& spot_light)
+void Scene3D::addLight(const SpotLight& spot_light)
 {
 	if (m_directional_lights.size() == MAX_SPOT_LIGHTS)
 		throw LightLimitReachedException("spot", MAX_SPOT_LIGHTS);
@@ -54,8 +68,10 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 		throw FileNotFoundException(path);
 
 	SceneLoader* loader = new SceneLoader(path, flip_uvs);
-	for (Mesh* mesh : loader->getMeshes())
+	for (auto mesh : loader->getMeshes())
 		addEntity(mesh);
+	for (auto camera : loader->getCameras())
+		addCamera(*camera);
 	for (auto light : loader->getDirectionalLights())
 		addLight(*light);
 	for (auto light : loader->getPointLights())
@@ -72,9 +88,9 @@ void Scene3D::render(const glm::mat4& projection_matrix) const
 	SceneBuffer::getInstance().setDirectionalLights(&m_directional_lights[0], m_num_lights[0]);
 	SceneBuffer::getInstance().setPointLights(&m_point_lights[0], m_num_lights[1]);
 	SceneBuffer::getInstance().setSpotLights(&m_spot_lights[0], m_num_lights[2]);
-	SceneBuffer::getInstance().setCameraPosition(m_camera_ptr->getPosition());
+	SceneBuffer::getInstance().setCameraPosition(m_current_camera->getPosition());
 	SceneBuffer::getInstance().setNumLights(m_num_lights);
-	auto projection_view_matrix = projection_matrix * m_camera_ptr->getViewMatrix();
+	auto projection_view_matrix = projection_matrix * m_current_camera->getViewMatrix();
 	for (auto& entity : m_entities)
 	{
 		const auto& buffer = ModelMatricesBuffer::getInstance();

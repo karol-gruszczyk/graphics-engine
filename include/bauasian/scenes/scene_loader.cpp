@@ -12,6 +12,7 @@
 using bauasian::SceneLoader;
 using bauasian::Material;
 using bauasian::Mesh;
+using bauasian::Camera;
 using bauasian::DirectionalLight;
 using bauasian::PointLight;
 using bauasian::SpotLight;
@@ -36,6 +37,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_u
 	m_directory = path.parent_path();
 	processMaterials(scene);
 	processNode(scene->mRootNode, scene);
+	processCameras(scene);
 	processLights(scene);
 
 	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
@@ -51,11 +53,18 @@ SceneLoader::~SceneLoader()
 		delete light;
 	for (auto& light : m_spot_lights)
 		delete light;
+	for (auto& camera : m_cameras)
+		delete camera;
 }
 
 const std::list<Mesh*>& SceneLoader::getMeshes() const
 {
 	return m_meshes;
+}
+
+const std::list<Camera*>& SceneLoader::getCameras() const
+{
+	return m_cameras;
 }
 
 const std::list<DirectionalLight*>& SceneLoader::getDirectionalLights() const
@@ -163,6 +172,16 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 	delete[] indices;
 	result_mesh->setMaterial(m_materials[mesh->mMaterialIndex]);
 	return result_mesh;
+}
+
+void SceneLoader::processCameras(const aiScene* scene)
+{
+	for (unsigned i = 0; i < scene->mNumCameras; i++)
+	{
+		const auto& camera = scene->mCameras[i];
+		auto vec3 = [](const aiVector3D& x) -> glm::vec3 { return { x.x, x.y, x.z }; };
+		m_cameras.push_back(new Camera(vec3(camera->mPosition)));
+	}
 }
 
 void SceneLoader::processLights(const aiScene* scene)

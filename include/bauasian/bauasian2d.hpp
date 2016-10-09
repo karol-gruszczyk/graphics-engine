@@ -3,8 +3,8 @@
 
 #include "bauasian.hpp"
 #include "renderers/renderer_2d.hpp"
-#include "renderers/scene_2d.hpp"
-#include "renderers/scene_2d.hpp"
+#include "bauasian/scenes/scene_2d.hpp"
+#include "bauasian/scenes/scene_2d.hpp"
 #include "primitives/rectangle.hpp"
 #include "materials/texture.hpp"
 #include "materials/basic_material.hpp"

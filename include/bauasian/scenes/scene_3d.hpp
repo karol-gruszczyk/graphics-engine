@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_SCENE_3D_HPP
 #define BAUASIAN_SCENE_3D_HPP
 
-#include "bauasian/camera.hpp"
+#include "camera.hpp"
 #include "bauasian/primitives/abstract/entity_3d.hpp"
 #include "bauasian/lights/directional_light.hpp"
 #include "bauasian/lights/point_light.hpp"
@@ -21,7 +21,9 @@ class bauasian::Scene3D
 public:
 	~Scene3D();
 
+	Camera* getCamera();
 	void setCamera(Camera* camera);
+	Camera* addCamera(const Camera& camera);
 	void addEntity(Entity3D* entity);
 	void addLight(const DirectionalLight& directional_light);
 	void addLight(const PointLight& point_light);
@@ -33,7 +35,8 @@ public:
 	void render(const glm::mat4& projection_matrix) const;
 
 private:
-	Camera* m_camera_ptr;
+	Camera* m_current_camera;
+	std::vector<Camera> m_cameras;
 	std::list<Entity3D*> m_entities;
 	std::vector<DirectionalLight> m_directional_lights;
 	std::vector<PointLight> m_point_lights;

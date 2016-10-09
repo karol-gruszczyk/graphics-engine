@@ -9,7 +9,8 @@
 * Improve scene loader:
   * nodes
   * ~~lights~~
-  * cameras
+  * ~~cameras~~
+* ~~OpenGL extension class~~
 
 ## alpha 1.1.5
 * Blinn-Phong

@@ -102,7 +102,7 @@ void mouse_pos_callback(GLFWwindow* window, double x, double y)
 
 void updateCameraPosition()
 {
-	const float speed = 10.f;
+	const float speed = 1.f;
 	if (button_pressed['A'])
 		camera->moveRight(-speed);
 	if (button_pressed['D'])
@@ -152,7 +152,6 @@ void setup()
 
 	try
 	{
-		box_texture = TextureFactory::getInstance().getTexture("res/box.jpg");
 		tile_texture = TextureFactory::getInstance().getTexture("res/tile.jpg");
 	}
 	catch (FileNotFoundException& e)
@@ -171,8 +170,9 @@ void setup()
 
 	// 3D
 	box_material = new Material();
-	box_material->setDiffuse(box_texture);
-	box_material->setAmbient(box_texture);
+	box_material->setDiffuse(TextureFactory::getInstance().getTexture("res/planks.jpg"));
+	box_material->setAmbient(TextureFactory::getInstance().getTexture("res/planks.jpg"));
+	box_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/planks_normal.jpg"));
 	tile_material = new Material();
 	tile_material->setAmbient(tile_texture);
 	tile_material->setDiffuse(tile_texture);
@@ -185,8 +185,7 @@ void setup()
 	plane->setPosition({ -100.f, 0.f, -100.f });
 	plane->setMaterial(tile_material);
 	scene3d = new Scene3D();
-	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
-	scene3d->setCamera(camera);
+	camera = scene3d->addCamera(Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f }));
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
 	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
@@ -198,8 +197,10 @@ void setup()
 
 	try
 	{
-		//scene3d->loadFromFile("res/aventador/Avent.obj");
-		scene3d->loadFromFile("res/cs_office.obj", true);
+		//scene3d->loadFromFile("res/rocks/rock_c_01.obj");
+		scene3d->loadFromFile("res/sponza/sponza.obj");
+		//scene3d->loadFromFile("res/crytek/sponza.obj");
+		//scene3d->loadFromFile("res/cs_office.obj", true);
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
 	}
@@ -228,7 +229,6 @@ void cleanup()
 	delete renderer2d;
 	delete renderer3d;
 	delete scene2d;
-	delete camera;
 	delete scene3d;
 	delete fps_text;
 	delete stat_text;
