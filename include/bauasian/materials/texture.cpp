@@ -1,6 +1,7 @@
 #include "texture.hpp"
 #include "image_loader.hpp"
 #include "bauasian/bauasian.hpp"
+#include "bauasian/open_gl_extensions.hpp"
 #include "bauasian/exceptions/unknown_extension_exception.hpp"
 
 #include <sstream>
@@ -37,19 +38,15 @@ Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* c
 	if (generate_mipmaps)
 	{
 		glGenerateTextureMipmap(m_texture_id);
-		// TODO: try something better
-		if (glewIsExtensionSupported("GL_EXT_texture_filter_anisotropic"))
-		{
-			GLfloat max_anisotropy;
-			glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropy);
-			glTextureParameterf(m_texture_id, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
-		}
+
+		if (OpenGLExtensions::getInstance().isAnisotropicFilteringSupported())
+			glTextureParameterf(m_texture_id, GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			                    OpenGLExtensions::getInstance().getMaxAnisotropy());
 	}
 
 	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER,
-	                    generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER, generate_mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
 	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 

@@ -85,8 +85,7 @@ void Bauasian::initialize(const boost::filesystem::path& log_file /* = "log.txt"
 	if (m_logger_file.good())
 	{
 		m_logger = std::make_unique<std::ostream>(m_logger_file.rdbuf());
-		logInitial();
-		initializeDebugOutput();
+		init();
 	}
 	m_error_logger_file.open(error_file.c_str(), std::ios::out);
 	if (m_error_logger_file.good())
@@ -97,8 +96,7 @@ void Bauasian::initialize(std::streambuf* ostream, std::streambuf* err_ostream)
 {
 	m_logger = std::make_unique<std::ostream>(ostream);
 	m_error_logger = std::make_unique<std::ostream>(err_ostream);
-	logInitial();
-	initializeDebugOutput();
+	init();
 }
 
 void Bauasian::logInfo(const std::string& message) const
@@ -153,7 +151,13 @@ void Bauasian::debugCallback(GLenum source, GLenum type, GLuint id, GLenum sever
 	                            + "[ Type: " + std::string(s_debug_types[type]) + " ]"
 	                            + "[ Severity: " + std::string(s_debug_severities[severity]) + " ] "
 	                            + message;
-	getInstance().logDebug(debug_message);
+	getInstance().logError(debug_message);
+}
+
+void Bauasian::init() const
+{
+	logInitial();
+	initializeDebugOutput();
 }
 
 void Bauasian::logInitial() const
@@ -168,7 +172,7 @@ void Bauasian::logInitial() const
 	logInfo(std::string("Graphics card: ") + (char*) glGetString(GL_VENDOR) + " " + (char*) glGetString(GL_RENDERER));
 }
 
-void Bauasian::initializeDebugOutput()
+void Bauasian::initializeDebugOutput() const
 {
 	GLint flags;
 	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);

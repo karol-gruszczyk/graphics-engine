@@ -57,8 +57,9 @@ private:
 	static void debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
 	                          GLsizei length, const GLchar* message, const void* userParam);
 
+	void init() const;
 	void logInitial() const;
-	void initializeDebugOutput();
+	void initializeDebugOutput() const;
 
 };
 
