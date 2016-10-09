@@ -7,7 +7,7 @@ LargeKernelFilter::LargeKernelFilter(const bauasian::LargeKernelFilter::LargeKer
 		: AreaFilter("large_kernel_fs.glsl")
 {
 	const auto& location = m_shader->getUniformLocation("kernel_matrix");
-	m_shader->setUniformArray(location, &getKernelMatrix(type)[0], 25);
+	m_shader->setUniform(location, &getKernelMatrix(type)[0], 25);
 }
 
 const std::vector<float> LargeKernelFilter::getKernelMatrix(const LargeKernelFilter::LargeKernelFilterType& type)

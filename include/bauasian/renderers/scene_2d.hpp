@@ -15,9 +15,11 @@ public:
 	~Scene2D();
 
 	void addEntity(Entity2D* entity);
-	void render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const;
+	void render(const ShaderProgram* shader, const GLint& model_matrix_location) const;
+
 private:
 	std::list<Entity2D*> m_entities;
+
 };
 
 #endif /* BAUASIAN_SCENE_2D_HPP */

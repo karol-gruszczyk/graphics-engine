@@ -20,6 +20,7 @@ public:
 
 protected:
 	GLint m_location_projection_matrix;
+	GLint m_location_model_matrix;
 
 	void loadShader();
 	void updateContextSize() override;

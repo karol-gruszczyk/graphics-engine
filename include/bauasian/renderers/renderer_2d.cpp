@@ -21,6 +21,7 @@ void Renderer2D::loadShader()
 	delete vertex_shader;
 	delete fragment_shader;
 	m_location_projection_matrix = m_shader_program->getUniformLocation("projection_matrix");
+	m_location_model_matrix = m_shader_program->getUniformLocation("model_matrix");
 
 	BasicMaterialBuffer::getInstance().attachUniformBlock(m_shader_program, "BasicMaterial");
 }
@@ -36,6 +37,7 @@ void Renderer2D::render(const Scene2D* scene) const
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	scene->render(m_shader_program, m_projection_matrix);
+	m_shader_program->use();
+	scene->render(m_shader_program, m_location_model_matrix);
 	glDisable(GL_BLEND);
 }

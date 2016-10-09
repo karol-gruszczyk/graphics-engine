@@ -16,13 +16,12 @@ void Scene2D::addEntity(Entity2D* entity)
 	m_entities.push_back(entity);
 }
 
-void Scene2D::render(const ShaderProgram* shader, const glm::mat4& projection_matrix) const
+void Scene2D::render(const ShaderProgram* shader, const GLint& model_matrix_location) const
 {
-	shader->use();
 	glDisable(GL_DEPTH_TEST);
 	for (auto& entity : m_entities)
 	{
-		shader->setUniformMatrix4("model_matrix", entity->getModelMatrix());
+		shader->setUniform(model_matrix_location, entity->getModelMatrix());
 		entity->render();
 	}
 }
