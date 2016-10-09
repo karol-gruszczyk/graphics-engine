@@ -6,12 +6,15 @@
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+#include <iostream>
 
 
 using bauasian::SceneLoader;
 using bauasian::Material;
 using bauasian::Mesh;
-using bauasian::Bauasian;
+using bauasian::DirectionalLight;
+using bauasian::PointLight;
+using bauasian::SpotLight;
 
 SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs /* = false */)
 {
@@ -32,15 +35,31 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_u
 	m_directory = path.parent_path();
 	processMaterials(scene);
 	processNode(scene->mRootNode, scene);
+	processLights(scene);
 
 	duration<double, std::milli> loading_time = steady_clock::now() - loading_start_time;
 	Bauasian::getInstance().logInfo("Scene '" + boost::filesystem::canonical(path).string() + "' loaded in " +
 	                                std::to_string(loading_time.count()) + " ms");
 }
 
-const std::vector<Mesh*>& SceneLoader::getMeshes()
+const std::list<Mesh*>& SceneLoader::getMeshes() const
 {
 	return m_meshes;
+}
+
+const std::list<DirectionalLight*>& SceneLoader::getDirectionalLights() const
+{
+	return m_directional_lights;
+}
+
+const std::list<PointLight*>& SceneLoader::getPointLights() const
+{
+	return m_point_lights;
+}
+
+const std::list<SpotLight*>& SceneLoader::getSpotLights() const
+{
+	return m_spot_lights;
 }
 
 void SceneLoader::processMaterials(const aiScene* scene)
@@ -157,6 +176,39 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 	delete[] indices;
 	result_mesh->setMaterial(m_materials[mesh->mMaterialIndex]);
 	return result_mesh;
+}
+
+void SceneLoader::processLights(const aiScene* scene)
+{
+	for (auto i = 0; i < scene->mNumLights; i++)
+	{
+		const auto& light = scene->mLights[i];
+		auto to_vec3 = [](const aiVector3D& x) -> const glm::vec3 { return { x.x, x.y, x.z }; };
+		switch (light->mType)
+		{
+			case aiLightSource_DIRECTIONAL:
+				std::cout << "directional" << std::endl;
+				m_directional_lights.push_back(new DirectionalLight(to_vec3(light->mDirection)));
+				break;
+			case aiLightSource_POINT:
+				std::cout << "point" << std::endl;
+				//m_point_lights.push_back(new PointLight(
+				//		(glm::vec3)light->mPosition,
+				//        light->mAttenuationConstant
+				//));
+				break;
+			case aiLightSource_SPOT:
+				std::cout << "spot" << std::endl;
+				//m_point_lights.push_back(new SpotLight(
+				//		(glm::vec3)light->mPosition,
+				//		(glm::vec3)light->mDirection,
+				//
+				//));
+				break;
+			default:
+				Bauasian::getInstance().logWarning("Unrecognized light source in scene file");
+		}
+	}
 }
 
 const std::string SceneLoader::getPath(const std::string& path)

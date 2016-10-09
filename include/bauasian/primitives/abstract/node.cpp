@@ -1,5 +1,9 @@
-//
-// Created by karol on 10/9/16.
-//
-
 #include "node.hpp"
+
+
+using bauasian::Node;
+
+void Node::addChildren(Node* node)
+{
+	m_children.push_back(node);
+}

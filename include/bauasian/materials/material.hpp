@@ -7,6 +7,7 @@
 
 #include "basic_material.hpp"
 #include "bauasian/shaders/buffers/material_buffer.hpp"
+#include "bauasian/interfaces/name_interface.hpp"
 
 #include <memory>
 
@@ -16,11 +17,9 @@ namespace bauasian
 	class Material;
 }
 
-class bauasian::Material
+class bauasian::Material : public NameInterface
 {
 public:
-	void setName(const std::string& name);
-	const std::string& getName();
 	void setAmbient(const glm::vec3& color);
 	void setAmbient(Texture* texture);
 	void setDiffuse(const glm::vec3& color);
@@ -36,7 +35,6 @@ protected:
 	Texture* m_ambient_texture = nullptr;
 	Texture* m_diffuse_texture = nullptr;
 	Texture* m_specular_texture = nullptr;
-	std::string m_name;
 
 };
 

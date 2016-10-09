@@ -1,16 +1,22 @@
-//
-// Created by karol on 10/9/16.
-//
+#ifndef BAUASIAN_NAME_INTERFACE_HPP
+#define BAUASIAN_NAME_INTERFACE_HPP
 
-#ifndef GRAPHICS_ENGINE_NAME_INTERFACE_HPP
-#define GRAPHICS_ENGINE_NAME_INTERFACE_HPP
+#include <string>
 
 
+namespace bauasian
+{
+	class NameInterface;
+}
 
-class name_interface {
+class bauasian::NameInterface
+{
+public:
+	const std::string& getName() const;
+	void setName(const std::string& name);
 
+protected:
+	std::string m_name;
 };
 
-
-
-#endif //GRAPHICS_ENGINE_NAME_INTERFACE_HPP
+#endif /* BAUASIAN_NAME_INTERFACE_HPP */

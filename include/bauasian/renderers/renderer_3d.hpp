@@ -3,7 +3,7 @@
 
 #include "renderer.hpp"
 #include "scene_3d.hpp"
-#include "bauasian/context_size_interface.hpp"
+#include "bauasian/interfaces/context_size_interface.hpp"
 #include "bauasian/renderers/post_processors/filter.hpp"
 
 

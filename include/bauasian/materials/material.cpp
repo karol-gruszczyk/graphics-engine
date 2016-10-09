@@ -7,16 +7,6 @@ using bauasian::Texture;
 using bauasian::UniformBuffer;
 
 
-void Material::setName(const std::string& name)
-{
-	m_name = name;
-}
-
-const std::string& Material::getName()
-{
-	return m_name;
-}
-
 void Material::setAmbient(const glm::vec3& color)
 {
 	m_material.ambient_color = glm::vec4(color, 1.f);

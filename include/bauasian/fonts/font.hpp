@@ -2,7 +2,7 @@
 #define BAUASIAN_FONT_HPP
 
 #include "glyph.hpp"
-#include "bauasian/context_size_interface.hpp"
+#include "bauasian/interfaces/context_size_interface.hpp"
 #include "bauasian/shaders/shader_program.hpp"
 
 #include <map>
