@@ -13,21 +13,18 @@ addons:
     sources:
       - llvm-toolchain-precise
       - ubuntu-toolchain-r-test
+      - sourceline: 'deb http://us.archive.ubuntu.com/ubuntu/ xenial main'
+      - sourceline: 'deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main'
     packages:
       - clang-3.7
       - g++-5
       - gcc-5
       - libboost-filesystem-dev
+      - libglew-dev
       - libglm-dev
       - libfreeimage-dev
       - libassimp-dev
       - libfreetype6-dev
-
-before_install:
-  - wget http://launchpadlibrarian.net/225689699/libglew1.13_1.13.0-2_amd64.deb
-  - sudo dpkg -i libglew1.13_1.13.0-2_amd64.deb
-  - wget http://launchpadlibrarian.net/225689694/libglew-dev_1.13.0-2_amd64.deb
-  - sudo dpkg -i libglew-dev_1.13.0-2_amd64.deb
 
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
