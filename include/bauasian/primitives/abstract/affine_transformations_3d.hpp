@@ -4,6 +4,7 @@
 #include <list>
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 
 namespace bauasian
@@ -35,6 +36,7 @@ protected:
 	glm::vec3 m_scale;
 	glm::vec3 m_pivot;
 
+	glm::quat m_rotation_quat;
 	glm::mat4 m_model_matrix;
 
 };

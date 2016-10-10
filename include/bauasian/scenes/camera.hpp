@@ -15,6 +15,7 @@ class bauasian::Camera final : public NameInterface
 {
 public:
 	Camera(const glm::vec3& position = { 0.f, 0.f, 0.f }, const glm::vec3& rotation = { 0.f, 0.f, 0.f });
+	Camera(const glm::mat4& view_matrix);
 
 	void translate(const glm::vec3& position);
 	void setPosition(const glm::vec3& position);

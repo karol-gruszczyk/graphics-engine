@@ -1,6 +1,7 @@
 #include "camera.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
 
 using bauasian::Camera;
@@ -9,6 +10,16 @@ Camera::Camera(const glm::vec3& position /* = { 0.f,0.f,0.f } */, const glm::vec
 {
 	setPosition(position);
 	setRotation(rotation);
+}
+
+Camera::Camera(const glm::mat4& view_matrix)
+		: m_view_matrix(view_matrix)
+{
+	glm::quat rotation;
+	glm::vec3 scale, skew;
+	glm::vec4 perspective;
+	glm::decompose(view_matrix, scale, rotation, m_position, skew, perspective);
+	m_rotation = glm::eulerAngles(rotation) * glm::pi<float>() / 180.f;
 }
 
 void Camera::translate(const glm::vec3& position)
