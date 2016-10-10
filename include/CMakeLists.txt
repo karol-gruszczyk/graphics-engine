@@ -19,9 +19,8 @@ link_libraries(${freeimage_LIBRARIES})
 find_library(assimp_LIBRARIES assimp)
 link_libraries(${assimp_LIBRARIES})
 
-find_path(Freetype_INCLUDE_ft2build ft2build.h)
-include_directories(${Freetype_INCLUDE_ft2build})
 find_package(Freetype REQUIRED)
+include_directories(${FREETYPE_INCLUDE_DIRS})
 link_libraries(${Freetype_LIBRARIES})
 
 file(GLOB_RECURSE SOURCES *.cpp)
