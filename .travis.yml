@@ -25,6 +25,7 @@ addons:
       - libfreeimage-dev
       - libassimp-dev
       - libfreetype6-dev
+      - libglfw3-dev
 
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
