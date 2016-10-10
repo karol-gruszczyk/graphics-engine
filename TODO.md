@@ -7,8 +7,8 @@
 * SkyBox, SkyDome
 * AntiAliasing:
   * FXAA
-* Improve scene loader:
-  * nodes
+* ~~Improve scene loader:~~
+  * ~~nodes~~
   * ~~lights~~
   * ~~cameras~~
 * ~~OpenGL extension class~~
@@ -35,7 +35,9 @@
   * Project 2D without depth test
 
 ## Optimizations
-...
+* Improve Camera class
+  * add lookAt
+  * use quaternions
 
 ## bugs
 * Random Text artifacts
