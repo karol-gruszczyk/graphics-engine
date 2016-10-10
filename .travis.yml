@@ -6,7 +6,6 @@ addons:
       - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
       - llvm-toolchain-precise
       - ubuntu-toolchain-r-test
-      - ppa:apokluda/boost1.53
     packages:
       - clang-3.7
       - g++-5
@@ -15,12 +14,13 @@ addons:
       - cmake-data
       - libglew-dev
       - libglm-dev
-      - libboost-filesystem1.53-dev
       - libfreeimage-dev
       - libassimp-dev
       - libfreetype6-dev
 
 before_install:
+  - sudo add-apt-repository ppa:apokluda/boost1.53 --yes
+  - sudo apt-get update
 # GLFW 3.2.1 install
   - wget -O glfw-3.2.1.zip https://github.com/glfw/glfw/archive/3.2.1.zip
   - unzip glfw-3.2.1.zip
@@ -33,6 +33,7 @@ before_install:
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
+  - sudo apt-get install libboost-filesystem1.53-dev
 
 compiler:
   - gcc
