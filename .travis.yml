@@ -2,7 +2,7 @@ language: cpp
 
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get -qq upgrade cmake
+  - sudo apt-get install --only-upgrade cmake
   - sudo apt-get install -y libglew-dev
   - sudo apt-get install -y libglm-dev
   - sudo apt-get install -y libboost-filesystem-dev
