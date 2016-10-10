@@ -35,7 +35,7 @@ public:
 	void render(const glm::mat4& projection_matrix) const;
 
 private:
-	Camera* m_current_camera;
+	Camera* m_current_camera = nullptr;
 	std::vector<Camera*> m_cameras;
 	std::list<Entity3D*> m_entities;
 	std::vector<DirectionalLight> m_directional_lights;

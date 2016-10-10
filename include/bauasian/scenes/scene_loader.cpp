@@ -6,6 +6,7 @@
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 
 using bauasian::SceneLoader;
@@ -35,7 +36,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_u
 	}
 	m_directory = path.parent_path();
 	processMaterials(scene);
-	processNode(scene->mRootNode, scene);
+	processNode(scene->mRootNode, scene, glm::mat4());
 	processCameras(scene);
 	processLights(scene);
 
@@ -119,18 +120,25 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	return result_mat;
 }
 
-void SceneLoader::processNode(aiNode* node, const aiScene* scene)
+void SceneLoader::processNode(aiNode* node, const aiScene* scene, const glm::mat4& parent_matrix)
 {
+	const auto& mat = node->mTransformation;
+	const glm::mat4 node_matrix(mat.a1, mat.b1, mat.c1, mat.d1,
+	                            mat.a2, mat.b2, mat.c2, mat.d2,
+	                            mat.a3, mat.b3, mat.c3, mat.d3,
+	                            mat.a4, mat.b4, mat.c4, mat.d4);
+	const glm::mat4 model_matrix = node_matrix * parent_matrix;
 	for (unsigned i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		auto processed_mesh = processMesh(mesh);
 		processed_mesh->setName(node->mName.C_Str());
+		processed_mesh->setModelMatrix(model_matrix);
 		m_meshes.push_back(processed_mesh);
 	}
 
 	for (unsigned i = 0; i < node->mNumChildren; i++)
-		processNode(node->mChildren[i], scene);
+		processNode(node->mChildren[i], scene, model_matrix);
 }
 
 Mesh* SceneLoader::processMesh(aiMesh* mesh)
@@ -179,7 +187,8 @@ void SceneLoader::processCameras(const aiScene* scene)
 	{
 		const auto& camera = scene->mCameras[i];
 		auto vec3 = [](const aiVector3D& x) -> glm::vec3 { return { x.x, x.y, x.z }; };
-		auto cam = new Camera(vec3(camera->mPosition));
+		glm::mat4 view_matrix = glm::lookAt(vec3(camera->mPosition), vec3(camera->mLookAt), vec3(camera->mUp));
+		auto cam = new Camera(view_matrix);
 		cam->setName(camera->mName.C_Str());
 		m_cameras.push_back(cam);
 	}

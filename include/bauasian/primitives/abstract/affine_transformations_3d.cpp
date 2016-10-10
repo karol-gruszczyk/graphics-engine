@@ -88,8 +88,3 @@ const glm::mat4 AffineTransformations3D::getNormalMatrix() const
 {
 	return glm::inverseTranspose(m_model_matrix);
 }
-
-void AffineTransformations3D::addChild(AffineTransformations3D* entity)
-{
-	m_children.push_back(entity);
-}

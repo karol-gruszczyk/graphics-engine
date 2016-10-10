@@ -39,7 +39,7 @@ private:
 
 	void processMaterials(const aiScene* scene);
 	std::shared_ptr<Material> processMaterial(const aiMaterial* material);
-	void processNode(aiNode* node, const aiScene* scene);
+	void processNode(aiNode* node, const aiScene* scene, const glm::mat4& parent_matrix);
 	Mesh* processMesh(aiMesh* mesh);
 	void processCameras(const aiScene* scene);
 	void processLights(const aiScene* scene);
