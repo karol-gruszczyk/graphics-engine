@@ -13,8 +13,8 @@ addons:
     sources:
       - llvm-toolchain-precise
       - ubuntu-toolchain-r-test
-      - sourceline: 'deb http://us.archive.ubuntu.com/ubuntu/ xenial main'
-      - sourceline: 'deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main'
+      - sourceline: 'deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe'
+      - sourceline: 'deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main universe'
     packages:
       - clang-3.7
       - g++-5
