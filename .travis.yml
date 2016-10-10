@@ -22,6 +22,7 @@ before_install:
   - cmake -DBUILD_SHARED_LIBS=ON -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX=/x86_64-linux-gnu
   - make
   - sudo make install
+  - cd ..
 
 compiler:
   - gcc
