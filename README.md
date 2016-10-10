@@ -1,5 +1,12 @@
 # Bauasian
-A modern OpenGL based graphics engine using C++14 with boost.
+A modern OpenGL(core profile) based graphics engine using C++14 with boost.
+
+master  
+[![Build Status](https://travis-ci.org/karol-gruszczyk/graphics-engine.svg?branch=master)](https://travis-ci.org/karol-gruszczyk/graphics-engine)
+
+develop  
+[![Build Status](https://travis-ci.org/karol-gruszczyk/graphics-engine.svg?branch=develop)](https://travis-ci.org/karol-gruszczyk/graphics-engine)
+
 
 ## Setup
 
