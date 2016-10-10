@@ -16,9 +16,9 @@ Shader::Shader(const boost::filesystem::path& path, const ShaderType& type)
 
 	std::string shader_code(openShaderFile(shader_path));
 
-	const GLchar* const gl_shader_code = shader_code.c_str();
+	const GLchar* gl_shader_code = shader_code.c_str();
 	m_shader_id = glCreateShader(s_shader_type[type]);
-	glShaderSource(m_shader_id, 1, &gl_shader_code, NULL);
+	glShaderSource(m_shader_id, 1, &gl_shader_code, nullptr);
 	glCompileShader(m_shader_id);
 
 	GLint success, info_log_length;
