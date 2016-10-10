@@ -24,8 +24,6 @@ addons:
 
 before_install:
   - sudo add-apt-repository ppa:apokluda/boost1.53 --yes
-  - sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ wily main restricted universe multiverse'
-  - sudo add-apt-repository 'deb http://us.archive.ubuntu.com/ubuntu/ wily-updates main restricted universe multiverse'
   - sudo apt-get update
 # GLFW 3.2.1 install
   - wget -O glfw-3.2.1.zip https://github.com/glfw/glfw/archive/3.2.1.zip
@@ -35,12 +33,18 @@ before_install:
   - make
   - sudo make install
   - cd ..
+# GLEW 1.13.0 install
+  - wget -O glew-1.13.0.zip https://github.com/nigels-com/glew/archive/glew-1.13.0.zip
+  - unzip glew-1.13.0.zip
+  - cd glew-glew-1.13.0
+  - make
+  - sudo make install
+  - cd ..
 
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
   - sudo apt-get install libboost-filesystem1.53-dev
-  - sudo apt-get install libglew-dev
 
 compiler:
   - gcc
