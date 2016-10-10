@@ -21,7 +21,7 @@ link_libraries(${assimp_LIBRARIES})
 
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
-link_libraries(${Freetype_LIBRARIES})
+link_libraries(${FREETYPE_LIBRARIES})
 
 file(GLOB_RECURSE SOURCES *.cpp)
 
