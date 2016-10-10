@@ -1,14 +1,20 @@
 language: cpp
 
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
+    packages:
+      - cmake
+      - cmake-data
+      - libglew-dev
+      - libglm-dev
+      - libboost-filesystem-dev
+      - libfreeimage-dev
+      - libassimp-dev
+      - libfreetype6-dev
+
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install --only-upgrade cmake
-  - sudo apt-get install -y libglew-dev
-  - sudo apt-get install -y libglm-dev
-  - sudo apt-get install -y libboost-filesystem-dev
-  - sudo apt-get install -y libfreeimage-dev
-  - sudo apt-get install -y libassimp-dev
-  - sudo apt-get install -y libfreetype6-dev
 # GLFW 3.2.1 install
   - wget -O glfw-3.2.1.zip https://github.com/glfw/glfw/archive/3.2.1.zip
   - unzip glfw-3.2.1.zip
