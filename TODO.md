@@ -2,6 +2,8 @@
 
 ## alpha 1.1.4
 * ~~OpenGL Debug callback~~
+* Add tangent, bi-tangent loading
+  * change all shader calculation to tangent space
 * Add normal mapping
 * Parallax displacement mapping
 * SkyBox, SkyDome
