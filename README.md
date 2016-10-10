@@ -8,7 +8,7 @@ develop
 [![Build Status](https://travis-ci.org/karol-gruszczyk/graphics-engine.svg?branch=develop)](https://travis-ci.org/karol-gruszczyk/graphics-engine)
 
 
-## Setup
+## Build
 
 ### Requirements
 
@@ -33,6 +33,13 @@ sudo apt-get install libglew-dev libglm-dev libboost-filesystem-dev libfreeimage
 ```bash
 sudo apt-get install libglfw3-dev
 ```
+
+### CMake
+```bash
+cmake .
+make
+```
+
 
 ## Utilized OpenGL features:
 * Vertex Buffer Objects

@@ -50,7 +50,7 @@ void idle()
 	int delay = (int) round(1e+6 / 60.f - std::chrono::duration_cast<std::chrono::microseconds>(
 			std::chrono::steady_clock::now() - last_frame_time).count());
 	if (delay > 0)
-		usleep((unsigned) delay);
+		std::this_thread::sleep_for(std::chrono::microseconds(delay));
 }
 
 void error_callback(int error, const char* description)
