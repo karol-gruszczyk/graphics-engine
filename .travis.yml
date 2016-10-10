@@ -2,6 +2,7 @@ language: cpp
 
 before_install:
   - sudo apt-get -qq update
+  - sudo apt-get -y dist-upgrade
   - sudo apt-get install -y libglew-dev
   - sudo apt-get install -y libglm-dev
   - sudo apt-get install -y libboost-filesystem-dev
