@@ -19,43 +19,43 @@ Box::Box(const glm::vec3& size)
 	0.f, height, length			// 7
 	*/
 	const float& width(size.x), & length(size.y), & height(size.z);
-	GLfloat vertex_data[] =  // position(3) | normal(3) | texture_coordinates(2)
+	Vertex3D vertex_data[] =  // position(3) | normal(3) | texture_coordinates(2)
 			{
 					// bottom
-					0.f, 0.f, 0.f, 0.f, -1.f, 0.f, 0.f, 0.f,                    // 0
-					width, 0.f, 0.f, 0.f, -1.f, 0.f, 1.f, 0.f,                // 1
-					0.f, 0.f, length, 0.f, -1.f, 0.f, 0.f, 1.f,               // 3
-					width, 0.f, length, 0.f, -1.f, 0.f, 1.f, 1.f,           // 2
+					{{ 0.f,   0.f,    0.f },    { 0.f,  -1.f, 0.f },  { 0.f, 0.f }},    // 0
+					{{ width, 0.f,    0.f },    { 0.f,  -1.f, 0.f },  { 1.f, 0.f }},    // 1
+					{{ 0.f,   0.f,    length }, { 0.f,  -1.f, 0.f },  { 0.f, 1.f }},    // 3
+					{{ width, 0.f,    length }, { 0.f,  -1.f, 0.f },  { 1.f, 1.f }},    // 2
 
 					// up
-					0.f, height, length, 0.f, 1.f, 0.f, 0.f, 0.f,           // 7
-					width, height, length, 0.f, 1.f, 0.f, 1.f, 0.f,       // 6
-					0.f, height, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,                // 4
-					width, height, 0.f, 0.f, 1.f, 0.f, 1.f, 1.f,            // 5
+					{{ 0.f,   height, length }, { 0.f,  1.f,  0.f },  { 0.f, 0.f }},    // 7
+					{{ width, height, length }, { 0.f,  1.f,  0.f },  { 1.f, 0.f }},    // 6
+					{{ 0.f,   height, 0.f },    { 0.f,  1.f,  0.f },  { 0.f, 1.f }},    // 4
+					{{ width, height, 0.f },    { 0.f,  1.f,  0.f },  { 1.f, 1.f }},    // 5
 
 					// front
-					width, height, length, 0.f, 0.f, 1.f, 1.f, 1.f,       // 6
-					0.f, height, length, 0.f, 0.f, 1.f, 0.f, 1.f,           // 7
-					width, 0.f, length, 0.f, 0.f, 1.f, 1.f, 0.f,            // 2
-					0.f, 0.f, length, 0.f, 0.f, 1.f, 0.f, 0.f,                // 3
+					{{ width, height, length }, { 0.f,  0.f,  1.f },  { 1.f, 1.f }},    // 6
+					{{ 0.f,   height, length }, { 0.f,  0.f,  1.f },  { 0.f, 1.f }},    // 7
+					{{ width, 0.f,    length }, { 0.f,  0.f,  1.f },  { 1.f, 0.f }},    // 2
+					{{ 0.f,   0.f,    length }, { 0.f,  0.f,  1.f },  { 0.f, 0.f }},    // 3
 
 					// back
-					0.f, 0.f, 0.f, 0.f, 0.f, -1.f, 1.f, 0.f,                    // 0
-					0.f, height, 0.f, 0.f, 0.f, -1.f, 1.f, 1.f,               // 4
-					width, 0.f, 0.f, 0.f, 0.f, -1.f, 0.f, 0.f,                // 1
-					width, height, 0.f, 0.f, 0.f, -1.f, 0.f, 1.f,           // 5
+					{{ 0.f,   0.f,    0.f },    { 0.f,  0.f,  -1.f }, { 1.f, 0.f }},    // 0
+					{{ 0.f,   height, 0.f },    { 0.f,  0.f,  -1.f }, { 1.f, 1.f }},    // 4
+					{{ width, 0.f,    0.f },    { 0.f,  0.f,  -1.f }, { 0.f, 0.f }},    // 1
+					{{ width, height, 0.f },    { 0.f,  0.f,  -1.f }, { 0.f, 1.f }},    // 5
 
 					// left
-					0.f, height, 0.f, -1.f, 0.f, 0.f, 0.f, 1.f,               // 4
-					0.f, 0.f, 0.f, -1.f, 0.f, 0.f, 0.f, 0.f,                    // 0
-					0.f, height, length, -1.f, 0.f, 0.f, 1.f, 1.f,          // 7
-					0.f, 0.f, length, -1.f, 0.f, 0.f, 1.f, 0.f,               // 3
+					{{ 0.f,   height, 0.f },    { -1.f, 0.f,  0.f },  { 0.f, 1.f }},    // 4
+					{{ 0.f,   0.f,    0.f },    { -1.f, 0.f,  0.f },  { 0.f, 0.f }},    // 0
+					{{ 0.f,   height, length }, { -1.f, 0.f,  0.f },  { 1.f, 1.f }},    // 7
+					{{ 0.f,   0.f,    length }, { -1.f, 0.f,  0.f },  { 1.f, 0.f }},    // 3
 
 					// right
-					width, height, 0.f, 1.f, 0.f, 0.f, 1.f, 1.f,            // 5
-					width, height, length, 1.f, 0.f, 0.f, 0.f, 1.f,       // 6
-					width, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,                 // 1
-					width, 0.f, length, 1.f, 0.f, 0.f, 0.f, 0.f,            // 2
+					{{ width, height, 0.f },    { 1.f,  0.f,  0.f },  { 1.f, 1.f }},    // 5
+					{{ width, height, length }, { 1.f,  0.f,  0.f },  { 0.f, 1.f }},    // 6
+					{{ width, 0.f,    0.f },    { 1.f,  0.f,  0.f },  { 1.f, 0.f }},    // 1
+					{{ width, 0.f,    length }, { 1.f,  0.f,  0.f },  { 0.f, 0.f }},    // 2
 			};
 	GLushort indices[] =
 			{

@@ -14,6 +14,12 @@ namespace bauasian
 class bauasian::Entity2D : public Renderable, public AffineTransformations2D
 {
 public:
+	struct Vertex2D
+	{
+		glm::vec2 position;
+		glm::vec2 uv;
+	};
+
 	Entity2D(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type);
 
 	virtual void setMaterial(BasicMaterial* material);

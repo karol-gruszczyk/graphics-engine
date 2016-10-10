@@ -6,12 +6,12 @@ using bauasian::ScreenQuad;
 ScreenQuad::ScreenQuad()
 		: Renderable(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT)
 {
-	GLfloat vertices[] =
+	GLfloat vertices[][2][2] =
 			{
-					1.f, -1.f, 1.f, 0.f,
-					-1.f, -1.f, 0.f, 0.f,
-					1.f, 1.f, 1.f, 1.f,
-					-1.f, 1.f, 0.f, 1.f
+					{{ 1.f,  -1.f }, { 1.f, 0.f }},
+					{{ -1.f, -1.f }, { 0.f, 0.f }},
+					{{ 1.f,  1.f },  { 1.f, 1.f }},
+					{{ -1.f, 1.f },  { 0.f, 1.f }},
 			};
 	GLushort indices[] =
 			{

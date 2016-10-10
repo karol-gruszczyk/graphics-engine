@@ -17,6 +17,13 @@ class bauasian::Entity3D : public Renderable, public RenderableStats, public Aff
                            public NameInterface
 {
 public:
+	struct Vertex3D
+	{
+		glm::vec3 postion;
+		glm::vec3 normal;
+		glm::vec2 uv;
+	};
+
 	Entity3D(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type,
 	         const unsigned& num_vertices, const unsigned& num_faces);
 
