@@ -1,6 +1,8 @@
 #ifndef BAUASIAN_CAMERA_HPP
 #define BAUASIAN_CAMERA_HPP
 
+#include "bauasian/interfaces/name_interface.hpp"
+
 #include <glm/glm.hpp>
 
 
@@ -9,7 +11,7 @@ namespace bauasian
 	class Camera;
 }
 
-class bauasian::Camera final
+class bauasian::Camera final : public NameInterface
 {
 public:
 	Camera(const glm::vec3& position = { 0.f, 0.f, 0.f }, const glm::vec3& rotation = { 0.f, 0.f, 0.f });

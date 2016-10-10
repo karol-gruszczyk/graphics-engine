@@ -1,6 +1,8 @@
 #ifndef BAUASIAN_AFFINE_TRANSFORMATIONS_3D_HPP
 #define BAUASIAN_AFFINE_TRANSFORMATIONS_3D_HPP
 
+#include <list>
+
 #include <glm/glm.hpp>
 
 
@@ -24,7 +26,11 @@ public:
 	virtual void setPivot(const glm::vec3& pivot);
 
 	virtual const glm::mat4& getModelMatrix() const;
+	virtual void setModelMatrix(const glm::mat4& matrix);
 	virtual const glm::mat4 getNormalMatrix() const;
+
+	void addChild(AffineTransformations3D* entity);
+
 protected:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;
@@ -32,6 +38,8 @@ protected:
 	glm::vec3 m_pivot;
 
 	glm::mat4 m_model_matrix;
+
+	std::list<AffineTransformations3D*> m_children;
 
 };
 

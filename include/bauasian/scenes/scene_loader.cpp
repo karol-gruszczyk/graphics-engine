@@ -6,7 +6,6 @@
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include <iostream>
 
 
 using bauasian::SceneLoader;
@@ -53,8 +52,6 @@ SceneLoader::~SceneLoader()
 		delete light;
 	for (auto& light : m_spot_lights)
 		delete light;
-	for (auto& camera : m_cameras)
-		delete camera;
 }
 
 const std::list<Mesh*>& SceneLoader::getMeshes() const
@@ -127,7 +124,9 @@ void SceneLoader::processNode(aiNode* node, const aiScene* scene)
 	for (unsigned i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		m_meshes.push_back(processMesh(mesh));
+		auto processed_mesh = processMesh(mesh);
+		processed_mesh->setName(node->mName.C_Str());
+		m_meshes.push_back(processed_mesh);
 	}
 
 	for (unsigned i = 0; i < node->mNumChildren; i++)
@@ -180,7 +179,9 @@ void SceneLoader::processCameras(const aiScene* scene)
 	{
 		const auto& camera = scene->mCameras[i];
 		auto vec3 = [](const aiVector3D& x) -> glm::vec3 { return { x.x, x.y, x.z }; };
-		m_cameras.push_back(new Camera(vec3(camera->mPosition)));
+		auto cam = new Camera(vec3(camera->mPosition));
+		cam->setName(camera->mName.C_Str());
+		m_cameras.push_back(cam);
 	}
 }
 

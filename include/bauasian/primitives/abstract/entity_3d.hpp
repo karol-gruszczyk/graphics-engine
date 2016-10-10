@@ -5,6 +5,7 @@
 #include "renderable_stats.hpp"
 #include "affine_transformations_3d.hpp"
 #include "bauasian/materials/material.hpp"
+#include "bauasian/interfaces/name_interface.hpp"
 
 
 namespace bauasian
@@ -12,7 +13,8 @@ namespace bauasian
 	class Entity3D;
 }
 
-class bauasian::Entity3D : public Renderable, public RenderableStats, public AffineTransformations3D
+class bauasian::Entity3D : public Renderable, public RenderableStats, public AffineTransformations3D,
+                           public NameInterface
 {
 public:
 	Entity3D(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type,

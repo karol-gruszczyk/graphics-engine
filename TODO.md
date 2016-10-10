@@ -3,6 +3,7 @@
 ## alpha 1.1.4
 * ~~OpenGL Debug callback~~
 * Add normal mapping
+* Parallax displacement mapping
 * SkyBox, SkyDome
 * AntiAliasing:
   * FXAA
@@ -13,6 +14,10 @@
 * ~~OpenGL extension class~~
 
 ## alpha 1.1.5
+* Rendering detail settings
+  * anisotropy
+  * mipmap level
+  * filter type
 * Blinn-Phong
 * Stencil Shadow Volume
 
@@ -33,4 +38,4 @@
 ...
 
 ## bugs
-...
+* Random Text artifacts

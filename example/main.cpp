@@ -33,7 +33,7 @@ Texture* box_texture, * tile_texture;
 Text* fps_text, * stat_text, * loading_text;
 
 float counter;
-bool button_pressed[128], mouse_button_pressed;
+bool mouse_button_pressed;
 double last_mouse_x, last_mouse_y;
 
 
@@ -67,14 +67,8 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	if (action == GLFW_PRESS)
-	{
-		if (key == GLFW_KEY_ESCAPE)
-			glfwSetWindowShouldClose(window, GL_TRUE);
-		button_pressed[toupper(key)] = true;
-	}
-	else if (action == GLFW_RELEASE)
-		button_pressed[toupper(key)] = false;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -103,17 +97,17 @@ void mouse_pos_callback(GLFWwindow* window, double x, double y)
 void updateCameraPosition()
 {
 	const float speed = 1.f;
-	if (button_pressed['A'])
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		camera->moveRight(-speed);
-	if (button_pressed['D'])
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera->moveRight(speed);
-	if (button_pressed['W'])
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		camera->moveForward(speed);
-	if (button_pressed['S'])
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		camera->moveForward(-speed);
-	if (button_pressed['Q'])
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
 		camera->rotate({ 0.f, 0.f, -0.01f });
-	if (button_pressed['E'])
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 		camera->rotate({ 0.f, 0.f, 0.01f });
 }
 
@@ -185,7 +179,6 @@ void setup()
 	plane->setPosition({ -100.f, 0.f, -100.f });
 	plane->setMaterial(tile_material);
 	scene3d = new Scene3D();
-	camera = scene3d->addCamera(Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f }));
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
 	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
@@ -197,17 +190,22 @@ void setup()
 
 	try
 	{
-		//scene3d->loadFromFile("res/rocks/rock_c_01.obj");
-		scene3d->loadFromFile("res/sponza/sponza.obj");
-		//scene3d->loadFromFile("res/crytek/sponza.obj");
-		//scene3d->loadFromFile("res/cs_office.obj", true);
+		//scene3d->loadFromFile("res/sibenik/sibenik.obj");
+		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_0.obj");
+		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
+		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
+		//scene3d->loadFromFile("res/sponza/sponza.obj");
+		//scene3d->loadFromFile("res/crytek/sponza2.obj");
+		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
-		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
+		scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
 	}
 	catch (FileNotFoundException& e)
 	{
 		Bauasian::getInstance().logError(e.what());
 	}
+	scene3d->addCamera(new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f }));
+	camera = scene3d->getCamera();
 
 	fps_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14));
 	fps_text->setPosition({ 0, 14 });

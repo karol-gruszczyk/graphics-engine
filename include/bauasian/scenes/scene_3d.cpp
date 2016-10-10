@@ -13,6 +13,8 @@ Scene3D::~Scene3D()
 {
 	for (auto& entity : m_entities)
 		delete entity;
+	for (auto& camera : m_cameras)
+		delete camera;
 }
 
 Camera* Scene3D::getCamera()
@@ -25,12 +27,11 @@ void Scene3D::setCamera(Camera* camera)
 	m_current_camera = camera;
 }
 
-Camera* Scene3D::addCamera(const Camera& camera)
+void Scene3D::addCamera(Camera* camera)
 {
 	m_cameras.push_back(camera);
 	if (!m_current_camera)
-		setCamera(&m_cameras.front());
-	return &m_cameras.front();
+		setCamera(m_cameras.front());
 }
 
 void Scene3D::addLight(const DirectionalLight& directional_light)
@@ -71,7 +72,7 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 	for (auto mesh : loader->getMeshes())
 		addEntity(mesh);
 	for (auto camera : loader->getCameras())
-		addCamera(*camera);
+		addCamera(camera);
 	for (auto light : loader->getDirectionalLights())
 		addLight(*light);
 	for (auto light : loader->getPointLights())

@@ -23,7 +23,7 @@ public:
 
 	Camera* getCamera();
 	void setCamera(Camera* camera);
-	Camera* addCamera(const Camera& camera);
+	void addCamera(Camera* camera);
 	void addEntity(Entity3D* entity);
 	void addLight(const DirectionalLight& directional_light);
 	void addLight(const PointLight& point_light);
@@ -36,7 +36,7 @@ public:
 
 private:
 	Camera* m_current_camera;
-	std::vector<Camera> m_cameras;
+	std::vector<Camera*> m_cameras;
 	std::list<Entity3D*> m_entities;
 	std::vector<DirectionalLight> m_directional_lights;
 	std::vector<PointLight> m_point_lights;
