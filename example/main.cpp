@@ -160,7 +160,7 @@ void setup()
 	basic_tile_material = new BasicMaterial(tile_texture);
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	//scene2d->addEntity(rect);
+	scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
@@ -185,7 +185,7 @@ void setup()
 	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
 	SpotLight spot_light({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
 	scene3d->addLight(dir_light);
-	scene3d->addLight(point_light);
+	//scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
 
 	try
@@ -198,13 +198,15 @@ void setup()
 		//scene3d->loadFromFile("res/crytek/sponza2.obj");
 		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
-		scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
+		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
+		//scene3d->loadFromFile("res/AC Cobra/Shelby.fbx");
 	}
 	catch (FileNotFoundException& e)
 	{
 		Bauasian::getInstance().logError(e.what());
 	}
-	scene3d->addCamera(new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f }));
+	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
+	scene3d->addCamera(camera);
 	camera = scene3d->getCamera();
 
 	fps_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14));
