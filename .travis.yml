@@ -37,6 +37,7 @@ before_install:
   - wget -O glew-1.13.0.zip https://github.com/nigels-com/glew/archive/glew-1.13.0.zip
   - unzip glew-1.13.0.zip
   - cd glew-glew-1.13.0
+  - make extensions
   - make
   - sudo make install
   - cd ..
