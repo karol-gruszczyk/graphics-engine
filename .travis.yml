@@ -34,6 +34,7 @@ before_install:
   - sudo make install
   - cd ..
 # GLEW 1.13.0 install
+  - sudo apt-get install build-essential libXmu-dev libXi-dev libgl-dev git cmake
   - wget -O glew-1.13.0.zip https://github.com/nigels-com/glew/archive/glew-1.13.0.zip
   - unzip glew-1.13.0.zip
   - cd glew-glew-1.13.0
