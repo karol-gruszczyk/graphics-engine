@@ -120,12 +120,12 @@ void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& g
 	GLubyte* atlas_pixels = new GLubyte[atlas_width * atlas_height];
 	std::memset(atlas_pixels, 0, atlas_width * atlas_height * sizeof(GLubyte));
 	unsigned current_row(0), current_column(0);
-	for (auto i = 0; i < num_glyphs; i++)
+	for (unsigned i = 0; i < num_glyphs; i++)
 	{
 		const auto& glyph = glyph_bitmaps[i];
-		for (auto h = 0; h < glyph.size.y; h++)
+		for (unsigned h = 0; h < glyph.size.y; h++)
 		{
-			for (auto w = 0; w < glyph.size.x; w++)
+			for (unsigned w = 0; w < glyph.size.x; w++)
 			{
 				auto offset = current_row * glyph_height * atlas_width
 				              + current_column * glyph_width;
@@ -154,9 +154,9 @@ void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& g
 	}
 
 	// inverting all pixels vertically
-	for (auto i = 0; i < atlas_height / 2; i++)
+	for (unsigned i = 0; i < atlas_height / 2; i++)
 	{
-		for (auto j = 0; j < atlas_width; j++)
+		for (unsigned j = 0; j < atlas_width; j++)
 			std::swap(atlas_pixels[i * atlas_width + j], atlas_pixels[(atlas_height - i - 1) * atlas_width + j]);
 	}
 	m_glyph_atlas = new Texture(atlas_width, atlas_height, atlas_pixels, GL_RED, GL_RED, true);

@@ -25,10 +25,10 @@ public:
 	void render() const override;
 
 private:
+	Font* m_font;
 	std::string m_text;
 	glm::vec3 m_color;
 	unsigned m_font_size;
-	Font* m_font;
 
 	GLint m_location_text_color;
 	GLint m_location_model_matrix;

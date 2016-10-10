@@ -22,8 +22,9 @@ public:
 protected:
 	GLuint m_vao_id;
 	GLuint m_vbo_ids[2];
-	GLenum m_elements_mode, m_elements_type;
+	GLenum m_elements_mode;
 	GLsizei m_elements_count;
+	GLenum m_elements_type;
 
 	void updateVertexBuffer(const GLsizeiptr& size, const void* data,
 	                        const std::vector<unsigned>& offsets, const GLenum& draw_type) const;

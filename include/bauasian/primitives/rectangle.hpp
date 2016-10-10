@@ -15,7 +15,7 @@ public:
 	Rectangle(const glm::vec2& size);
 
 protected:
-	GLfloat m_length, m_width;
+	GLfloat m_width, m_length;
 };
 
 #endif /* BAUASIAN_RECTANGLE_HPP */

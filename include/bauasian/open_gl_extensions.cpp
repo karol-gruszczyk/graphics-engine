@@ -34,9 +34,9 @@ void OpenGLExtensions::loadSupportedExtensions()
 {
 	GLint num_extensions;
 	glGetIntegerv(GL_NUM_EXTENSIONS, &num_extensions);
-	for (GLuint i = 0; i < num_extensions; i++)
+	for (GLint i = 0; i < num_extensions; i++)
 	{
-		const std::string extension = reinterpret_cast<const char*>(glGetStringi(GL_EXTENSIONS, i));
+		const std::string extension = reinterpret_cast<const char*>(glGetStringi(GL_EXTENSIONS, (GLuint) i));
 		m_extension_names.insert(extension);
 	}
 

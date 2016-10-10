@@ -22,7 +22,7 @@ class bauasian::Font : public bauasian::ContextSizeInterface
 public:
 	Font(const unsigned& font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas,
 	     const int& line_spacing);
-	~Font();
+	virtual ~Font();
 
 	static void loadShader();
 	static void unloadShader();
@@ -37,8 +37,8 @@ private:
 
 	unsigned m_font_size;
 	std::map<char, Glyph*> m_glyphs;
-	GLint m_line_spacing;
 	Texture* m_glyph_atlas = nullptr;
+	GLint m_line_spacing;
 
 	void updateContextSize() override;
 };

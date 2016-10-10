@@ -196,7 +196,7 @@ void SceneLoader::processCameras(const aiScene* scene)
 
 void SceneLoader::processLights(const aiScene* scene)
 {
-	for (auto i = 0; i < scene->mNumLights; i++)
+	for (unsigned i = 0; i < scene->mNumLights; i++)
 	{
 		const auto& light = scene->mLights[i];
 		auto vec3 = [](const aiVector3D& x) -> const glm::vec3 { return glm::vec3(x.x, x.y, x.z); };
