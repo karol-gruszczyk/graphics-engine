@@ -144,23 +144,14 @@ void setup()
 	//renderer3d->addFilter(new KernelFilter(KernelFilter::GRADIENT_DETECTION_VERTICAL));
 	//renderer3d->addFilter(new LargeKernelFilter(LargeKernelFilter::GAUSSIAN_BLUR));
 
-	try
-	{
-		tile_texture = TextureFactory::getInstance().getTexture("res/tile.jpg");
-	}
-	catch (FileNotFoundException& e)
-	{
-		Bauasian::getInstance().logError(e.what());
-	}
-
 	// 2D
 	rect = new Rectangle(glm::vec2(300.f, 300.f));
 	rect->setPosition({ 400.f, 300.f });
 	rect->setPivot({ 150.f, 150.f });
-	basic_tile_material = new BasicMaterial(tile_texture);
+	basic_tile_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/tile.jpg"));
 	rect->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	scene2d->addEntity(rect);
+	//scene2d->addEntity(rect);
 
 	// 3D
 	box_material = new Material();
@@ -168,8 +159,8 @@ void setup()
 	box_material->setAmbient(TextureFactory::getInstance().getTexture("res/planks.jpg"));
 	box_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/planks_normal.jpg"));
 	tile_material = new Material();
-	tile_material->setAmbient(tile_texture);
-	tile_material->setDiffuse(tile_texture);
+	tile_material->setAmbient(TextureFactory::getInstance().getTexture("res/tile.jpg"));
+	tile_material->setDiffuse(TextureFactory::getInstance().getTexture("res/tile.jpg"));
 	tile_material->setShininess(32);
 	box = new Box(glm::vec3(5.f, 5.f, 5.f));
 	box->setPosition({ 20.f, 2.5f, 10.f });
@@ -179,14 +170,14 @@ void setup()
 	plane->setPosition({ -100.f, 0.f, -100.f });
 	plane->setMaterial(tile_material);
 	scene3d = new Scene3D();
-	scene3d->addEntity(box);
-	scene3d->addEntity(plane);
+	//scene3d->addEntity(box);
+	//scene3d->addEntity(plane);
 	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
 	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
 	SpotLight spot_light({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
 	scene3d->addLight(dir_light);
 	//scene3d->addLight(point_light);
-	scene3d->addLight(spot_light);
+	//scene3d->addLight(spot_light);
 
 	try
 	{
@@ -194,12 +185,12 @@ void setup()
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_0.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
-		//scene3d->loadFromFile("res/sponza/sponza.obj");
+		scene3d->loadFromFile("res/sponza/sponza.3ds");
 		//scene3d->loadFromFile("res/crytek/sponza2.obj");
 		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
-		//scene3d->loadFromFile("res/AC Cobra/Shelby.fbx");
+		//scene3d->loadFromFile("res/san miguel/sanMiguel.obj");
 	}
 	catch (FileNotFoundException& e)
 	{

@@ -80,6 +80,16 @@ const std::list<SpotLight*>& SceneLoader::getSpotLights() const
 	return m_spot_lights;
 }
 
+const glm::vec3 SceneLoader::to_vec(const aiVector3D& v)
+{
+	return glm::vec3(v.x, v.y, v.z);
+}
+
+const glm::vec3 SceneLoader::to_vec(const aiColor3D& v)
+{
+	return glm::vec3(v.r, v.g, v.b);
+}
+
 void SceneLoader::processMaterials(const aiScene* scene)
 {
 	for (unsigned i = 0; i < scene->mNumMaterials; i++)
@@ -145,25 +155,18 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 {
 	unsigned num_vertices(mesh->mNumVertices), num_indices(mesh->mNumFaces * 3);
 	bool has_texture_coordinates = mesh->HasTextureCoords(0);
-	const unsigned floats_per_vertex = 3 + 3 + 2;
-	float* vertex_data = new float[num_vertices * floats_per_vertex];
+	Entity3D::Vertex3D* vertex_data = new Entity3D::Vertex3D[num_vertices];
 	unsigned* indices = new unsigned[num_indices];
-
 
 	for (unsigned i = 0; i < num_vertices; i++)
 	{
-		vertex_data[i * floats_per_vertex + 0] = mesh->mVertices[i].x;
-		vertex_data[i * floats_per_vertex + 1] = mesh->mVertices[i].y;
-		vertex_data[i * floats_per_vertex + 2] = mesh->mVertices[i].z;
-
-		vertex_data[i * floats_per_vertex + 3] = mesh->mNormals[i].x;
-		vertex_data[i * floats_per_vertex + 4] = mesh->mNormals[i].y;
-		vertex_data[i * floats_per_vertex + 5] = mesh->mNormals[i].z;
+		vertex_data[i].postion = to_vec(mesh->mVertices[i]);
+		vertex_data[i].normal = to_vec(mesh->mNormals[i]);
 
 		if (has_texture_coordinates)
 		{
-			vertex_data[i * floats_per_vertex + 6] = mesh->mTextureCoords[0][i].x;
-			vertex_data[i * floats_per_vertex + 7] = mesh->mTextureCoords[0][i].y;
+			vertex_data[i].uv.x = mesh->mTextureCoords[0][i].x;
+			vertex_data[i].uv.y = mesh->mTextureCoords[0][i].y;
 		}
 	}
 	for (unsigned i = 0; i < mesh->mNumFaces; i++)
@@ -186,8 +189,7 @@ void SceneLoader::processCameras(const aiScene* scene)
 	for (unsigned i = 0; i < scene->mNumCameras; i++)
 	{
 		const auto& camera = scene->mCameras[i];
-		auto vec3 = [](const aiVector3D& x) -> glm::vec3 { return { x.x, x.y, x.z }; };
-		glm::mat4 view_matrix = glm::lookAt(vec3(camera->mPosition), vec3(camera->mLookAt), vec3(camera->mUp));
+		glm::mat4 view_matrix = glm::lookAt(to_vec(camera->mPosition), to_vec(camera->mLookAt), to_vec(camera->mUp));
 		auto cam = new Camera(view_matrix);
 		cam->setName(camera->mName.C_Str());
 		m_cameras.push_back(cam);
@@ -199,30 +201,28 @@ void SceneLoader::processLights(const aiScene* scene)
 	for (unsigned i = 0; i < scene->mNumLights; i++)
 	{
 		const auto& light = scene->mLights[i];
-		auto vec3 = [](const aiVector3D& x) -> const glm::vec3 { return glm::vec3(x.x, x.y, x.z); };
-		auto col3 = [](const aiColor3D& x) -> const glm::vec3 { return glm::vec3(x.r, x.g, x.b); };
 		if (light->mType == aiLightSource_DIRECTIONAL)
 		{
-			auto dir = new DirectionalLight(vec3(light->mDirection));
-			dir->setColor(col3(light->mColorAmbient), col3(light->mColorDiffuse), col3(light->mColorSpecular));
+			auto dir = new DirectionalLight(to_vec(light->mDirection));
+			dir->setColor(to_vec(light->mColorAmbient), to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
 			m_directional_lights.push_back(dir);
 			break;
 		}
 		else if (light->mType == aiLightSource_POINT)
 		{
 			auto point = new PointLight(
-					vec3(light->mPosition),
+					to_vec(light->mPosition),
 					{ light->mAttenuationConstant, light->mAttenuationLinear, light->mAttenuationQuadratic });
-			point->setColor(col3(light->mColorAmbient), col3(light->mColorDiffuse), col3(light->mColorSpecular));
+			point->setColor(to_vec(light->mColorAmbient), to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
 			m_point_lights.push_back(point);
 		}
 		else if (light->mType == aiLightSource_SPOT)
 		{
 			auto spot = new SpotLight(
-					vec3(light->mPosition), vec3(light->mDirection),
+					to_vec(light->mPosition), to_vec(light->mDirection),
 					{ light->mAttenuationConstant, light->mAttenuationLinear, light->mAttenuationQuadratic },
 					light->mAngleInnerCone, light->mAngleOuterCone);
-			spot->setColor(col3(light->mColorAmbient), col3(light->mColorDiffuse), col3(light->mColorSpecular));
+			spot->setColor(to_vec(light->mColorAmbient), to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
 			m_point_lights.push_back(spot);
 		}
 	}
