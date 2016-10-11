@@ -2,11 +2,10 @@
 
 ## alpha 1.1.4
 * ~~OpenGL Debug callback~~
-* Add tangent, bi-tangent loading
-  * change all shader calculation to tangent space
-* Add normal mapping
+* ~~Add normal mapping~~
 * Parallax displacement mapping
 * SkyBox, SkyDome
+* Blinn-Phong
 * AntiAliasing:
   * FXAA
 * ~~Improve scene loader:~~
@@ -16,11 +15,11 @@
 * ~~OpenGL extension class~~
 
 ## alpha 1.1.5
+* Deferred rendering
 * Rendering detail settings
   * anisotropy
   * mipmap level
   * filter type
-* Blinn-Phong
 * Stencil Shadow Volume
 
 ## non-release
