@@ -32,7 +32,7 @@ std::shared_ptr<Material> brick_material, tile_material;
 Text* fps_text, * stat_text, * loading_text;
 
 float counter;
-bool mouse_button_pressed, accelerate;
+bool mouse_button_pressed, accelerate, wireframe;
 double last_mouse_x, last_mouse_y;
 
 
@@ -70,6 +70,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	if (key == GLFW_KEY_LEFT_SHIFT)
 		accelerate = action != GLFW_RELEASE;
+	if (key == GLFW_KEY_F3)
+	{
+		if (action == GLFW_PRESS)
+		{
+			wireframe = !wireframe;
+			Bauasian::getInstance().setWireframe(wireframe);
+		}
+
+	}
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)

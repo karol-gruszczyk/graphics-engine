@@ -99,6 +99,14 @@ void Bauasian::initialize(std::streambuf* ostream, std::streambuf* err_ostream)
 	init();
 }
 
+void Bauasian::setWireframe(const bool& enabled)
+{
+	if (enabled)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
 void Bauasian::logInfo(const std::string& message) const
 {
 	*m_logger << s_log_level_string[INFO] << message << std::endl;
