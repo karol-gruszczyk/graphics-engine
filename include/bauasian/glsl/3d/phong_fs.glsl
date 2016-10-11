@@ -4,6 +4,7 @@
 in vec3 position;
 in vec2 texture_coord;
 in vec3 normal;
+in mat3 tbn;
 
 out vec4 out_color;
 
@@ -24,6 +25,7 @@ layout(std140) uniform Material
 uniform sampler2D ambient_texture;
 uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
+uniform sampler2D normal_texture;
 
 layout(std140) uniform SceneBuffer
 {
@@ -39,6 +41,7 @@ layout(std140) uniform SceneBuffer
 vec3 fragment_ambient_color;
 vec3 fragment_diffuse_color;
 vec3 fragment_specular_color;
+vec3 fragment_normal;
 
 void setFragmentColors(vec2 texture_coord);
 vec3 processAmbientLight(vec3 light_color);
@@ -80,6 +83,11 @@ void setFragmentColors(vec2 texture_coord)
 		fragment_specular_color = texture2D(specular_texture, texture_coord).rgb;
 	else
 	    fragment_specular_color = material.specular_color.rgb;
+
+	if (material.use_normal_texture == 1)
+		fragment_normal = tbn * (texture2D(normal_texture, texture_coord).rgb * 2.f - 1.f);
+	else
+	    fragment_normal = normal;
 }
 
 vec3 processAmbientLight(vec3 light_color)
@@ -89,7 +97,7 @@ vec3 processAmbientLight(vec3 light_color)
 
 vec3 processDiffuseLight(vec3 light_ray_direction, vec3 light_color)
 {
-	return max(dot(normal, light_ray_direction), 0.f) * light_color * fragment_diffuse_color;
+	return max(dot(fragment_normal, light_ray_direction), 0.f) * light_color * fragment_diffuse_color;
 }
 
 vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color)
@@ -97,7 +105,7 @@ vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color)
 	if (material.shininess == 0)
 		return vec3(0.f, 0.f, 0.f);
 	vec3 view_dir = normalize(camera_position - position);
-	vec3 reflect_dir = reflect(-light_ray_direction, normal);
+	vec3 reflect_dir = reflect(-light_ray_direction, fragment_normal);
 	return pow(max(dot(view_dir, reflect_dir), 0.0), material.shininess) * light_color * fragment_specular_color;
 }
 

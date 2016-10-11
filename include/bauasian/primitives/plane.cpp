@@ -19,9 +19,10 @@ Plane::Plane(const glm::vec2& size, const unsigned& tile /* = 1 */)
 			{
 					0, 1, 2, 3
 			};
+	calculateTangents(vertex_data, indices, 4);
 
 	glBindVertexArray(m_vao_id);
-	updateVertexBuffer(sizeof(vertex_data), vertex_data, { 3, 3, 2 }, GL_STATIC_DRAW);
+	updateVertexBuffer(sizeof(vertex_data), vertex_data, Entity3D::Vertex3D::offsets, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }
 

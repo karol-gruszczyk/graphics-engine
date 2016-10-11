@@ -160,7 +160,7 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 
 	for (unsigned i = 0; i < num_vertices; i++)
 	{
-		vertex_data[i].postion = to_vec(mesh->mVertices[i]);
+		vertex_data[i].position = to_vec(mesh->mVertices[i]);
 		vertex_data[i].normal = to_vec(mesh->mNormals[i]);
 
 		if (has_texture_coordinates)

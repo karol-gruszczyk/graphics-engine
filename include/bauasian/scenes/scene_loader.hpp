@@ -37,8 +37,8 @@ private:
 	std::list<PointLight*> m_point_lights;
 	std::list<SpotLight*> m_spot_lights;
 
-	static const glm::vec3 to_vec(const aiVector3D& v);
-	static const glm::vec3 to_vec(const aiColor3D& v);
+	static inline const glm::vec3 to_vec(const aiVector3D& v);
+	static inline const glm::vec3 to_vec(const aiColor3D& v);
 
 	void processMaterials(const aiScene* scene);
 	std::shared_ptr<Material> processMaterial(const aiMaterial* material);

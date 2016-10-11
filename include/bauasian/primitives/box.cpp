@@ -7,7 +7,7 @@ using bauasian::Box;
 Box::Box(const glm::vec3& size)
 		: Entity3D(GL_TRIANGLE_STRIP, 29, GL_UNSIGNED_SHORT, 24, 6), m_size(size)
 {
-	/* VERTIVES:
+	/* VERTICES:
 	0.f, 0.f, 0.f,					// 0
 	width, 0.f, 0.f,				// 1
 	width, 0.f, length,			// 2
@@ -66,9 +66,10 @@ Box::Box(const glm::vec3& size)
 					16, 17, 18, 19, 0xFFFF,     // left
 					20, 21, 22, 23              // right
 			};
+	calculateTangents(vertex_data, indices, sizeof(indices) / sizeof(indices[0]));
 
 	glBindVertexArray(m_vao_id);
-	updateVertexBuffer(sizeof(vertex_data), vertex_data, { 3, 3, 2 }, GL_STATIC_DRAW);
+	updateVertexBuffer(sizeof(vertex_data), vertex_data, Entity3D::Vertex3D::offsets, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }
 

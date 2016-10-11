@@ -19,9 +19,13 @@ class bauasian::Entity3D : public Renderable, public RenderableStats, public Aff
 public:
 	struct Vertex3D
 	{
-		glm::vec3 postion;
+		glm::vec3 position;
 		glm::vec3 normal;
 		glm::vec2 uv;
+		glm::vec3 tangent;
+		glm::vec3 bi_tangent;
+
+		static const std::vector<unsigned> offsets;
 	};
 
 	Entity3D(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type,
@@ -33,6 +37,8 @@ public:
 
 protected:
 	std::shared_ptr<Material> m_material;
+
+	static void calculateTangents(Vertex3D* vertices, const unsigned short* indices, const unsigned& num_indices);
 
 };
 

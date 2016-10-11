@@ -28,8 +28,7 @@ Rectangle* rect, * loading_rect;
 Plane* plane;
 Box* box;
 BasicMaterial* basic_tile_material;
-Material* box_material, * tile_material;
-Texture* box_texture, * tile_texture;
+std::shared_ptr<Material> brick_material, tile_material;
 Text* fps_text, * stat_text, * loading_text;
 
 float counter;
@@ -154,30 +153,33 @@ void setup()
 	//scene2d->addEntity(rect);
 
 	// 3D
-	box_material = new Material();
-	box_material->setDiffuse(TextureFactory::getInstance().getTexture("res/planks.jpg"));
-	box_material->setAmbient(TextureFactory::getInstance().getTexture("res/planks.jpg"));
-	box_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/planks_normal.jpg"));
-	tile_material = new Material();
+	brick_material = std::make_shared<Material>();
+	brick_material->setAmbient(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
+	brick_material->setDiffuse(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
+	brick_material->setSpecular(TextureFactory::getInstance().getTexture("res/brick-specular.png"));
+	brick_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/brick-normal.png"));
+	brick_material->setShininess(12);
+
+	tile_material = std::make_shared<Material>();
 	tile_material->setAmbient(TextureFactory::getInstance().getTexture("res/tile.jpg"));
 	tile_material->setDiffuse(TextureFactory::getInstance().getTexture("res/tile.jpg"));
 	tile_material->setShininess(32);
 	box = new Box(glm::vec3(5.f, 5.f, 5.f));
 	box->setPosition({ 20.f, 2.5f, 10.f });
 	box->setPivot({ 2.5f, 2.5f, 2.5f });
-	box->setMaterial(box_material);
+	box->setMaterial(brick_material);
 	plane = new Plane({ 200.f, 200.f }, 100);
 	plane->setPosition({ -100.f, 0.f, -100.f });
-	plane->setMaterial(tile_material);
+	plane->setMaterial(brick_material);
 	scene3d = new Scene3D();
-	//scene3d->addEntity(box);
-	//scene3d->addEntity(plane);
+	scene3d->addEntity(box);
+	scene3d->addEntity(plane);
 	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
 	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
 	SpotLight spot_light({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
 	scene3d->addLight(dir_light);
-	//scene3d->addLight(point_light);
-	//scene3d->addLight(spot_light);
+	scene3d->addLight(point_light);
+	scene3d->addLight(spot_light);
 
 	try
 	{
@@ -185,12 +187,11 @@ void setup()
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_0.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
-		scene3d->loadFromFile("res/sponza/sponza.3ds");
+		//scene3d->loadFromFile("res/sponza/sponza.3ds");
 		//scene3d->loadFromFile("res/crytek/sponza2.obj");
 		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
-		//scene3d->loadFromFile("res/san miguel/sanMiguel.obj");
 	}
 	catch (FileNotFoundException& e)
 	{
