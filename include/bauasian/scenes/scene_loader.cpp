@@ -155,6 +155,7 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 {
 	unsigned num_vertices(mesh->mNumVertices), num_indices(mesh->mNumFaces * 3);
 	bool has_texture_coordinates = mesh->HasTextureCoords(0);
+	bool has_tangents = mesh->HasTangentsAndBitangents();
 	Entity3D::Vertex3D* vertex_data = new Entity3D::Vertex3D[num_vertices];
 	unsigned* indices = new unsigned[num_indices];
 
@@ -167,6 +168,12 @@ Mesh* SceneLoader::processMesh(aiMesh* mesh)
 		{
 			vertex_data[i].uv.x = mesh->mTextureCoords[0][i].x;
 			vertex_data[i].uv.y = mesh->mTextureCoords[0][i].y;
+		}
+
+		if (has_tangents)
+		{
+			vertex_data[i].tangent = to_vec(mesh->mTangents[i]);
+			vertex_data[i].bi_tangent = to_vec(mesh->mBitangents[i]);
 		}
 	}
 	for (unsigned i = 0; i < mesh->mNumFaces; i++)

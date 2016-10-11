@@ -84,5 +84,5 @@ void AffineTransformations3D::setModelMatrix(const glm::mat4& matrix)
 
 const glm::mat4 AffineTransformations3D::getNormalMatrix() const
 {
-	return glm::inverseTranspose(m_model_matrix);
+	return glm::mat4_cast(m_rotation_quat);
 }

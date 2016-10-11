@@ -32,7 +32,7 @@ std::shared_ptr<Material> brick_material, tile_material;
 Text* fps_text, * stat_text, * loading_text;
 
 float counter;
-bool mouse_button_pressed;
+bool mouse_button_pressed, accelerate;
 double last_mouse_x, last_mouse_y;
 
 
@@ -68,6 +68,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	if (key == GLFW_KEY_LEFT_SHIFT)
+		accelerate = action != GLFW_RELEASE;
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -95,18 +97,20 @@ void mouse_pos_callback(GLFWwindow* window, double x, double y)
 
 void updateCameraPosition()
 {
-	const float speed = 1.f;
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	float speed = 1.f;
+	if (accelerate)
+		speed *= 20.f;
+	if (glfwGetKey(window, GLFW_KEY_A) != GLFW_RELEASE)
 		camera->moveRight(-speed);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_D) != GLFW_RELEASE)
 		camera->moveRight(speed);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_W) != GLFW_RELEASE)
 		camera->moveForward(speed);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_S) != GLFW_RELEASE)
 		camera->moveForward(-speed);
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_Q) != GLFW_RELEASE)
 		camera->rotate({ 0.f, 0.f, -0.01f });
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_E) != GLFW_RELEASE)
 		camera->rotate({ 0.f, 0.f, 0.01f });
 }
 

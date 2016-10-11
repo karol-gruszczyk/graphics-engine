@@ -1,12 +1,16 @@
-#version 330
+#version 330 core
 #include "lights.glsl"
 
-in vec3 position;
-in vec2 texture_coord;
-in vec3 normal;
-in mat3 tbn;
-
-out vec4 out_color;
+layout(std140) uniform SceneBuffer
+{
+    DirectionalLight dir_lights[MAX_DIR_LIGHTS];
+    PointLight point_lights[MAX_POINT_LIGHTS];
+    SpotLight spot_lights[MAX_SPOT_LIGHTS];
+    vec3 camera_position;
+    int num_dir_lights;
+    int num_point_lights;
+    int num_spot_lights;
+};
 
 layout(std140) uniform Material
 {
@@ -27,16 +31,12 @@ uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
 uniform sampler2D normal_texture;
 
-layout(std140) uniform SceneBuffer
-{
-    DirectionalLight dir_lights[MAX_DIR_LIGHTS];
-    PointLight point_lights[MAX_POINT_LIGHTS];
-    SpotLight spot_lights[MAX_SPOT_LIGHTS];
-    vec3 camera_position;
-    int num_dir_lights;
-    int num_point_lights;
-    int num_spot_lights;
-};
+in vec3 position;
+in vec2 texture_coord;
+in vec3 normal;
+in mat3 tbn;
+
+out vec4 out_color;
 
 vec3 fragment_ambient_color;
 vec3 fragment_diffuse_color;
