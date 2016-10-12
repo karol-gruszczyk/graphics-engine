@@ -20,7 +20,8 @@ namespace bauasian
 class bauasian::SceneLoader final
 {
 public:
-	SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs = false);
+	SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs = false,
+	            const bool& map_bump_to_normal = false);
 	~SceneLoader();
 
 	const std::list<Mesh*>& getMeshes() const;
@@ -36,6 +37,7 @@ private:
 	std::list<DirectionalLight*> m_directional_lights;
 	std::list<PointLight*> m_point_lights;
 	std::list<SpotLight*> m_spot_lights;
+	aiTextureType m_normal_map;
 
 	static inline const glm::vec3 to_vec(const aiVector3D& v);
 	static inline const glm::vec3 to_vec(const aiColor3D& v);

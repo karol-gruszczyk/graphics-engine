@@ -28,7 +28,8 @@ public:
 	void addLight(const DirectionalLight& directional_light);
 	void addLight(const PointLight& point_light);
 	void addLight(const SpotLight& spot_light);
-	void loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs = false);
+	void loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs = false,
+	                  const bool& map_bump_to_normal = false);
 	const unsigned int getNumVertices() const;
 	const unsigned int getNumFaces() const;
 	const unsigned int getNumMeshes() const;

@@ -18,7 +18,9 @@ using bauasian::PointLight;
 using bauasian::SpotLight;
 using bauasian::Texture;
 
-SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs /* = false */)
+SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs,
+                         const bool& map_bump_to_normal)
+		: m_normal_map(map_bump_to_normal ? aiTextureType_HEIGHT : aiTextureType_NORMALS)
 {
 	using namespace std::chrono;
 
@@ -26,7 +28,7 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_u
 	auto loading_start_time = steady_clock::now();
 
 	Assimp::Importer importer;
-	unsigned flags = flip_uvs ? aiProcess_FlipUVs : 0;
+	unsigned flags = (flip_uvs ? aiProcess_FlipUVs : 0U);
 	const aiScene* scene = importer.ReadFile(path.string(), aiProcessPreset_TargetRealtime_Fast | flags);
 
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -120,7 +122,7 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	material->Get(AI_MATKEY_COLOR_SPECULAR, tmp_color3d);
 	result_mat->setSpecular({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
 
-	if (material->GetTexture(aiTextureType_NORMALS, 0, &tmp_string) == AI_SUCCESS)
+	if (material->GetTexture(m_normal_map, 0, &tmp_string) == AI_SUCCESS)
 		result_mat->setNormalTexture(getTexture(tmp_string.C_Str()));
 
 	float shininess = 0.f;

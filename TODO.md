@@ -4,6 +4,7 @@
 * ~~OpenGL Debug callback~~
 * ~~Add normal mapping~~
 * Parallax displacement mapping
+* Opacity maps - basic discard if lower than X
 * SkyBox, SkyDome
 * Blinn-Phong
 * AntiAliasing:
@@ -16,6 +17,7 @@
 
 ## alpha 1.1.5
 * Deferred rendering
+* Instanced rendering
 * Rendering detail settings
   * anisotropy
   * mipmap level
