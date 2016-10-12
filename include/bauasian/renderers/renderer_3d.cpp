@@ -65,10 +65,12 @@ void bauasian::Renderer3D::loadShader()
 	const auto& diffuse_texture = m_shader_program->getUniformLocation("diffuse_texture");
 	const auto& specular_texture = m_shader_program->getUniformLocation("specular_texture");
 	const auto& normal_texture = m_shader_program->getUniformLocation("normal_texture");
+	const auto& opacity_texture = m_shader_program->getUniformLocation("opacity_texture");
 	m_shader_program->setUniform(ambient_texture, AMBIENT_TEXTURE);
 	m_shader_program->setUniform(diffuse_texture, DIFFUSE_TEXTURE);
 	m_shader_program->setUniform(specular_texture, SPECULAR_TEXTURE);
 	m_shader_program->setUniform(normal_texture, NORMAL_TEXTURE);
+	m_shader_program->setUniform(opacity_texture, OPACITY_TEXTURE);
 
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader_program, "ModelMatrices");
 	MaterialBuffer::getInstance().attachUniformBlock(m_shader_program, "Material");

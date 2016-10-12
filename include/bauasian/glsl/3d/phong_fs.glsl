@@ -22,6 +22,7 @@ layout(std140) uniform Material
 	int use_diffuse_texture;
 	int use_specular_texture;
 	int use_normal_texture;
+	int use_opacity_texture;
 
 	float shininess;
 } material;
@@ -30,6 +31,7 @@ uniform sampler2D ambient_texture;
 uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
 uniform sampler2D normal_texture;
+uniform sampler2D opacity_texture;
 
 in vec3 position;
 in vec2 texture_coord;
@@ -54,6 +56,12 @@ vec3 processSpotLight(SpotLight spot_light);
 
 void main()
 {
+    if (material.use_opacity_texture == 1)
+    {
+        float opacity = length(texture(opacity_texture, texture_coord).rgb);
+        if (opacity < MIN_ALPHA_DISCARD)
+            discard;
+    }
     setFragmentColors(texture_coord);
 
 	vec3 object_color = vec3(0.f, 0.f, 0.f);
