@@ -28,7 +28,7 @@ Rectangle* rect, * loading_rect;
 Plane* plane;
 Box* box;
 BasicMaterial* basic_tile_material;
-std::shared_ptr<Material> brick_material, tile_material;
+std::shared_ptr<Material> brick_material, pavement_material;
 Text* fps_text, * stat_text, * loading_text;
 
 float counter;
@@ -167,23 +167,25 @@ void setup()
 
 	// 3D
 	brick_material = std::make_shared<Material>();
-	brick_material->setAmbient(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
-	brick_material->setDiffuse(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
-	brick_material->setSpecular(TextureFactory::getInstance().getTexture("res/brick-specular.png"));
-	brick_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/brick-normal.png"));
+	brick_material->setAmbient(TextureFactory::getInstance().getTexture("res/bricks-diff.jpg"));
+	brick_material->setDiffuse(TextureFactory::getInstance().getTexture("res/bricks-diff.jpg"));
+	brick_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/bricks-normal.jpg"));
+	brick_material->setDisplacementTexture(TextureFactory::getInstance().getTexture("res/bricks-disp.jpg"));
 	brick_material->setShininess(12);
 
-	tile_material = std::make_shared<Material>();
-	tile_material->setAmbient(TextureFactory::getInstance().getTexture("res/tile.jpg"));
-	tile_material->setDiffuse(TextureFactory::getInstance().getTexture("res/tile.jpg"));
-	tile_material->setShininess(32);
+	pavement_material = std::make_shared<Material>();
+	pavement_material->setAmbient(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
+	pavement_material->setDiffuse(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
+	pavement_material->setSpecular(TextureFactory::getInstance().getTexture("res/brick-specular.png"));
+	pavement_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/brick-normal.png"));
+	pavement_material->setShininess(32);
 	box = new Box(glm::vec3(5.f, 5.f, 5.f));
 	box->setPosition({ 20.f, 2.5f, 10.f });
 	box->setPivot({ 2.5f, 2.5f, 2.5f });
 	box->setMaterial(brick_material);
 	plane = new Plane({ 200.f, 200.f }, 100);
 	plane->setPosition({ -100.f, 0.f, -100.f });
-	plane->setMaterial(brick_material);
+	plane->setMaterial(pavement_material);
 	scene3d = new Scene3D();
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
@@ -201,7 +203,7 @@ void setup()
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
 		//scene3d->loadFromFile("res/sponza/sponza.3ds");
-		scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
+		//scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
 		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);

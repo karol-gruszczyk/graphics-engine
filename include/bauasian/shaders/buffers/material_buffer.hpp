@@ -22,6 +22,7 @@ public:
 		GLint use_diffuse_texture = 0;
 		GLint use_specular_texture = 0;
 		GLint use_normal_texture = 0;
+		GLint use_displacement_texture = 0;
 		GLint use_opacity_texture = 0;
 
 		float shininess = 0.f;
