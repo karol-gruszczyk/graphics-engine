@@ -1,13 +1,6 @@
 #ifndef BAUASIAN_MATERIAL_HPP
 #define BAUASIAN_MATERIAL_HPP
 
-#define AMBIENT_TEXTURE 0
-#define DIFFUSE_TEXTURE 1
-#define SPECULAR_TEXTURE 2
-#define NORMAL_TEXTURE 3
-#define DISPLACEMENT_TEXTURE 4
-#define OPACITY_TEXTURE 5
-
 #include "basic_material.hpp"
 #include "bauasian/shaders/buffers/material_buffer.hpp"
 #include "bauasian/interfaces/name_interface.hpp"
@@ -23,6 +16,8 @@ namespace bauasian
 class bauasian::Material : public NameInterface
 {
 public:
+	static void setShaderLocations(ShaderProgram* shader);
+
 	void setAmbient(const glm::vec3& color);
 	void setAmbient(Texture* texture);
 	void setDiffuse(const glm::vec3& color);

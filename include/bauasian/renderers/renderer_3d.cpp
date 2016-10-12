@@ -60,22 +60,8 @@ void bauasian::Renderer3D::loadShader()
 	m_shader_program = new ShaderProgram({ vertex_shader, fragment_shader });
 	delete vertex_shader;
 	delete fragment_shader;
-
-	const auto& ambient_texture = m_shader_program->getUniformLocation("ambient_texture");
-	const auto& diffuse_texture = m_shader_program->getUniformLocation("diffuse_texture");
-	const auto& specular_texture = m_shader_program->getUniformLocation("specular_texture");
-	const auto& normal_texture = m_shader_program->getUniformLocation("normal_texture");
-	const auto& displacement_texture = m_shader_program->getUniformLocation("displacement_texture");
-	const auto& opacity_texture = m_shader_program->getUniformLocation("opacity_texture");
-	m_shader_program->setUniform(ambient_texture, AMBIENT_TEXTURE);
-	m_shader_program->setUniform(diffuse_texture, DIFFUSE_TEXTURE);
-	m_shader_program->setUniform(specular_texture, SPECULAR_TEXTURE);
-	m_shader_program->setUniform(normal_texture, NORMAL_TEXTURE);
-	m_shader_program->setUniform(displacement_texture, DISPLACEMENT_TEXTURE);
-	m_shader_program->setUniform(opacity_texture, OPACITY_TEXTURE);
-
+	Material::setShaderLocations(m_shader_program);
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader_program, "ModelMatrices");
-	MaterialBuffer::getInstance().attachUniformBlock(m_shader_program, "Material");
 	SceneBuffer::getInstance().attachUniformBlock(m_shader_program, "SceneBuffer");
 }
 

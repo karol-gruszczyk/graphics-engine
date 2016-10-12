@@ -1,11 +1,35 @@
 #include "material.hpp"
 
+#define AMBIENT_TEXTURE 0
+#define DIFFUSE_TEXTURE 1
+#define SPECULAR_TEXTURE 2
+#define NORMAL_TEXTURE 3
+#define DISPLACEMENT_TEXTURE 4
+#define OPACITY_TEXTURE 5
+
 
 using bauasian::Material;
 using bauasian::ShaderProgram;
 using bauasian::Texture;
 using bauasian::UniformBuffer;
 
+void Material::setShaderLocations(ShaderProgram* shader)
+{
+	const auto& ambient_texture = shader->getUniformLocation("ambient_texture");
+	const auto& diffuse_texture = shader->getUniformLocation("diffuse_texture");
+	const auto& specular_texture = shader->getUniformLocation("specular_texture");
+	const auto& normal_texture = shader->getUniformLocation("normal_texture");
+	const auto& displacement_texture = shader->getUniformLocation("displacement_texture");
+	const auto& opacity_texture = shader->getUniformLocation("opacity_texture");
+	shader->setUniform(ambient_texture, AMBIENT_TEXTURE);
+	shader->setUniform(diffuse_texture, DIFFUSE_TEXTURE);
+	shader->setUniform(specular_texture, SPECULAR_TEXTURE);
+	shader->setUniform(normal_texture, NORMAL_TEXTURE);
+	shader->setUniform(displacement_texture, DISPLACEMENT_TEXTURE);
+	shader->setUniform(opacity_texture, OPACITY_TEXTURE);
+
+	MaterialBuffer::getInstance().attachUniformBlock(shader, "Material");
+}
 
 void Material::setAmbient(const glm::vec3& color)
 {
