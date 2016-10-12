@@ -12,7 +12,7 @@ using bauasian::Texture;
 
 Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
                  const GLint& internal_format, const GLenum& format, const bool& generate_mipmaps,
-                 std::string image_name /* = "" */)
+                 std::string image_name)
 {
 	m_width = width;
 	m_height = height;
@@ -31,7 +31,6 @@ Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* c
 				"Performance warning, image '" + image_name + "' - dimensions " + dimensions + " are not a power of 2");
 	}
 
-	glGenTextures(1, &m_texture_id);
 	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE,
 	                    pixels);
 
@@ -53,7 +52,6 @@ Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* c
 Texture::Texture(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format)
 		: m_width(width), m_height(height)
 {
-	glGenTextures(1, &m_texture_id);
 	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE,
 	                    nullptr);
 
@@ -62,12 +60,6 @@ Texture::Texture(const unsigned& width, const unsigned& height, const GLint& int
 
 	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-}
-
-Texture::~Texture()
-{
-	if (m_texture_id)
-		glDeleteTextures(1, &m_texture_id);
 }
 
 void Texture::update(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format)
@@ -103,20 +95,4 @@ void Texture::save(const boost::filesystem::path& path)
 
 	FreeImage_Unload(image);
 	delete[] pixels;
-}
-
-void Texture::bind(unsigned short texture_level /* = 0 */) const
-{
-	glActiveTexture(GL_TEXTURE0 + texture_level);
-	glBindTexture(GL_TEXTURE_2D, m_texture_id);
-}
-
-void Texture::unbind() const
-{
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-const GLuint& Texture::getTextureId() const
-{
-	return m_texture_id;
 }

@@ -38,7 +38,13 @@
   * Project 2D without depth test
 
 ## Optimizations
-* Improve Camera class
+* Improve caching in factories
+  * Use shared_ptr
+  * When no reference to object exists it should be destroyed
+* Optimize texture storage
+* Optimize texture loading
+  * remove converting to 32 BPP, instead return format
+* Rewrite Camera class
   * add lookAt
   * use quaternions
 

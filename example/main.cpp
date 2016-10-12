@@ -196,6 +196,12 @@ void setup()
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
 
+	const std::string prefix("res/cube_textures/ashcanyon_");
+	const std::vector<boost::filesystem::path> paths = { prefix + "lf.tga", prefix + "rt.tga",
+	                                                     prefix + "up.tga", prefix + "dn.tga",
+	                                                     prefix + "ft.tga", prefix + "bk.tga" };
+	CubeTexture* cube_texture = TextureFactory::getInstance().getCubeTexture(paths);
+
 	try
 	{
 		//scene3d->loadFromFile("res/sibenik/sibenik.obj");

@@ -2,6 +2,7 @@
 #define BAUASIAN_TEXTURE_FACTORY_HPP
 
 #include "texture.hpp"
+#include "cube_texture.hpp"
 
 
 namespace bauasian
@@ -18,12 +19,14 @@ public:
 	static TextureFactory& getInstance();
 
 	Texture* getTexture(const boost::filesystem::path& path);
+	CubeTexture* getCubeTexture(const boost::filesystem::path& path);
+	CubeTexture* getCubeTexture(const std::vector<boost::filesystem::path>& paths);
 
 private:
 	TextureFactory();
 	~TextureFactory();
 
-	std::map<std::string, Texture*> m_textures;
+	std::map<std::string, TextureInterface*> m_textures;
 
 };
 
