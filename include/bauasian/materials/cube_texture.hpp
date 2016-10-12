@@ -19,10 +19,6 @@ public:
 	            const std::vector<unsigned char*> pixel_ptrs, const GLint& internal_format, const GLenum& format,
 	            std::string image_name = "");
 
-private:
-
-
 };
-
 
 #endif /* BAUASIAN_CUBE_TEXTURE_HPP */

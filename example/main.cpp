@@ -30,6 +30,7 @@ Box* box;
 BasicMaterial* basic_tile_material;
 std::shared_ptr<Material> brick_material, pavement_material;
 Text* fps_text, * stat_text, * loading_text;
+SkyBox* sky_box;
 
 float counter;
 bool mouse_button_pressed, accelerate, wireframe;
@@ -186,7 +187,13 @@ void setup()
 	plane = new Plane({ 200.f, 200.f }, 100);
 	plane->setPosition({ -100.f, 0.f, -100.f });
 	plane->setMaterial(pavement_material);
-	scene3d = new Scene3D();
+
+	const std::string prefix("res/cube_textures/ashcanyon_");
+	const std::vector<boost::filesystem::path> paths = { prefix + "lf.tga", prefix + "rt.tga",
+	                                                     prefix + "up.tga", prefix + "dn.tga",
+	                                                     prefix + "ft.tga", prefix + "bk.tga" };
+	sky_box = new SkyBox(TextureFactory::getInstance().getCubeTexture(paths));
+	scene3d = new Scene3D(sky_box);
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
 	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
@@ -195,12 +202,6 @@ void setup()
 	scene3d->addLight(dir_light);
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
-
-	const std::string prefix("res/cube_textures/ashcanyon_");
-	const std::vector<boost::filesystem::path> paths = { prefix + "lf.tga", prefix + "rt.tga",
-	                                                     prefix + "up.tga", prefix + "dn.tga",
-	                                                     prefix + "ft.tga", prefix + "bk.tga" };
-	CubeTexture* cube_texture = TextureFactory::getInstance().getCubeTexture(paths);
 
 	try
 	{
@@ -246,6 +247,7 @@ void cleanup()
 	delete fps_text;
 	delete stat_text;
 	delete loading_scene;
+	delete sky_box;
 }
 
 void setup_loading()

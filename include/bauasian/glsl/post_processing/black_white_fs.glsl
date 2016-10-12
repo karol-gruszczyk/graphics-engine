@@ -1,4 +1,4 @@
-#version 330
+#version 330 core
 
 in vec2 texture_coord;
 
@@ -10,7 +10,7 @@ uniform vec3 color_weight;
 
 void main()
 {
-    vec3 color = vec3(texture(screen_texture, texture_coord));
+    vec3 color = texture(screen_texture, texture_coord).rgb;
     float average = dot(color_weight, color);
 	out_color = vec3(average);
 }

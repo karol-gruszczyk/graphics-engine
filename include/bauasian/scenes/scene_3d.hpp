@@ -2,6 +2,7 @@
 #define BAUASIAN_SCENE_3D_HPP
 
 #include "camera.hpp"
+#include "sky_box.hpp"
 #include "bauasian/primitives/abstract/entity_3d.hpp"
 #include "bauasian/lights/directional_light.hpp"
 #include "bauasian/lights/point_light.hpp"
@@ -19,6 +20,7 @@ namespace bauasian
 class bauasian::Scene3D
 {
 public:
+	Scene3D(SkyBox* sky_box);
 	~Scene3D();
 
 	Camera* getCamera();
@@ -36,6 +38,7 @@ public:
 	void render(const glm::mat4& projection_matrix) const;
 
 private:
+	SkyBox* m_sky_box;
 	Camera* m_current_camera = nullptr;
 	std::vector<Camera*> m_cameras;
 	std::list<Entity3D*> m_entities;

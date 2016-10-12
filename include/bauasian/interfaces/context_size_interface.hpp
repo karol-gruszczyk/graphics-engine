@@ -25,6 +25,7 @@ protected:
 private:
 	static glm::uvec2 s_context_size;
 	static std::list<ContextSizeInterface*> s_context_size_instances;
+
 };
 
 #endif /* BAUASIAN_CONTEXT_SIZE_INTERFACE_HPP */

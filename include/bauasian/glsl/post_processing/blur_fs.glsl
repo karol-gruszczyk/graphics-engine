@@ -1,4 +1,4 @@
-#version 330
+#version 330 core
 
 in vec2 texture_coord;
 
@@ -11,14 +11,14 @@ uniform uint radius;
 
 void main()
 {
-    vec3 color = vec3(texture(screen_texture, texture_coord));
+    vec3 color = texture(screen_texture, texture_coord).rgb;
     vec2 current_offset = pixel_size;
     for (uint i = uint(0); i < radius; i++)
     {
-        color += vec3(texture(screen_texture, texture_coord + vec2(current_offset.x, 0.f)));
-        color += vec3(texture(screen_texture, texture_coord + vec2(-current_offset.x, 0.f)));
-        color += vec3(texture(screen_texture, texture_coord + vec2(0.f, current_offset.y)));
-        color += vec3(texture(screen_texture, texture_coord + vec2(0.f, -current_offset.y)));
+        color += texture(screen_texture, texture_coord + vec2(current_offset.x, 0.f)).rgb;
+        color += texture(screen_texture, texture_coord + vec2(-current_offset.x, 0.f)).rgb;
+        color += texture(screen_texture, texture_coord + vec2(0.f, current_offset.y)).rgb;
+        color += texture(screen_texture, texture_coord + vec2(0.f, -current_offset.y)).rgb;
         current_offset += pixel_size;
     }
     color /= radius * 4.f + 1;

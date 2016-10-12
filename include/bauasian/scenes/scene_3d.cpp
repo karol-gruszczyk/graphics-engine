@@ -9,6 +9,10 @@ using bauasian::Scene3D;
 using bauasian::Entity3D;
 using bauasian::Camera;
 
+Scene3D::Scene3D(bauasian::SkyBox* sky_box)
+		: m_sky_box(sky_box)
+{}
+
 Scene3D::~Scene3D()
 {
 	for (auto& entity : m_entities)
@@ -100,6 +104,8 @@ void Scene3D::render(const glm::mat4& projection_matrix) const
 		buffer.setNormalMatrix(entity->getNormalMatrix());
 		entity->render();
 	}
+	if (m_sky_box)
+		m_sky_box->render(projection_matrix * glm::mat4(glm::mat3(m_current_camera->getViewMatrix())));
 }
 
 const unsigned Scene3D::getNumVertices() const

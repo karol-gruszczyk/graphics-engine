@@ -1,4 +1,4 @@
-#version 330
+#version 330 core
 
 in vec2 texture_coord;
 
@@ -19,7 +19,7 @@ void main()
         for (int j = 0; j < 3; j++)
         {
             current_offset.x += pixel_size.x;
-            vec3 sampledColor = vec3(texture(screen_texture, texture_coord + current_offset));
+            vec3 sampledColor = texture(screen_texture, texture_coord + current_offset).rgb;
             final_color += sampledColor * kernel_matrix[i][j];
         }
         current_offset.y -= pixel_size.y;
