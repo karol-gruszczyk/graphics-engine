@@ -3,8 +3,8 @@
 ## alpha 1.1.4
 * ~~OpenGL Debug callback~~
 * ~~Add normal mapping~~
-* Parallax displacement mapping
-* Opacity maps - basic discard if lower than X
+* ~~Parallax displacement mapping~~
+* ~~Opacity maps - basic discard if lower than X~~
 * SkyBox, SkyDome
 * Blinn-Phong
 * AntiAliasing:
