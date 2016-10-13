@@ -49,7 +49,12 @@ CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem:
 	std::vector<unsigned char*> pixel_ptrs;
 	for (const auto& path : paths)
 	{
-		loaders.push_back(new ImageLoader(path));
+		unsigned rotation = 0;
+		if (pixel_ptrs.size() == 2)
+			rotation = 3;
+		else if (pixel_ptrs.size() == 3)
+			rotation = 1;
+		loaders.push_back(new ImageLoader(path, rotation));
 		widths.push_back(loaders.back()->getWidth());
 		heights.push_back(loaders.back()->getHeight());
 		pixel_ptrs.push_back(loaders.back()->getPixels());

@@ -166,6 +166,7 @@ void Bauasian::init() const
 {
 	logInitial();
 	initializeDebugOutput();
+	glEnable(GL_CULL_FACE);
 }
 
 void Bauasian::logInitial() const

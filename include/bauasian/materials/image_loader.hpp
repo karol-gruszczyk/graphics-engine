@@ -16,7 +16,7 @@ namespace bauasian
 class bauasian::ImageLoader final
 {
 public:
-	ImageLoader(const boost::filesystem::path& path);
+	ImageLoader(const boost::filesystem::path& path, const unsigned& num_rotate_sides = 0);
 	~ImageLoader();
 
 	unsigned getWidth() const;

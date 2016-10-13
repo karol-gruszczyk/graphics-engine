@@ -5,7 +5,7 @@
 using bauasian::ImageLoader;
 
 
-ImageLoader::ImageLoader(const boost::filesystem::path& path)
+ImageLoader::ImageLoader(const boost::filesystem::path& path, const unsigned& num_rotate_sides)
 {
 	getStaticInstance();
 
@@ -27,6 +27,8 @@ ImageLoader::ImageLoader(const boost::filesystem::path& path)
 		m_bitmap = FreeImage_ConvertTo32Bits(m_bitmap);
 		FreeImage_Unload(temp);
 	}
+	if (num_rotate_sides)
+		m_bitmap = FreeImage_Rotate(m_bitmap, num_rotate_sides * 90);
 	m_width = FreeImage_GetWidth(m_bitmap);
 	m_height = FreeImage_GetHeight(m_bitmap);
 
