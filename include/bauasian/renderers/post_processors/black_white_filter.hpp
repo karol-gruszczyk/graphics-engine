@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::BlackWhiteFilter : public Filter
 {
 public:
-	BlackWhiteFilter(const glm::vec3& color_weights = { 0.2126, 0.7152, 0.0722 });
+	BlackWhiteFilter();
 
 };
 
