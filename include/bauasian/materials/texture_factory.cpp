@@ -54,7 +54,7 @@ CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem:
 		heights.push_back(loaders.back()->getHeight());
 		pixel_ptrs.push_back(loaders.back()->getPixels());
 	}
-	CubeTexture* texture = new CubeTexture(widths, heights, pixel_ptrs, GL_RGB, GL_RGB);
+	CubeTexture* texture = new CubeTexture(widths, heights, pixel_ptrs, GL_RGBA, GL_RGBA);
 	m_textures[path_str] = texture;
 	std::for_each(loaders.begin(), loaders.end(), [](ImageLoader* l) -> void { delete l; });
 	return texture;

@@ -44,9 +44,9 @@ make
 ## Utilized OpenGL features:
 * Vertex Buffer Objects
 * Vertex Array Objects
+* Index Buffer Objects
 * Frame Buffer Objects
 * Render Buffer Objects
 * Uniform Buffer Objects
-* Direct State Access for:
-  * Shader Programs
-  * Textures
+* Direct State Access for
+* Cube Textures

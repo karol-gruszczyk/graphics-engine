@@ -13,6 +13,7 @@ using bauasian::Texture;
 Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
                  const GLint& internal_format, const GLenum& format, const bool& generate_mipmaps,
                  std::string image_name)
+		: TextureInterface(GL_TEXTURE_2D)
 {
 	m_width = width;
 	m_height = height;
@@ -50,7 +51,7 @@ Texture::Texture(const unsigned& width, const unsigned& height, const GLubyte* c
 }
 
 Texture::Texture(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format)
-		: m_width(width), m_height(height)
+		: TextureInterface(GL_TEXTURE_2D), m_width(width), m_height(height)
 {
 	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE,
 	                    nullptr);

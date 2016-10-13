@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::TextureInterface
 {
 public:
-	TextureInterface();
+	TextureInterface(const GLenum& texture_target);
 	~TextureInterface();
 
 	const GLuint& getTextureId() const;
@@ -21,6 +21,7 @@ public:
 
 protected:
 	GLuint m_texture_id;
+	GLenum m_texture_target;
 
 };
 

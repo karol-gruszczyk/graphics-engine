@@ -4,7 +4,7 @@
 #include "bauasian/interfaces/context_size_interface.hpp"
 #include "bauasian/materials/cube_texture.hpp"
 #include "bauasian/shaders/shader_program.hpp"
-#include "bauasian/primitives/box.hpp"
+#include "bauasian/primitives/screen_cube.hpp"
 
 
 namespace bauasian
@@ -23,7 +23,7 @@ public:
 private:
 	ShaderProgram* m_shader_program;
 	CubeTexture* m_texture;
-	Box* m_box;
+	ScreenCube* m_box;
 
 	GLint m_location_projection_view_matrix;
 

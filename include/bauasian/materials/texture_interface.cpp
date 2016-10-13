@@ -3,7 +3,8 @@
 
 using bauasian::TextureInterface;
 
-TextureInterface::TextureInterface()
+TextureInterface::TextureInterface(const GLenum& texture_target)
+		: m_texture_target(texture_target)
 {
 	glGenTextures(1, &m_texture_id);
 }
@@ -21,10 +22,10 @@ const GLuint& TextureInterface::getTextureId() const
 void TextureInterface::bind(unsigned short texture_level) const
 {
 	glActiveTexture(GL_TEXTURE0 + texture_level);
-	glBindTexture(GL_TEXTURE_2D, m_texture_id);
+	glBindTexture(m_texture_target, m_texture_id);
 }
 
 void TextureInterface::unbind() const
 {
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(m_texture_target, 0);
 }

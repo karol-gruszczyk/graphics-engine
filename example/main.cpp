@@ -189,9 +189,9 @@ void setup()
 	plane->setMaterial(pavement_material);
 
 	const std::string prefix("res/cube_textures/ashcanyon_");
-	const std::vector<boost::filesystem::path> paths = { prefix + "lf.tga", prefix + "rt.tga",
+	const std::vector<boost::filesystem::path> paths = { prefix + "rt.tga", prefix + "lf.tga",
 	                                                     prefix + "up.tga", prefix + "dn.tga",
-	                                                     prefix + "ft.tga", prefix + "bk.tga" };
+	                                                     prefix + "bk.tga", prefix + "ft.tga" };
 	sky_box = new SkyBox(TextureFactory::getInstance().getCubeTexture(paths));
 	scene3d = new Scene3D(sky_box);
 	scene3d->addEntity(box);

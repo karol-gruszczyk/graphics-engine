@@ -13,9 +13,11 @@ SkyBox::SkyBox(bauasian::CubeTexture* texture)
 	m_shader_program = new ShaderProgram({ vertex_shader, fragment_shader });
 	delete vertex_shader;
 	delete fragment_shader;
-	m_box = new Box(glm::vec3(5.f, 5.f, 5.f));
+	m_box = new ScreenCube();
 
 	m_location_projection_view_matrix = m_shader_program->getUniformLocation("projection_view_matrix");
+	const auto location_cube_texture = m_shader_program->getUniformLocation("cube_texture");
+	m_shader_program->setUniform(location_cube_texture, 0);
 }
 
 SkyBox::~SkyBox()
@@ -26,7 +28,9 @@ SkyBox::~SkyBox()
 
 void SkyBox::render(const glm::mat4& projection_view_matrix) const
 {
+	glDepthFunc(GL_LEQUAL);
 	m_shader_program->use();
+	m_texture->bind(0);
 	m_shader_program->setUniform(m_location_projection_view_matrix, projection_view_matrix);
 	m_box->render();
 }
