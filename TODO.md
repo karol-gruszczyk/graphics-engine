@@ -5,7 +5,7 @@
 * ~~Add normal mapping~~
 * ~~Parallax displacement mapping~~
 * ~~Opacity maps - basic discard if lower than X~~
-* SkyBox, SkyDome
+* ~~SkyBox~~
 * Blinn-Phong
 * AntiAliasing:
   * FXAA
@@ -16,6 +16,8 @@
 * ~~OpenGL extension class~~
 
 ## alpha 1.1.5
+* SkyDome
+* Simple sky shader
 * Deferred rendering
 * Instanced rendering
 * Rendering detail settings
