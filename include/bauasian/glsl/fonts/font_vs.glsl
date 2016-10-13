@@ -2,10 +2,10 @@
 
 layout(location = 0) in vec4 vertex;
 
-out vec2 texture_coord;
-
 uniform mat4 projection_matrix;
 uniform mat4 model_matrix;
+
+out vec2 texture_coord;
 
 
 void main()

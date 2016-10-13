@@ -1,9 +1,5 @@
 #version 330 core
 
-in vec2 texture_coord;
-
-out vec4 out_color;
-
 layout(std140) uniform BasicMaterial
 {
 	vec3 diffuse_color;
@@ -11,6 +7,10 @@ layout(std140) uniform BasicMaterial
 };
 
 uniform sampler2D diffuse_texture;
+
+in vec2 texture_coord;
+
+out vec4 out_color;
 
 
 void main()

@@ -8,14 +8,14 @@ ScreenQuad::ScreenQuad()
 {
 	GLfloat vertices[][2][2] =
 			{
-					{{ 1.f,  -1.f }, { 1.f, 0.f }},
-					{{ -1.f, -1.f }, { 0.f, 0.f }},
-					{{ 1.f,  1.f },  { 1.f, 1.f }},
-					{{ -1.f, 1.f },  { 0.f, 1.f }},
+					{{ 1.f,  -1.f }, { 1.f, 0.f }},  // bottom - right
+					{{ -1.f, -1.f }, { 0.f, 0.f }},  // bottom - left
+					{{ 1.f,  1.f },  { 1.f, 1.f }},  // top - right
+					{{ -1.f, 1.f },  { 0.f, 1.f }},  // top - left
 			};
 	GLushort indices[] =
 			{
-					0, 1, 2, 3
+					0, 2, 1, 3
 			};
 
 	glBindVertexArray(m_vao_id);

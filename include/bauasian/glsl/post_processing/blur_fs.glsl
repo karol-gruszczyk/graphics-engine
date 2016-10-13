@@ -1,12 +1,12 @@
 #version 330 core
 
-in vec2 texture_coord;
-
-out vec4 out_color;
-
 uniform sampler2D screen_texture;
 uniform vec2 pixel_size;
 uniform uint radius;
+
+in vec2 texture_coord;
+
+out vec3 out_color;
 
 
 void main()
@@ -22,5 +22,5 @@ void main()
         current_offset += pixel_size;
     }
     color /= radius * 4.f + 1;
-    out_color = vec4(color, 1.f);
+    out_color = vec3(color);
 }

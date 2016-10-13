@@ -1,12 +1,12 @@
 #version 330 core
 
-in vec2 texture_coord;
-
-out vec4 out_color;
-
 uniform sampler2D screen_texture;
 uniform mat3 kernel_matrix;
 uniform vec2 pixel_size;
+
+in vec2 texture_coord;
+
+out vec3 out_color;
 
 
 void main()
@@ -25,5 +25,5 @@ void main()
         current_offset.y -= pixel_size.y;
     }
 
-	out_color = vec4(final_color, 1.f);
+	out_color = vec3(final_color);
 }
