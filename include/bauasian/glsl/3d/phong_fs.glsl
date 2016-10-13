@@ -111,7 +111,7 @@ void setFragmentColors()
 
     // normal
 	if (material.use_normal_texture == 1)
-		fragment_normal = tbn * (texture2D(normal_texture, corrected_texture_coord).rgb * 2.f - 1.f);
+		fragment_normal = normalize(tbn * (texture2D(normal_texture, corrected_texture_coord).rgb * 2.f - 1.f));
 	else
 	    fragment_normal = normal;
 }
@@ -161,11 +161,9 @@ vec3 processDiffuseLight(vec3 light_ray_direction, vec3 light_color)
 
 vec3 processSpecularLight(vec3 light_ray_direction, vec3 light_color)
 {
-	if (material.shininess == 0)
-		return vec3(0.f, 0.f, 0.f);
 	vec3 view_dir = normalize(camera_position - position);
-	vec3 reflect_dir = reflect(-light_ray_direction, fragment_normal);
-	return pow(max(dot(view_dir, reflect_dir), 0.0), material.shininess) * light_color * fragment_specular_color;
+	vec3 halfway_dir = normalize(light_ray_direction + view_dir);
+	return pow(max(dot(halfway_dir, fragment_normal), 0.0), material.shininess) * light_color * fragment_specular_color;
 }
 
 vec3 processDirectionalLight(DirectionalLight dir_light)
@@ -196,15 +194,13 @@ vec3 processPointLight(PointLight point_light)
 vec3 processSpotLight(SpotLight spot_light)
 {
 	float distance = length(spot_light.position - position);
-	if (distance > spot_light.range * 2)
-		return vec3(0.0, 0.0, 0.0);
 
 	vec3 light_ray_direction = normalize(spot_light.position - position);
 	float spot_effect = dot(normalize(-spot_light.direction), light_ray_direction);
 	float outer_cosine = cos(spot_light.outer_angle);
 
 	if (spot_effect < outer_cosine)
-		return vec3(0.f, 0.f, 0.f);
+		return vec3(0.f);
 
 	float attenuation = 1 / ((spot_light.attenuation_constant) + (spot_light.attenuation_linear * distance)
     	 + (spot_light.attenuation_quadratic * distance * distance));

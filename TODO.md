@@ -6,7 +6,7 @@
 * ~~Parallax displacement mapping~~
 * ~~Opacity maps - basic discard if lower than X~~
 * ~~SkyBox~~
-* Blinn-Phong
+* ~~Blinn-Phong~~
 * AntiAliasing:
   * FXAA
 * ~~Improve scene loader:~~
