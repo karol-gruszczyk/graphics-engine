@@ -47,7 +47,7 @@ unsigned char* ImageSlicer::getSubImage(const glm::uvec2& sub_image_size, const 
 	for (unsigned row = 0; row < sub_image_size.y; row++)
 	{
 		std::memcpy(sub_image_pixels + row * bytes_per_row, src_ptr, bytes_per_row);
-		src_ptr += row * m_image_size.x * m_bytes_per_pixel;
+		src_ptr += m_image_size.x * m_bytes_per_pixel;
 	}
 	m_ptrs.push_back(sub_image_pixels);
 	return sub_image_pixels;
