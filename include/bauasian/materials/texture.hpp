@@ -6,6 +6,7 @@
 #include <map>
 
 #include <boost/filesystem/path.hpp>
+#include <glm/vec2.hpp>
 
 
 namespace bauasian
@@ -16,16 +17,15 @@ namespace bauasian
 class bauasian::Texture final : public TextureInterface
 {
 public:
-	Texture(const unsigned& width, const unsigned& height, const GLubyte* const pixels,
-	        const GLint& internal_format, const GLenum& format, const bool& generate_mipmaps,
-	        std::string image_name = "");
-	Texture(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format);
+	Texture(const glm::uvec2& size, const GLubyte* const pixels, const GLint& internal_format,
+		        const GLenum& format, const bool& generate_mipmaps, std::string image_name);
+	Texture(const glm::uvec2& size, const GLint& internal_format, const GLenum& format);
 
-	void update(const unsigned& width, const unsigned& height, const GLint& internal_format, const GLenum& format);
+	void update(const glm::uvec2& size, const GLint& internal_format, const GLenum& format);
 	void save(const boost::filesystem::path& path);
 
 private:
-	unsigned m_width, m_height;
+	glm::uvec2 m_size;
 
 };
 

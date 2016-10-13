@@ -29,8 +29,8 @@ ImageLoader::ImageLoader(const boost::filesystem::path& path, const unsigned& nu
 	}
 	if (num_rotate_sides)
 		m_bitmap = FreeImage_Rotate(m_bitmap, num_rotate_sides * 90);
-	m_width = FreeImage_GetWidth(m_bitmap);
-	m_height = FreeImage_GetHeight(m_bitmap);
+	m_size.x = FreeImage_GetWidth(m_bitmap);
+	m_size.y = FreeImage_GetHeight(m_bitmap);
 
 	m_pixels = FreeImage_GetBits(m_bitmap);
 }
@@ -60,22 +60,12 @@ ImageLoader& ImageLoader::getStaticInstance()
 	return instance;
 }
 
-unsigned ImageLoader::getWidth() const
+const glm::uvec2& ImageLoader::getSize() const
 {
-	return m_width;
-}
-
-unsigned ImageLoader::getHeight() const
-{
-	return m_height;
+	return m_size;
 }
 
 unsigned char* ImageLoader::getPixels() const
 {
 	return m_pixels;
-}
-
-unsigned ImageLoader::getSize() const
-{
-	return 4 * m_width * m_height;
 }

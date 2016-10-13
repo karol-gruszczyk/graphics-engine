@@ -190,10 +190,11 @@ void setup()
 
 	const std::string prefix("res/cube_textures/ashcanyon_");
 	//const std::string prefix("res/cube_textures/interstellar_");
-	const std::vector<boost::filesystem::path> paths = { prefix + "rt.tga", prefix + "lf.tga",
+	const std::vector<boost::filesystem::path> paths = { prefix + "ft.tga", prefix + "bk.tga",
 	                                                     prefix + "dn.tga", prefix + "up.tga",
-	                                                     prefix + "bk.tga", prefix + "ft.tga" };
+	                                                     prefix + "rt.tga", prefix + "lf.tga", };
 	sky_box = new SkyBox(TextureFactory::getInstance().getCubeTexture(paths));
+	//sky_box = new SkyBox(TextureFactory::getInstance().getCubeTexture("res/cube_textures/skybox.jpg"));
 	scene3d = new Scene3D(sky_box);
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);

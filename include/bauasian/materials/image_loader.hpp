@@ -6,6 +6,7 @@
 #include "bauasian/exceptions/file_type_not_supported_exception.hpp"
 
 #include <FreeImage.h>
+#include <glm/glm.hpp>
 
 
 namespace bauasian
@@ -19,17 +20,15 @@ public:
 	ImageLoader(const boost::filesystem::path& path, const unsigned& num_rotate_sides = 0);
 	~ImageLoader();
 
-	unsigned getWidth() const;
-	unsigned getHeight() const;
+	const glm::uvec2& getSize() const;
 	unsigned char* getPixels() const;
-	unsigned getSize() const;
 
 private:
 	ImageLoader();
 
 	bool m_is_static_instance = false;
 	FIBITMAP* m_bitmap;
-	unsigned m_width, m_height;
+	glm::uvec2 m_size;
 	unsigned char* m_pixels;
 
 	static ImageLoader& getStaticInstance();

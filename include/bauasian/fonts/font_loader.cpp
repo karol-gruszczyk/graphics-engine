@@ -159,7 +159,7 @@ void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& g
 		for (unsigned j = 0; j < atlas_width; j++)
 			std::swap(atlas_pixels[i * atlas_width + j], atlas_pixels[(atlas_height - i - 1) * atlas_width + j]);
 	}
-	m_glyph_atlas = new Texture(atlas_width, atlas_height, atlas_pixels, GL_RED, GL_RED, true);
+	m_glyph_atlas = new Texture({ atlas_width, atlas_height }, atlas_pixels, GL_RED, GL_RED, true, std::string());
 }
 
 inline unsigned FontLoader::nextPowerOf2(unsigned x)

@@ -9,7 +9,7 @@ Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 	glGenFramebuffers(1, &m_fbo_id);
 
 	unsigned size = 1;
-	m_color_texture = new Texture(size, size, GL_RGB, GL_RGB);
+	m_color_texture = new Texture({ size, size }, GL_RGB, GL_RGB);
 
 	glGenRenderbuffers(1, &m_rbo_id);
 	glNamedRenderbufferStorageEXT(m_rbo_id, GL_DEPTH24_STENCIL8, size, size);
@@ -38,7 +38,7 @@ Filter::~Filter()
 
 void Filter::setContextSize(const unsigned& width, const unsigned& height) const
 {
-	m_color_texture->update(width, height, GL_RGB, GL_RGB);
+	m_color_texture->update({ width, height }, GL_RGB, GL_RGB);
 
 	glNamedRenderbufferStorage(m_rbo_id, GL_DEPTH24_STENCIL8, width, height);
 
