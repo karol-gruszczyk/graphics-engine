@@ -1,22 +1,11 @@
 # TODO`S
 
-## alpha 1.1.4
-* ~~OpenGL Debug callback~~
-* ~~Add normal mapping~~
-* ~~Parallax displacement mapping~~
-* ~~Opacity maps - basic discard if lower than X~~
-* ~~SkyBox~~
-* ~~Blinn-Phong~~
-* ~~AntiAliasing:~~
-  * ~~FXAA~~
-* ~~Improve scene loader:~~
-  * ~~nodes~~
-  * ~~lights~~
-  * ~~cameras~~
-* ~~OpenGL extension class~~
-
 ## alpha 1.1.5
 * SkyDome
+* Shadow mapping
+  * Directional lights
+  * Spot lights
+  * Point lights
 * Simple sky shader
 * Deferred rendering
 * Instanced rendering
