@@ -9,7 +9,7 @@ using bauasian::Scene3D;
 using bauasian::Entity3D;
 using bauasian::Camera;
 
-Scene3D::Scene3D(bauasian::SkyBox* sky_box)
+Scene3D::Scene3D(SkyBox* sky_box)
 		: m_sky_box(sky_box)
 {}
 

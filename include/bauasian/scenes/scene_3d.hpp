@@ -20,7 +20,7 @@ namespace bauasian
 class bauasian::Scene3D
 {
 public:
-	Scene3D(SkyBox* sky_box);
+	Scene3D(SkyBox* sky_box = nullptr);
 	~Scene3D();
 
 	Camera* getCamera();

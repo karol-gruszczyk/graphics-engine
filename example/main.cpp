@@ -192,9 +192,9 @@ void setup()
 	const std::vector<boost::filesystem::path> paths = { prefix + "ft.tga", prefix + "bk.tga",
 	                                                     prefix + "dn.tga", prefix + "up.tga",
 	                                                     prefix + "rt.tga", prefix + "lf.tga", };
-	sky_box = new SkyBox(TextureFactory::getInstance().getCubeTexture(paths));
-	//sky_box = new SkyBox(TextureFactory::getInstance().getCubeTexture("res/cube_textures/skybox.jpg"));
-	scene3d = new Scene3D(sky_box);
+	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture(paths));
+	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture("res/cube_textures/skybox.jpg"));
+	scene3d = new Scene3D(new SkyBox("sky/sky_fs.glsl"));
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
 	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));

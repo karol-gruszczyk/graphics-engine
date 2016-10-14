@@ -4,7 +4,7 @@
 #include "bauasian.hpp"
 #include "renderers/renderer_3d.hpp"
 #include "bauasian/scenes/scene_3d.hpp"
-#include "bauasian/scenes/scene_3d.hpp"
+#include "bauasian/scenes/textured_sky_box.hpp"
 #include "primitives/box.hpp"
 #include "primitives/plane.hpp"
 #include "primitives/mesh.hpp"
