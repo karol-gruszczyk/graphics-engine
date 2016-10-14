@@ -154,8 +154,7 @@ void setup()
 {
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
-	//renderer3d->addFilter(new KernelFilter(KernelFilter::GRADIENT_DETECTION_VERTICAL));
-	//renderer3d->addFilter(new LargeKernelFilter(LargeKernelFilter::GAUSSIAN_BLUR));
+	renderer3d->addFilter(new FXAA());
 
 	// 2D
 	rect = new Rectangle(glm::vec2(300.f, 300.f));

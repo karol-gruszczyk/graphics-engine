@@ -43,5 +43,6 @@ configure_file(bauasian/glsl/post_processing/large_kernel_fs.glsl ${CMAKE_RUNTIM
 configure_file(bauasian/glsl/post_processing/black_white_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/black_white_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/post_processing/blur_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/blur_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/post_processing/fxaa_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/fxaa_fs.glsl COPYONLY)
+configure_file(bauasian/glsl/post_processing/fxaa/Fxaa3_11.h ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/post_processing/fxaa/Fxaa3_11.h COPYONLY)
 configure_file(bauasian/glsl/sky/basic_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/sky/basic_vs.glsl COPYONLY)
 configure_file(bauasian/glsl/sky/basic_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/sky/basic_fs.glsl COPYONLY)

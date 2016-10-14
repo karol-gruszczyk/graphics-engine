@@ -21,6 +21,7 @@ public:
 private:
 	std::string m_source_code;
 
+	bool isInsideComment(const std::size_t& position) const;
 	void parseIncludes(const boost::filesystem::path& current_file);
 	std::string getFileContent(const boost::filesystem::path& path) const;
 };

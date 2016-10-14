@@ -1,0 +1,3 @@
+[submodule "include/bauasian/glsl/post_processing/fxaa"]
+	path = include/bauasian/glsl/post_processing/fxaa
+	url = https://gist.github.com/f1d6380a56f756cfd344b0d3204c9150.git

@@ -18,11 +18,27 @@ std::string Preprocessor::getSourceCode() const
 	return m_source_code;
 }
 
+bool Preprocessor::isInsideComment(const std::size_t& position) const
+{
+	const auto first_block = m_source_code.rfind("/*", position);
+	const auto last_block = m_source_code.rfind("*/", position);
+	if (first_block != std::string::npos && (first_block > last_block || last_block == std::string::npos))
+		return true;
+	const auto inline_pos = m_source_code.rfind("//", position);
+	const auto end_line = m_source_code.find("\n", inline_pos);
+	return inline_pos != std::string::npos && (end_line > position || end_line == std::string::npos);
+}
+
 void Preprocessor::parseIncludes(const boost::filesystem::path& current_file)
 {
 	std::size_t position(0);
-	while ((position = m_source_code.find("#include")) != std::string::npos)
+	while ((position = m_source_code.find("#include", position)) != std::string::npos)
 	{
+		if (isInsideComment(position))
+		{
+			position += 1;
+			continue;
+		}
 		auto start = m_source_code.find('"', position);
 		auto end = m_source_code.find('"', start + 1);
 		auto line_end = m_source_code.find('\n', start + 1);
