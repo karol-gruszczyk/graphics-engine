@@ -1,6 +1,4 @@
 #version 400 core
-#extension GL_EXT_gpu_shader4 : enable
-#extension GL_ARB_gpu_shader5 : enable
 
 #define FXAA_GREEN_AS_LUMA 1
 #define FXAA_PC 1
