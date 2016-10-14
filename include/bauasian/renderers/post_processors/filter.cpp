@@ -6,21 +6,14 @@ using bauasian::Filter;
 
 Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 {
-	glGenFramebuffers(1, &m_fbo_id);
-
-	unsigned size = 1;
-	m_color_texture = new Texture({ size, size }, GL_RGB, GL_RGB);
-
-	glGenRenderbuffers(1, &m_rbo_id);
-	glNamedRenderbufferStorageEXT(m_rbo_id, GL_DEPTH24_STENCIL8, size, size);
-
-	glNamedFramebufferTexture2DEXT(m_fbo_id, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_texture->getTextureId(), 0);
-	glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo_id);
-	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-
-	m_screen_quad = new ScreenQuad();
-
+	initFrameBuffer();
 	Shader fragment_shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
+	loadShader(fragment_shader);
+}
+
+Filter::Filter(Shader& fragment_shader)
+{
+	initFrameBuffer();
 	loadShader(fragment_shader);
 }
 
@@ -65,7 +58,26 @@ void Filter::renderToScreen() const
 
 void Filter::loadShader(Shader& fragment_shader)
 {
+	if (m_shader)
+		delete m_shader;
 	Shader* vertex_shader = new Shader("post_processing/basic_vs.glsl", Shader::VERTEX_SHADER);
 	m_shader = new ShaderProgram({ vertex_shader, &fragment_shader });
 	delete vertex_shader;
+}
+
+void Filter::initFrameBuffer()
+{
+	glGenFramebuffers(1, &m_fbo_id);
+
+	unsigned size = 1;
+	m_color_texture = new Texture({ size, size }, GL_RGB, GL_RGB);
+
+	glGenRenderbuffers(1, &m_rbo_id);
+	glNamedRenderbufferStorageEXT(m_rbo_id, GL_DEPTH24_STENCIL8, size, size);
+
+	glNamedFramebufferTexture2DEXT(m_fbo_id, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_texture->getTextureId(), 0);
+	glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo_id);
+	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+
+	m_screen_quad = new ScreenQuad();
 }

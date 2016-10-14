@@ -5,19 +5,16 @@
 using bauasian::Shader;
 using bauasian::Preprocessor;
 
-std::map<Shader::ShaderType, GLenum> Shader::s_shader_type = {
-		{ VERTEX_SHADER,   GL_VERTEX_SHADER },
-		{ FRAGMENT_SHADER, GL_FRAGMENT_SHADER },
-};
-
-Shader::Shader(const boost::filesystem::path& path, const ShaderType& type)
+Shader::Shader(const boost::filesystem::path& path, const ShaderType& type,
+               const std::map<std::string, std::string>& defines)
 {
 	const auto& shader_path = Bauasian::getInstance().getShaderPath() / path;
 
-	std::string shader_code(openShaderFile(shader_path));
+	Preprocessor preprocessor(shader_path, defines);
+	std::string shader_code(preprocessor.getSourceCode());
 
 	const GLchar* gl_shader_code = shader_code.c_str();
-	m_shader_id = glCreateShader(s_shader_type[type]);
+	m_shader_id = glCreateShader(type);
 	glShaderSource(m_shader_id, 1, &gl_shader_code, nullptr);
 	glCompileShader(m_shader_id);
 
@@ -30,10 +27,11 @@ Shader::Shader(const boost::filesystem::path& path, const ShaderType& type)
 		std::string info_log;
 		if (info_log_length > 0)
 		{
-			info_log.resize((unsigned long)info_log_length);
+			info_log.resize((unsigned long) info_log_length);
 			glGetShaderInfoLog(m_shader_id, info_log_length, nullptr, &info_log[0]);
 		}
-		info_log = "Shader file '" + boost::filesystem::canonical(shader_path).string() + "' raised the following message:\n" +
+		info_log = "Shader file '" + boost::filesystem::canonical(shader_path).string() +
+		           "' raised the following message:\n" +
 		           info_log;
 		if (success == GL_FALSE)
 		{
@@ -47,10 +45,4 @@ Shader::Shader(const boost::filesystem::path& path, const ShaderType& type)
 Shader::~Shader()
 {
 	glDeleteShader(m_shader_id);
-}
-
-std::string Shader::openShaderFile(const boost::filesystem::path& path) const
-{
-	Preprocessor preprocessor(path);
-	return preprocessor.getSourceCode();
 }

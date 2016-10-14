@@ -3,11 +3,14 @@
 #define FXAA_GREEN_AS_LUMA 1
 #define FXAA_PC 1
 #define FXAA_GLSL_130 1
-#define FXAA_QUALITY__PRESET 12
 #include "fxaa/Fxaa3_11.h"
 
 uniform sampler2D screen_texture;
 uniform vec2 pixel_size;
+
+uniform float subpix = 0.5;
+uniform float edge_threshold = 0.166;
+uniform float edge_threshold_min = 0.0;
 
 in vec2 texture_coord;
 
@@ -29,5 +32,5 @@ vec3 processFxaa(float subpix, float edge_threshold, float edge_threshold_min)
 
 void main()
 {
-    out_color = processFxaa(0.5, 0.166, 0.0);  // default values, should be changed to uniforms
+    out_color = processFxaa(subpix, edge_threshold, edge_threshold_min);
 }

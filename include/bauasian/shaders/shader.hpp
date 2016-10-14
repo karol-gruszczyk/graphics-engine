@@ -17,19 +17,22 @@ namespace bauasian
 class bauasian::Shader
 {
 	friend class ShaderProgram;
+
 public:
 	enum ShaderType
 	{
-		VERTEX_SHADER, FRAGMENT_SHADER
+		VERTEX_SHADER = GL_VERTEX_SHADER, FRAGMENT_SHADER = GL_FRAGMENT_SHADER
 	};
 
-	Shader(const boost::filesystem::path& path, const ShaderType& type);
+	Shader(const boost::filesystem::path& path, const ShaderType& type,
+	       const std::map<std::string, std::string>& defines = {});
+	Shader(const Shader&) = delete;
+	Shader& operator=(const Shader&) = delete;
 	virtual ~Shader();
+
 protected:
 	GLuint m_shader_id;
-	static std::map<ShaderType, GLenum> s_shader_type;
 
-	std::string openShaderFile(const boost::filesystem::path& path) const;
 };
 
 #endif /* BAUASIAN_SHADER_HPP */

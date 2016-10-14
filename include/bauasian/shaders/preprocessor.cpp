@@ -1,16 +1,17 @@
 #include "preprocessor.hpp"
 #include "bauasian/bauasian.hpp"
+
 #include <sstream>
 
 
 using bauasian::Preprocessor;
 using bauasian::Bauasian;
 
-
-Preprocessor::Preprocessor(const boost::filesystem::path& path)
+Preprocessor::Preprocessor(const boost::filesystem::path& path, const std::map<std::string, std::string>& defines)
 {
 	m_source_code = getFileContent(path);
 	parseIncludes(path);
+	insertDefines(defines);
 }
 
 std::string Preprocessor::getSourceCode() const
@@ -65,4 +66,14 @@ std::string Preprocessor::getFileContent(const boost::filesystem::path& path) co
 	std::string file_content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 	file.close();
 	return file_content;
+}
+
+void Preprocessor::insertDefines(const auto& defines)
+{
+	const auto insert_location = m_source_code.find("\n", m_source_code.find("#version")) + 1;
+	for (const auto& define : defines)
+	{
+		const auto formatted = "#define " + define.first + " " + define.second + "\n";
+		m_source_code.insert(insert_location, formatted);
+	}
 }

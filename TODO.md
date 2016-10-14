@@ -40,6 +40,8 @@
   * Project 2D without depth test
 
 ## Optimizations
+* FXAA:
+  * prior shader should calculate luminance into alpha channel
 * Improve caching in factories
   * Use shared_ptr
   * When no reference to object exists it should be destroyed
