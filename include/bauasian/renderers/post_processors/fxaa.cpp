@@ -4,5 +4,5 @@
 using bauasian::FXAA;
 
 FXAA::FXAA()
-		: AreaFilter("fxaa_fs.glsl")
+		: AreaFilter("post_processing/fxaa_fs.glsl")
 {}

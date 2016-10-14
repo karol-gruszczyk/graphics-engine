@@ -20,11 +20,8 @@ Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 
 	m_screen_quad = new ScreenQuad();
 
-	Shader* vertex_shader = new Shader("post_processing/basic_vs.glsl", Shader::VERTEX_SHADER);
-	Shader* fragment_shader = new Shader("post_processing/" / fragment_shader_path, Shader::FRAGMENT_SHADER);
-	m_shader = new ShaderProgram({ vertex_shader, fragment_shader });
-	delete vertex_shader;
-	delete fragment_shader;
+	Shader fragment_shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
+	loadShader(fragment_shader);
 }
 
 Filter::~Filter()
@@ -64,4 +61,11 @@ void Filter::renderToScreen() const
 	m_shader->use();
 	m_color_texture->bind(0);
 	m_screen_quad->render();
+}
+
+void Filter::loadShader(Shader& fragment_shader)
+{
+	Shader* vertex_shader = new Shader("post_processing/basic_vs.glsl", Shader::VERTEX_SHADER);
+	m_shader = new ShaderProgram({ vertex_shader, &fragment_shader });
+	delete vertex_shader;
 }

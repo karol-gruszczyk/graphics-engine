@@ -7,8 +7,8 @@
 * ~~Opacity maps - basic discard if lower than X~~
 * ~~SkyBox~~
 * ~~Blinn-Phong~~
-* AntiAliasing:
-  * FXAA
+* ~~AntiAliasing:~~
+  * ~~FXAA~~
 * ~~Improve scene loader:~~
   * ~~nodes~~
   * ~~lights~~

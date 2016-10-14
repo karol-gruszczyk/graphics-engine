@@ -4,7 +4,7 @@
 using bauasian::Blur;
 
 Blur::Blur(const GLuint& radius)
-		: AreaFilter("blur_fs.glsl")
+		: AreaFilter("post_processing/blur_fs.glsl")
 {
 	m_location_radius = m_shader->getUniformLocation("radius");
 	setRadius(radius);

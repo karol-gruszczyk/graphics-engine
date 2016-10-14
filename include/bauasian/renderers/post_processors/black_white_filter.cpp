@@ -4,5 +4,5 @@
 using bauasian::BlackWhiteFilter;
 
 BlackWhiteFilter::BlackWhiteFilter()
-		: Filter("black_white_fs.glsl")
+		: Filter("post_processing/black_white_fs.glsl")
 {}

@@ -4,7 +4,7 @@
 using bauasian::KernelFilter;
 
 KernelFilter::KernelFilter(const bauasian::KernelFilter::KernelFilterType& type)
-		: AreaFilter("kernel_fs.glsl")
+		: AreaFilter("post_processing/kernel_fs.glsl")
 {
 	const auto& location = m_shader->getUniformLocation("kernel_matrix");
 	m_shader->setUniform(location, getKernelMatrix(type));

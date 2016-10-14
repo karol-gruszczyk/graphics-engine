@@ -26,7 +26,10 @@ public:
 	void renderToScreen() const;
 
 protected:
+	Filter();
 	ShaderProgram* m_shader = nullptr;
+
+	void loadShader(Shader& fragment_shader);
 
 private:
 	GLuint m_fbo_id, m_rbo_id;
