@@ -38,11 +38,11 @@ void Scene3D::addCamera(Camera* camera)
 		setCamera(m_cameras.front());
 }
 
-void Scene3D::addLight(const DirectionalLight& directional_light)
+void Scene3D::addLight(DirectionalLight& directional_light)
 {
 	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
 		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
-	m_directional_lights.push_back(directional_light);
+	m_directional_lights.push_back(&directional_light);
 	m_num_lights[0] = (unsigned) m_directional_lights.size();
 }
 
@@ -90,7 +90,7 @@ void Scene3D::render(const glm::mat4& projection_matrix) const
 {
 	glEnable(GL_DEPTH_TEST);
 
-	SceneBuffer::getInstance().setDirectionalLights(&m_directional_lights[0], m_num_lights[0]);
+	SceneBuffer::getInstance().setDirectionalLights(m_directional_lights[0], m_num_lights[0]);
 	SceneBuffer::getInstance().setPointLights(&m_point_lights[0], m_num_lights[1]);
 	SceneBuffer::getInstance().setSpotLights(&m_spot_lights[0], m_num_lights[2]);
 	SceneBuffer::getInstance().setCameraPosition(m_current_camera->getPosition());

@@ -27,7 +27,7 @@ public:
 	void setCamera(Camera* camera);
 	void addCamera(Camera* camera);
 	void addEntity(Entity3D* entity);
-	void addLight(const DirectionalLight& directional_light);
+	void addLight(DirectionalLight& directional_light);
 	void addLight(const PointLight& point_light);
 	void addLight(const SpotLight& spot_light);
 	void loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs = false,
@@ -42,7 +42,7 @@ private:
 	Camera* m_current_camera = nullptr;
 	std::vector<Camera*> m_cameras;
 	std::list<Entity3D*> m_entities;
-	std::vector<DirectionalLight> m_directional_lights;
+	std::vector<DirectionalLight*> m_directional_lights;
 	std::vector<PointLight> m_point_lights;
 	std::vector<SpotLight> m_spot_lights;
 	unsigned m_num_lights[3] = { 0, 0, 0 };

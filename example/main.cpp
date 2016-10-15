@@ -30,7 +30,8 @@ Box* box;
 BasicMaterial* basic_tile_material;
 std::shared_ptr<Material> brick_material, pavement_material;
 Text* fps_text, * stat_text, * loading_text;
-SkyBox* sky_box;
+SunSkyBox* sky_box;
+DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
 
 float counter;
 bool mouse_button_pressed, accelerate, wireframe;
@@ -137,6 +138,11 @@ void draw(void)
 	rect->setScale({ scale, scale });
 	box->setScale({ scale, scale, scale });
 	box->rotate({ 0.f, glm::radians(1.f), 0.f });
+
+	glm::vec3 light_direction(glm::sin(counter), cos(counter), glm::sin(counter));
+	//dir_light.setDirection(light_direction);
+	//sky_box->setLightDirection(light_direction);
+
 	counter += 0.01f;
 
 	renderer3d->clearScreen();
@@ -187,6 +193,10 @@ void setup()
 	plane->setPosition({ -100.f, 0.f, -100.f });
 	plane->setMaterial(pavement_material);
 
+
+	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
+	SpotLight spot_light({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
+
 	const std::string prefix("res/cube_textures/ashcanyon_");
 	//const std::string prefix("res/cube_textures/interstellar_");
 	const std::vector<boost::filesystem::path> paths = { prefix + "ft.tga", prefix + "bk.tga",
@@ -194,15 +204,14 @@ void setup()
 	                                                     prefix + "rt.tga", prefix + "lf.tga", };
 	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture(paths));
 	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture("res/cube_textures/skybox.jpg"));
-	scene3d = new Scene3D(new SkyBox("sky/sky_fs.glsl"));
-	scene3d->addEntity(box);
+	sky_box = new SunSkyBox(dir_light.getDirection());
+
+	scene3d = new Scene3D(sky_box);
+	//scene3d->addEntity(box);
 	scene3d->addEntity(plane);
-	DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
-	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
-	SpotLight spot_light({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
 	scene3d->addLight(dir_light);
-	scene3d->addLight(point_light);
-	scene3d->addLight(spot_light);
+	//scene3d->addLight(point_light);
+	//scene3d->addLight(spot_light);
 
 	try
 	{

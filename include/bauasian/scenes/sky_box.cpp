@@ -5,7 +5,7 @@ using bauasian::SkyBox;
 
 SkyBox::SkyBox(const boost::filesystem::path& fragment_shader_path)
 {
-	Shader* vertex_shader = new Shader("sky/basic_vs.glsl", Shader::VERTEX_SHADER);
+	Shader* vertex_shader = new Shader("skybox/basic_vs.glsl", Shader::VERTEX_SHADER);
 	Shader* fragment_shader = new Shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
 	m_shader_program = new ShaderProgram({ vertex_shader, fragment_shader });
 	delete vertex_shader;
