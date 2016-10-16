@@ -108,25 +108,25 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 	result_mat->setName(tmp_string.C_Str());
 
 	if (material->GetTexture(aiTextureType_AMBIENT, 0, &tmp_string) == AI_SUCCESS)
-		result_mat->setAmbient(getTexture(tmp_string));
+		result_mat->setAmbient(getTexture(tmp_string, true));
 	material->Get(AI_MATKEY_COLOR_AMBIENT, tmp_color3d);
 	result_mat->setAmbient({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
 
 	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tmp_string) == AI_SUCCESS)
-		result_mat->setDiffuse(getTexture(tmp_string));
+		result_mat->setDiffuse(getTexture(tmp_string, true));
 	material->Get(AI_MATKEY_COLOR_DIFFUSE, tmp_color3d);
 	result_mat->setDiffuse({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
 
 	if (material->GetTexture(aiTextureType_SPECULAR, 0, &tmp_string) == AI_SUCCESS)
-		result_mat->setSpecular(getTexture(tmp_string));
+		result_mat->setSpecular(getTexture(tmp_string, false));
 	material->Get(AI_MATKEY_COLOR_SPECULAR, tmp_color3d);
 	result_mat->setSpecular({ tmp_color3d.r, tmp_color3d.g, tmp_color3d.b });
 
 	if (material->GetTexture(m_normal_map, 0, &tmp_string) == AI_SUCCESS)
-		result_mat->setNormalTexture(getTexture(tmp_string));
+		result_mat->setNormalTexture(getTexture(tmp_string, false));
 
 	if (material->GetTexture(aiTextureType_OPACITY, 0, &tmp_string) == AI_SUCCESS)
-		result_mat->setOpacityTexture(getTexture(tmp_string));
+		result_mat->setOpacityTexture(getTexture(tmp_string, false));
 
 	float shininess = 0.f;
 	material->Get(AI_MATKEY_SHININESS, shininess);
@@ -247,11 +247,11 @@ const std::string SceneLoader::getPath(const std::string& path)
 	return full_dir;
 }
 
-Texture* SceneLoader::getTexture(const aiString& path)
+Texture* SceneLoader::getTexture(const aiString& path, const bool& is_standardized)
 {
 	try
 	{
-		return TextureFactory::getInstance().getTexture(getPath(path.C_Str()));
+		return TextureFactory::getInstance().getTexture(getPath(path.C_Str()), is_standardized);
 	}
 	catch (FileNotFoundException& e)
 	{

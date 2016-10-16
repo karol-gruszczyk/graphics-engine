@@ -1,17 +1,18 @@
 #include "filter.hpp"
-#include "bauasian/bauasian.hpp"
 
 
 using bauasian::Filter;
 
-Filter::Filter(const boost::filesystem::path& fragment_shader_path)
+Filter::Filter(const boost::filesystem::path& fragment_shader_path, const GLenum& storage)
+		: FrameBuffer({ new Texture(storage, GL_RGB) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	Shader fragment_shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
 	loadShader(fragment_shader);
 }
 
-Filter::Filter(Shader& fragment_shader)
+Filter::Filter(Shader& fragment_shader, const GLenum& storage)
+		: FrameBuffer({ new Texture(storage, storage) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	loadShader(fragment_shader);
@@ -19,34 +20,14 @@ Filter::Filter(Shader& fragment_shader)
 
 Filter::~Filter()
 {
-	glDeleteFramebuffers(1, &m_fbo_id);
-	glDeleteRenderbuffers(1, &m_rbo_id);
-	delete m_color_texture;
 	delete m_screen_quad;
 	delete m_shader;
 }
 
-void Filter::setContextSize(const unsigned& width, const unsigned& height) const
+void Filter::setContextSize(const unsigned& width, const unsigned& height)
 {
-	m_color_texture->update({ width, height }, GL_RGB, GL_RGB);
-
-	glNamedRenderbufferStorage(m_rbo_id, GL_DEPTH24_STENCIL8, width, height);
-
-}
-
-void Filter::bind() const
-{
-	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo_id);
-}
-
-void Filter::unbind() const
-{
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void Filter::clear() const
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	m_color_texture->setSize({ width, height });
+	setSize({ width, height });
 }
 
 void Filter::renderToScreen() const
@@ -67,17 +48,6 @@ void Filter::loadShader(Shader& fragment_shader)
 
 void Filter::initFrameBuffer()
 {
-	glGenFramebuffers(1, &m_fbo_id);
-
-	unsigned size = 1;
-	m_color_texture = new Texture({ size, size }, GL_RGB, GL_RGB);
-
-	glGenRenderbuffers(1, &m_rbo_id);
-	glNamedRenderbufferStorageEXT(m_rbo_id, GL_DEPTH24_STENCIL8, size, size);
-
-	glNamedFramebufferTexture2DEXT(m_fbo_id, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_texture->getTextureId(), 0);
-	glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo_id);
-	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-
+	m_color_texture = dynamic_cast<Texture*>(getColorAttachments().front());
 	m_screen_quad = new ScreenQuad();
 }

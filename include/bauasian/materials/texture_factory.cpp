@@ -13,7 +13,7 @@ TextureFactory& TextureFactory::getInstance()
 	return instance;
 }
 
-Texture* TextureFactory::getTexture(const boost::filesystem::path& path)
+Texture* TextureFactory::getTexture(const boost::filesystem::path& path, const bool& is_standardized)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -23,7 +23,10 @@ Texture* TextureFactory::getTexture(const boost::filesystem::path& path)
 		return static_cast<Texture*>(m_textures[string_path]);
 
 	ImageLoader loader(path);
-	Texture* texture = new Texture(loader.getSize(), loader.getPixels(), GL_RGBA, GL_BGRA, true, string_path);
+	const auto bpp = loader.getBitsPerPixel();
+	const auto internal = getFormatFromBPP(bpp, true, is_standardized);
+	const auto format = getFormatFromBPP(bpp, false, false);
+	Texture* texture = new Texture(loader.getSize(), loader.getPixels(), internal, format, true, string_path);
 	m_textures[string_path] = texture;
 	return texture;
 }
@@ -81,4 +84,19 @@ TextureFactory::~TextureFactory()
 {
 	for (const auto& texture : m_textures)
 		delete texture.second;
+}
+
+const GLenum TextureFactory::getFormatFromBPP(const unsigned& bpp, const bool& is_internal, const bool& is_standardized)
+{
+	switch (bpp)
+	{
+		case 8:
+			return GL_RED;
+		case 24:
+			return is_internal ? (is_standardized ? GL_SRGB : GL_RGB) : GL_BGR;
+		case 32:
+			return is_internal ? (is_standardized ? GL_SRGB_ALPHA : GL_RGBA) : GL_BGRA;
+		default:
+			throw std::invalid_argument("bpp parameter can be one of: 8, 24, 32");
+	}
 }

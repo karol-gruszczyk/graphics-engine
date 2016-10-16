@@ -16,6 +16,7 @@
 #include "renderers/post_processors/black_white_filter.hpp"
 #include "renderers/post_processors/blur.hpp"
 #include "renderers/post_processors/fxaa.hpp"
+#include "renderers/post_processors/hdr.hpp"
 
 
 #endif /* BAUASIAN_ENGINE3D_HPP */

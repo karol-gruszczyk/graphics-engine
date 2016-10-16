@@ -86,7 +86,7 @@ void setFragmentColors()
     // opacity
     if (material.use_opacity_texture == 1)
     {
-        float opacity = length(texture(opacity_texture, corrected_texture_coord).rgb);
+        float opacity = texture(opacity_texture, corrected_texture_coord).r;
         if (opacity < MIN_ALPHA_DISCARD)
             discard;
     }
@@ -105,7 +105,7 @@ void setFragmentColors()
 
 	// specular
     if (material.use_specular_texture == 1)
-		fragment_specular_color = texture2D(specular_texture, corrected_texture_coord).rgb;
+		fragment_specular_color = vec3(texture2D(specular_texture, corrected_texture_coord).r);
 	else
 	    fragment_specular_color = material.specular_color.rgb;
 

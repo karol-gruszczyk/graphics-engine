@@ -21,12 +21,13 @@ ImageLoader::ImageLoader(const boost::filesystem::path& path, const unsigned& nu
 		throw FileTypeNotSupportedException(path);
 
 	m_bitmap = FreeImage_Load(file_format, path_str);
-	if (FreeImage_GetBPP(m_bitmap) != 32)
+	if (FreeImage_GetBPP(m_bitmap) > 32)
 	{
 		FIBITMAP* temp = m_bitmap;
 		m_bitmap = FreeImage_ConvertTo32Bits(m_bitmap);
 		FreeImage_Unload(temp);
 	}
+	m_bits_per_pixel = FreeImage_GetBPP(m_bitmap);
 	if (num_rotate_sides)
 		m_bitmap = FreeImage_Rotate(m_bitmap, num_rotate_sides * 90);
 	m_size.x = FreeImage_GetWidth(m_bitmap);
@@ -63,6 +64,11 @@ ImageLoader& ImageLoader::getStaticInstance()
 const glm::uvec2& ImageLoader::getSize() const
 {
 	return m_size;
+}
+
+unsigned ImageLoader::getBitsPerPixel() const
+{
+	return m_bits_per_pixel;
 }
 
 unsigned char* ImageLoader::getPixels() const

@@ -9,10 +9,9 @@
 
 using bauasian::Texture;
 
-
 Texture::Texture(const glm::uvec2& size, const GLubyte* const pixels, const GLint& internal_format,
                  const GLenum& format, const bool& generate_mipmaps, std::string image_name)
-		: TextureInterface(GL_TEXTURE_2D), m_size(size)
+		: TextureInterface(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
 {
 	auto is_power_of_2 = [](unsigned number) -> bool { return !(number & (number - 1)); };
 	if (!is_power_of_2(m_size.x) || !is_power_of_2(m_size.y))
@@ -29,7 +28,7 @@ Texture::Texture(const glm::uvec2& size, const GLubyte* const pixels, const GLin
 	}
 
 	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_size.x, m_size.y,
-	                    0, format, GL_UNSIGNED_BYTE, pixels);
+	                    0, format, GL_UNSIGNED_BYTE, reinterpret_cast<const void*>(pixels));
 
 	if (generate_mipmaps)
 	{
@@ -46,8 +45,8 @@ Texture::Texture(const glm::uvec2& size, const GLubyte* const pixels, const GLin
 	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-Texture::Texture(const glm::uvec2& size, const GLint& internal_format, const GLenum& format)
-		: TextureInterface(GL_TEXTURE_2D), m_size(size)
+Texture::Texture(const GLint& internal_format, const GLenum& format, const glm::uvec2& size)
+		: TextureInterface(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
 {
 	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_size.x, m_size.y,
 	                    0, format, GL_UNSIGNED_BYTE, nullptr);
@@ -59,11 +58,16 @@ Texture::Texture(const glm::uvec2& size, const GLint& internal_format, const GLe
 	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 }
 
-void Texture::update(const glm::uvec2& size, const GLint& internal_format, const GLenum& format)
+void Texture::setSize(const glm::uvec2& size)
 {
-	m_size = size;
-	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_size.x, m_size.y,
-	                    0, format, GL_UNSIGNED_BYTE, nullptr);
+	FrameBufferAttachment::setSize(size);
+	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, m_internal_format, m_size.x, m_size.y,
+	                    0, m_format, GL_UNSIGNED_BYTE, nullptr);
+}
+
+const GLuint& Texture::getId() const
+{
+	return m_texture_id;
 }
 
 void Texture::save(const boost::filesystem::path& path)
