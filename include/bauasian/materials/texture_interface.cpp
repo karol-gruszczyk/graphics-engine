@@ -14,11 +14,6 @@ TextureInterface::~TextureInterface()
 	glDeleteTextures(1, &m_texture_id);
 }
 
-const GLuint& TextureInterface::getTextureId() const
-{
-	return m_texture_id;
-}
-
 void TextureInterface::bind(unsigned short texture_level) const
 {
 	glActiveTexture(GL_TEXTURE0 + texture_level);

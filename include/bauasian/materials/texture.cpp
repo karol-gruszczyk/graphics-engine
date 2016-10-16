@@ -65,6 +65,11 @@ void Texture::setSize(const glm::uvec2& size)
 	                    0, m_format, GL_UNSIGNED_BYTE, nullptr);
 }
 
+const GLuint& Texture::getId() const
+{
+	return m_texture_id;
+}
+
 void Texture::save(const boost::filesystem::path& path)
 {
 	auto fif = FreeImage_GetFIFFromFilename(path.filename().c_str());

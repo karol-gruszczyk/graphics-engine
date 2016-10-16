@@ -4,7 +4,7 @@
 using bauasian::Filter;
 
 Filter::Filter(const boost::filesystem::path& fragment_shader_path)
-		: FrameBuffer(glm::uvec2(1, 1), {})
+		: FrameBuffer(glm::uvec2(1, 1), { new Texture(glm::uvec2(1, 1), GL_RGB, GL_RGB) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	Shader fragment_shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
@@ -12,7 +12,7 @@ Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 }
 
 Filter::Filter(Shader& fragment_shader)
-		: FrameBuffer(glm::uvec2(1, 1), {})
+		: FrameBuffer(glm::uvec2(1, 1), { new Texture(glm::uvec2(1, 1), GL_RGB, GL_RGB) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	loadShader(fragment_shader);
@@ -20,7 +20,6 @@ Filter::Filter(Shader& fragment_shader)
 
 Filter::~Filter()
 {
-	delete m_color_texture;
 	delete m_screen_quad;
 	delete m_shader;
 }
@@ -49,12 +48,6 @@ void Filter::loadShader(Shader& fragment_shader)
 
 void Filter::initFrameBuffer()
 {
-	unsigned size = 1;
-	m_color_texture = new Texture({ size, size }, GL_RGB, GL_RGB);
-
-	glNamedFramebufferTexture2DEXT(m_fbo_id, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_texture->getTextureId(), 0);
-	addAttachment(new RenderBuffer());
-	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-
+	m_color_texture = dynamic_cast<Texture*>(getColorAttachments().front());
 	m_screen_quad = new ScreenQuad();
 }
