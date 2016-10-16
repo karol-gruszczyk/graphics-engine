@@ -8,7 +8,7 @@
 * Simple sky shader
 * Deferred rendering
 * ~~Gamma correction~~
-* High Dynamic Range
+* ~~High Dynamic Range~~
 * Rendering detail settings
   * anisotropy
   * mipmap level
