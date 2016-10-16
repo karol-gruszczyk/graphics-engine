@@ -29,15 +29,15 @@
   * Project 2D without depth test
 
 ## Optimizations
-* Improve single channel textures in shader`s
+* ~~Improve single channel textures in shader`s~~
 * FXAA:
   * prior shader should calculate luminance into alpha channel
 * Improve caching in factories
   * Use shared_ptr
   * When no reference to object exists it should be destroyed
-* Optimize texture storage
-* Optimize texture loading
-  * remove converting to 32 BPP, instead return format
+* ~~Optimize texture storage~~
+* ~~Optimize texture loading~~
+  * ~~remove converting to 32 BPP, instead return format~~
 * Rewrite Camera class
   * add lookAt
   * use quaternions
