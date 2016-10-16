@@ -1,10 +1,10 @@
 #include "filter.hpp"
-#include "bauasian/bauasian.hpp"
 
 
 using bauasian::Filter;
 
 Filter::Filter(const boost::filesystem::path& fragment_shader_path)
+		: FrameBuffer(glm::uvec2(1, 1), {})
 {
 	initFrameBuffer();
 	Shader fragment_shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
@@ -12,6 +12,7 @@ Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 }
 
 Filter::Filter(Shader& fragment_shader)
+		: FrameBuffer(glm::uvec2(1, 1), {})
 {
 	initFrameBuffer();
 	loadShader(fragment_shader);
@@ -19,7 +20,6 @@ Filter::Filter(Shader& fragment_shader)
 
 Filter::~Filter()
 {
-	glDeleteFramebuffers(1, &m_fbo_id);
 	glDeleteRenderbuffers(1, &m_rbo_id);
 	delete m_color_texture;
 	delete m_screen_quad;
@@ -28,25 +28,9 @@ Filter::~Filter()
 
 void Filter::setContextSize(const unsigned& width, const unsigned& height) const
 {
-	m_color_texture->update({ width, height }, GL_RGB, GL_RGB);
+	m_color_texture->setSize({ width, height });
 
 	glNamedRenderbufferStorage(m_rbo_id, GL_DEPTH24_STENCIL8, width, height);
-
-}
-
-void Filter::bind() const
-{
-	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo_id);
-}
-
-void Filter::unbind() const
-{
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void Filter::clear() const
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Filter::renderToScreen() const
@@ -67,8 +51,6 @@ void Filter::loadShader(Shader& fragment_shader)
 
 void Filter::initFrameBuffer()
 {
-	glGenFramebuffers(1, &m_fbo_id);
-
 	unsigned size = 1;
 	m_color_texture = new Texture({ size, size }, GL_RGB, GL_RGB);
 

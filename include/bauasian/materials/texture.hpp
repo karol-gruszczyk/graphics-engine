@@ -21,7 +21,7 @@ public:
 		        const GLenum& format, const bool& generate_mipmaps, std::string image_name);
 	Texture(const glm::uvec2& size, const GLint& internal_format, const GLenum& format);
 
-	void update(const glm::uvec2& size, const GLint& internal_format, const GLenum& format);
+	void setSize(const glm::uvec2& size);
 	void save(const boost::filesystem::path& path);
 
 private:

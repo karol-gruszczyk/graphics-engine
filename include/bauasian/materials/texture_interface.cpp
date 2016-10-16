@@ -3,8 +3,8 @@
 
 using bauasian::TextureInterface;
 
-TextureInterface::TextureInterface(const GLenum& texture_target)
-		: m_texture_target(texture_target)
+TextureInterface::TextureInterface(const GLenum& texture_target, const GLint& internal_format, const GLenum& format)
+		: m_texture_target(texture_target), m_internal_format(internal_format), m_format(format)
 {
 	glGenTextures(1, &m_texture_id);
 }
