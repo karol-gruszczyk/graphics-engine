@@ -21,7 +21,7 @@ public:
 	Filter(Shader& fragment_shader);
 	virtual ~Filter();
 
-	virtual void setContextSize(const unsigned& width, const unsigned& height) const;
+	virtual void setContextSize(const unsigned& width, const unsigned& height);
 	void renderToScreen() const;
 
 protected:
@@ -30,7 +30,6 @@ protected:
 	void loadShader(Shader& fragment_shader);
 
 private:
-	GLuint m_rbo_id;
 	Texture* m_color_texture = nullptr;
 	ScreenQuad* m_screen_quad = nullptr;
 

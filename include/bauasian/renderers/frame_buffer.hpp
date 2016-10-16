@@ -27,7 +27,6 @@ public:
 
 protected:
 	GLuint m_fbo_id;
-	glm::uvec2 m_size;
 	std::list<FrameBufferAttachment*> m_attachments;
 
 };

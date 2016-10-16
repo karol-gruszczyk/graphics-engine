@@ -16,7 +16,7 @@ public:
 	AreaFilter(const boost::filesystem::path& fragment_shader_path);
 	AreaFilter(Shader& fragment_shader);
 
-	virtual void setContextSize(const unsigned& width, const unsigned& height) const override;
+	virtual void setContextSize(const unsigned& width, const unsigned& height) override;
 
 private:
 	GLint m_location_pixel_size;

@@ -22,12 +22,12 @@ FrameBuffer::~FrameBuffer()
 		delete attachment;
 }
 
-void FrameBuffer::addAttachment(bauasian::FrameBufferAttachment* attachment)
+void FrameBuffer::addAttachment(FrameBufferAttachment* attachment)
 {
 	m_attachments.push_back(attachment);
 	attachment->setSize(m_size);
-	if (auto render_buffer = dynamic_cast<RenderBuffer*>(attachment))
-		glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, render_buffer->getId());
+	if (auto rbo = dynamic_cast<RenderBuffer*>(attachment))
+		glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo->getId());
 }
 
 void FrameBuffer::setSize(const glm::uvec2& size)

@@ -20,17 +20,15 @@ Filter::Filter(Shader& fragment_shader)
 
 Filter::~Filter()
 {
-	glDeleteRenderbuffers(1, &m_rbo_id);
 	delete m_color_texture;
 	delete m_screen_quad;
 	delete m_shader;
 }
 
-void Filter::setContextSize(const unsigned& width, const unsigned& height) const
+void Filter::setContextSize(const unsigned& width, const unsigned& height)
 {
 	m_color_texture->setSize({ width, height });
-
-	glNamedRenderbufferStorage(m_rbo_id, GL_DEPTH24_STENCIL8, width, height);
+	setSize({ width, height });
 }
 
 void Filter::renderToScreen() const
@@ -54,11 +52,8 @@ void Filter::initFrameBuffer()
 	unsigned size = 1;
 	m_color_texture = new Texture({ size, size }, GL_RGB, GL_RGB);
 
-	glGenRenderbuffers(1, &m_rbo_id);
-	glNamedRenderbufferStorageEXT(m_rbo_id, GL_DEPTH24_STENCIL8, size, size);
-
 	glNamedFramebufferTexture2DEXT(m_fbo_id, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_texture->getTextureId(), 0);
-	glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo_id);
+	addAttachment(new RenderBuffer());
 	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 
 	m_screen_quad = new ScreenQuad();
