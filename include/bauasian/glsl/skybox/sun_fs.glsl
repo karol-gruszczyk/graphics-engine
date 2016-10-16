@@ -19,7 +19,8 @@ float phase(float alpha, float g)
     return (a / b) * (c / d);
 }
 
-float atmospheric_depth(vec3 position, vec3 dir){
+float atmospheric_depth(vec3 position, vec3 dir)
+{
     float a = dot(dir, dir);
     float b = 2.f * dot(dir, position);
     float c = dot(position, position) - 1.f;
@@ -28,22 +29,6 @@ float atmospheric_depth(vec3 position, vec3 dir){
     float q = (-b - detSqrt) / 2.f;
     float t1 = c / q;
     return t1;
-}
-
-float horizon_extinction(vec3 position, vec3 direction, float radius)
-{
-    float u = dot(direction, -position);
-    if (u < 0.f)
-        return 1.0;
-    vec3 near = position * u * direction;
-    if (length(direction) < radius)
-        return 0.0;
-    else
-    {
-        vec3 v2 = normalize(near) * radius - position;
-        float diff = acos(dot(normalize(v2), direction));
-        return smoothstep(0.f, 1.f, pow(diff * 2.f, 3.f));
-    }
 }
 
 vec3 absorb(float distance, vec3 color, float factor)
@@ -55,19 +40,18 @@ void main()
 {
     float sun_size = 1.f;
     float sun_brightness = 1.f;
-    float surface_height = 0.8f;
-    float earth_radius = 1.f;
+    vec3 sun_color = vec3(1.f);
+    float surface_height = 0.2f;
     float step_count = 10.f;
-    float intensity = 1.f;
-    float scatter_strength = 4.f;
-    float rayleigh_distribution = -0.01f;
+    float scatter_strength = 8.f;
+    float rayleigh_distribution = 0.05f;
     float rayleigh_brightness = 1.f;
-    float rayleigh_scatter_strength = 1.f;
-    float rayleight_collection_power = 0.5f;
-    float mie_distribution = 0.0004f;
+    float rayleigh_scatter_strength = 8.f;
+    float rayleight_collection_power = 0.f;
+    float mie_distribution = 0.05f;
     float mie_brightness = 1.f;
-    float mie_scatter_strength = 1.f;
-    float mie_collection_power = 0.5f;
+    float mie_scatter_strength = 0.4f;
+    float mie_collection_power = 1.0f;
 
     vec3 eye_direction = normalize(position);
     vec3 eye_position = vec3(0.f, surface_height, 0.f);
@@ -75,9 +59,9 @@ void main()
 
     float rayleigh_factor = phase(cos_angle, rayleigh_distribution) * rayleigh_brightness;
     float mie_factor = phase(cos_angle, mie_distribution) * mie_brightness;
-    float sun = smoothstep(0.0, 15.f / sun_size * sqrt(sun_brightness), phase(cos_angle, 0.9995)) * sun_brightness;
+    vec3 sun = smoothstep(0.0, 15.f / sun_size * sqrt(sun_brightness), phase(cos_angle, 0.9995)) * sun_brightness * sun_color;
 
-    float eye_extinction = horizon_extinction(eye_position, eye_direction, surface_height - 0.15);
+    float eye_extinction = clamp(dot(eye_direction, vec3(0.f, 1.f, 0.f)) * 5.f + 1.f, 0.f, 1.f);
 
     float eye_depth = atmospheric_depth(eye_position, eye_direction);
     float step_length = eye_depth / step_count;
@@ -87,15 +71,16 @@ void main()
     for (float i = 0.f; i < step_count; i += 1.f)
     {
         float sample_distance = step_length * i;
-        vec3 current_position = eye_position + eye_direction * sample_distance;
-        float sample_depth = atmospheric_depth(current_position, eye_direction);
-        vec3 influx = absorb(sample_depth, vec3(intensity), scatter_strength);
+        vec3 sample_position = eye_position + eye_direction * sample_distance;
+        float sample_depth = atmospheric_depth(sample_position, eye_direction);
+        float extinction = clamp(dot(eye_direction, -light_direction) / 2.f + 0.7f, 0.f, 1.f);
+        vec3 influx = absorb(sample_depth, sun_color, scatter_strength) * extinction;
         rayleigh_collected += absorb(sample_depth, NITROGEN_ABSORPTION * influx, rayleigh_scatter_strength);
         mie_collected += absorb(sample_depth, influx, mie_scatter_strength);
     }
 
-    rayleigh_collected = rayleigh_collected * pow(eye_depth, rayleight_collection_power) / step_count;
-    mie_collected = mie_collected * pow(eye_depth, mie_collection_power) / step_count;
+    rayleigh_collected = eye_extinction * rayleigh_collected * pow(eye_depth, rayleight_collection_power) / step_count;
+    mie_collected = eye_extinction * mie_collected * pow(eye_depth, mie_collection_power) / step_count;
 
     vec3 color = vec3(0.f);
     color += rayleigh_factor * rayleigh_collected;

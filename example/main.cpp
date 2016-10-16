@@ -31,7 +31,7 @@ BasicMaterial* basic_tile_material;
 std::shared_ptr<Material> brick_material, pavement_material;
 Text* fps_text, * stat_text, * loading_text;
 SunSkyBox* sky_box;
-DirectionalLight dir_light(glm::vec3(-1.f, -1.f, -1.f));
+DirectionalLight dir_light(glm::vec3(-1.f, -0.3f, -1.f));
 
 float counter;
 bool mouse_button_pressed, accelerate, wireframe;
@@ -140,8 +140,8 @@ void draw(void)
 	box->rotate({ 0.f, glm::radians(1.f), 0.f });
 
 	glm::vec3 light_direction(glm::sin(counter), cos(counter), glm::sin(counter));
-	//dir_light.setDirection(light_direction);
-	//sky_box->setLightDirection(light_direction);
+	dir_light.setDirection(light_direction);
+	sky_box->setLightDirection(light_direction);
 
 	counter += 0.01f;
 
