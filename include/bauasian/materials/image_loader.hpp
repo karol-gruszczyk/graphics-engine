@@ -22,6 +22,7 @@ public:
 
 	const glm::uvec2& getSize() const;
 	unsigned char* getPixels() const;
+	unsigned getBitsPerPixel() const;
 
 private:
 	ImageLoader();
@@ -30,6 +31,7 @@ private:
 	FIBITMAP* m_bitmap;
 	glm::uvec2 m_size;
 	unsigned char* m_pixels;
+	unsigned m_bits_per_pixel;
 
 	static ImageLoader& getStaticInstance();
 };

@@ -49,7 +49,7 @@ private:
 	void processCameras(const aiScene* scene);
 	void processLights(const aiScene* scene);
 	const std::string getPath(const std::string& path);
-	Texture* getTexture(const aiString& path);
+	Texture* getTexture(const aiString& path, const bool& is_standardized);
 };
 
 #endif /* BAUASIAN_MODEL_LOADER_HPP */

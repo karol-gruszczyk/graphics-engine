@@ -71,7 +71,7 @@ void main()
 	for (int i = 0; i < num_spot_lights; i++)
 		object_color += processSpotLight(spot_lights[i]);
 
-	out_color = vec4(object_color, 1.f);
+	out_color = vec4(pow(object_color, vec3(1.f / 2.2f)), 1.f);
 }
 
 void setFragmentColors()

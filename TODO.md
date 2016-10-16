@@ -29,6 +29,7 @@
   * Project 2D without depth test
 
 ## Optimizations
+* Improve single channel textures in shader`s
 * FXAA:
   * prior shader should calculate luminance into alpha channel
 * Improve caching in factories

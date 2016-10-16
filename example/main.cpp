@@ -169,15 +169,15 @@ void setup()
 	brick_material = std::make_shared<Material>();
 	brick_material->setAmbient(TextureFactory::getInstance().getTexture("res/bricks-diff.jpg"));
 	brick_material->setDiffuse(TextureFactory::getInstance().getTexture("res/bricks-diff.jpg"));
-	brick_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/bricks-normal.jpg"));
-	brick_material->setDisplacementTexture(TextureFactory::getInstance().getTexture("res/bricks-disp.jpg"));
+	brick_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/bricks-normal.jpg", false));
+	brick_material->setDisplacementTexture(TextureFactory::getInstance().getTexture("res/bricks-disp.jpg", false));
 	brick_material->setShininess(12);
 
 	pavement_material = std::make_shared<Material>();
 	pavement_material->setAmbient(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
 	pavement_material->setDiffuse(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
-	pavement_material->setSpecular(TextureFactory::getInstance().getTexture("res/brick-specular.png"));
-	pavement_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/brick-normal.png"));
+	pavement_material->setSpecular(TextureFactory::getInstance().getTexture("res/brick-specular.png", false));
+	pavement_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/brick-normal.png", false));
 	pavement_material->setShininess(32);
 	box = new Box(glm::vec3(5.f, 5.f, 5.f));
 	box->setPosition({ 20.f, 2.5f, 10.f });
@@ -211,7 +211,7 @@ void setup()
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
 		//scene3d->loadFromFile("res/sponza/sponza.3ds");
-		//scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
+		scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
 		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
@@ -258,7 +258,7 @@ void setup_loading()
 	loading_rect->setPosition({ 400.f, 300.f });
 	loading_rect->setPivot({ 75.f, 75.f });
 
-	auto loading_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/loading.png"));
+	auto loading_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/loading.png", false));
 	loading_rect->setMaterial(loading_material);
 	loading_scene = new Scene2D();
 	loading_scene->addEntity(loading_rect);
