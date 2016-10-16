@@ -5,17 +5,23 @@
 using bauasian::FrameBuffer;
 using bauasian::FrameBufferAttachment;
 
-FrameBuffer::FrameBuffer(const glm::uvec2& size, const std::initializer_list<FrameBufferAttachment*>& color_attachments,
-                         FrameBufferAttachment* depth_attachment)
+FrameBuffer::FrameBuffer(const std::initializer_list<FrameBufferAttachment*>& color_attachments,
+                         FrameBufferAttachment* depth_attachment, const glm::uvec2& size)
 		: SizeInterface(size)
 {
 	glGenFramebuffers(1, &m_fbo_id);
+
+	if (size.x && size.y)
+	{
+		for (auto& attachment : color_attachments)
+			attachment->setSize(m_size);
+		depth_attachment->setSize(m_size);
+	}
 
 	for (auto& attachment : color_attachments)
 	{
 		auto i = m_color_attachments.size();
 		m_color_attachments.push_back(attachment);
-		attachment->setSize(m_size);
 		if (auto rbo = dynamic_cast<RenderBuffer*>(attachment))
 			glNamedFramebufferRenderbuffer(m_fbo_id, GLenum(GL_COLOR_ATTACHMENT0 + i), GL_RENDERBUFFER, rbo->getId());
 		else if (auto tex = dynamic_cast<Texture*>(attachment))
@@ -23,7 +29,6 @@ FrameBuffer::FrameBuffer(const glm::uvec2& size, const std::initializer_list<Fra
 	}
 
 	m_depth_attachment = depth_attachment;
-	m_depth_attachment->setSize(m_size);
 	if (auto rbo = dynamic_cast<RenderBuffer*>(m_depth_attachment))
 		glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo->getId());
 	else if (auto tex = dynamic_cast<Texture*>(m_depth_attachment))

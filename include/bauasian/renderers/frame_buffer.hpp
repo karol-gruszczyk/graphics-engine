@@ -16,8 +16,8 @@ namespace bauasian
 class bauasian::FrameBuffer : public SizeInterface
 {
 public:
-	FrameBuffer(const glm::uvec2& size, const std::initializer_list<FrameBufferAttachment*>& color_attachments,
-	            FrameBufferAttachment* depth_attachment);
+	FrameBuffer(const std::initializer_list<FrameBufferAttachment*>& color_attachments,
+	            FrameBufferAttachment* depth_attachment, const glm::uvec2& size = { 0, 0 });
 	virtual ~FrameBuffer();
 
 	void setSize(const glm::uvec2& size) override;

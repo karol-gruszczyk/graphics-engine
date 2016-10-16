@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::RenderBuffer : public FrameBufferAttachment
 {
 public:
-	RenderBuffer();
+	RenderBuffer(const glm::uvec2& size = { 1, 1 });
 	~RenderBuffer();
 
 	virtual void setSize(const glm::uvec2& size) override;

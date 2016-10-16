@@ -4,7 +4,7 @@
 using bauasian::Filter;
 
 Filter::Filter(const boost::filesystem::path& fragment_shader_path)
-		: FrameBuffer(glm::uvec2(1, 1), { new Texture(glm::uvec2(1, 1), GL_RGB, GL_RGB) }, new RenderBuffer())
+		: FrameBuffer({ new Texture(GL_RGB, GL_RGB) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	Shader fragment_shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
@@ -12,7 +12,7 @@ Filter::Filter(const boost::filesystem::path& fragment_shader_path)
 }
 
 Filter::Filter(Shader& fragment_shader)
-		: FrameBuffer(glm::uvec2(1, 1), { new Texture(glm::uvec2(1, 1), GL_RGB, GL_RGB) }, new RenderBuffer())
+		: FrameBuffer({ new Texture(GL_RGB, GL_RGB) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	loadShader(fragment_shader);

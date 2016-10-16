@@ -19,16 +19,13 @@ class bauasian::Texture final : public TextureInterface, public FrameBufferAttac
 {
 public:
 	Texture(const glm::uvec2& size, const GLubyte* const pixels, const GLint& internal_format,
-		        const GLenum& format, const bool& generate_mipmaps, std::string image_name);
-	Texture(const glm::uvec2& size, const GLint& internal_format, const GLenum& format);
+	        const GLenum& format, const bool& generate_mipmaps, std::string image_name);
+	Texture(const GLint& internal_format, const GLenum& format, const glm::uvec2& size = { 1, 1 });
 
 	void save(const boost::filesystem::path& path);
 
 	virtual const GLuint& getId() const override;
 	virtual void setSize(const glm::uvec2& size) override;
-
-private:
-	glm::uvec2 m_size;
 
 };
 

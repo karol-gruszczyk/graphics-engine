@@ -3,7 +3,8 @@
 
 using bauasian::FrameBufferAttachment;
 
-FrameBufferAttachment::FrameBufferAttachment()
+FrameBufferAttachment::FrameBufferAttachment(const glm::uvec2& size)
+		: SizeInterface(size)
 {}
 
 FrameBufferAttachment::~FrameBufferAttachment()

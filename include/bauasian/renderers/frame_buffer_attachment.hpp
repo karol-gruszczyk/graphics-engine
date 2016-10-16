@@ -12,13 +12,12 @@ namespace bauasian
 	class FrameBufferAttachment;
 }
 
-class bauasian::FrameBufferAttachment
+class bauasian::FrameBufferAttachment : public SizeInterface
 {
 public:
-	FrameBufferAttachment();
+	FrameBufferAttachment(const glm::uvec2& size);
 	virtual ~FrameBufferAttachment();
 
-	virtual void setSize(const glm::uvec2& size) = 0;
 	virtual const GLuint& getId() const = 0;
 
 };
