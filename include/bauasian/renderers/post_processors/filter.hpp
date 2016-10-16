@@ -17,8 +17,8 @@ namespace bauasian
 class bauasian::Filter : public FrameBuffer
 {
 public:
-	Filter(const boost::filesystem::path& fragment_shader_path);
-	Filter(Shader& fragment_shader);
+	Filter(const boost::filesystem::path& fragment_shader_path, const GLenum& storage = GL_RGBA);
+	Filter(Shader& fragment_shader, const GLenum& storage = GL_RGBA);
 	virtual ~Filter();
 
 	virtual void setContextSize(const unsigned& width, const unsigned& height);

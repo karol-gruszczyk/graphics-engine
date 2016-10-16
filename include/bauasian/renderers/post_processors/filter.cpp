@@ -3,16 +3,16 @@
 
 using bauasian::Filter;
 
-Filter::Filter(const boost::filesystem::path& fragment_shader_path)
-		: FrameBuffer({ new Texture(GL_RGB, GL_RGB) }, new RenderBuffer())
+Filter::Filter(const boost::filesystem::path& fragment_shader_path, const GLenum& storage)
+		: FrameBuffer({ new Texture(storage, GL_RGB) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	Shader fragment_shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
 	loadShader(fragment_shader);
 }
 
-Filter::Filter(Shader& fragment_shader)
-		: FrameBuffer({ new Texture(GL_RGB, GL_RGB) }, new RenderBuffer())
+Filter::Filter(Shader& fragment_shader, const GLenum& storage)
+		: FrameBuffer({ new Texture(storage, storage) }, new RenderBuffer())
 {
 	initFrameBuffer();
 	loadShader(fragment_shader);

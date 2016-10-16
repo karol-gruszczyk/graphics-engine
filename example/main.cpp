@@ -154,6 +154,7 @@ void setup()
 {
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
+	renderer3d->addFilter(new HDR());
 	renderer3d->addFilter(new FXAA());
 
 	// 2D
