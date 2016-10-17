@@ -19,73 +19,92 @@ float phase(float alpha, float g)
     return (a / b) * (c / d);
 }
 
-float atmospheric_depth(vec3 position, vec3 dir)
-{
-    float a = dot(dir, dir);
-    float b = 2.f * dot(dir, position);
-    float c = dot(position, position) - 1.f;
-    float det = b * b - 4.f * a * c;
-    float detSqrt = sqrt(det);
-    float q = (-b - detSqrt) / 2.f;
-    float t1 = c / q;
-    return t1;
-}
+const int   nSamples = 3;
+const float fSamples = 3.0;
+const vec3  Wavelength = vec3(0.650, 0.570, 0.475);
 
-vec3 absorb(float distance, vec3 color, float factor)
+const vec3  v3InvWavelength = 1.0f / pow(Wavelength, vec3(4.0f));
+
+const float fInnerRadius = 10.0;
+const float fOuterRadius = 100.0;
+const float fInnerRadius2 = fInnerRadius * fInnerRadius;
+const float fOuterRadius2 = fOuterRadius * fOuterRadius;
+const float fScale = 1.0 / (fOuterRadius - fInnerRadius);
+const float fScaleDepth = 0.25;
+const float fScaleOverScaleDepth = fScale / fScaleDepth;
+const vec3  v3CameraPos = vec3(0.0, fInnerRadius, 0.0);
+const float fCameraHeight = length(v3CameraPos);
+const float fCameraHeight2 = fCameraHeight * fCameraHeight;
+
+const float fm_ESun  = 20.0;
+const float fm_Kr    = 0.0025;
+const float fm_Km    = 0.0010;
+const float fKrESun = fm_Kr * fm_ESun;
+const float fKmESun = fm_Km * fm_ESun;
+const float fKr4PI = fm_Kr * 4 * 3.141592653;
+const float fKm4PI = fm_Km * 4 * 3.141592653;
+
+const float sun_size = 10.f;
+const float sun_brightness = 100.f;
+const vec3 sun_color = vec3(1.f, 1.f, 0.f);
+
+const float rayleigh_distribution = 0.f;
+const float mie_distribution = -0.95f;
+const float rayleigh_brightness = 1.f;
+const float mie_brightness = 1.f;
+
+float scale(float fCos)
 {
-    return color - color * pow(NITROGEN_ABSORPTION, vec3(factor / distance));
+   float x = 1.0 - fCos;
+   return fScaleDepth * exp(-0.00287 + x*(0.459 + x*(3.83 + x*(-6.80 + x*5.25))));
 }
 
 void main()
 {
-    float sun_size = 1.f;
-    float sun_brightness = 1.f;
-    vec3 sun_color = vec3(1.f);
-    float surface_height = 0.2f;
-    float step_count = 10.f;
-    float scatter_strength = 8.f;
-    float rayleigh_distribution = 0.05f;
-    float rayleigh_brightness = 1.f;
-    float rayleigh_scatter_strength = 8.f;
-    float rayleight_collection_power = 0.f;
-    float mie_distribution = 0.05f;
-    float mie_brightness = 1.f;
-    float mie_scatter_strength = 0.4f;
-    float mie_collection_power = 1.0f;
+    float cos_angle = dot(normalize(position), light_direction);
+    float rayleigh_phase = phase(cos_angle, rayleigh_distribution) * rayleigh_brightness;
+    float mie_phase = phase(cos_angle, mie_distribution) * mie_brightness;
+    vec3 sun = smoothstep(0.0, 15.f / sun_size * sqrt(sun_brightness), phase(cos_angle, -0.9995)) * sun_brightness * sun_color;
 
-    vec3 eye_direction = normalize(position);
-    vec3 eye_position = vec3(0.f, surface_height, 0.f);
-    float cos_angle = dot(eye_direction, -light_direction);
+    // Get the ray from the camera to the vertex and its length (which
+    // is the far point of the ray passing through the atmosphere)
+    vec3 v3Pos = normalize(position) * fOuterRadius;
+    vec3 v3Ray = v3Pos - v3CameraPos;
+    float fFar = length(v3Ray);
+    v3Ray /= fFar;
 
-    float rayleigh_factor = phase(cos_angle, rayleigh_distribution) * rayleigh_brightness;
-    float mie_factor = phase(cos_angle, mie_distribution) * mie_brightness;
-    vec3 sun = smoothstep(0.0, 15.f / sun_size * sqrt(sun_brightness), phase(cos_angle, 0.9995)) * sun_brightness * sun_color;
+    // Calculate the ray's starting position, then calculate its scattering offset
+    vec3 v3Start = v3CameraPos;
+    float fHeight = length(v3Start);
+    float fDepth = exp(fScaleOverScaleDepth * (fInnerRadius - fCameraHeight));
+    float fStartAngle = dot(v3Ray, v3Start) / fHeight;
+    float fStartOffset = fDepth * scale(fStartAngle);
 
-    float eye_extinction = clamp(dot(eye_direction, vec3(0.f, 1.f, 0.f)) * 5.f + 1.f, 0.f, 1.f);
+    // Initialize the scattering loop variables
 
-    float eye_depth = atmospheric_depth(eye_position, eye_direction);
-    float step_length = eye_depth / step_count;
+    float fSampleLength = fFar / fSamples;
+    float fScaledLength = fSampleLength * fScale;
+    vec3 v3SampleRay = v3Ray * fSampleLength;
+    vec3 v3SamplePoint = v3Start + v3SampleRay * 0.5;
 
-    vec3 rayleigh_collected = vec3(0.f);
-    vec3 mie_collected = vec3(0.f);
-    for (float i = 0.f; i < step_count; i += 1.f)
+    // Now loop through the sample rays
+    vec3 v3FrontColor = vec3(0.f);
+    for(int i = 0; i < nSamples; i++)
     {
-        float sample_distance = step_length * i;
-        vec3 sample_position = eye_position + eye_direction * sample_distance;
-        float sample_depth = atmospheric_depth(sample_position, eye_direction);
-        float extinction = clamp(dot(eye_direction, -light_direction) / 2.f + 0.7f, 0.f, 1.f);
-        vec3 influx = absorb(sample_depth, sun_color, scatter_strength) * extinction;
-        rayleigh_collected += absorb(sample_depth, NITROGEN_ABSORPTION * influx, rayleigh_scatter_strength);
-        mie_collected += absorb(sample_depth, influx, mie_scatter_strength);
+        float fHeight = length(v3SamplePoint);
+        float fDepth = exp(fScaleOverScaleDepth * (fInnerRadius - fHeight));
+        float fLightAngle = dot(-light_direction, v3SamplePoint) / fHeight;
+        float fCameraAngle = dot(v3Ray, v3SamplePoint) / fHeight;
+        float fScatter = (fStartOffset + fDepth * (scale(fLightAngle) - scale(fCameraAngle)));
+        vec3 v3Attenuate = exp(-fScatter * (v3InvWavelength * fKr4PI + fKm4PI));
+        v3FrontColor += v3Attenuate * (fDepth * fScaledLength);
+        v3SamplePoint += v3SampleRay;
     }
+    vec3 rayleigh_color = v3FrontColor * (v3InvWavelength * fKrESun);
+    vec3 mie_color = v3FrontColor * fKmESun;
 
-    rayleigh_collected = eye_extinction * rayleigh_collected * pow(eye_depth, rayleight_collection_power) / step_count;
-    mie_collected = eye_extinction * mie_collected * pow(eye_depth, mie_collection_power) / step_count;
-
-    vec3 color = vec3(0.f);
-    color += rayleigh_factor * rayleigh_collected;
-    color += mie_factor * mie_collected;
-    color += sun * mie_collected;
-
-    out_color = color;
+    out_color = vec3(0.f);
+    out_color += mie_color * mie_phase;
+    out_color += rayleigh_color;
+    out_color += sun * mie_color;
 }

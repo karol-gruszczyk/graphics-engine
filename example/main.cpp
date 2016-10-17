@@ -31,6 +31,7 @@ BasicMaterial* basic_tile_material;
 std::shared_ptr<Material> brick_material, pavement_material;
 Text* fps_text, * stat_text, * loading_text;
 SunSkyBox* sky_box;
+HDR* hdr;
 DirectionalLight dir_light(glm::vec3(-1.f, -0.3f, -1.f));
 
 float counter;
@@ -70,9 +71,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-	if (key == GLFW_KEY_LEFT_SHIFT)
+	else if (key == GLFW_KEY_LEFT_SHIFT)
 		accelerate = action != GLFW_RELEASE;
-	if (key == GLFW_KEY_F3)
+	else if (key == GLFW_KEY_F3)
 	{
 		if (action == GLFW_PRESS)
 		{
@@ -81,6 +82,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 
 	}
+	else if (key == GLFW_KEY_KP_9)
+		counter += 0.01f;
+	else if (key == GLFW_KEY_KP_3)
+		counter -= 0.01f;
+	else if (key == GLFW_KEY_KP_ADD)
+		hdr->setExposure(hdr->getExposure() + 0.01f);
+	else if (key == GLFW_KEY_KP_SUBTRACT)
+		hdr->setExposure(std::max(hdr->getExposure() - 0.1f, 0.01f));
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -139,11 +148,9 @@ void draw(void)
 	box->setScale({ scale, scale, scale });
 	box->rotate({ 0.f, glm::radians(1.f), 0.f });
 
-	glm::vec3 light_direction(glm::sin(counter), cos(counter), glm::sin(counter));
+	glm::vec3 light_direction(glm::cos(counter), sin(counter), glm::cos(counter));
 	dir_light.setDirection(light_direction);
 	sky_box->setLightDirection(light_direction);
-
-	counter += 0.01f;
 
 	renderer3d->clearScreen();
 
@@ -160,7 +167,7 @@ void setup()
 {
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
-	renderer3d->addFilter(new HDR());
+	renderer3d->addFilter(hdr = new HDR());
 	renderer3d->addFilter(new FXAA());
 
 	// 2D
@@ -208,7 +215,7 @@ void setup()
 	sky_box = new SunSkyBox(dir_light.getDirection());
 
 	scene3d = new Scene3D(sky_box);
-	//scene3d->addEntity(box);
+	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
 	scene3d->addLight(dir_light);
 	//scene3d->addLight(point_light);
@@ -221,7 +228,7 @@ void setup()
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
 		//scene3d->loadFromFile("res/sponza/sponza.3ds");
-		scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
+		//scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
 		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
