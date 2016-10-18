@@ -1,10 +1,41 @@
 #version 330 core
+#include "../utils/pi.glsl"
+#include "../utils/random.glsl"
 
 uniform vec3 light_direction;
 
 in vec3 position;
 
 out vec3 out_color;
+
+const int   num_samples = 3;
+const vec3  Wavelength = vec3(0.650, 0.570, 0.475);
+
+const vec3  wave_length = 1.0f / pow(Wavelength, vec3(4.0f));
+
+const float inner_radius = 10.0;
+const float outer_radius = inner_radius * 1.05;
+const float inner_radius2 = inner_radius * inner_radius;
+const float outer_radius2 = outer_radius * outer_radius;
+const float length_scale = 1.0 / (outer_radius - inner_radius);
+const float scale_depth = 0.25;
+const float scale_over_scale_depth = length_scale / scale_depth;
+const vec3  camera_position = vec3(0.0, inner_radius - 0.24f, 0.0);
+const float camera_height = length(camera_position);
+const float fCameraHeight2 = camera_height * camera_height;
+
+const float m_e_sun  = 20.0;
+const float m_kr = 0.0015;
+const float m_km = 0.0025;
+const float kr_e_sun = 0.0015 * m_e_sun;
+const float km_e_sun = 0.0025 * m_e_sun;
+const float kr_4PI = m_kr * 4 * PI;
+const float km_4PI = m_km * 4 * PI;
+
+const float sun_brightness = 1000.f;
+const vec3 sun_color = vec3(1.f, 1.f, 0.7f);
+
+const float mie_distribution =  -0.991f;
 
 
 float phase(float alpha, float g)
@@ -17,41 +48,10 @@ float phase(float alpha, float g)
     return (a / b) * (c / d);
 }
 
-const int   nSamples = 3;
-const float fSamples = float(nSamples);
-const vec3  Wavelength = vec3(0.650, 0.570, 0.475);
-
-const vec3  v3InvWavelength = 1.0f / pow(Wavelength, vec3(4.0f));
-
-const float fInnerRadius = 10.0;
-const float fOuterRadius = fInnerRadius * 1.05;
-const float fInnerRadius2 = fInnerRadius * fInnerRadius;
-const float fOuterRadius2 = fOuterRadius * fOuterRadius;
-const float fScale = 1.0 / (fOuterRadius - fInnerRadius);
-const float fScaleDepth = 0.25;
-const float fScaleOverScaleDepth = fScale / fScaleDepth;
-const vec3  v3CameraPos = vec3(0.0, fInnerRadius - 0.24f, 0.0);
-const float fCameraHeight = length(v3CameraPos);
-const float fCameraHeight2 = fCameraHeight * fCameraHeight;
-
-const float PI = 3.141592653;
-const float fm_ESun  = 20.0;
-const float fm_Kr    = 0.0015;
-const float fm_Km    = 0.0025;
-const float fKrESun = fm_Kr * fm_ESun;
-const float fKmESun = fm_Km * fm_ESun;
-const float fKr4PI = fm_Kr * 4 * PI;
-const float fKm4PI = fm_Km * 4 * PI;
-
-const float sun_brightness = 1000.f;
-const vec3 sun_color = vec3(1.f, 1.f, 0.7f);
-
-const float mie_distribution =  -0.991f;
-
-float scale(float fCos)
+float scale(float f_cos)
 {
-   float x = 1.0 - fCos;
-   return fScaleDepth * exp(-0.00287 + x * (0.459 + x * (3.83 + x * (-6.80 + x * 5.25))));
+   float x = 1.0 - f_cos;
+   return scale_depth * exp(-0.00287 + x * (0.459 + x * (3.83 + x * (-6.80 + x * 5.25))));
 }
 
 void main()
@@ -62,46 +62,51 @@ void main()
 
     // Get the ray from the camera to the vertex and its length (which
     // is the far point of the ray passing through the atmosphere)
-    vec3 v3Pos = normalize(position) * fOuterRadius;
-    vec3 v3Ray = normalize(position);
-    float fFar = length(v3Ray);
-    v3Ray /= fFar;
+    vec3 pos = normalize(position) * outer_radius;
+    vec3 ray = normalize(position);
+    float far = length(ray);
+    ray /= far;
 
     // Calculate the ray's starting position, then calculate its scattering offset
-    vec3 v3Start = v3CameraPos;
-    float fHeight = length(v3Start);
-    float fDepth = exp(fScaleOverScaleDepth * (fInnerRadius - fCameraHeight));
-    float fStartAngle = dot(v3Ray, v3Start) / fHeight;
-    float fStartOffset = fDepth * scale(fStartAngle);
+    vec3 start = camera_position;
+    float height = length(start);
+    float depth = exp(scale_over_scale_depth * (inner_radius - camera_height));
+    float start_angle = dot(ray, start) / height;
+    float start_offset = depth * scale(start_angle);
 
     // Initialize the scattering loop variables
 
-    float fSampleLength = fFar / fSamples;
-    float fScaledLength = fSampleLength * fScale;
-    vec3 v3SampleRay = v3Ray * fSampleLength;
-    vec3 v3SamplePoint = v3Start + v3SampleRay * 0.5;
+    float sample_length = far / float(num_samples);
+    float scaled_length = sample_length * length_scale;
+    vec3 sample_ray = ray * sample_length;
+    vec3 sample_point = start + sample_ray * 0.5;
 
     // Now loop through the sample rays
-    vec3 v3FrontColor = vec3(0.f);
-    for(int i = 0; i < nSamples; i++)
+    vec3 scatter_color = vec3(0.f);
+    for(int i = 0; i < num_samples; i++)
     {
-        float fHeight = length(v3SamplePoint);
-        float fDepth = exp(fScaleOverScaleDepth * (fInnerRadius - fHeight));
-        float fLightAngle = dot(-light_direction, v3SamplePoint) / fHeight;
-        float fCameraAngle = dot(v3Ray, v3SamplePoint) / fHeight;
-        float fScatter = (fStartOffset + fDepth * (scale(fLightAngle) - scale(fCameraAngle)));
-        vec3 v3Attenuate = exp(-fScatter * (v3InvWavelength * fKr4PI + fKm4PI));
-        v3FrontColor += v3Attenuate * (fDepth * fScaledLength);
-        v3SamplePoint += v3SampleRay;
+        float height = length(sample_point);
+        float depth = exp(scale_over_scale_depth * (inner_radius - height));
+        float light_angle = dot(-light_direction, sample_point) / height;
+        float camera_angle = dot(ray, sample_point) / height;
+        float scatter_strength = (start_offset + depth * (scale(light_angle) - scale(camera_angle)));
+        vec3 attenuate = exp(-scatter_strength * (wave_length * kr_4PI + km_4PI));
+        scatter_color += attenuate * (depth * scaled_length);
+        sample_point += sample_ray;
     }
 
     float mie_phase = phase(cos_angle, mie_distribution);
 
-    vec3 rayleigh_color = v3FrontColor * (v3InvWavelength * fKrESun);
-    vec3 mie_color = v3FrontColor * fKmESun;
+    vec3 rayleigh_color = scatter_color * (wave_length * kr_e_sun);
+    vec3 mie_color = scatter_color * km_e_sun;
 
     out_color = vec3(0.f);
     out_color += mie_color * mie_phase;
     out_color += rayleigh_color;
     out_color += sun * mie_color;
+    if (length(out_color) < 0.1f)
+    {
+
+        out_color += wave_length / 40;
+    }
 }
