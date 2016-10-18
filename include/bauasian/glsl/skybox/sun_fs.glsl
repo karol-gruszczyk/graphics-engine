@@ -32,39 +32,40 @@ const float fOuterRadius2 = fOuterRadius * fOuterRadius;
 const float fScale = 1.0 / (fOuterRadius - fInnerRadius);
 const float fScaleDepth = 0.25;
 const float fScaleOverScaleDepth = fScale / fScaleDepth;
-const vec3  v3CameraPos = vec3(0.0, fInnerRadius, 0.0);
+const vec3  v3CameraPos = vec3(0.0, fInnerRadius * 1.015, 0.0);
 const float fCameraHeight = length(v3CameraPos);
 const float fCameraHeight2 = fCameraHeight * fCameraHeight;
 
+const float PI = 3.141592653;
 const float fm_ESun  = 20.0;
-const float fm_Kr    = 0.0025;
-const float fm_Km    = 0.0010;
+const float fm_Kr    = 0.0015;
+const float fm_Km    = 0.0025;
 const float fKrESun = fm_Kr * fm_ESun;
 const float fKmESun = fm_Km * fm_ESun;
-const float fKr4PI = fm_Kr * 4 * 3.141592653;
-const float fKm4PI = fm_Km * 4 * 3.141592653;
+const float fKr4PI = fm_Kr * 4 * PI;
+const float fKm4PI = fm_Km * 4 * PI;
 
-const float sun_size = 10.f;
-const float sun_brightness = 100.f;
-const vec3 sun_color = vec3(1.f, 1.f, 0.f);
+const float sun_size = 20.f;
+const float sun_brightness = 1000.f;
+const vec3 sun_color = vec3(1.f, 1.f, 0.5f);
 
-const float rayleigh_distribution = 0.f;
-const float mie_distribution = -0.95f;
-const float rayleigh_brightness = 1.f;
+const float mie_distribution =  -0.991f;
 const float mie_brightness = 1.f;
+
+const vec3 sunset_color = vec3(1.f, 0.f, 0.f);
 
 float scale(float fCos)
 {
    float x = 1.0 - fCos;
-   return fScaleDepth * exp(-0.00287 + x*(0.459 + x*(3.83 + x*(-6.80 + x*5.25))));
+   return fScaleDepth * exp(-0.00287 + x * (0.459 + x * (3.83 + x * (-6.80 + x * 5.25))));
 }
 
 void main()
 {
     float cos_angle = dot(normalize(position), light_direction);
-    float rayleigh_phase = phase(cos_angle, rayleigh_distribution) * rayleigh_brightness;
     float mie_phase = phase(cos_angle, mie_distribution) * mie_brightness;
-    vec3 sun = smoothstep(0.0, 15.f / sun_size * sqrt(sun_brightness), phase(cos_angle, -0.9995)) * sun_brightness * sun_color;
+    vec3 sun = sun_color * sun_brightness;
+    sun *= cos_angle < -0.998f ? vec3(1.f) : vec3(0.f);
 
     // Get the ray from the camera to the vertex and its length (which
     // is the far point of the ray passing through the atmosphere)
@@ -100,11 +101,19 @@ void main()
         v3FrontColor += v3Attenuate * (fDepth * fScaledLength);
         v3SamplePoint += v3SampleRay;
     }
+
+    float vert_sunset = dot(light_direction, normalize(vec3(light_direction.x, 0.f, light_direction.z)));
+    float sunset = smoothstep(0.9f, 1.f, vert_sunset);
+    float sunset_halo = sunset * phase(cos_angle, -0.99995);
+    float hori_sunset = smoothstep(0.8f, 1.f, dot(normalize(position), -light_direction));
+
+    v3FrontColor += sunset_color * (hori_sunset * sunset);
+
     vec3 rayleigh_color = v3FrontColor * (v3InvWavelength * fKrESun);
     vec3 mie_color = v3FrontColor * fKmESun;
 
     out_color = vec3(0.f);
-    out_color += mie_color * mie_phase;
+    out_color += mie_color * mie_phase * sun_color;
     out_color += rayleigh_color;
     out_color += sun * mie_color;
 }
