@@ -17,6 +17,7 @@ public:
 	Drawable(const GLenum& elements_mode, const GLsizei& elements_count);
 	virtual ~Drawable();
 
+	const GLsizei& getNumElements() const;
 	virtual void render() const;
 
 protected:

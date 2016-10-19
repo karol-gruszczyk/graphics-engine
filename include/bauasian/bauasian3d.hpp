@@ -7,6 +7,7 @@
 #include "bauasian/scenes/textured_sky_box.hpp"
 #include "bauasian/scenes/sun_sky_box.hpp"
 #include "primitives/box.hpp"
+#include "primitives/sphere.hpp"
 #include "primitives/plane.hpp"
 #include "primitives/mesh.hpp"
 #include "materials/texture_factory.hpp"

@@ -1,5 +1,7 @@
 #include "circle.hpp"
 
+#include <glm/gtc/constants.hpp>
+
 
 using bauasian::Circle;
 
@@ -14,8 +16,8 @@ Circle::Circle(const float& radius, const unsigned short& num_sides)
 	vertices[0].uv = { 0.5f, 0.5f };
 	for (auto i = 1; i < num_vertices; i++)
 	{
-		auto angle = M_PI * 2.f * i / num_sides;
-		vertices[i].position = { glm::sin(angle) * radius, glm::cos(angle) * radius };
+		auto angle = glm::two_pi<float>() * 2.f * i / num_sides;
+		vertices[i].position = glm::vec2(glm::sin(angle), glm::cos(angle)) * m_radius;
 		vertices[i].uv = { glm::sin(angle) / 2.f + 0.5f, glm::cos(angle) / 2.f + 0.5f };
 	}
 
