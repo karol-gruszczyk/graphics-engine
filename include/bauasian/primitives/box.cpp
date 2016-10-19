@@ -68,7 +68,6 @@ Box::Box(const glm::vec3& size)
 			};
 	calculateTangents(vertex_data, indices, sizeof(indices) / sizeof(indices[0]));
 
-	glBindVertexArray(m_vao_id);
 	updateVertexBuffer(sizeof(vertex_data), vertex_data, Entity3D::Vertex3D::offsets, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }

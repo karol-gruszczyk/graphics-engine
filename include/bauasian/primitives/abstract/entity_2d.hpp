@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_ENTITY_2D_HPP
 #define BAUASIAN_ENTITY_2D_HPP
 
-#include "renderable.hpp"
+#include "indexed_drawable.hpp"
 #include "affine_transformations_2d.hpp"
 #include "bauasian/materials/basic_material.hpp"
 
@@ -11,7 +11,7 @@ namespace bauasian
 	class Entity2D;
 }
 
-class bauasian::Entity2D : public Renderable, public AffineTransformations2D
+class bauasian::Entity2D : public IndexedDrawable, public AffineTransformations2D
 {
 public:
 	struct Vertex2D

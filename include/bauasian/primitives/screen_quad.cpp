@@ -4,21 +4,15 @@
 using bauasian::ScreenQuad;
 
 ScreenQuad::ScreenQuad()
-		: Renderable(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT)
+		: Drawable(GL_TRIANGLE_STRIP, 4)
 {
 	GLfloat vertices[][2][2] =
 			{
 					{{ 1.f,  -1.f }, { 1.f, 0.f }},  // bottom - right
-					{{ -1.f, -1.f }, { 0.f, 0.f }},  // bottom - left
 					{{ 1.f,  1.f },  { 1.f, 1.f }},  // top - right
+					{{ -1.f, -1.f }, { 0.f, 0.f }},  // bottom - left
 					{{ -1.f, 1.f },  { 0.f, 1.f }},  // top - left
 			};
-	GLushort indices[] =
-			{
-					0, 2, 1, 3
-			};
 
-	glBindVertexArray(m_vao_id);
 	updateVertexBuffer(sizeof(vertices), vertices, { 4 }, GL_STATIC_DRAW);
-	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }

@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_SCREEN_CUBE_HPP
 #define BAUASIAN_SCREEN_CUBE_HPP
 
-#include "abstract/renderable.hpp"
+#include "abstract/indexed_drawable.hpp"
 
 
 namespace bauasian
@@ -9,7 +9,7 @@ namespace bauasian
 	class ScreenCube;
 }
 
-class bauasian::ScreenCube : public Renderable
+class bauasian::ScreenCube : public IndexedDrawable
 {
 public:
 	ScreenCube();

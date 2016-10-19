@@ -1,8 +1,8 @@
 #ifndef BAUASIAN_ENTITY_3D
 #define BAUASIAN_ENTITY_3D
 
-#include "renderable.hpp"
-#include "renderable_stats.hpp"
+#include "indexed_drawable.hpp"
+#include "drawable_stats.hpp"
 #include "affine_transformations_3d.hpp"
 #include "bauasian/materials/material.hpp"
 #include "bauasian/interfaces/name_interface.hpp"
@@ -13,7 +13,7 @@ namespace bauasian
 	class Entity3D;
 }
 
-class bauasian::Entity3D : public Renderable, public RenderableStats, public AffineTransformations3D,
+class bauasian::Entity3D : public IndexedDrawable, public DrawableStats, public AffineTransformations3D,
                            public NameInterface
 {
 public:

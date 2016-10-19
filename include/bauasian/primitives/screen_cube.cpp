@@ -4,7 +4,7 @@
 using bauasian::ScreenCube;
 
 ScreenCube::ScreenCube()
-		: Renderable(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT)
+		: IndexedDrawable(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT)
 {
 	GLfloat vertices[][3] = {
 			{ -1.f, -1.f, -1.f },
@@ -32,7 +32,6 @@ ScreenCube::ScreenCube()
 			0, 1, 3, 1, 2, 3,
 	};
 
-	glBindVertexArray(m_vao_id);
 	updateVertexBuffer(sizeof(vertices), vertices, { 3 }, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }

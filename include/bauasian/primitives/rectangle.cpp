@@ -18,7 +18,6 @@ Rectangle::Rectangle(const glm::vec2& size)
 					1, 0, 2, 3
 			};
 
-	glBindVertexArray(m_vao_id);
 	updateVertexBuffer(sizeof(vertex_data), vertex_data, { 4 }, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }

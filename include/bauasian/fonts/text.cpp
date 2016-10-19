@@ -63,7 +63,7 @@ void Text::render() const
 	m_font->s_shader->setUniform(m_location_model_matrix, m_model_matrix);
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(0xFFFFFFFF);
-	Renderable::render();
+	Entity2D::render();
 	glDisable(GL_PRIMITIVE_RESTART);
 	glDisable(GL_BLEND);
 }
@@ -103,7 +103,6 @@ void Text::updateBufferObjects()
 	}
 	m_elements_count = num_indices;
 
-	glBindVertexArray(m_vao_id);
 	updateVertexBuffer(sizeof(GLfloat) * num_vertices_data_floats, vertices_data, { 4 }, GL_DYNAMIC_DRAW);
 	updateIndexBuffer(sizeof(GLuint) * num_indices, indices, GL_DYNAMIC_DRAW);
 
