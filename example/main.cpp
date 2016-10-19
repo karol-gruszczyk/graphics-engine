@@ -176,8 +176,12 @@ void setup()
 	rect->setPivot({ 150.f, 150.f });
 	basic_tile_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/tile.jpg"));
 	rect->setMaterial(basic_tile_material);
+	Circle* circle = new Circle(100.f, 32);
+	circle->setPosition({ 400.f, 300.f });
+	circle->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
 	//scene2d->addEntity(rect);
+	scene2d->addEntity(circle);
 
 	// 3D
 	brick_material = std::make_shared<Material>();

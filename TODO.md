@@ -8,7 +8,7 @@
 * ~~Simple sky shader~~
 * Deferred rendering
 * Additional primitives
-  * Circle
+  * ~~Circle~~
   * Sphere
 * ~~Gamma correction~~
 * ~~High Dynamic Range~~
@@ -24,6 +24,7 @@
 * SkyDome alternative for SkyBox
 
 ## Improvements
+* Allow entities to be either Drawable or IndexedDrawable
 * Add support for non ASCII characters in paths
 * Remove 2D / 3D classification
   * Project all as 3D
