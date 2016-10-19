@@ -104,9 +104,4 @@ void main()
     out_color += mie_color * mie_phase;
     out_color += rayleigh_color;
     out_color += sun * mie_color;
-    if (length(out_color) < 0.1f)
-    {
-
-        out_color += wave_length / 40;
-    }
 }
