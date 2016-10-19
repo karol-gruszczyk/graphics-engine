@@ -5,14 +5,13 @@
   * Directional lights
   * Spot lights
   * Point lights
-* Simple sky shader
+* ~~Simple sky shader~~
 * Deferred rendering
+* Additional primitives
+  * Circle
+  * Sphere
 * ~~Gamma correction~~
 * ~~High Dynamic Range~~
-* Rendering detail settings
-  * anisotropy
-  * mipmap level
-  * filter type
 
 ## alpha 1.1.6
 * Stencil Shadow Volume
@@ -31,6 +30,10 @@
   * Project 2D as a 3D scene with camera looking down
   * Rewrite 2D objects to 3D entities with one coord 0
   * Project 2D without depth test
+* Rendering settings
+  * anisotropy
+  * mipmap level
+  * filter type
 
 ## Optimizations
 * ~~Improve single channel textures in shader`s~~
