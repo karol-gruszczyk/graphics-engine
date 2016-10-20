@@ -7,9 +7,10 @@
   * Point lights
 * ~~Simple sky shader~~
 * Deferred rendering
-* ~~Additional primitives~~
+* Additional primitives
   * ~~Circle~~
   * ~~Sphere~~
+  * Cone
 * ~~Gamma correction~~
 * ~~High Dynamic Range~~
 
