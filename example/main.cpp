@@ -176,12 +176,12 @@ void setup()
 	rect->setPivot({ 150.f, 150.f });
 	basic_tile_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/tile.jpg"));
 	rect->setMaterial(basic_tile_material);
-	Circle* circle = new Circle(100.f, 32);
+	Circle* circle = new Circle(100.f);
 	circle->setPosition({ 400.f, 300.f });
 	circle->setMaterial(basic_tile_material);
 	scene2d = new Scene2D();
-	//scene2d->addEntity(rect);
-	scene2d->addEntity(circle);
+//	scene2d->addEntity(rect);
+//	scene2d->addEntity(circle);
 
 	// 3D
 	brick_material = std::make_shared<Material>();
@@ -204,6 +204,9 @@ void setup()
 	plane = new Plane({ 200.f, 200.f }, 100);
 	plane->setPosition({ -100.f, 0.f, -100.f });
 	plane->setMaterial(pavement_material);
+	Sphere* sphere = new Sphere(10.f, 18);
+	sphere->setPosition({ 0.f, 15.f, 0.f });
+	sphere->setMaterial(pavement_material);
 
 
 	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
@@ -212,8 +215,8 @@ void setup()
 	const std::string prefix("res/cube_textures/ashcanyon_");
 	//const std::string prefix("res/cube_textures/interstellar_");
 	const std::vector<boost::filesystem::path> paths = { prefix + "ft.tga", prefix + "bk.tga",
-	                                                     prefix + "dn.tga", prefix + "up.tga",
-	                                                     prefix + "rt.tga", prefix + "lf.tga", };
+														 prefix + "dn.tga", prefix + "up.tga",
+														 prefix + "rt.tga", prefix + "lf.tga", };
 	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture(paths));
 	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture("res/cube_textures/skybox.jpg"));
 	sky_box = new SunSkyBox(dir_light.getDirection());
@@ -221,6 +224,7 @@ void setup()
 	scene3d = new Scene3D(sky_box);
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
+	scene3d->addEntity(sphere);
 	scene3d->addLight(dir_light);
 	//scene3d->addLight(point_light);
 	//scene3d->addLight(spot_light);
@@ -249,8 +253,8 @@ void setup()
 	fps_text->setPosition({ 0, 14 });
 	fps_text->setTextColor({ 1.f, 1.f, 0.f });
 	auto text = "vertices: " + std::to_string(scene3d->getNumVertices()) +
-	            "\nfaces: " + std::to_string(scene3d->getNumFaces()) +
-	            "\nentities: " + std::to_string(scene3d->getNumMeshes());
+				"\nfaces: " + std::to_string(scene3d->getNumFaces()) +
+				"\nentities: " + std::to_string(scene3d->getNumMeshes());
 	stat_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14), text);
 	stat_text->setPosition({ 0, 32 });
 	stat_text->setTextColor({ 1.f, 1.f, 1.f });

@@ -19,6 +19,7 @@ Sphere::Sphere(const float& radius, const unsigned& num_sides)
 	{
 		vertex.position = pos;
 		vertex.normal = glm::normalize(pos);
+		vertex.uv = glm::vec2(vertex.position.x, vertex.position.z);
 	};
 	process_vertex(vertices[index], glm::vec3(0.f, m_radius, 0.f));
 	for (unsigned i = 1; i < num_sides; i++)
@@ -55,6 +56,7 @@ Sphere::Sphere(const float& radius, const unsigned& num_sides)
 		indices[++index] = 0xFFFFFFFF;
 	}
 
+	calculateTangents(vertices, indices, (unsigned) num_indices);
 	updateVertexBuffer(sizeof(Vertex3D) * num_vertices, vertices, Vertex3D::offsets, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(GLuint) * num_indices, indices, GL_STATIC_DRAW);
 

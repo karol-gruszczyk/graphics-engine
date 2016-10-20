@@ -38,6 +38,7 @@ public:
 protected:
 	std::shared_ptr<Material> m_material;
 
+	static void calculateTangents(Vertex3D* vertices, const unsigned* indices, const unsigned& num_indices);
 	static void calculateTangents(Vertex3D* vertices, const unsigned short* indices, const unsigned& num_indices);
 
 };
