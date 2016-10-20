@@ -16,8 +16,6 @@ public:
 
 	const glm::vec3& getSize() const;
 
-	void render() const override;
-
 private:
 	glm::vec3 m_size;
 };

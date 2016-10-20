@@ -76,11 +76,3 @@ const glm::vec3& Box::getSize() const
 {
 	return m_size;
 }
-
-void Box::render() const
-{
-	glEnable(GL_PRIMITIVE_RESTART);
-	glPrimitiveRestartIndex(0xFFFF);
-	Entity3D::render();
-	glDisable(GL_PRIMITIVE_RESTART);
-}

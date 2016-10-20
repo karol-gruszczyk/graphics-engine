@@ -61,10 +61,7 @@ void Text::render() const
 	m_font->bind();
 	m_font->s_shader->setUniform(m_location_text_color, m_color);
 	m_font->s_shader->setUniform(m_location_model_matrix, m_model_matrix);
-	glEnable(GL_PRIMITIVE_RESTART);
-	glPrimitiveRestartIndex(0xFFFFFFFF);
 	Entity2D::render();
-	glDisable(GL_PRIMITIVE_RESTART);
 	glDisable(GL_BLEND);
 }
 

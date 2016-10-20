@@ -16,8 +16,6 @@ public:
 
 	const float& getRadius() const;
 
-	void render() const override;
-
 private:
 	float m_radius;
 

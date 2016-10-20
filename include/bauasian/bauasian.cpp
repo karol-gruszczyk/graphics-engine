@@ -79,7 +79,7 @@ const boost::filesystem::path& Bauasian::getShaderPath() const
 }
 
 void Bauasian::initialize(const boost::filesystem::path& log_file /* = "log.txt" */,
-                          const boost::filesystem::path& error_file /* = "error.log" */)
+						  const boost::filesystem::path& error_file /* = "error.log" */)
 {
 	m_logger_file.open(log_file.c_str(), std::ios::out);
 	if (m_logger_file.good())
@@ -148,17 +148,17 @@ void Bauasian::checkErrors() const
 }
 
 void Bauasian::debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
-                             GLsizei length, const GLchar* message, const void* userParam)
+							 GLsizei length, const GLchar* message, const void* userParam)
 {
 	// ignore non-significant error/warning codes
 	if (id == 131169 || id == 131185 || id == 131218 || id == 131204)
 		return;
 
 	std::string debug_message = "[ Source: " + std::string(s_debug_sources[source]) + " ]"
-	                            + "[ ID: " + std::to_string(id) + " ]"
-	                            + "[ Type: " + std::string(s_debug_types[type]) + " ]"
-	                            + "[ Severity: " + std::string(s_debug_severities[severity]) + " ] "
-	                            + message;
+								+ "[ ID: " + std::to_string(id) + " ]"
+								+ "[ Type: " + std::string(s_debug_types[type]) + " ]"
+								+ "[ Severity: " + std::string(s_debug_severities[severity]) + " ] "
+								+ message;
 	getInstance().logError(debug_message);
 }
 
@@ -167,6 +167,7 @@ void Bauasian::init() const
 	logInitial();
 	initializeDebugOutput();
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_PRIMITIVE_RESTART_FIXED_INDEX);
 }
 
 void Bauasian::logInitial() const
