@@ -88,7 +88,7 @@ void Renderer3D::render(const Scene3D* scene) const
 		(*it)->bind();
 		(*it)->clear();
 		m_shader_program->use();
-		scene->render(m_projection_matrix);
+		scene->render();
 
 		while (true)
 		{
@@ -107,7 +107,7 @@ void Renderer3D::render(const Scene3D* scene) const
 	else
 	{
 		m_shader_program->use();
-		scene->render(m_projection_matrix);
+		scene->render();
 	}
 }
 

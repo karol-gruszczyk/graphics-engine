@@ -6,26 +6,14 @@
 
 using bauasian::Camera;
 
-Camera::Camera(const glm::vec3& position /* = { 0.f,0.f,0.f } */, const glm::vec3& rotation /* = { 0.f, 0.f, 0.f } */)
-{
-	setPosition(position);
-	setRotation(rotation);
-}
-
-Camera::Camera(const glm::mat4& view_matrix)
-		: m_view_matrix(view_matrix)
-{
-	glm::quat rotation;
-	glm::vec3 scale, skew;
-	glm::vec4 perspective;
-	glm::decompose(view_matrix, scale, rotation, m_position, skew, perspective);
-	m_rotation = glm::eulerAngles(rotation) * glm::pi<float>() / 180.f;
-}
+Camera::~Camera()
+{}
 
 void Camera::translate(const glm::vec3& position)
 {
 	m_view_matrix = glm::translate(m_view_matrix, -position);
 	m_position += position;
+	updateProjectionViewMatrix();
 }
 
 void Camera::setPosition(const glm::vec3& position)
@@ -49,6 +37,7 @@ void Camera::rotate(const glm::vec3& rotation)
 
 	m_rotation += rotation;
 	updateForwardVector();
+	updateProjectionViewMatrix();
 }
 
 void Camera::setRotation(const glm::vec3& rotation)
@@ -86,6 +75,25 @@ const glm::mat4& Camera::getViewMatrix() const
 	return m_view_matrix;
 }
 
+void Camera::setViewMatrix(const glm::mat4& view_matrix)
+{
+	glm::quat rotation;
+	glm::vec3 scale, skew;
+	glm::vec4 perspective;
+	glm::decompose(view_matrix, scale, rotation, m_position, skew, perspective);
+	m_rotation = glm::eulerAngles(rotation) * glm::pi<float>() / 180.f;
+}
+
+const glm::mat4& Camera::getProjectionMatrix() const
+{
+	return m_projection_matrix;
+}
+
+const glm::mat4& Camera::getProjectionViewMatrix() const
+{
+	return m_projection_view_matrix;
+}
+
 inline void Camera::updateForwardVector()
 {
 	m_forward_vector = glm::vec3(glm::cos(m_rotation.x) * glm::sin(m_rotation.y),
@@ -94,4 +102,9 @@ inline void Camera::updateForwardVector()
 	m_right_vector = glm::vec3(glm::cos(m_rotation.y),
 	                           0.f,
 	                           glm::sin(m_rotation.y));
+}
+
+void Camera::updateProjectionViewMatrix()
+{
+	m_projection_view_matrix = m_projection_matrix * m_view_matrix;
 }

@@ -86,7 +86,7 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 	delete loader;
 }
 
-void Scene3D::render(const glm::mat4& projection_matrix) const
+void Scene3D::render() const
 {
 	glEnable(GL_DEPTH_TEST);
 
@@ -95,7 +95,7 @@ void Scene3D::render(const glm::mat4& projection_matrix) const
 	SceneBuffer::getInstance().setSpotLights(&m_spot_lights[0], m_num_lights[2]);
 	SceneBuffer::getInstance().setCameraPosition(m_current_camera->getPosition());
 	SceneBuffer::getInstance().setNumLights(m_num_lights);
-	auto projection_view_matrix = projection_matrix * m_current_camera->getViewMatrix();
+	auto projection_view_matrix = m_current_camera->getProjectionViewMatrix();
 	for (auto& entity : m_entities)
 	{
 		const auto& buffer = ModelMatricesBuffer::getInstance();
@@ -105,7 +105,7 @@ void Scene3D::render(const glm::mat4& projection_matrix) const
 		entity->render();
 	}
 	if (m_sky_box)
-		m_sky_box->render(projection_matrix * glm::mat4(glm::mat3(m_current_camera->getViewMatrix())));
+		m_sky_box->render(m_current_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_current_camera->getViewMatrix())));
 }
 
 const unsigned Scene3D::getNumVertices() const

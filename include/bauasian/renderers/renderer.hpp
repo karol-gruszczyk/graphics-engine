@@ -25,6 +25,7 @@ public:
 
 	ShaderProgram* getShaderProgram() const;
 	const glm::mat4& getProjectionMatrix() const;
+
 protected:
 	glm::mat4 m_projection_matrix;
 

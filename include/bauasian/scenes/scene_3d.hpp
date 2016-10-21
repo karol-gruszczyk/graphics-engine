@@ -35,7 +35,7 @@ public:
 	const unsigned int getNumVertices() const;
 	const unsigned int getNumFaces() const;
 	const unsigned int getNumMeshes() const;
-	void render(const glm::mat4& projection_matrix) const;
+	void render() const;
 
 private:
 	SkyBox* m_sky_box;

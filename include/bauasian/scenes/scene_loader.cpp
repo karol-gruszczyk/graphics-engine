@@ -12,7 +12,7 @@
 using bauasian::SceneLoader;
 using bauasian::Material;
 using bauasian::Mesh;
-using bauasian::Camera;
+using bauasian::PerspectiveCamera;
 using bauasian::DirectionalLight;
 using bauasian::PointLight;
 using bauasian::SpotLight;
@@ -62,7 +62,7 @@ const std::list<Mesh*>& SceneLoader::getMeshes() const
 	return m_meshes;
 }
 
-const std::list<Camera*>& SceneLoader::getCameras() const
+const std::list<PerspectiveCamera*>& SceneLoader::getCameras() const
 {
 	return m_cameras;
 }
@@ -200,11 +200,12 @@ void SceneLoader::processCameras(const aiScene* scene)
 {
 	for (unsigned i = 0; i < scene->mNumCameras; i++)
 	{
-		const auto& camera = scene->mCameras[i];
-		glm::mat4 view_matrix = glm::lookAt(to_vec(camera->mPosition), to_vec(camera->mLookAt), to_vec(camera->mUp));
-		auto cam = new Camera(view_matrix);
-		cam->setName(camera->mName.C_Str());
-		m_cameras.push_back(cam);
+		const auto& cam = scene->mCameras[i];
+		glm::mat4 view_matrix = glm::lookAt(to_vec(cam->mPosition), to_vec(cam->mLookAt), to_vec(cam->mUp));
+		auto camera = new PerspectiveCamera(cam->mAspect, cam->mHorizontalFOV, cam->mClipPlaneNear, cam->mClipPlaneFar);
+		camera->setViewMatrix(view_matrix);
+		camera->setName(cam->mName.C_Str());
+		m_cameras.push_back(camera);
 	}
 }
 

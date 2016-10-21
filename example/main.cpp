@@ -21,7 +21,7 @@ using namespace bauasian;
 
 Renderer2D* renderer2d;
 Renderer3D* renderer3d;
-Camera* camera;
+PerspectiveCamera* camera;
 Scene2D* scene2d, * loading_scene;
 Scene3D* scene3d;
 Rectangle* rect, * loading_rect;
@@ -245,9 +245,9 @@ void setup()
 	{
 		Bauasian::getInstance().logError(e.what());
 	}
-	camera = new Camera({ 0.f, 5.f, 10.f }, { glm::radians(-45.f), 0.f, 0.f });
+	camera = new PerspectiveCamera(8.f / 6.f);
+	camera->setFar(10000.f);
 	scene3d->addCamera(camera);
-	camera = scene3d->getCamera();
 
 	fps_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14));
 	fps_text->setPosition({ 0, 14 });

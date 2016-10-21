@@ -11,11 +11,10 @@ namespace bauasian
 	class Camera;
 }
 
-class bauasian::Camera final : public NameInterface
+class bauasian::Camera : public NameInterface
 {
 public:
-	Camera(const glm::vec3& position = { 0.f, 0.f, 0.f }, const glm::vec3& rotation = { 0.f, 0.f, 0.f });
-	Camera(const glm::mat4& view_matrix);
+	virtual ~Camera();
 
 	void translate(const glm::vec3& position);
 	void setPosition(const glm::vec3& position);
@@ -28,15 +27,24 @@ public:
 	const glm::vec3& getForwardVector() const;
 	const glm::vec3& getRightVector() const;
 	const glm::mat4& getViewMatrix() const;
-private:
+	void setViewMatrix(const glm::mat4& view_matrix);
+	const glm::mat4& getProjectionMatrix() const;
+	const glm::mat4& getProjectionViewMatrix() const;
+
+protected:
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;
 	glm::vec3 m_forward_vector;
 	glm::vec3 m_right_vector;
 
+	glm::mat4 m_projection_matrix;
 	glm::mat4 m_view_matrix;
+	glm::mat4 m_projection_view_matrix;
 
 	inline void updateForwardVector();
+	void updateProjectionViewMatrix();
+	virtual void updateProjectionMatrix() = 0;
+
 };
 
 #endif /* BAUASIAN_CAMERA_HPP */
