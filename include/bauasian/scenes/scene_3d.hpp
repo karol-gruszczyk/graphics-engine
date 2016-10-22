@@ -49,7 +49,6 @@ private:
 	std::vector<DirectionalLight*> m_directional_lights;
 	std::vector<PointLight*> m_point_lights;
 	std::vector<SpotLight*> m_spot_lights;
-	unsigned m_num_lights[3] = { 0, 0, 0 };
 
 };
 

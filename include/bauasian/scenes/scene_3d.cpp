@@ -1,5 +1,4 @@
 #include "scene_3d.hpp"
-#include "bauasian/glsl/globals.glsl"
 #include "scene_loader.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
@@ -58,26 +57,17 @@ const std::vector<SpotLight*>& Scene3D::getSpotLights() const
 
 void Scene3D::addLight(DirectionalLight* directional_light)
 {
-	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
-		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
 	m_directional_lights.push_back(directional_light);
-	m_num_lights[0] = (unsigned) m_directional_lights.size();
 }
 
 void Scene3D::addLight(PointLight* point_light)
 {
-	if (m_directional_lights.size() == MAX_POINT_LIGHTS)
-		throw LightLimitReachedException("point", MAX_POINT_LIGHTS);
 	m_point_lights.push_back(point_light);
-	m_num_lights[1] = (unsigned) m_point_lights.size();
 }
 
 void Scene3D::addLight(SpotLight* spot_light)
 {
-	if (m_directional_lights.size() == MAX_SPOT_LIGHTS)
-		throw LightLimitReachedException("spot", MAX_SPOT_LIGHTS);
 	m_spot_lights.push_back(spot_light);
-	m_num_lights[2] = (unsigned) m_spot_lights.size();
 }
 
 void Scene3D::addEntity(Entity3D* entity)
@@ -108,11 +98,7 @@ void Scene3D::render() const
 {
 	glEnable(GL_DEPTH_TEST);
 
-	SceneBuffer::getInstance().setDirectionalLights(m_directional_lights[0], m_num_lights[0]);
-	SceneBuffer::getInstance().setPointLights(m_point_lights[0], m_num_lights[1]);
-	SceneBuffer::getInstance().setSpotLights(m_spot_lights[0], m_num_lights[2]);
 	SceneBuffer::getInstance().setCameraPosition(m_current_camera->getPosition());
-	SceneBuffer::getInstance().setNumLights(m_num_lights);
 	auto projection_view_matrix = m_current_camera->getProjectionViewMatrix();
 	for (auto& entity : m_entities)
 	{
