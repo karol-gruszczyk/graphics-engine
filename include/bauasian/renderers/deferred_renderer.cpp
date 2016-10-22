@@ -29,16 +29,9 @@ DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_geometry_shader, "ModelMatrices");
 	SceneBuffer::getInstance().attachUniformBlock(m_geometry_shader, "SceneBuffer");
 
-	vs = new Shader("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
-	fs = new Shader("deferred_rendering/directional_fs.glsl", Shader::FRAGMENT_SHADER);
-	m_dir_light_shader = new ShaderProgram({ vs, fs });
-	m_location_dir_light_direction = m_dir_light_shader->getUniformLocation("light_direction");
-	m_location_dir_light_diffuse_color = m_dir_light_shader->getUniformLocation("light_diffuse_color");
-	m_location_dir_light_specular_color = m_dir_light_shader->getUniformLocation("light_specular_color");
-	delete vs;
-	delete fs;
-	SceneBuffer::getInstance().attachUniformBlock(m_dir_light_shader, "SceneBuffer");
-	initUniformLocations(m_dir_light_shader);
+	initDirectionalLightShader();
+	initPointLightShader();
+	initSpotLightShader();
 
 	m_screen_quad = new ScreenQuad();
 }
@@ -48,6 +41,8 @@ DeferredRenderer::~DeferredRenderer()
 	delete m_frame_buffer;
 	delete m_geometry_shader;
 	delete m_dir_light_shader;
+	delete m_point_light_shader;
+	delete m_spot_light_shader;
 	delete m_screen_quad;
 }
 
@@ -83,9 +78,79 @@ void DeferredRenderer::render(Scene3D* scene) const
 		m_dir_light_shader->setUniform(m_location_dir_light_specular_color, light->getSpecularColor());
 		m_screen_quad->render();
 	}
+
+	m_point_light_shader->use();
+	for (const auto& light : scene->getPointLights())
+	{
+		m_point_light_shader->setUniform(m_location_point_light_position, light->getPosition());
+		m_point_light_shader->setUniform(m_location_point_light_diffuse_color, light->getDiffuseColor());
+		m_point_light_shader->setUniform(m_location_point_light_specular_color, light->getSpecularColor());
+		m_point_light_shader->setUniform(m_location_point_light_attenuation, light->getAttenuation());
+		m_screen_quad->render();
+	}
+
+	m_spot_light_shader->use();
+	for (const auto& light : scene->getSpotLights())
+	{
+		m_spot_light_shader->setUniform(m_location_spot_light_position, light->getPosition());
+		m_spot_light_shader->setUniform(m_location_spot_light_direction, light->getDirection());
+		m_spot_light_shader->setUniform(m_location_spot_light_diffuse_color, light->getDiffuseColor());
+		m_spot_light_shader->setUniform(m_location_spot_light_specular_color, light->getSpecularColor());
+		m_spot_light_shader->setUniform(m_location_spot_light_attenuation, light->getAttenuation());
+		m_spot_light_shader->setUniform(m_location_spot_light_inner_angle, light->getInnerAngle());
+		m_spot_light_shader->setUniform(m_location_spot_light_outer_angle, light->getOuterAngle());
+		m_screen_quad->render();
+	}
 }
 
-void DeferredRenderer::initUniformLocations(ShaderProgram* shader) const
+void DeferredRenderer::initDirectionalLightShader()
+{
+	Shader* vs = new Shader("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
+	Shader* fs = new Shader("deferred_rendering/directional_fs.glsl", Shader::FRAGMENT_SHADER);
+	m_dir_light_shader = new ShaderProgram({ vs, fs });
+	m_location_dir_light_direction = m_dir_light_shader->getUniformLocation("light_direction");
+	m_location_dir_light_diffuse_color = m_dir_light_shader->getUniformLocation("light_diffuse_color");
+	m_location_dir_light_specular_color = m_dir_light_shader->getUniformLocation("light_specular_color");
+	delete vs;
+	delete fs;
+	SceneBuffer::getInstance().attachUniformBlock(m_dir_light_shader, "SceneBuffer");
+	initLightShaderUniformLocation(m_dir_light_shader);
+}
+
+void DeferredRenderer::initPointLightShader()
+{
+	Shader* vs = new Shader("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
+	Shader* fs = new Shader("deferred_rendering/point_fs.glsl", Shader::FRAGMENT_SHADER);
+	m_point_light_shader = new ShaderProgram({ vs, fs });
+	m_location_point_light_position = m_point_light_shader->getUniformLocation("light_position");
+	m_location_point_light_diffuse_color = m_point_light_shader->getUniformLocation("light_diffuse_color");
+	m_location_point_light_specular_color = m_point_light_shader->getUniformLocation("light_specular_color");
+	m_location_point_light_attenuation = m_point_light_shader->getUniformLocation("light_attenuation");
+	delete vs;
+	delete fs;
+	SceneBuffer::getInstance().attachUniformBlock(m_point_light_shader, "SceneBuffer");
+	initLightShaderUniformLocation(m_point_light_shader);
+}
+
+void DeferredRenderer::initSpotLightShader()
+{
+	Shader* vs = new Shader("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
+	Shader* fs = new Shader("deferred_rendering/spot_fs.glsl", Shader::FRAGMENT_SHADER);
+	m_spot_light_shader = new ShaderProgram({ vs, fs });
+	m_location_spot_light_position = m_spot_light_shader->getUniformLocation("light_position");
+	m_location_spot_light_direction = m_spot_light_shader->getUniformLocation("light_direction");
+	m_location_spot_light_diffuse_color = m_spot_light_shader->getUniformLocation("light_diffuse_color");
+	m_location_spot_light_specular_color = m_spot_light_shader->getUniformLocation("light_specular_color");
+	m_location_spot_light_attenuation = m_spot_light_shader->getUniformLocation("light_attenuation");
+	m_location_spot_light_inner_angle = m_spot_light_shader->getUniformLocation("light_inner_angle");
+	m_location_spot_light_outer_angle = m_spot_light_shader->getUniformLocation("light_outer_angle");
+	delete vs;
+	delete fs;
+	SceneBuffer::getInstance().attachUniformBlock(m_spot_light_shader, "SceneBuffer");
+	initLightShaderUniformLocation(m_spot_light_shader);
+}
+
+void DeferredRenderer::initLightShaderUniformLocation(bauasian::ShaderProgram* shader) const
 {
 	shader->setUniform(shader->getUniformLocation("albedo_buffer"), ALBEDO_BUFFER);
 	shader->setUniform(shader->getUniformLocation("specular_buffer"), SPECULAR_BUFFER);

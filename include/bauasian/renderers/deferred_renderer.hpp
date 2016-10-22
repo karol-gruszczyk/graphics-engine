@@ -32,13 +32,31 @@ private:
 	Texture* m_position_buffer;
 	ShaderProgram* m_geometry_shader;
 	ShaderProgram* m_dir_light_shader;
+	ShaderProgram* m_point_light_shader;
+	ShaderProgram* m_spot_light_shader;
 	ScreenQuad* m_screen_quad;
 
 	GLint m_location_dir_light_direction;
 	GLint m_location_dir_light_diffuse_color;
 	GLint m_location_dir_light_specular_color;
 
-	void initUniformLocations(ShaderProgram* shader) const;
+	GLint m_location_point_light_position;
+	GLint m_location_point_light_diffuse_color;
+	GLint m_location_point_light_specular_color;
+	GLint m_location_point_light_attenuation;
+
+	GLint m_location_spot_light_position;
+	GLint m_location_spot_light_direction;
+	GLint m_location_spot_light_diffuse_color;
+	GLint m_location_spot_light_specular_color;
+	GLint m_location_spot_light_attenuation;
+	GLint m_location_spot_light_inner_angle;
+	GLint m_location_spot_light_outer_angle;
+
+	void initDirectionalLightShader();
+	void initPointLightShader();
+	void initSpotLightShader();
+	void initLightShaderUniformLocation(ShaderProgram* shader) const;
 
 };
 

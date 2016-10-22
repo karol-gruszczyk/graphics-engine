@@ -17,9 +17,10 @@ uniform sampler2D specular_buffer;
 uniform sampler2D normal_buffer;
 uniform sampler2D position_buffer;
 
-uniform vec3 light_direction;
+uniform vec3 light_position;
 uniform vec3 light_diffuse_color;
 uniform vec3 light_specular_color;
+uniform vec3 light_attenuation;
 
 in vec2 texture_coord;
 
@@ -37,11 +38,18 @@ void main()
     vec3 fragment_ambient = fragment_diffuse;
 
     vec3 view_dir = normalize(camera_position - fragment_position);
-	vec3 light_ray_direction = normalize(-light_direction);
-	vec3 ambient = processAmbientLight(light_diffuse_color) * fragment_ambient;
-	vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, light_diffuse_color) * fragment_diffuse;
-	vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, light_specular_color,
-	                                     view_dir, fragment_shininess) * fragment_specular;
 
-	out_color = ambient + diffuse + specular;
+	vec3 light_ray = light_position - fragment_position;
+	float distance = length(light_ray);
+
+    float attenuation = 1.f / ((light_attenuation.r) + (light_attenuation.g * distance)
+                        + (light_attenuation.b * distance * distance));
+    vec3 light_ray_direction = normalize(light_ray);
+
+    vec3 ambient = processAmbientLight(light_diffuse_color) * fragment_ambient;
+    vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, light_diffuse_color) * fragment_diffuse;
+    vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, light_specular_color,
+                                         view_dir, fragment_shininess) * fragment_specular;
+
+	out_color = attenuation * (ambient + diffuse + specular);
 }
