@@ -57,4 +57,5 @@ configure_file(bauasian/glsl/skybox/basic_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTO
 configure_file(bauasian/glsl/skybox/basic_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/skybox/basic_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/skybox/sun_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/skybox/sun_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/utils/random.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/utils/random.glsl COPYONLY)
+configure_file(bauasian/glsl/utils/luminance.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/utils/luminance.glsl COPYONLY)
 configure_file(bauasian/glsl/utils/pi.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/utils/pi.glsl COPYONLY)

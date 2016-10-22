@@ -122,8 +122,6 @@ void Scene3D::render() const
 		buffer.setNormalMatrix(entity->getNormalMatrix());
 		entity->render();
 	}
-	if (m_sky_box)
-		m_sky_box->render(m_current_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_current_camera->getViewMatrix())));
 }
 
 const unsigned Scene3D::getNumVertices() const

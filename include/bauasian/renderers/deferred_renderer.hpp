@@ -57,6 +57,9 @@ private:
 	void initPointLightShader();
 	void initSpotLightShader();
 	void initLightShaderUniformLocation(ShaderProgram* shader) const;
+	void renderDirectionalLights(Scene3D* scene) const;
+	void renderPointLights(Scene3D* scene) const;
+	void renderSpotLights(Scene3D* scene) const;
 
 };
 

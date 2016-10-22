@@ -27,7 +27,7 @@ uniform float light_outer_angle;
 
 in vec2 texture_coord;
 
-out vec3 out_color;
+out vec4 out_color;
 
 
 void main()
@@ -60,5 +60,5 @@ void main()
     vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, light_specular_color,
                                          view_dir, fragment_shininess) * fragment_specular;
 
-	out_color = falloff * attenuation * (ambient + diffuse + specular);
+	out_color = vec4(ambient + diffuse + specular, falloff * attenuation);
 }

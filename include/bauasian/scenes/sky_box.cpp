@@ -23,7 +23,6 @@ SkyBox::~SkyBox()
 
 void SkyBox::render(const glm::mat4& projection_view_matrix) const
 {
-	glDepthFunc(GL_LEQUAL);
 	m_shader_program->use();
 	m_shader_program->setUniform(m_location_projection_view_matrix, projection_view_matrix);
 	m_box->render();

@@ -168,6 +168,7 @@ void Bauasian::init() const
 	initializeDebugOutput();
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_PRIMITIVE_RESTART_FIXED_INDEX);
+	glDepthFunc(GL_LEQUAL);
 }
 
 void Bauasian::logInitial() const

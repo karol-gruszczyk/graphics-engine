@@ -65,42 +65,24 @@ void DeferredRenderer::render(Scene3D* scene) const
 	scene->render();
 
 	m_frame_buffer->unbind();
+	m_frame_buffer->copyDepthBuffer();
+
 	m_albedo_buffer->bind(ALBEDO_BUFFER);
 	m_specular_buffer->bind(SPECULAR_BUFFER);
 	m_normal_buffer->bind(NORMAL_BUFFER);
 	m_position_buffer->bind(POSITION_BUFFER);
 
-	m_dir_light_shader->use();
-	for (const auto& light : scene->getDirectionalLights())
-	{
-		m_dir_light_shader->setUniform(m_location_dir_light_direction, light->getDirection());
-		m_dir_light_shader->setUniform(m_location_dir_light_diffuse_color, light->getDiffuseColor());
-		m_dir_light_shader->setUniform(m_location_dir_light_specular_color, light->getSpecularColor());
-		m_screen_quad->render();
-	}
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
-	m_point_light_shader->use();
-	for (const auto& light : scene->getPointLights())
-	{
-		m_point_light_shader->setUniform(m_location_point_light_position, light->getPosition());
-		m_point_light_shader->setUniform(m_location_point_light_diffuse_color, light->getDiffuseColor());
-		m_point_light_shader->setUniform(m_location_point_light_specular_color, light->getSpecularColor());
-		m_point_light_shader->setUniform(m_location_point_light_attenuation, light->getAttenuation());
-		m_screen_quad->render();
-	}
+	renderPointLights(scene);
+	renderSpotLights(scene);
+	renderDirectionalLights(scene);
 
-	m_spot_light_shader->use();
-	for (const auto& light : scene->getSpotLights())
-	{
-		m_spot_light_shader->setUniform(m_location_spot_light_position, light->getPosition());
-		m_spot_light_shader->setUniform(m_location_spot_light_direction, light->getDirection());
-		m_spot_light_shader->setUniform(m_location_spot_light_diffuse_color, light->getDiffuseColor());
-		m_spot_light_shader->setUniform(m_location_spot_light_specular_color, light->getSpecularColor());
-		m_spot_light_shader->setUniform(m_location_spot_light_attenuation, light->getAttenuation());
-		m_spot_light_shader->setUniform(m_location_spot_light_inner_angle, light->getInnerAngle());
-		m_spot_light_shader->setUniform(m_location_spot_light_outer_angle, light->getOuterAngle());
-		m_screen_quad->render();
-	}
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+	scene->renderSkyBox();
 }
 
 void DeferredRenderer::initDirectionalLightShader()
@@ -156,4 +138,45 @@ void DeferredRenderer::initLightShaderUniformLocation(bauasian::ShaderProgram* s
 	shader->setUniform(shader->getUniformLocation("specular_buffer"), SPECULAR_BUFFER);
 	shader->setUniform(shader->getUniformLocation("normal_buffer"), NORMAL_BUFFER);
 	shader->setUniform(shader->getUniformLocation("position_buffer"), POSITION_BUFFER);
+}
+
+void DeferredRenderer::renderDirectionalLights(bauasian::Scene3D* scene) const
+{
+	m_dir_light_shader->use();
+	for (const auto& light : scene->getDirectionalLights())
+	{
+		m_dir_light_shader->setUniform(m_location_dir_light_direction, light->getDirection());
+		m_dir_light_shader->setUniform(m_location_dir_light_diffuse_color, light->getDiffuseColor());
+		m_dir_light_shader->setUniform(m_location_dir_light_specular_color, light->getSpecularColor());
+		m_screen_quad->render();
+	}
+}
+
+void DeferredRenderer::renderPointLights(bauasian::Scene3D* scene) const
+{
+	m_point_light_shader->use();
+	for (const auto& light : scene->getPointLights())
+	{
+		m_point_light_shader->setUniform(m_location_point_light_position, light->getPosition());
+		m_point_light_shader->setUniform(m_location_point_light_diffuse_color, light->getDiffuseColor());
+		m_point_light_shader->setUniform(m_location_point_light_specular_color, light->getSpecularColor());
+		m_point_light_shader->setUniform(m_location_point_light_attenuation, light->getAttenuation());
+		m_screen_quad->render();
+	}
+}
+
+void DeferredRenderer::renderSpotLights(bauasian::Scene3D* scene) const
+{
+	m_spot_light_shader->use();
+	for (const auto& light : scene->getSpotLights())
+	{
+		m_spot_light_shader->setUniform(m_location_spot_light_position, light->getPosition());
+		m_spot_light_shader->setUniform(m_location_spot_light_direction, light->getDirection());
+		m_spot_light_shader->setUniform(m_location_spot_light_diffuse_color, light->getDiffuseColor());
+		m_spot_light_shader->setUniform(m_location_spot_light_specular_color, light->getSpecularColor());
+		m_spot_light_shader->setUniform(m_location_spot_light_attenuation, light->getAttenuation());
+		m_spot_light_shader->setUniform(m_location_spot_light_inner_angle, light->getInnerAngle());
+		m_spot_light_shader->setUniform(m_location_spot_light_outer_angle, light->getOuterAngle());
+		m_screen_quad->render();
+	}
 }

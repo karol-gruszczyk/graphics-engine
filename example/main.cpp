@@ -214,7 +214,8 @@ void setup()
 
 	dir_light = new DirectionalLight(glm::vec3(-1.f, -0.3f, -1.f));
 	PointLight* point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
-	SpotLight* spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
+	SpotLight* spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
+										  glm::radians(25.f));
 
 	const std::string prefix("res/cube_textures/ashcanyon_");
 	//const std::string prefix("res/cube_textures/interstellar_");
@@ -251,6 +252,8 @@ void setup()
 	}
 	camera = new PerspectiveCamera(8.f / 6.f);
 	camera->setFar(10000.f);
+	camera->setPosition({ 0.f, 5.f, 0.f });
+	camera->setRotation({ -45.f, 0.f, 0.f });
 	scene3d->addCamera(camera);
 
 	fps_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14));

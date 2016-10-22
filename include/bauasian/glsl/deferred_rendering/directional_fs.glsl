@@ -1,5 +1,6 @@
 #version 330 core
 #include "../common/lights.glsl"
+#include "../utils/luminance.glsl"
 
 layout(std140) uniform SceneBuffer
 {
@@ -23,7 +24,7 @@ uniform vec3 light_specular_color;
 
 in vec2 texture_coord;
 
-out vec3 out_color;
+out vec4 out_color;
 
 
 void main()
@@ -43,5 +44,6 @@ void main()
 	vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, light_specular_color,
 	                                     view_dir, fragment_shininess) * fragment_specular;
 
-	out_color = ambient + diffuse + specular;
+    vec3 result_color = ambient + diffuse + specular;
+	out_color = vec4(result_color, 1.f);
 }

@@ -1,3 +1,6 @@
+#include "../globals.glsl"
+
+
 vec3 processAmbientLight(vec3 light_color)
 {
 	return AMBIENT_STRENGTH * light_color;
