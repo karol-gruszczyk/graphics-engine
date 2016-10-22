@@ -44,11 +44,9 @@ Font::~Font()
 
 void Font::loadShader()
 {
-	Shader* vertex_shader = new Shader("fonts/font_vs.glsl", Shader::VERTEX_SHADER);
-	Shader* fragment_shader = new Shader("fonts/font_fs.glsl", Shader::FRAGMENT_SHADER);
-	s_shader = new ShaderProgram({ vertex_shader, fragment_shader });
-	delete vertex_shader;
-	delete fragment_shader;
+	auto vertex_shader = std::make_unique<Shader>("fonts/font_vs.glsl", Shader::VERTEX_SHADER);
+	auto fragment_shader = std::make_unique<Shader>("fonts/font_fs.glsl", Shader::FRAGMENT_SHADER);
+	s_shader = new ShaderProgram({ vertex_shader.get(), fragment_shader.get() });
 	m_location_projection_matrix = s_shader->getUniformLocation("projection_matrix");
 }
 

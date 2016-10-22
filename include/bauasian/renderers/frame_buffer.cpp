@@ -59,6 +59,11 @@ void FrameBuffer::setSize(const glm::uvec2& size)
 	m_depth_attachment->setSize(size);
 }
 
+const GLuint& FrameBuffer::getId() const
+{
+	return m_fbo_id;
+}
+
 const std::list<FrameBufferAttachment*>& FrameBuffer::getColorAttachments() const
 {
 	return m_color_attachments;

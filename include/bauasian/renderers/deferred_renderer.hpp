@@ -2,6 +2,7 @@
 #define BAUASIAN_DEFERRED_RENDERER_HPP
 
 #include "frame_buffer.hpp"
+#include "post_processors/filter.hpp"
 #include "bauasian/materials/texture.hpp"
 #include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/interfaces/size_interface.hpp"
@@ -17,14 +18,17 @@ class bauasian::DeferredRenderer : public SizeInterface
 {
 public:
 	DeferredRenderer(const glm::uvec2 size);
-	~DeferredRenderer();
+	virtual ~DeferredRenderer();
 
 	virtual void setSize(const glm::uvec2& size) override;
 
+	void addFilter(Filter* filter);
 	void clearScreen() const;
 	void render(Scene3D* scene) const;
 
 private:
+	std::list<Filter*> m_filters;
+
 	FrameBuffer* m_frame_buffer;
 	Texture* m_albedo_buffer;
 	Texture* m_specular_buffer;
@@ -57,6 +61,8 @@ private:
 	void initPointLightShader();
 	void initSpotLightShader();
 	void initLightShaderUniformLocation(ShaderProgram* shader) const;
+	void renderGeometry(Scene3D* scene) const;
+	void renderLighting(Scene3D* scene) const;
 	void renderDirectionalLights(Scene3D* scene) const;
 	void renderPointLights(Scene3D* scene) const;
 	void renderSpotLights(Scene3D* scene) const;

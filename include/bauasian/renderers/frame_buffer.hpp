@@ -22,6 +22,7 @@ public:
 
 	void setSize(const glm::uvec2& size) override;
 
+	const GLuint& getId() const;
 	const std::list<FrameBufferAttachment*>& getColorAttachments() const;
 	const FrameBufferAttachment* getDepthAttachment() const;
 	void bind() const;

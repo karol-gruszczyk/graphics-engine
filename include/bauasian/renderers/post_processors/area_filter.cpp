@@ -15,10 +15,10 @@ AreaFilter::AreaFilter(Shader& fragment_shader)
 	initLocations();
 }
 
-void AreaFilter::setContextSize(const unsigned& width, const unsigned& height)
+void AreaFilter::setSize(const glm::uvec2& size)
 {
-	Filter::setContextSize(width, height);
-	m_shader->setUniform(m_location_pixel_size, { 1.f / width, 1.f / height });
+	Filter::setSize(size);
+	m_shader->setUniform(m_location_pixel_size, glm::vec2(1.f / m_size.x, 1.f / m_size.y));
 }
 
 void AreaFilter::initLocations()

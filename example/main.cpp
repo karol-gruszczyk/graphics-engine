@@ -20,7 +20,6 @@ std::chrono::steady_clock::time_point last_frame_time;
 using namespace bauasian;
 
 Renderer2D* renderer2d;
-Renderer3D* renderer3d;
 DeferredRenderer* renderer;
 PerspectiveCamera* camera;
 Scene2D* scene2d, * loading_scene;
@@ -153,9 +152,6 @@ void draw(void)
 	dir_light->setDirection(light_direction);
 	sky_box->setLightDirection(light_direction);
 
-//	renderer3d->clearScreen();
-
-//	renderer3d->render(scene3d);
 	renderer->clearScreen();
 	renderer->render(scene3d);
 
@@ -169,10 +165,8 @@ void draw(void)
 void setup()
 {
 	renderer = new DeferredRenderer(glm::uvec2(window_width, window_height));
-//	renderer3d = new Renderer3D();
-//	renderer3d->setZFar(10000);
-//	renderer3d->addFilter(hdr = new HDR());
-//	renderer3d->addFilter(new FXAA());
+	renderer->addFilter(hdr = new HDR());
+	renderer->addFilter(new FXAA());
 
 	// 2D
 	rect = new Rectangle(glm::vec2(300.f, 300.f));
@@ -274,7 +268,7 @@ void setup()
 void cleanup()
 {
 	delete renderer2d;
-	delete renderer3d;
+	delete renderer;
 	delete scene2d;
 	delete scene3d;
 	delete fps_text;

@@ -24,10 +24,10 @@ Filter::~Filter()
 	delete m_shader;
 }
 
-void Filter::setContextSize(const unsigned& width, const unsigned& height)
+void Filter::setSize(const glm::uvec2& size)
 {
-	m_color_texture->setSize({ width, height });
-	setSize({ width, height });
+	FrameBuffer::setSize(size);
+	m_color_texture->setSize(size);
 }
 
 void Filter::renderToScreen() const

@@ -21,7 +21,7 @@ public:
 	Filter(Shader& fragment_shader, const GLenum& storage = GL_RGBA);
 	virtual ~Filter();
 
-	virtual void setContextSize(const unsigned& width, const unsigned& height);
+	virtual void setSize(const glm::uvec2& size) override;
 	void renderToScreen() const;
 
 protected:

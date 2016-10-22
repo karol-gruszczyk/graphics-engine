@@ -2,7 +2,6 @@
 #define BAUASIAN_ENGINE3D_HPP
 
 #include "bauasian.hpp"
-#include "renderers/renderer_3d.hpp"
 #include "renderers/deferred_renderer.hpp"
 #include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/scenes/perspective_camera.hpp"

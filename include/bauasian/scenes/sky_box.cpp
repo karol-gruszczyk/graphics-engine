@@ -5,11 +5,9 @@ using bauasian::SkyBox;
 
 SkyBox::SkyBox(const boost::filesystem::path& fragment_shader_path)
 {
-	Shader* vertex_shader = new Shader("skybox/basic_vs.glsl", Shader::VERTEX_SHADER);
-	Shader* fragment_shader = new Shader(fragment_shader_path, Shader::FRAGMENT_SHADER);
-	m_shader_program = new ShaderProgram({ vertex_shader, fragment_shader });
-	delete vertex_shader;
-	delete fragment_shader;
+	auto vertex_shader = std::make_unique<Shader>("skybox/basic_vs.glsl", Shader::VERTEX_SHADER);
+	auto fragment_shader = std::make_unique<Shader>(fragment_shader_path, Shader::FRAGMENT_SHADER);
+	m_shader_program = new ShaderProgram({ vertex_shader.get(), fragment_shader.get() });
 	m_box = new ScreenCube();
 
 	m_location_projection_view_matrix = m_shader_program->getUniformLocation("projection_view_matrix");
