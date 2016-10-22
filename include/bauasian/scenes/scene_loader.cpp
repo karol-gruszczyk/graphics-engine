@@ -47,16 +47,6 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_u
 	                                std::to_string(loading_time.count()) + " ms");
 }
 
-SceneLoader::~SceneLoader()
-{
-	for (auto& light : m_directional_lights)
-		delete light;
-	for (auto& light : m_point_lights)
-		delete light;
-	for (auto& light : m_spot_lights)
-		delete light;
-}
-
 const std::list<Mesh*>& SceneLoader::getMeshes() const
 {
 	return m_meshes;

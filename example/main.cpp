@@ -33,7 +33,7 @@ std::shared_ptr<Material> brick_material, pavement_material;
 Text* fps_text, * stat_text, * loading_text;
 SunSkyBox* sky_box;
 HDR* hdr;
-DirectionalLight dir_light(glm::vec3(-1.f, -0.3f, -1.f));
+DirectionalLight* dir_light;
 
 float counter;
 bool mouse_button_pressed, accelerate, wireframe;
@@ -150,12 +150,13 @@ void draw(void)
 	box->rotate({ 0.f, glm::radians(1.f), 0.f });
 
 	glm::vec3 light_direction(glm::cos(counter), sin(counter), glm::cos(counter));
-	dir_light.setDirection(light_direction);
+	dir_light->setDirection(light_direction);
 	sky_box->setLightDirection(light_direction);
 
-	renderer3d->clearScreen();
+//	renderer3d->clearScreen();
 
 //	renderer3d->render(scene3d);
+	renderer->clearScreen();
 	renderer->render(scene3d);
 
 	renderer2d->render(scene2d);
@@ -168,10 +169,10 @@ void draw(void)
 void setup()
 {
 	renderer = new DeferredRenderer(glm::uvec2(window_width, window_height));
-	renderer3d = new Renderer3D();
-	renderer3d->setZFar(10000);
-	renderer3d->addFilter(hdr = new HDR());
-	renderer3d->addFilter(new FXAA());
+//	renderer3d = new Renderer3D();
+//	renderer3d->setZFar(10000);
+//	renderer3d->addFilter(hdr = new HDR());
+//	renderer3d->addFilter(new FXAA());
 
 	// 2D
 	rect = new Rectangle(glm::vec2(300.f, 300.f));
@@ -211,9 +212,9 @@ void setup()
 	sphere->setPosition({ 0.f, 15.f, 0.f });
 	sphere->setMaterial(pavement_material);
 
-
-	PointLight point_light({ 50.f, 2.f, 50.f }, 10.f);
-	SpotLight spot_light({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
+	dir_light = new DirectionalLight(glm::vec3(-1.f, -0.3f, -1.f));
+	PointLight* point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
+	SpotLight* spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f), glm::radians(25.f));
 
 	const std::string prefix("res/cube_textures/ashcanyon_");
 	//const std::string prefix("res/cube_textures/interstellar_");
@@ -222,15 +223,15 @@ void setup()
 														 prefix + "rt.tga", prefix + "lf.tga", };
 	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture(paths));
 	//sky_box = new TexturedSkyBox(TextureFactory::getInstance().getCubeTexture("res/cube_textures/skybox.jpg"));
-	sky_box = new SunSkyBox(dir_light.getDirection());
+	sky_box = new SunSkyBox(dir_light->getDirection());
 
 	scene3d = new Scene3D(sky_box);
 	scene3d->addEntity(box);
 	scene3d->addEntity(plane);
 	scene3d->addEntity(sphere);
 	scene3d->addLight(dir_light);
-	//scene3d->addLight(point_light);
-	//scene3d->addLight(spot_light);
+	scene3d->addLight(point_light);
+	scene3d->addLight(spot_light);
 
 	try
 	{

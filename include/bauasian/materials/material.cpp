@@ -15,13 +15,13 @@ using bauasian::UniformBuffer;
 
 void Material::setShaderLocations(ShaderProgram* shader)
 {
-	const auto& ambient_texture = shader->getUniformLocation("ambient_texture");
+//	const auto& ambient_texture = shader->getUniformLocation("ambient_texture");
 	const auto& diffuse_texture = shader->getUniformLocation("diffuse_texture");
 	const auto& specular_texture = shader->getUniformLocation("specular_texture");
 	const auto& normal_texture = shader->getUniformLocation("normal_texture");
 	const auto& displacement_texture = shader->getUniformLocation("displacement_texture");
 	const auto& opacity_texture = shader->getUniformLocation("opacity_texture");
-	shader->setUniform(ambient_texture, AMBIENT_TEXTURE);
+//	shader->setUniform(ambient_texture, AMBIENT_TEXTURE);
 	shader->setUniform(diffuse_texture, DIFFUSE_TEXTURE);
 	shader->setUniform(specular_texture, SPECULAR_TEXTURE);
 	shader->setUniform(normal_texture, NORMAL_TEXTURE);

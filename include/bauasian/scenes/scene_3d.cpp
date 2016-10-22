@@ -8,6 +8,9 @@
 using bauasian::Scene3D;
 using bauasian::Entity3D;
 using bauasian::Camera;
+using bauasian::DirectionalLight;
+using bauasian::PointLight;
+using bauasian::SpotLight;
 
 Scene3D::Scene3D(SkyBox* sky_box)
 		: m_sky_box(sky_box)
@@ -38,15 +41,30 @@ void Scene3D::addCamera(Camera* camera)
 		setCamera(m_cameras.front());
 }
 
-void Scene3D::addLight(DirectionalLight& directional_light)
+const std::vector<DirectionalLight*>& Scene3D::getDirectionalLights() const
+{
+	return m_directional_lights;
+}
+
+const std::vector<PointLight*>& Scene3D::getPointLights() const
+{
+	return m_point_lights;
+}
+
+const std::vector<SpotLight*>& Scene3D::getSpotLights() const
+{
+	return m_spot_lights;
+}
+
+void Scene3D::addLight(DirectionalLight* directional_light)
 {
 	if (m_directional_lights.size() == MAX_DIR_LIGHTS)
 		throw LightLimitReachedException("directional", MAX_DIR_LIGHTS);
-	m_directional_lights.push_back(&directional_light);
+	m_directional_lights.push_back(directional_light);
 	m_num_lights[0] = (unsigned) m_directional_lights.size();
 }
 
-void Scene3D::addLight(const PointLight& point_light)
+void Scene3D::addLight(PointLight* point_light)
 {
 	if (m_directional_lights.size() == MAX_POINT_LIGHTS)
 		throw LightLimitReachedException("point", MAX_POINT_LIGHTS);
@@ -54,7 +72,7 @@ void Scene3D::addLight(const PointLight& point_light)
 	m_num_lights[1] = (unsigned) m_point_lights.size();
 }
 
-void Scene3D::addLight(const SpotLight& spot_light)
+void Scene3D::addLight(SpotLight* spot_light)
 {
 	if (m_directional_lights.size() == MAX_SPOT_LIGHTS)
 		throw LightLimitReachedException("spot", MAX_SPOT_LIGHTS);
@@ -78,11 +96,11 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 	for (auto camera : loader->getCameras())
 		addCamera(camera);
 	for (auto light : loader->getDirectionalLights())
-		addLight(*light);
+		addLight(light);
 	for (auto light : loader->getPointLights())
-		addLight(*light);
+		addLight(light);
 	for (auto light : loader->getSpotLights())
-		addLight(*light);
+		addLight(light);
 	delete loader;
 }
 
@@ -91,8 +109,8 @@ void Scene3D::render() const
 	glEnable(GL_DEPTH_TEST);
 
 	SceneBuffer::getInstance().setDirectionalLights(m_directional_lights[0], m_num_lights[0]);
-	SceneBuffer::getInstance().setPointLights(&m_point_lights[0], m_num_lights[1]);
-	SceneBuffer::getInstance().setSpotLights(&m_spot_lights[0], m_num_lights[2]);
+	SceneBuffer::getInstance().setPointLights(m_point_lights[0], m_num_lights[1]);
+	SceneBuffer::getInstance().setSpotLights(m_spot_lights[0], m_num_lights[2]);
 	SceneBuffer::getInstance().setCameraPosition(m_current_camera->getPosition());
 	SceneBuffer::getInstance().setNumLights(m_num_lights);
 	auto projection_view_matrix = m_current_camera->getProjectionViewMatrix();
@@ -127,4 +145,9 @@ const unsigned Scene3D::getNumFaces() const
 const unsigned Scene3D::getNumMeshes() const
 {
 	return (unsigned) m_entities.size();
+}
+
+void Scene3D::renderSkyBox() const
+{
+	m_sky_box->render(m_current_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_current_camera->getViewMatrix())));
 }

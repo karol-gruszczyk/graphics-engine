@@ -20,22 +20,26 @@ namespace bauasian
 class bauasian::Scene3D
 {
 public:
-	Scene3D(SkyBox* sky_box = nullptr);
+	Scene3D(SkyBox* sky_box);
 	~Scene3D();
 
 	Camera* getCamera();
 	void setCamera(Camera* camera);
 	void addCamera(Camera* camera);
 	void addEntity(Entity3D* entity);
-	void addLight(DirectionalLight& directional_light);
-	void addLight(const PointLight& point_light);
-	void addLight(const SpotLight& spot_light);
+	const std::vector<DirectionalLight*>& getDirectionalLights() const;
+	const std::vector<PointLight*>& getPointLights() const;
+	const std::vector<SpotLight*>& getSpotLights() const;
+	void addLight(DirectionalLight* directional_light);
+	void addLight(PointLight* point_light);
+	void addLight(SpotLight* spot_light);
 	void loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs = false,
 	                  const bool& map_bump_to_normal = false);
 	const unsigned int getNumVertices() const;
 	const unsigned int getNumFaces() const;
 	const unsigned int getNumMeshes() const;
 	void render() const;
+	void renderSkyBox() const;
 
 private:
 	SkyBox* m_sky_box;
@@ -43,8 +47,8 @@ private:
 	std::vector<Camera*> m_cameras;
 	std::list<Entity3D*> m_entities;
 	std::vector<DirectionalLight*> m_directional_lights;
-	std::vector<PointLight> m_point_lights;
-	std::vector<SpotLight> m_spot_lights;
+	std::vector<PointLight*> m_point_lights;
+	std::vector<SpotLight*> m_spot_lights;
 	unsigned m_num_lights[3] = { 0, 0, 0 };
 
 };

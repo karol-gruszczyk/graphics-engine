@@ -22,7 +22,6 @@ class bauasian::SceneLoader final
 public:
 	SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs = false,
 	            const bool& map_bump_to_normal = false);
-	~SceneLoader();
 
 	const std::list<Mesh*>& getMeshes() const;
 	const std::list<PerspectiveCamera*>& getCameras() const;

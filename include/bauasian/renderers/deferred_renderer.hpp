@@ -21,6 +21,7 @@ public:
 
 	virtual void setSize(const glm::uvec2& size) override;
 
+	void clearScreen() const;
 	void render(Scene3D* scene) const;
 
 private:
@@ -32,6 +33,10 @@ private:
 	ShaderProgram* m_geometry_shader;
 	ShaderProgram* m_dir_light_shader;
 	ScreenQuad* m_screen_quad;
+
+	GLint m_location_dir_light_direction;
+	GLint m_location_dir_light_diffuse_color;
+	GLint m_location_dir_light_specular_color;
 
 	void initUniformLocations(ShaderProgram* shader) const;
 
