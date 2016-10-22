@@ -4,7 +4,7 @@
 #include "uniform_buffer.hpp"
 #include "bauasian/lights/directional_light.hpp"
 #include "bauasian/lights/spot_light.hpp"
-#include "bauasian/glsl/3d/globals.glsl"
+#include "bauasian/glsl/globals.glsl"
 
 
 namespace bauasian

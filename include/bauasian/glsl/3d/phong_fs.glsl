@@ -1,5 +1,5 @@
 #version 330 core
-#include "lights.glsl"
+#include "../common/lights.glsl"
 
 layout(std140) uniform SceneBuffer
 {

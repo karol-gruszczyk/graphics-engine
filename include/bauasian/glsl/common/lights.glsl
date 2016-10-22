@@ -1,4 +1,4 @@
-#include "globals.glsl"
+#include "../globals.glsl"
 
 
 struct DirectionalLight

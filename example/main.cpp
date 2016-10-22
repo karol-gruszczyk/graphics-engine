@@ -21,6 +21,7 @@ using namespace bauasian;
 
 Renderer2D* renderer2d;
 Renderer3D* renderer3d;
+DeferredRenderer* renderer;
 PerspectiveCamera* camera;
 Scene2D* scene2d, * loading_scene;
 Scene3D* scene3d;
@@ -154,7 +155,8 @@ void draw(void)
 
 	renderer3d->clearScreen();
 
-	renderer3d->render(scene3d);
+//	renderer3d->render(scene3d);
+	renderer->render(scene3d);
 
 	renderer2d->render(scene2d);
 	fps_text->render();
@@ -165,6 +167,7 @@ void draw(void)
 
 void setup()
 {
+	renderer = new DeferredRenderer(glm::uvec2(window_width, window_height));
 	renderer3d = new Renderer3D();
 	renderer3d->setZFar(10000);
 	renderer3d->addFilter(hdr = new HDR());

@@ -1,5 +1,5 @@
 #include "scene_3d.hpp"
-#include "bauasian/glsl/3d/globals.glsl"
+#include "bauasian/glsl/globals.glsl"
 #include "scene_loader.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
