@@ -19,8 +19,8 @@ public:
 	static TextureFactory& getInstance();
 
 	Texture* getTexture(const boost::filesystem::path& path, const bool& is_standardized = true);
-	CubeTexture* getCubeTexture(const boost::filesystem::path& path);
-	CubeTexture* getCubeTexture(const std::vector<boost::filesystem::path>& paths);
+	CubeTexture* getCubeTexture(const boost::filesystem::path& path, const bool& is_standardized = true);
+	CubeTexture* getCubeTexture(const std::vector<boost::filesystem::path>& paths, const bool& is_standardized = true);
 
 private:
 	TextureFactory();

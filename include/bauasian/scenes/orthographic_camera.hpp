@@ -1,0 +1,16 @@
+//
+// Created by karol on 10/22/16.
+//
+
+#ifndef GRAPHICS_ENGINE_ORTHOGRAPHIC_CAMERA_HPP
+#define GRAPHICS_ENGINE_ORTHOGRAPHIC_CAMERA_HPP
+
+
+
+class orthographic_camera {
+
+};
+
+
+
+#endif //GRAPHICS_ENGINE_ORTHOGRAPHIC_CAMERA_HPP

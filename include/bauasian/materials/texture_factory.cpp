@@ -31,7 +31,7 @@ Texture* TextureFactory::getTexture(const boost::filesystem::path& path, const b
 	return texture;
 }
 
-CubeTexture* TextureFactory::getCubeTexture(const boost::filesystem::path& path)
+CubeTexture* TextureFactory::getCubeTexture(const boost::filesystem::path& path, const bool& is_standardized)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -41,16 +41,20 @@ CubeTexture* TextureFactory::getCubeTexture(const boost::filesystem::path& path)
 		return static_cast<CubeTexture*>(m_textures[path_str]);
 
 	ImageLoader* loader = new ImageLoader(path);
-	ImageSlicer* slicer = new ImageSlicer(loader->getSize(), loader->getPixels(), 4);
+	const auto bpp = loader->getBitsPerPixel();
+	const auto internal = getFormatFromBPP(bpp, true, is_standardized);
+	const auto format = getFormatFromBPP(bpp, false, false);
+	ImageSlicer* slicer = new ImageSlicer(loader->getSize(), loader->getPixels(), bpp / 8);
 	auto cube_faces = slicer->getCubeTextureFaces();
-	CubeTexture* texture = new CubeTexture(std::get<0>(cube_faces), std::get<1>(cube_faces), GL_RGBA, GL_BGRA);
+	CubeTexture* texture = new CubeTexture(std::get<0>(cube_faces), std::get<1>(cube_faces), internal, format);
 	m_textures[path_str] = texture;
 	delete loader;
 	delete slicer;
 	return texture;
 }
 
-CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem::path>& paths)
+CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem::path>& paths,
+											const bool& is_standardized)
 {
 	assert(paths.size() == 6);
 
@@ -59,7 +63,11 @@ CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem:
 		return static_cast<CubeTexture*>(m_textures[path_str]);
 
 	std::for_each(paths.begin(), paths.end(),
-	              [](const auto& p) -> void { if (!boost::filesystem::exists(p)) throw FileNotFoundException(p); });
+				  [](const auto& p) -> void
+				  {
+					  if (!boost::filesystem::exists(p))
+						  throw FileNotFoundException(p);
+				  });
 
 	std::vector<ImageLoader*> loaders;
 	std::vector<glm::uvec2> sizes;
@@ -71,14 +79,19 @@ CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem:
 		pixel_ptrs.push_back(loader->getPixels());
 		loaders.push_back(loader);
 	}
-	CubeTexture* texture = new CubeTexture(sizes, pixel_ptrs, GL_RGBA, GL_BGRA);
+	const auto bpp = loaders.front()->getBitsPerPixel();
+	const auto internal = getFormatFromBPP(bpp, true, is_standardized);
+	const auto format = getFormatFromBPP(bpp, false, false);
+	CubeTexture* texture = new CubeTexture(sizes, pixel_ptrs, internal, format);
 	m_textures[path_str] = texture;
-	std::for_each(loaders.begin(), loaders.end(), [](auto l) -> void { delete l; });
+	std::for_each(loaders.begin(), loaders.end(), [](auto l) -> void
+	{ delete l; });
 	return texture;
 }
 
 TextureFactory::TextureFactory()
-{}
+{
+}
 
 TextureFactory::~TextureFactory()
 {
