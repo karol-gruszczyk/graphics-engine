@@ -103,7 +103,7 @@ void Scene3D::render() const
 	for (auto& entity : m_entities)
 	{
 		const auto& buffer = ModelMatricesBuffer::getInstance();
-		buffer.setProjectionViewMatrix(projection_view_matrix * entity->getModelMatrix());
+		buffer.setProjectionViewModelMatrix(projection_view_matrix * entity->getModelMatrix());
 		buffer.setModelMatrix(entity->getModelMatrix());
 		buffer.setNormalMatrix(entity->getNormalMatrix());
 		entity->render();

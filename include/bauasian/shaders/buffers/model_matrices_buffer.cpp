@@ -11,7 +11,7 @@ ModelMatricesBuffer& ModelMatricesBuffer::getInstance()
 	return instance;
 }
 
-void ModelMatricesBuffer::setProjectionViewMatrix(const glm::mat4& matrix) const
+void ModelMatricesBuffer::setProjectionViewModelMatrix(const glm::mat4& matrix) const
 {
 	setSubData(0, sizeof(glm::mat4), glm::value_ptr(matrix));
 }

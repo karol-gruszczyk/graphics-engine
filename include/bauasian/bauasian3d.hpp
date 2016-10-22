@@ -5,6 +5,7 @@
 #include "renderers/deferred_renderer.hpp"
 #include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/scenes/perspective_camera.hpp"
+#include "bauasian/scenes/orthographic_camera.hpp"
 #include "bauasian/scenes/textured_sky_box.hpp"
 #include "bauasian/scenes/sun_sky_box.hpp"
 #include "primitives/box.hpp"

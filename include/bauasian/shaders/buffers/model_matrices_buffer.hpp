@@ -21,7 +21,7 @@ public:
 
 	static ModelMatricesBuffer& getInstance();
 
-	void setProjectionViewMatrix(const glm::mat4& matrix) const;
+	void setProjectionViewModelMatrix(const glm::mat4& matrix) const;
 	void setModelMatrix(const glm::mat4& matrix) const;
 	void setNormalMatrix(const glm::mat4& matrix) const;
 

@@ -1,16 +1,25 @@
-//
-// Created by karol on 10/22/16.
-//
+#ifndef BAUASIAN_ORTHOGRAPHIC_CAMERA_HPP
+#define BAUASIAN_ORTHOGRAPHIC_CAMERA_HPP
 
-#ifndef GRAPHICS_ENGINE_ORTHOGRAPHIC_CAMERA_HPP
-#define GRAPHICS_ENGINE_ORTHOGRAPHIC_CAMERA_HPP
-
+#include "camera.hpp"
+#include "bauasian/interfaces/size_interface.hpp"
 
 
-class orthographic_camera {
+namespace bauasian
+{
+	class OrthographicCamera;
+}
+
+class bauasian::OrthographicCamera : public Camera, public SizeInterface
+{
+public:
+	OrthographicCamera(const glm::uvec2& size);
+
+	void setSize(const glm::uvec2& size) override;
+
+private:
+	void updateProjectionMatrix() override;
 
 };
 
-
-
-#endif //GRAPHICS_ENGINE_ORTHOGRAPHIC_CAMERA_HPP
+#endif /* BAUASIAN_ORTHOGRAPHIC_CAMERA_HPP */
