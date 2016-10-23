@@ -191,9 +191,8 @@ void SceneLoader::processCameras(const aiScene* scene)
 	for (unsigned i = 0; i < scene->mNumCameras; i++)
 	{
 		const auto& cam = scene->mCameras[i];
-		glm::mat4 view_matrix = glm::lookAt(to_vec(cam->mPosition), to_vec(cam->mLookAt), to_vec(cam->mUp));
 		auto camera = new PerspectiveCamera(cam->mAspect, cam->mHorizontalFOV, cam->mClipPlaneNear, cam->mClipPlaneFar);
-		camera->setViewMatrix(view_matrix);
+		camera->lookAt(to_vec(cam->mPosition), to_vec(cam->mLookAt), to_vec(cam->mUp));
 		camera->setName(cam->mName.C_Str());
 		m_cameras.push_back(camera);
 	}

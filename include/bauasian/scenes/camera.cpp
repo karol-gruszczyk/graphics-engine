@@ -2,6 +2,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 
 using bauasian::Camera;
@@ -9,63 +10,77 @@ using bauasian::Camera;
 Camera::~Camera()
 {}
 
-void Camera::translate(const glm::vec3& position)
-{
-	m_view_matrix = glm::translate(m_view_matrix, -position);
-	m_position += position;
-	updateProjectionViewMatrix();
-}
-
-void Camera::setPosition(const glm::vec3& position)
-{
-	translate(position - m_position);
-}
-
 const glm::vec3& Camera::getPosition() const
 {
 	return m_position;
 }
 
-void Camera::rotate(const glm::vec3& rotation)
+void Camera::move(const glm::vec3& position)
+{
+	setViewMatrix(glm::translate(m_view_matrix, -position));
+	m_position += position;
+}
+
+void Camera::setPosition(const glm::vec3& position)
+{
+	move(position - m_position);
+}
+
+void Camera::rotate(const float& angle, const glm::vec3& axis)
 {
 	m_view_matrix = glm::translate(m_view_matrix, m_position);
-	m_view_matrix = glm::rotate(m_view_matrix, -m_rotation.y, { 0.f, 1.f, 0.f });
-	m_view_matrix = glm::rotate(m_view_matrix, rotation.z, { 0.f, 0.f, 1.f });
-	m_view_matrix = glm::rotate(m_view_matrix, -rotation.x, { 1.f, 0.f, 0.f });
-	m_view_matrix = glm::rotate(m_view_matrix, m_rotation.y + rotation.y, { 0.f, 1.f, 0.f });
-	m_view_matrix = glm::translate(m_view_matrix, -m_position);
-
-	m_rotation += rotation;
-	updateForwardVector();
-	updateProjectionViewMatrix();
+	m_view_matrix = glm::rotate(m_view_matrix, -angle, axis);
+	setViewMatrix(glm::translate(m_view_matrix, -m_position));
 }
 
-void Camera::setRotation(const glm::vec3& rotation)
+void Camera::roll(const float& angle)
 {
-	rotate(rotation - m_rotation);
+	rotate(angle, m_direction_vector);
+	m_up_vector = glm::rotate(m_up_vector, angle, m_direction_vector);
+	m_right_vector = glm::cross(m_direction_vector, m_up_vector);
 }
 
-const glm::vec3& Camera::getRotation() const
+void Camera::pitch(const float& angle)
 {
-	return m_rotation;
+	rotate(angle, m_right_vector);
+	m_direction_vector = glm::rotate(m_direction_vector, angle, m_right_vector);
+	m_up_vector = glm::cross(m_right_vector, m_direction_vector);
 }
 
-void Camera::moveForward(const float& distance)
+void Camera::yaw(const float& angle)
 {
-	translate(distance * getForwardVector());
+	rotate(angle, m_up_vector);
+	m_direction_vector = glm::rotate(m_direction_vector, angle, m_up_vector);
+	m_right_vector = glm::cross(m_direction_vector, m_up_vector);
 }
 
-void Camera::moveRight(const float& distance)
+void Camera::lookAt(const glm::vec3& position)
 {
-	translate(distance * getRightVector());
+	m_direction_vector = glm::normalize(position - m_position);
+	m_right_vector = glm::cross(m_direction_vector, m_up_vector);
+	setViewMatrix(glm::lookAt(m_position, position, m_up_vector));
 }
 
-const glm::vec3& Camera::getForwardVector() const
+void Camera::lookAt(const glm::vec3& eye_position, const glm::vec3& position, const glm::vec3& up)
 {
-	return m_forward_vector;
+	m_position = eye_position;
+	m_up_vector = up;
+	m_direction_vector = glm::normalize(position - m_position);
+	m_right_vector = glm::cross(m_direction_vector, m_up_vector);
+	setViewMatrix(glm::lookAt(eye_position, position, up));
 }
 
-const glm::vec3& Camera::getRightVector() const
+const glm::vec3& Camera::getDirection() const
+{
+	return m_direction_vector;
+}
+
+const glm::vec3& Camera::getUp() const
+{
+	return m_up_vector;
+}
+
+const glm::vec3& Camera::getRight() const
 {
 	return m_right_vector;
 }
@@ -73,15 +88,6 @@ const glm::vec3& Camera::getRightVector() const
 const glm::mat4& Camera::getViewMatrix() const
 {
 	return m_view_matrix;
-}
-
-void Camera::setViewMatrix(const glm::mat4& view_matrix)
-{
-	glm::quat rotation;
-	glm::vec3 scale, skew;
-	glm::vec4 perspective;
-	glm::decompose(view_matrix, scale, rotation, m_position, skew, perspective);
-	m_rotation = glm::eulerAngles(rotation) * glm::pi<float>() / 180.f;
 }
 
 const glm::mat4& Camera::getProjectionMatrix() const
@@ -94,14 +100,10 @@ const glm::mat4& Camera::getProjectionViewMatrix() const
 	return m_projection_view_matrix;
 }
 
-inline void Camera::updateForwardVector()
+void Camera::setViewMatrix(const glm::mat4& view_matrix)
 {
-	m_forward_vector = glm::vec3(glm::cos(m_rotation.x) * glm::sin(m_rotation.y),
-	                             glm::sin(m_rotation.x),
-	                             -glm::cos(m_rotation.x) * glm::cos(m_rotation.y));
-	m_right_vector = glm::vec3(glm::cos(m_rotation.y),
-	                           0.f,
-	                           glm::sin(m_rotation.y));
+	m_view_matrix = view_matrix;
+	updateProjectionViewMatrix();
 }
 
 void Camera::updateProjectionViewMatrix()

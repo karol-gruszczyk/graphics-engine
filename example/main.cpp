@@ -108,8 +108,9 @@ void mouse_pos_callback(GLFWwindow* window, double x, double y)
 	if (mouse_button_pressed)
 	{
 		const double rotate_x = y - last_mouse_y;
-		const double rotate_y = last_mouse_x - x;
-		camera->rotate({ rotate_x / 200.f, rotate_y / 200.f, 0.f });
+		const double rotate_y = x - last_mouse_x;
+		camera->pitch((float) rotate_x / 200.f);
+		camera->yaw((float) rotate_y / 200.f);
 	}
 	last_mouse_x = x;
 	last_mouse_y = y;
@@ -120,18 +121,20 @@ void updateCameraPosition()
 	float speed = 1.f;
 	if (accelerate)
 		speed *= 20.f;
+	glm::vec3 delta_pos;
 	if (glfwGetKey(window, GLFW_KEY_A) != GLFW_RELEASE)
-		camera->moveRight(-speed);
+		delta_pos += camera->getRight() * -speed;
 	if (glfwGetKey(window, GLFW_KEY_D) != GLFW_RELEASE)
-		camera->moveRight(speed);
+		delta_pos += camera->getRight() * speed;
 	if (glfwGetKey(window, GLFW_KEY_W) != GLFW_RELEASE)
-		camera->moveForward(speed);
+		delta_pos += camera->getDirection() * speed;
 	if (glfwGetKey(window, GLFW_KEY_S) != GLFW_RELEASE)
-		camera->moveForward(-speed);
+		delta_pos += camera->getDirection() * -speed;
 	if (glfwGetKey(window, GLFW_KEY_Q) != GLFW_RELEASE)
-		camera->rotate({ 0.f, 0.f, -0.01f });
+		camera->roll(-0.01f);
 	if (glfwGetKey(window, GLFW_KEY_E) != GLFW_RELEASE)
-		camera->rotate({ 0.f, 0.f, 0.01f });
+		camera->roll(0.01f);
+	camera->move(delta_pos);
 }
 
 void draw(void)
@@ -246,8 +249,7 @@ void setup()
 	}
 	camera = new PerspectiveCamera(8.f / 6.f);
 	camera->setFar(10000.f);
-	camera->setPosition({ 0.f, 5.f, 0.f });
-	camera->setRotation({ -45.f, 0.f, 0.f });
+	camera->lookAt(glm::vec3(25.f, 25.f, 25.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	scene3d->addCamera(camera);
 
 	fps_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14));
