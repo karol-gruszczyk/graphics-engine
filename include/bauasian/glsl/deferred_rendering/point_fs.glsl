@@ -1,20 +1,20 @@
 #version 330 core
 #include "../common/lights.glsl"
 
-layout(std140) uniform SceneBuffer
+layout (std140) uniform SceneBuffer
 {
     vec3 camera_position;
+};
+
+layout (std140) uniform PointLightBuffer
+{
+    PointLight point_light;
 };
 
 uniform sampler2D albedo_buffer;
 uniform sampler2D specular_buffer;
 uniform sampler2D normal_buffer;
 uniform sampler2D position_buffer;
-
-uniform vec3 light_position;
-uniform vec3 light_diffuse_color;
-uniform vec3 light_specular_color;
-uniform vec3 light_attenuation;
 
 in vec2 texture_coord;
 
@@ -33,16 +33,16 @@ void main()
 
     vec3 view_dir = normalize(camera_position - fragment_position);
 
-	vec3 light_ray = light_position - fragment_position;
+	vec3 light_ray = point_light.position - fragment_position;
 	float distance = length(light_ray);
 
-    float attenuation = 1.f / ((light_attenuation.r) + (light_attenuation.g * distance)
-                        + (light_attenuation.b * distance * distance));
+    float attenuation = 1.f / ((point_light.attenuation.x) + (point_light.attenuation.y * distance)
+                        + (point_light.attenuation.z * distance * distance));
     vec3 light_ray_direction = normalize(light_ray);
 
-    vec3 ambient = processAmbientLight(light_diffuse_color) * fragment_ambient;
-    vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, light_diffuse_color) * fragment_diffuse;
-    vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, light_specular_color,
+    vec3 ambient = processAmbientLight(point_light.ambient_color) * fragment_ambient;
+    vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, point_light.diffuse_color) * fragment_diffuse;
+    vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, point_light.specular_color,
                                          view_dir, fragment_shininess) * fragment_specular;
 
 	out_color = vec4(ambient + diffuse + specular, attenuation);

@@ -16,9 +16,6 @@ layout (std140) uniform DirectionalLightBuffer
 {
     DirectionalLight dir_light;
 };
-uniform vec3 light_direction;
-uniform vec3 light_diffuse_color;
-uniform vec3 light_specular_color;
 
 in vec2 texture_coord;
 

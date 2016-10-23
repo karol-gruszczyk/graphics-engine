@@ -2,6 +2,7 @@
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
 #include "bauasian/shaders/buffers/directional_light_buffer.hpp"
+#include "bauasian/shaders/buffers/point_light_buffer.hpp"
 
 
 #define ALBEDO_BUFFER 0
@@ -120,12 +121,8 @@ void DeferredRenderer::initPointLightShader()
 	auto fs = std::make_unique<Shader>("deferred_rendering/point_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_point_light_shader = new ShaderProgram({ vs.get(), fs.get() });
 	m_location_point_light_projection_view_matrix = m_point_light_shader->getUniformLocation("projection_view_matrix");
-	m_location_point_light_model_matrix = m_point_light_shader->getUniformLocation("model_matrix");
-	m_location_point_light_position = m_point_light_shader->getUniformLocation("light_position");
-	m_location_point_light_diffuse_color = m_point_light_shader->getUniformLocation("light_diffuse_color");
-	m_location_point_light_specular_color = m_point_light_shader->getUniformLocation("light_specular_color");
-	m_location_point_light_attenuation = m_point_light_shader->getUniformLocation("light_attenuation");
 	SceneBuffer::getInstance().attachUniformBlock(m_point_light_shader, "SceneBuffer");
+	PointLightBuffer::getInstance().attachUniformBlock(m_point_light_shader, "PointLightBuffer");
 	initLightShaderUniformLocation(m_point_light_shader);
 }
 
@@ -200,11 +197,7 @@ void DeferredRenderer::renderPointLights(Scene3D* scene) const
 									 scene->getCamera()->getProjectionViewMatrix());
 	for (const auto& light : scene->getPointLights())
 	{
-		m_point_light_shader->setUniform(m_location_point_light_model_matrix, light->getModelMatrix());
-		m_point_light_shader->setUniform(m_location_point_light_position, light->getPosition());
-		m_point_light_shader->setUniform(m_location_point_light_diffuse_color, light->getDiffuseColor());
-		m_point_light_shader->setUniform(m_location_point_light_specular_color, light->getSpecularColor());
-		m_point_light_shader->setUniform(m_location_point_light_attenuation, light->getAttenuation());
+		PointLightBuffer::getInstance().setData(light);
 		m_sphere_volume->render();
 	}
 }

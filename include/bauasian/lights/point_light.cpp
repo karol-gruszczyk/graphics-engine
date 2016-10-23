@@ -39,16 +39,14 @@ void PointLight::setRange(const float& range)
 	setAttenuation({ 1.f, 2.f / range, 1.f / (range * range) });
 }
 
-const glm::vec3 PointLight::getAttenuation() const
+const glm::vec3& PointLight::getAttenuation() const
 {
-	return { m_attenuation_constant, m_attenuation_linear, m_attenuation_quadratic };
+	return m_attenuation;
 }
 
 void PointLight::setAttenuation(const glm::vec3& attenuation)
 {
-	m_attenuation_constant = attenuation.x;
-	m_attenuation_linear = attenuation.y;
-	m_attenuation_quadratic = attenuation.z;
+	m_attenuation = attenuation;
 
 	m_range = calculateRange();
 	m_model_matrix = glm::scale(m_model_matrix, glm::vec3(m_range));
@@ -61,10 +59,10 @@ const glm::mat4& PointLight::getModelMatrix() const
 
 const float PointLight::calculateRange() const
 {
-	const float MIN = 5.f / 255.f;
-	float a = MIN * m_attenuation_quadratic;
-	float b = MIN * m_attenuation_linear;
-	float c = MIN * m_attenuation_constant - 1;
+	const float MIN = 3.f / 255.f;
+	float a = MIN * m_attenuation.z;
+	float b = MIN * m_attenuation.y;
+	float c = MIN * m_attenuation.x - 1;
 	float delta = b * b - 4 * a * c;
 	return glm::abs(-b - glm::sqrt(delta)) / (2.f * a);
 }

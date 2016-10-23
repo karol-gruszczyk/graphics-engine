@@ -43,11 +43,6 @@ private:
 	SphereVolume* m_sphere_volume;
 
 	GLint m_location_point_light_projection_view_matrix;
-	GLint m_location_point_light_model_matrix;
-	GLint m_location_point_light_position;
-	GLint m_location_point_light_diffuse_color;
-	GLint m_location_point_light_specular_color;
-	GLint m_location_point_light_attenuation;
 
 	GLint m_location_spot_light_position;
 	GLint m_location_spot_light_direction;

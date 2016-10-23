@@ -14,11 +14,10 @@ struct PointLight
 	vec3 ambient_color;
 	vec3 diffuse_color;
 	vec3 specular_color;
-	vec3 position; float _offset;
+	mat4 model_matrix;
+	vec3 position;
 	float range;
-	float attenuation_constant;
-	float attenuation_linear;
-	float attenuation_quadratic;
+	vec3 attenuation;
 };
 
 struct SpotLight
@@ -26,11 +25,10 @@ struct SpotLight
 	vec3 ambient_color;
 	vec3 diffuse_color;
 	vec3 specular_color;
-	vec3 position; float _offset;
+	mat4 model_matrix;
+	vec3 position;
 	float range;
-	float attenuation_constant;
-	float attenuation_linear;
-	float attenuation_quadratic;
+	vec3 attenuation;
 	vec3 direction; float _offset1;
 	float inner_angle;
 	float outer_angle;

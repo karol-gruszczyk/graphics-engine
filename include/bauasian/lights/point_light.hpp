@@ -19,15 +19,15 @@ public:
 	void setPosition(const glm::vec3& position);
 	float getRange() const;
 	void setRange(const float& range);
-	const glm::vec3 getAttenuation() const;
+	const glm::vec3& getAttenuation() const;
 	void setAttenuation(const glm::vec3& attenuation);
 	const glm::mat4& getModelMatrix() const;
 
 protected:
-	glm::vec3 m_position;
 	glm::mat4 m_model_matrix;
+	glm::vec3 m_position;
 	float m_range;
-	float m_attenuation_constant, m_attenuation_linear, m_attenuation_quadratic;
+	glm::vec3 m_attenuation;
 
 	const float calculateRange() const;
 
