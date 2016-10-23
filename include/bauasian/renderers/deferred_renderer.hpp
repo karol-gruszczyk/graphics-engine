@@ -7,6 +7,7 @@
 #include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/interfaces/size_interface.hpp"
 #include "bauasian/primitives/screen_quad.hpp"
+#include "bauasian/primitives/sphere_volume.hpp"
 
 
 namespace bauasian
@@ -39,11 +40,14 @@ private:
 	ShaderProgram* m_point_light_shader;
 	ShaderProgram* m_spot_light_shader;
 	ScreenQuad* m_screen_quad;
+	SphereVolume* m_sphere_volume;
 
 	GLint m_location_dir_light_direction;
 	GLint m_location_dir_light_diffuse_color;
 	GLint m_location_dir_light_specular_color;
 
+	GLint m_location_point_light_projection_view_matrix;
+	GLint m_location_point_light_model_matrix;
 	GLint m_location_point_light_position;
 	GLint m_location_point_light_diffuse_color;
 	GLint m_location_point_light_specular_color;

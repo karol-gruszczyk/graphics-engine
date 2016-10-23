@@ -40,6 +40,7 @@ configure_file(bauasian/glsl/deferred_rendering/gbuffer_vs.glsl ${CMAKE_RUNTIME_
 configure_file(bauasian/glsl/deferred_rendering/lighting_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/lighting_vs.glsl COPYONLY)
 configure_file(bauasian/glsl/deferred_rendering/directional_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/directional_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/deferred_rendering/point_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/point_fs.glsl COPYONLY)
+configure_file(bauasian/glsl/deferred_rendering/point_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/point_vs.glsl COPYONLY)
 configure_file(bauasian/glsl/deferred_rendering/spot_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/spot_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/fonts/font_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/fonts/font_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/fonts/font_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/fonts/font_vs.glsl COPYONLY)

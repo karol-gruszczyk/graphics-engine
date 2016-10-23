@@ -32,6 +32,7 @@ DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 	initSpotLightShader();
 
 	m_screen_quad = new ScreenQuad();
+	m_sphere_volume = new SphereVolume();
 }
 
 DeferredRenderer::~DeferredRenderer()
@@ -42,6 +43,7 @@ DeferredRenderer::~DeferredRenderer()
 	delete m_point_light_shader;
 	delete m_spot_light_shader;
 	delete m_screen_quad;
+	delete m_sphere_volume;
 	for (auto& filter : m_filters)
 		delete filter;
 }
@@ -115,9 +117,11 @@ void DeferredRenderer::initDirectionalLightShader()
 
 void DeferredRenderer::initPointLightShader()
 {
-	auto vs = std::make_unique<Shader>("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
+	auto vs = std::make_unique<Shader>("deferred_rendering/point_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/point_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_point_light_shader = new ShaderProgram({ vs.get(), fs.get() });
+	m_location_point_light_projection_view_matrix = m_point_light_shader->getUniformLocation("projection_view_matrix");
+	m_location_point_light_model_matrix = m_point_light_shader->getUniformLocation("model_matrix");
 	m_location_point_light_position = m_point_light_shader->getUniformLocation("light_position");
 	m_location_point_light_diffuse_color = m_point_light_shader->getUniformLocation("light_diffuse_color");
 	m_location_point_light_specular_color = m_point_light_shader->getUniformLocation("light_specular_color");
@@ -169,8 +173,10 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
+	glDisable(GL_CULL_FACE);
 	renderPointLights(scene);
 	renderSpotLights(scene);
+	glEnable(GL_CULL_FACE);
 	renderDirectionalLights(scene);
 
 	glEnable(GL_DEPTH_TEST);
@@ -193,13 +199,16 @@ void DeferredRenderer::renderDirectionalLights(bauasian::Scene3D* scene) const
 void DeferredRenderer::renderPointLights(bauasian::Scene3D* scene) const
 {
 	m_point_light_shader->use();
+	m_point_light_shader->setUniform(m_location_point_light_projection_view_matrix,
+									 scene->getCamera()->getProjectionViewMatrix());
 	for (const auto& light : scene->getPointLights())
 	{
+		m_point_light_shader->setUniform(m_location_point_light_model_matrix, light->getModelMatrix());
 		m_point_light_shader->setUniform(m_location_point_light_position, light->getPosition());
 		m_point_light_shader->setUniform(m_location_point_light_diffuse_color, light->getDiffuseColor());
 		m_point_light_shader->setUniform(m_location_point_light_specular_color, light->getSpecularColor());
 		m_point_light_shader->setUniform(m_location_point_light_attenuation, light->getAttenuation());
-		m_screen_quad->render();
+		m_sphere_volume->render();
 	}
 }
 
