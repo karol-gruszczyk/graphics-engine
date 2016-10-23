@@ -42,10 +42,6 @@ private:
 	ScreenQuad* m_screen_quad;
 	SphereVolume* m_sphere_volume;
 
-	GLint m_location_dir_light_direction;
-	GLint m_location_dir_light_diffuse_color;
-	GLint m_location_dir_light_specular_color;
-
 	GLint m_location_point_light_projection_view_matrix;
 	GLint m_location_point_light_model_matrix;
 	GLint m_location_point_light_position;

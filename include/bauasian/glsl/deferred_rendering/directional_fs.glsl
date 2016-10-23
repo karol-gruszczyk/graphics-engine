@@ -12,6 +12,10 @@ uniform sampler2D specular_buffer;
 uniform sampler2D normal_buffer;
 uniform sampler2D position_buffer;
 
+layout (std140) uniform DirectionalLightBuffer
+{
+    DirectionalLight dir_light;
+};
 uniform vec3 light_direction;
 uniform vec3 light_diffuse_color;
 uniform vec3 light_specular_color;
@@ -32,10 +36,10 @@ void main()
     vec3 fragment_ambient = fragment_diffuse;
 
     vec3 view_dir = normalize(camera_position - fragment_position);
-	vec3 light_ray_direction = normalize(-light_direction);
-	vec3 ambient = processAmbientLight(light_diffuse_color) * fragment_ambient;
-	vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, light_diffuse_color) * fragment_diffuse;
-	vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, light_specular_color,
+	vec3 light_ray_direction = normalize(-dir_light.direction);
+	vec3 ambient = processAmbientLight(dir_light.ambient_color) * fragment_ambient;
+	vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, dir_light.diffuse_color) * fragment_diffuse;
+	vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, dir_light.specular_color,
 	                                     view_dir, fragment_shininess) * fragment_specular;
 
     vec3 result_color = ambient + diffuse + specular;

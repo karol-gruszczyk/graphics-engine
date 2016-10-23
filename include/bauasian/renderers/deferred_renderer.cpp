@@ -1,6 +1,7 @@
 #include "deferred_renderer.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
+#include "bauasian/shaders/buffers/directional_light_buffer.hpp"
 
 
 #define ALBEDO_BUFFER 0
@@ -108,10 +109,8 @@ void DeferredRenderer::initDirectionalLightShader()
 	auto vs = std::make_unique<Shader>("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/directional_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_dir_light_shader = new ShaderProgram({ vs.get(), fs.get() });
-	m_location_dir_light_direction = m_dir_light_shader->getUniformLocation("light_direction");
-	m_location_dir_light_diffuse_color = m_dir_light_shader->getUniformLocation("light_diffuse_color");
-	m_location_dir_light_specular_color = m_dir_light_shader->getUniformLocation("light_specular_color");
 	SceneBuffer::getInstance().attachUniformBlock(m_dir_light_shader, "SceneBuffer");
+	DirectionalLightBuffer::getInstance().attachUniformBlock(m_dir_light_shader, "DirectionalLightBuffer");
 	initLightShaderUniformLocation(m_dir_light_shader);
 }
 
@@ -146,7 +145,7 @@ void DeferredRenderer::initSpotLightShader()
 	initLightShaderUniformLocation(m_spot_light_shader);
 }
 
-void DeferredRenderer::initLightShaderUniformLocation(bauasian::ShaderProgram* shader) const
+void DeferredRenderer::initLightShaderUniformLocation(ShaderProgram* shader) const
 {
 	shader->setUniform(shader->getUniformLocation("albedo_buffer"), ALBEDO_BUFFER);
 	shader->setUniform(shader->getUniformLocation("specular_buffer"), SPECULAR_BUFFER);
@@ -184,19 +183,17 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 	scene->renderSkyBox();
 }
 
-void DeferredRenderer::renderDirectionalLights(bauasian::Scene3D* scene) const
+void DeferredRenderer::renderDirectionalLights(Scene3D* scene) const
 {
 	m_dir_light_shader->use();
 	for (const auto& light : scene->getDirectionalLights())
 	{
-		m_dir_light_shader->setUniform(m_location_dir_light_direction, light->getDirection());
-		m_dir_light_shader->setUniform(m_location_dir_light_diffuse_color, light->getDiffuseColor());
-		m_dir_light_shader->setUniform(m_location_dir_light_specular_color, light->getSpecularColor());
+		DirectionalLightBuffer::getInstance().setData(light);
 		m_screen_quad->render();
 	}
 }
 
-void DeferredRenderer::renderPointLights(bauasian::Scene3D* scene) const
+void DeferredRenderer::renderPointLights(Scene3D* scene) const
 {
 	m_point_light_shader->use();
 	m_point_light_shader->setUniform(m_location_point_light_projection_view_matrix,
@@ -212,7 +209,7 @@ void DeferredRenderer::renderPointLights(bauasian::Scene3D* scene) const
 	}
 }
 
-void DeferredRenderer::renderSpotLights(bauasian::Scene3D* scene) const
+void DeferredRenderer::renderSpotLights(Scene3D* scene) const
 {
 	m_spot_light_shader->use();
 	for (const auto& light : scene->getSpotLights())
