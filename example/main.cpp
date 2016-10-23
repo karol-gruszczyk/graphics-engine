@@ -110,7 +110,7 @@ void mouse_pos_callback(GLFWwindow* window, double x, double y)
 		const double rotate_x = y - last_mouse_y;
 		const double rotate_y = x - last_mouse_x;
 		camera->pitch((float) rotate_x / 200.f);
-		camera->yaw((float) rotate_y / 200.f);
+		camera->rotate((float) rotate_y / 200.f, glm::vec3(0.f, 1.f, 0.f));
 	}
 	last_mouse_x = x;
 	last_mouse_y = y;

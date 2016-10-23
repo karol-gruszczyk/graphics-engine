@@ -30,28 +30,25 @@ void Camera::rotate(const float& angle, const glm::vec3& axis)
 {
 	m_view_matrix = glm::translate(m_view_matrix, m_position);
 	m_view_matrix = glm::rotate(m_view_matrix, -angle, axis);
+	m_direction_vector = glm::rotate(m_direction_vector, angle, axis);
+	m_right_vector = glm::rotate(m_right_vector, angle, axis);
+	m_up_vector = glm::cross(m_right_vector, m_direction_vector);
 	setViewMatrix(glm::translate(m_view_matrix, -m_position));
 }
 
 void Camera::roll(const float& angle)
 {
 	rotate(angle, m_direction_vector);
-	m_up_vector = glm::rotate(m_up_vector, angle, m_direction_vector);
-	m_right_vector = glm::cross(m_direction_vector, m_up_vector);
 }
 
 void Camera::pitch(const float& angle)
 {
 	rotate(angle, m_right_vector);
-	m_direction_vector = glm::rotate(m_direction_vector, angle, m_right_vector);
-	m_up_vector = glm::cross(m_right_vector, m_direction_vector);
 }
 
 void Camera::yaw(const float& angle)
 {
 	rotate(angle, m_up_vector);
-	m_direction_vector = glm::rotate(m_direction_vector, angle, m_up_vector);
-	m_right_vector = glm::cross(m_direction_vector, m_up_vector);
 }
 
 void Camera::lookAt(const glm::vec3& position)
