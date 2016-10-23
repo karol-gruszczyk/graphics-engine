@@ -44,14 +44,6 @@ private:
 
 	GLint m_location_point_light_projection_view_matrix;
 
-	GLint m_location_spot_light_position;
-	GLint m_location_spot_light_direction;
-	GLint m_location_spot_light_diffuse_color;
-	GLint m_location_spot_light_specular_color;
-	GLint m_location_spot_light_attenuation;
-	GLint m_location_spot_light_inner_angle;
-	GLint m_location_spot_light_outer_angle;
-
 	void initDirectionalLightShader();
 	void initPointLightShader();
 	void initSpotLightShader();

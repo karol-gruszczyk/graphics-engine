@@ -29,7 +29,7 @@ struct SpotLight
 	vec3 position;
 	float range;
 	vec3 attenuation;
-	vec3 direction; float _offset1;
+	vec3 direction;
 	float inner_angle;
 	float outer_angle;
 };

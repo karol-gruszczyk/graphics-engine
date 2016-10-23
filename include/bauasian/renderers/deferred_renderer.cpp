@@ -3,6 +3,7 @@
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
 #include "bauasian/shaders/buffers/directional_light_buffer.hpp"
 #include "bauasian/shaders/buffers/point_light_buffer.hpp"
+#include "bauasian/shaders/buffers/spot_light_buffer.hpp"
 
 
 #define ALBEDO_BUFFER 0
@@ -131,14 +132,8 @@ void DeferredRenderer::initSpotLightShader()
 	auto vs = std::make_unique<Shader>("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/spot_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_spot_light_shader = new ShaderProgram({ vs.get(), fs.get() });
-	m_location_spot_light_position = m_spot_light_shader->getUniformLocation("light_position");
-	m_location_spot_light_direction = m_spot_light_shader->getUniformLocation("light_direction");
-	m_location_spot_light_diffuse_color = m_spot_light_shader->getUniformLocation("light_diffuse_color");
-	m_location_spot_light_specular_color = m_spot_light_shader->getUniformLocation("light_specular_color");
-	m_location_spot_light_attenuation = m_spot_light_shader->getUniformLocation("light_attenuation");
-	m_location_spot_light_inner_angle = m_spot_light_shader->getUniformLocation("light_inner_angle");
-	m_location_spot_light_outer_angle = m_spot_light_shader->getUniformLocation("light_outer_angle");
 	SceneBuffer::getInstance().attachUniformBlock(m_spot_light_shader, "SceneBuffer");
+	SpotLightBuffer::getInstance().attachUniformBlock(m_spot_light_shader, "SpotLightBuffer");
 	initLightShaderUniformLocation(m_spot_light_shader);
 }
 
@@ -207,13 +202,7 @@ void DeferredRenderer::renderSpotLights(Scene3D* scene) const
 	m_spot_light_shader->use();
 	for (const auto& light : scene->getSpotLights())
 	{
-		m_spot_light_shader->setUniform(m_location_spot_light_position, light->getPosition());
-		m_spot_light_shader->setUniform(m_location_spot_light_direction, light->getDirection());
-		m_spot_light_shader->setUniform(m_location_spot_light_diffuse_color, light->getDiffuseColor());
-		m_spot_light_shader->setUniform(m_location_spot_light_specular_color, light->getSpecularColor());
-		m_spot_light_shader->setUniform(m_location_spot_light_attenuation, light->getAttenuation());
-		m_spot_light_shader->setUniform(m_location_spot_light_inner_angle, light->getInnerAngle());
-		m_spot_light_shader->setUniform(m_location_spot_light_outer_angle, light->getOuterAngle());
+		SpotLightBuffer::getInstance().setData(light);
 		m_screen_quad->render();
 	}
 }
