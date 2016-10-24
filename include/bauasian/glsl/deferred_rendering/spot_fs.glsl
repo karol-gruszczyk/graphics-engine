@@ -54,5 +54,4 @@ void main()
                                          view_dir, fragment_shininess) * fragment_specular;
 
 	out_color = vec4(ambient + diffuse + specular, 1.f) * falloff * attenuation;
-	out_color += vec4(1.f, 0.f, 0.f, 1.f);
 }
