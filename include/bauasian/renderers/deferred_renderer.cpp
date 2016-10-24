@@ -57,6 +57,8 @@ void DeferredRenderer::setSize(const glm::uvec2& size)
 	m_frame_buffer->setSize(m_size);
 	for (auto& filter : m_filters)
 		filter->setSize(m_size);
+	m_point_light_shader->setUniform(m_location_point_light_screen_size, m_size);
+	m_spot_light_shader->setUniform(m_location_spot_light_screen_size, m_size);
 }
 
 void DeferredRenderer::addFilter(Filter* filter)
@@ -72,7 +74,7 @@ void DeferredRenderer::clearScreen() const
 
 void DeferredRenderer::render(Scene3D* scene) const
 {
-	renderGeometry(scene);
+	geometryPass(scene);
 
 	if (m_filters.size())
 	{
@@ -122,9 +124,11 @@ void DeferredRenderer::initPointLightShader()
 	auto fs = std::make_unique<Shader>("deferred_rendering/point_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_point_light_shader = new ShaderProgram({ vs.get(), fs.get() });
 	m_location_point_light_projection_view_matrix = m_point_light_shader->getUniformLocation("projection_view_matrix");
+	m_location_point_light_screen_size = m_point_light_shader->getUniformLocation("screen_size");
 	SceneBuffer::getInstance().attachUniformBlock(m_point_light_shader, "SceneBuffer");
 	PointLightBuffer::getInstance().attachUniformBlock(m_point_light_shader, "PointLightBuffer");
 	initLightShaderUniformLocation(m_point_light_shader);
+	m_point_light_shader->setUniform(m_location_point_light_screen_size, m_size);
 }
 
 void DeferredRenderer::initSpotLightShader()
@@ -132,9 +136,11 @@ void DeferredRenderer::initSpotLightShader()
 	auto vs = std::make_unique<Shader>("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/spot_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_spot_light_shader = new ShaderProgram({ vs.get(), fs.get() });
+	m_location_spot_light_screen_size = m_spot_light_shader->getUniformLocation("screen_size");
 	SceneBuffer::getInstance().attachUniformBlock(m_spot_light_shader, "SceneBuffer");
 	SpotLightBuffer::getInstance().attachUniformBlock(m_spot_light_shader, "SpotLightBuffer");
 	initLightShaderUniformLocation(m_spot_light_shader);
+	m_spot_light_shader->setUniform(m_location_spot_light_screen_size, m_size);
 }
 
 void DeferredRenderer::initLightShaderUniformLocation(ShaderProgram* shader) const
@@ -145,7 +151,7 @@ void DeferredRenderer::initLightShaderUniformLocation(ShaderProgram* shader) con
 	shader->setUniform(shader->getUniformLocation("position_buffer"), POSITION_BUFFER);
 }
 
-void DeferredRenderer::renderGeometry(Scene3D* scene) const
+void DeferredRenderer::geometryPass(Scene3D* scene) const
 {
 	m_frame_buffer->bind();
 	m_frame_buffer->clear();
@@ -160,22 +166,28 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 	m_normal_buffer->bind(NORMAL_BUFFER);
 	m_position_buffer->bind(POSITION_BUFFER);
 
-	glDisable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glBlendEquation(GL_FUNC_ADD);
+	glBlendFunc(GL_ONE, GL_ONE);
 
-	glDisable(GL_CULL_FACE);
-	renderPointLights(scene);
-	renderSpotLights(scene);
-	glEnable(GL_CULL_FACE);
-	renderDirectionalLights(scene);
-
+	glCullFace(GL_FRONT);
+	glDisable(GL_DEPTH_TEST);
+	pointLightPass(scene);
 	glEnable(GL_DEPTH_TEST);
+	glCullFace(GL_BACK);
+
+	glDisable(GL_DEPTH_TEST);
+	spotLightPass(scene);
+	directionalLightPass(scene);
+	glEnable(GL_DEPTH_TEST);
+
 	glDisable(GL_BLEND);
+	glDepthMask(GL_TRUE);
 	scene->renderSkyBox();
 }
 
-void DeferredRenderer::renderDirectionalLights(Scene3D* scene) const
+void DeferredRenderer::directionalLightPass(Scene3D* scene) const
 {
 	m_dir_light_shader->use();
 	for (const auto& light : scene->getDirectionalLights())
@@ -185,7 +197,7 @@ void DeferredRenderer::renderDirectionalLights(Scene3D* scene) const
 	}
 }
 
-void DeferredRenderer::renderPointLights(Scene3D* scene) const
+void DeferredRenderer::pointLightPass(Scene3D* scene) const
 {
 	m_point_light_shader->use();
 	m_point_light_shader->setUniform(m_location_point_light_projection_view_matrix,
@@ -197,7 +209,7 @@ void DeferredRenderer::renderPointLights(Scene3D* scene) const
 	}
 }
 
-void DeferredRenderer::renderSpotLights(Scene3D* scene) const
+void DeferredRenderer::spotLightPass(Scene3D* scene) const
 {
 	m_spot_light_shader->use();
 	for (const auto& light : scene->getSpotLights())

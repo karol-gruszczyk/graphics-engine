@@ -17,13 +17,14 @@ uniform sampler2D specular_buffer;
 uniform sampler2D normal_buffer;
 uniform sampler2D position_buffer;
 
-in vec2 texture_coord;
+uniform vec2 screen_size;
 
 out vec4 out_color;
 
 
 void main()
 {
+    vec2 texture_coord = gl_FragCoord.xy / screen_size;
     vec3 fragment_diffuse = texture(albedo_buffer, texture_coord).rgb;
     vec4 fragment_specular_buffer = texture(specular_buffer, texture_coord);
     vec3 fragment_specular = fragment_specular_buffer.rgb;
@@ -52,5 +53,5 @@ void main()
     vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, spot_light.specular_color,
                                          view_dir, fragment_shininess) * fragment_specular;
 
-	out_color = vec4(ambient + diffuse + specular, falloff * attenuation);
+	out_color = vec4(ambient + diffuse + specular, 1.f) * falloff * attenuation;
 }

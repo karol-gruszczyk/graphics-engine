@@ -43,16 +43,19 @@ private:
 	SphereVolume* m_sphere_volume;
 
 	GLint m_location_point_light_projection_view_matrix;
+	GLint m_location_point_light_screen_size;
+
+	GLint m_location_spot_light_screen_size;
 
 	void initDirectionalLightShader();
 	void initPointLightShader();
 	void initSpotLightShader();
 	void initLightShaderUniformLocation(ShaderProgram* shader) const;
-	void renderGeometry(Scene3D* scene) const;
+	void geometryPass(Scene3D* scene) const;
 	void renderLighting(Scene3D* scene) const;
-	void renderDirectionalLights(Scene3D* scene) const;
-	void renderPointLights(Scene3D* scene) const;
-	void renderSpotLights(Scene3D* scene) const;
+	void directionalLightPass(Scene3D* scene) const;
+	void pointLightPass(Scene3D* scene) const;
+	void spotLightPass(Scene3D* scene) const;
 
 };
 
