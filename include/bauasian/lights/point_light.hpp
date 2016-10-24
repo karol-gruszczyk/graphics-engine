@@ -25,11 +25,14 @@ public:
 
 protected:
 	glm::mat4 m_model_matrix;
-	glm::vec3 m_position;
-	float m_range;
-	glm::vec3 m_attenuation;
+	glm::vec3 m_position; float a;
+	float m_range; glm::vec3 off;
+	glm::vec3 m_attenuation; float b;
 
 	const float calculateRange() const;
+
+private:
+	void calculateModelMatrix();
 
 };
 

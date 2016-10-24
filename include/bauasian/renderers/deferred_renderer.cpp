@@ -36,6 +36,7 @@ DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 
 	m_screen_quad = new ScreenQuad();
 	m_sphere_volume = new SphereVolume();
+	m_cone_volume = new ConeVolume();
 }
 
 DeferredRenderer::~DeferredRenderer()
@@ -110,7 +111,7 @@ void DeferredRenderer::render(Scene3D* scene) const
 
 void DeferredRenderer::initDirectionalLightShader()
 {
-	auto vs = std::make_unique<Shader>("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
+	auto vs = std::make_unique<Shader>("deferred_rendering/directional_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/directional_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_dir_light_shader = new ShaderProgram({ vs.get(), fs.get() });
 	SceneBuffer::getInstance().attachUniformBlock(m_dir_light_shader, "SceneBuffer");
@@ -133,10 +134,11 @@ void DeferredRenderer::initPointLightShader()
 
 void DeferredRenderer::initSpotLightShader()
 {
-	auto vs = std::make_unique<Shader>("deferred_rendering/lighting_vs.glsl", Shader::VERTEX_SHADER);
+	auto vs = std::make_unique<Shader>("deferred_rendering/spot_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/spot_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_spot_light_shader = new ShaderProgram({ vs.get(), fs.get() });
 	m_location_spot_light_screen_size = m_spot_light_shader->getUniformLocation("screen_size");
+	m_location_spot_light_projection_view_matrix = m_spot_light_shader->getUniformLocation("projection_view_matrix");
 	SceneBuffer::getInstance().attachUniformBlock(m_spot_light_shader, "SceneBuffer");
 	SpotLightBuffer::getInstance().attachUniformBlock(m_spot_light_shader, "SpotLightBuffer");
 	initLightShaderUniformLocation(m_spot_light_shader);
@@ -172,11 +174,10 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 	glBlendFunc(GL_ONE, GL_ONE);
 
 	directionalLightPass(scene);
-	spotLightPass(scene);
-
 
 	glCullFace(GL_FRONT);
 	pointLightPass(scene);
+	spotLightPass(scene);
 	glCullFace(GL_BACK);
 
 	glDisable(GL_BLEND);
@@ -211,9 +212,11 @@ void DeferredRenderer::pointLightPass(Scene3D* scene) const
 void DeferredRenderer::spotLightPass(Scene3D* scene) const
 {
 	m_spot_light_shader->use();
+	m_spot_light_shader->setUniform(m_location_spot_light_projection_view_matrix,
+									scene->getCamera()->getProjectionViewMatrix());
 	for (const auto& light : scene->getSpotLights())
 	{
 		SpotLightBuffer::getInstance().setData(light);
-		m_screen_quad->render();
+		m_cone_volume->render();
 	}
 }

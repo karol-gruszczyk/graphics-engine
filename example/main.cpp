@@ -35,7 +35,7 @@ HDR* hdr;
 DirectionalLight* dir_light;
 
 float counter;
-bool mouse_button_pressed, accelerate, wireframe;
+bool mouse_button_pressed, accelerate, wireframe, button_pressed[128];
 double last_mouse_x, last_mouse_y;
 
 
@@ -69,10 +69,13 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+	if (action == GLFW_REPEAT)
+		return;
+	button_pressed[key] = action == GLFW_PRESS;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	else if (key == GLFW_KEY_LEFT_SHIFT)
-		accelerate = action != GLFW_RELEASE;
+		accelerate = action == GLFW_PRESS;
 	else if (key == GLFW_KEY_F3)
 	{
 		if (action == GLFW_PRESS)
@@ -80,7 +83,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			wireframe = !wireframe;
 			Bauasian::getInstance().setWireframe(wireframe);
 		}
-
 	}
 	else if (key == GLFW_KEY_KP_9)
 		counter += 0.01f;
@@ -122,17 +124,17 @@ void updateCameraPosition()
 	if (accelerate)
 		speed *= 20.f;
 	glm::vec3 delta_pos;
-	if (glfwGetKey(window, GLFW_KEY_A) != GLFW_RELEASE)
+	if (button_pressed[GLFW_KEY_A])
 		delta_pos += camera->getRight() * -speed;
-	if (glfwGetKey(window, GLFW_KEY_D) != GLFW_RELEASE)
+	if (button_pressed[GLFW_KEY_D])
 		delta_pos += camera->getRight() * speed;
-	if (glfwGetKey(window, GLFW_KEY_W) != GLFW_RELEASE)
+	if (button_pressed[GLFW_KEY_W])
 		delta_pos += camera->getDirection() * speed;
-	if (glfwGetKey(window, GLFW_KEY_S) != GLFW_RELEASE)
+	if (button_pressed[GLFW_KEY_S])
 		delta_pos += camera->getDirection() * -speed;
-	if (glfwGetKey(window, GLFW_KEY_Q) != GLFW_RELEASE)
+	if (button_pressed[GLFW_KEY_Q])
 		camera->roll(-0.01f);
-	if (glfwGetKey(window, GLFW_KEY_E) != GLFW_RELEASE)
+	if (button_pressed[GLFW_KEY_E])
 		camera->roll(0.01f);
 	camera->move(delta_pos);
 }

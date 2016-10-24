@@ -8,6 +8,7 @@
 #include "bauasian/interfaces/size_interface.hpp"
 #include "bauasian/primitives/screen_quad.hpp"
 #include "bauasian/primitives/sphere_volume.hpp"
+#include "bauasian/primitives/cone_volume.hpp"
 
 
 namespace bauasian
@@ -41,10 +42,12 @@ private:
 	ShaderProgram* m_spot_light_shader;
 	ScreenQuad* m_screen_quad;
 	SphereVolume* m_sphere_volume;
+	ConeVolume* m_cone_volume;
 
 	GLint m_location_point_light_projection_view_matrix;
 	GLint m_location_point_light_screen_size;
 
+	GLint m_location_spot_light_projection_view_matrix;
 	GLint m_location_spot_light_screen_size;
 
 	void initDirectionalLightShader();

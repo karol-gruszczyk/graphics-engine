@@ -26,6 +26,8 @@ public:
 private:
 	float m_inner_angle, m_outer_angle;
 
+	void calculateModelMatrix();
+
 };
 
 #endif /* BAUASIAN_SPOT_LIGHT_HPP */
