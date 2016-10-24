@@ -35,6 +35,7 @@ configure_file(bauasian/glsl/globals.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl
 configure_file(bauasian/glsl/common/lights.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/common/lights.glsl COPYONLY)
 configure_file(bauasian/glsl/common/blinn_phong.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/common/blinn_phong.glsl COPYONLY)
 configure_file(bauasian/glsl/common/parallax.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/common/parallax.glsl COPYONLY)
+configure_file(bauasian/glsl/common/attenuation.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/common/attenuation.glsl COPYONLY)
 configure_file(bauasian/glsl/deferred_rendering/gbuffer_fs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/gbuffer_fs.glsl COPYONLY)
 configure_file(bauasian/glsl/deferred_rendering/gbuffer_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/gbuffer_vs.glsl COPYONLY)
 configure_file(bauasian/glsl/deferred_rendering/lighting_vs.glsl ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/glsl/deferred_rendering/lighting_vs.glsl COPYONLY)

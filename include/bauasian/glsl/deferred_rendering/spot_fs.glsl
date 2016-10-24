@@ -1,5 +1,6 @@
 #version 330 core
 #include "../common/lights.glsl"
+#include "../common/attenuation.glsl"
 
 layout (std140) uniform SceneBuffer
 {
@@ -15,14 +16,6 @@ uniform sampler2D albedo_buffer;
 uniform sampler2D specular_buffer;
 uniform sampler2D normal_buffer;
 uniform sampler2D position_buffer;
-
-uniform vec3 light_position;
-uniform vec3 light_direction;
-uniform vec3 light_diffuse_color;
-uniform vec3 light_specular_color;
-uniform vec3 light_attenuation;
-uniform float light_inner_angle;
-uniform float light_outer_angle;
 
 in vec2 texture_coord;
 
@@ -47,12 +40,12 @@ void main()
 
     vec3 light_ray_direction = normalize(light_ray);
     float spot_effect = dot(normalize(-spot_light.direction), light_ray_direction);
+    float inner_cosine = cos(spot_light.inner_angle);
     float outer_cosine = cos(spot_light.outer_angle);
 
-    float attenuation = 1.f / ((spot_light.attenuation.r) + (spot_light.attenuation.g * distance)
-                        + (spot_light.attenuation.b * distance * distance));
+    float attenuation = getLightAttenuation(distance, spot_light.attenuation);
 
-    float falloff = clamp((outer_cosine - spot_effect) / (outer_cosine - cos(spot_light.inner_angle)), 0.f, 1.f);
+    float falloff = clamp((outer_cosine - spot_effect) / (outer_cosine - inner_cosine), 0.f, 1.f);
 
     vec3 ambient = processAmbientLight(spot_light.ambient_color) * fragment_ambient;
     vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, spot_light.diffuse_color) * fragment_diffuse;

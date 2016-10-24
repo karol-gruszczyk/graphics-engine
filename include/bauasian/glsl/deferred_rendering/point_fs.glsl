@@ -1,5 +1,6 @@
 #version 330 core
 #include "../common/lights.glsl"
+#include "../common/attenuation.glsl"
 
 layout (std140) uniform SceneBuffer
 {
@@ -36,8 +37,7 @@ void main()
 	vec3 light_ray = point_light.position - fragment_position;
 	float distance = length(light_ray);
 
-    float attenuation = 1.f / ((point_light.attenuation.x) + (point_light.attenuation.y * distance)
-                        + (point_light.attenuation.z * distance * distance));
+    float attenuation = getLightAttenuation(distance, point_light.attenuation);
     vec3 light_ray_direction = normalize(light_ray);
 
     vec3 ambient = processAmbientLight(point_light.ambient_color) * fragment_ambient;
