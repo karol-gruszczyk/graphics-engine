@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::SphereVolume : public Entity3D
 {
 public:
-	SphereVolume();
+	SphereVolume(const unsigned& num_sides = 12);
 
 };
 

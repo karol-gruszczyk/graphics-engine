@@ -166,24 +166,23 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 	m_normal_buffer->bind(NORMAL_BUFFER);
 	m_position_buffer->bind(POSITION_BUFFER);
 
-	glDepthMask(GL_FALSE);
-	glEnable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);  // setup additive blending
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_ONE, GL_ONE);
 
+	directionalLightPass(scene);
+	spotLightPass(scene);
+
+
 	glCullFace(GL_FRONT);
-	glDisable(GL_DEPTH_TEST);
 	pointLightPass(scene);
-	glEnable(GL_DEPTH_TEST);
 	glCullFace(GL_BACK);
 
-	glDisable(GL_DEPTH_TEST);
-	spotLightPass(scene);
-	directionalLightPass(scene);
+	glDisable(GL_BLEND);
+	glDepthMask(GL_TRUE);  // enable writing to depth buffer
 	glEnable(GL_DEPTH_TEST);
 
-	glDisable(GL_BLEND);
-	glDepthMask(GL_TRUE);
 	scene->renderSkyBox();
 }
 

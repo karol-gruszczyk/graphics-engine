@@ -59,7 +59,7 @@ const glm::mat4& PointLight::getModelMatrix() const
 
 const float PointLight::calculateRange() const
 {
-	const float threshold = 0.001f;
+	const float threshold = 0.01f;
 	float a = threshold * m_attenuation.z;
 	float b = threshold * m_attenuation.y;
 	float c = threshold * m_attenuation.x - 1;
