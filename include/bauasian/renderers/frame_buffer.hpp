@@ -28,7 +28,7 @@ public:
 	void bind() const;
 	void unbind() const;
 	void clear() const;
-	void copyDepthBuffer(const GLuint& destination_fbo_id = 0) const;
+	void copyBuffer(GLbitfield mask, const GLuint& destination_fbo_id = 0) const;
 
 protected:
 	GLuint m_fbo_id;

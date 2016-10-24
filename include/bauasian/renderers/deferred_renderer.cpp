@@ -83,7 +83,7 @@ void DeferredRenderer::render(Scene3D* scene) const
 
 		(*it)->bind();
 		(*it)->clear();
-		m_frame_buffer->copyDepthBuffer((*it)->getId());
+		m_frame_buffer->copyBuffer(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, (*it)->getId());
 
 		renderLighting(scene);
 
@@ -104,7 +104,7 @@ void DeferredRenderer::render(Scene3D* scene) const
 	else
 	{
 		m_frame_buffer->unbind();
-		m_frame_buffer->copyDepthBuffer();
+		m_frame_buffer->copyBuffer(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		renderLighting(scene);
 	}
 }
@@ -158,6 +158,11 @@ void DeferredRenderer::geometryPass(Scene3D* scene) const
 	m_frame_buffer->bind();
 	m_frame_buffer->clear();
 	m_geometry_shader->use();
+	glEnable(GL_STENCIL_TEST);
+	glStencilMask(0xFF);
+	glClear(GL_STENCIL_BUFFER_BIT);
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	scene->render();
 }
 
@@ -168,6 +173,9 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 	m_normal_buffer->bind(NORMAL_BUFFER);
 	m_position_buffer->bind(POSITION_BUFFER);
 
+	glStencilFunc(GL_EQUAL, 1, 0xFF);
+	glStencilMask(0x00);
+	
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);  // setup additive blending
 	glBlendEquation(GL_FUNC_ADD);
@@ -183,6 +191,8 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 	glDisable(GL_BLEND);
 	glDepthMask(GL_TRUE);  // enable writing to depth buffer
 	glEnable(GL_DEPTH_TEST);
+
+	glDisable(GL_STENCIL_TEST);
 
 	scene->renderSkyBox();
 }

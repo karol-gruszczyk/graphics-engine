@@ -89,7 +89,9 @@ void FrameBuffer::clear() const
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void FrameBuffer::copyDepthBuffer(const GLuint& destination_fbo_id) const
+void FrameBuffer::copyBuffer(GLbitfield mask, const GLuint& destination_fbo_id) const
 {
-	glBlitNamedFramebuffer(m_fbo_id, destination_fbo_id, 0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+	glBlitNamedFramebuffer(m_fbo_id, destination_fbo_id,
+						   0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y,
+						   mask, GL_NEAREST);
 }
