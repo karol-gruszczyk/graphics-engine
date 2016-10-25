@@ -65,6 +65,7 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 	window_width = (unsigned) width;
 	window_height = (unsigned) height;
 	Bauasian::getInstance().setContextSize({ width, height });
+	camera->setAspectRatio((float) width / height);
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)

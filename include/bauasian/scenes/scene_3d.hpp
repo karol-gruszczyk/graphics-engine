@@ -1,8 +1,8 @@
 #ifndef BAUASIAN_SCENE_3D_HPP
 #define BAUASIAN_SCENE_3D_HPP
 
-#include "camera.hpp"
-#include "sky_box.hpp"
+#include "bauasian/cameras/camera.hpp"
+#include "bauasian/sky/sky_box.hpp"
 #include "bauasian/primitives/abstract/entity_3d.hpp"
 #include "bauasian/lights/directional_light.hpp"
 #include "bauasian/lights/point_light.hpp"

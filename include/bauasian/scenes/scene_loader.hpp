@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_MODEL_LOADER_HPP
 #define BAUASIAN_MODEL_LOADER_HPP
 
-#include "perspective_camera.hpp"
+#include "bauasian/cameras/perspective_camera.hpp"
 #include "bauasian/primitives/mesh.hpp"
 #include "bauasian/materials/material.hpp"
 #include "bauasian/lights/directional_light.hpp"
