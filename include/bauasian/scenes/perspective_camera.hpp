@@ -19,16 +19,10 @@ public:
 	void setAspectRatio(const float& aspect_ratio);
 	const float& getFieldOfView() const;
 	void setFieldOfView(const float& field_of_view);
-	const float& getNear() const;
-	void setNear(const float& near);
-	const float& getFar() const;
-	void setFar(const float&  far);
 
 private:
 	float m_aspect_ratio;
 	float m_field_of_view;
-	float m_near;
-	float m_far;
 
 	void updateProjectionMatrix() override;
 

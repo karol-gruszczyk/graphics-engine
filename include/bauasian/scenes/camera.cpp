@@ -7,6 +7,10 @@
 
 using bauasian::Camera;
 
+Camera::Camera(const float& near, const float& far)
+		: m_near(near), m_far(far)
+{}
+
 Camera::~Camera()
 {}
 
@@ -80,6 +84,28 @@ const glm::vec3& Camera::getUp() const
 const glm::vec3& Camera::getRight() const
 {
 	return m_right_vector;
+}
+
+const float& Camera::getNear() const
+{
+	return m_near;
+}
+
+void Camera::setNear(const float& near)
+{
+	m_near = near;
+	updateProjectionMatrix();
+}
+
+const float& Camera::getFar() const
+{
+	return m_far;
+}
+
+void Camera::setFar(const float& far)
+{
+	m_far = far;
+	updateProjectionMatrix();
 }
 
 const glm::mat4& Camera::getViewMatrix() const

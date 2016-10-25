@@ -14,6 +14,7 @@ namespace bauasian
 class bauasian::Camera : public NameInterface
 {
 public:
+	Camera(const float& near, const float& far);
 	virtual ~Camera();
 
 	const glm::vec3& getPosition() const;
@@ -32,12 +33,19 @@ public:
 	const glm::vec3& getUp() const;
 	const glm::vec3& getRight() const;
 
+	const float& getNear() const;
+	void setNear(const float& near);
+	const float& getFar() const;
+	void setFar(const float&  far);
+
 	const glm::mat4& getViewMatrix() const;
 	const glm::mat4& getProjectionMatrix() const;
 	const glm::mat4& getProjectionViewMatrix() const;
 
 protected:
 	glm::vec3 m_position;
+	float m_near;
+	float m_far;
 
 	glm::vec3 m_direction_vector;
 	glm::vec3 m_up_vector = glm::vec3(0.f, 1.f, 0.f);

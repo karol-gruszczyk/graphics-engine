@@ -175,7 +175,7 @@ void DeferredRenderer::renderLighting(Scene3D* scene) const
 
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
 	glStencilMask(0x00);
-	
+
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);  // setup additive blending
 	glBlendEquation(GL_FUNC_ADD);
