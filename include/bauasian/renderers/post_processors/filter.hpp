@@ -14,26 +14,29 @@ namespace bauasian
 	class Filter;
 }
 
-class bauasian::Filter : public FrameBuffer
+class bauasian::Filter
 {
 public:
 	Filter(const boost::filesystem::path& fragment_shader_path, const GLenum& storage = GL_RGBA);
 	Filter(Shader& fragment_shader, const GLenum& storage = GL_RGBA);
 	virtual ~Filter();
 
-	virtual void setSize(const glm::uvec2& size) override;
-	void renderToScreen() const;
+	void bindForRendering();
+	virtual void setSize(const glm::uvec2& size);
+	void renderToFrameBuffer(const GLuint& fbo_id = 0) const;
+	const GLuint& getFrameBufferId() const;
 
 protected:
+	FrameBuffer* m_frame_buffer = nullptr;
+	Texture* m_color_texture = nullptr;
 	ShaderProgram* m_shader = nullptr;
 
 	void loadShader(Shader& fragment_shader);
 
 private:
-	Texture* m_color_texture = nullptr;
 	ScreenQuad* m_screen_quad = nullptr;
 
-	void initFrameBuffer();
+	void initFrameBuffer(const GLenum& storage);
 
 };
 

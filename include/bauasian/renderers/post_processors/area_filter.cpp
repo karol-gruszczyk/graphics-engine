@@ -18,7 +18,7 @@ AreaFilter::AreaFilter(Shader& fragment_shader)
 void AreaFilter::setSize(const glm::uvec2& size)
 {
 	Filter::setSize(size);
-	m_shader->setUniform(m_location_pixel_size, glm::vec2(1.f / m_size.x, 1.f / m_size.y));
+	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(m_color_texture->getSize()));
 }
 
 void AreaFilter::initLocations()

@@ -81,9 +81,8 @@ void DeferredRenderer::render(Scene3D* scene) const
 	{
 		auto it = m_filters.begin();
 
-		(*it)->bind();
-		(*it)->clear();
-		m_frame_buffer->copyBuffer(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, (*it)->getId());
+		(*it)->bindForRendering();
+		m_frame_buffer->copyBuffer(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, (*it)->getFrameBufferId());
 
 		renderLighting(scene);
 
@@ -92,14 +91,12 @@ void DeferredRenderer::render(Scene3D* scene) const
 			const auto& next = std::next(it);
 			if (next == m_filters.end())
 				break;
-			(*next)->bind();
-			(*next)->clear();
-			(*it)->renderToScreen();
+
+			(*it)->renderToFrameBuffer((*next)->getFrameBufferId());
 			it = next;
 		}
 
-		(*it)->unbind();
-		(*it)->renderToScreen();
+		(*it)->renderToFrameBuffer();
 	}
 	else
 	{
