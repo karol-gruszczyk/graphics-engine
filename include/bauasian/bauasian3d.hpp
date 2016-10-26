@@ -20,6 +20,7 @@
 #include "renderers/post_processors/blur.hpp"
 #include "renderers/post_processors/fxaa.hpp"
 #include "renderers/post_processors/hdr.hpp"
+#include "open_gl_extensions.hpp"
 
 
 #endif /* BAUASIAN_ENGINE3D_HPP */
