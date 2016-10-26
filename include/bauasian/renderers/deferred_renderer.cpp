@@ -1,4 +1,5 @@
 #include "deferred_renderer.hpp"
+#include "post_processors/hdr.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
 #include "bauasian/shaders/buffers/directional_light_buffer.hpp"
@@ -37,6 +38,8 @@ DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 	m_screen_quad = new ScreenQuad();
 	m_sphere_volume = new SphereVolume();
 	m_cone_volume = new ConeVolume();
+
+	addFilter(new HDR());
 }
 
 DeferredRenderer::~DeferredRenderer()
@@ -77,33 +80,24 @@ void DeferredRenderer::render(Scene3D* scene) const
 {
 	geometryPass(scene);
 
-	if (m_filters.size())
+	auto it = m_filters.begin();
+
+	(*it)->bindForRendering();
+	m_frame_buffer->copyBuffer(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, (*it)->getFrameBufferId());
+
+	renderLighting(scene);
+
+	while (true)
 	{
-		auto it = m_filters.begin();
+		const auto& next = std::next(it);
+		if (next == m_filters.end())
+			break;
 
-		(*it)->bindForRendering();
-		m_frame_buffer->copyBuffer(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, (*it)->getFrameBufferId());
-
-		renderLighting(scene);
-
-		while (true)
-		{
-			const auto& next = std::next(it);
-			if (next == m_filters.end())
-				break;
-
-			(*it)->renderToFrameBuffer((*next)->getFrameBufferId());
-			it = next;
-		}
-
-		(*it)->renderToFrameBuffer();
+		(*it)->renderToFrameBuffer((*next)->getFrameBufferId());
+		it = next;
 	}
-	else
-	{
-		m_frame_buffer->unbind();
-		m_frame_buffer->copyBuffer(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-		renderLighting(scene);
-	}
+
+	(*it)->renderToFrameBuffer();
 }
 
 void DeferredRenderer::initDirectionalLightShader()

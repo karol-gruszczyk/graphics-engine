@@ -23,7 +23,7 @@ public:
 
 	void bindForRendering();
 	virtual void setSize(const glm::uvec2& size);
-	void renderToFrameBuffer(const GLuint& fbo_id = 0) const;
+	virtual void renderToFrameBuffer(const GLuint& fbo_id = 0) const;
 	const GLuint& getFrameBufferId() const;
 
 protected:

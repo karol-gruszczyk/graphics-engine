@@ -66,6 +66,7 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 	window_height = (unsigned) height;
 	Bauasian::getInstance().setContextSize({ width, height });
 	camera->setAspectRatio((float) width / height);
+	renderer->setSize({ width, height });
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -171,8 +172,9 @@ void draw(void)
 void setup()
 {
 	renderer = new DeferredRenderer(glm::uvec2(window_width, window_height));
-	renderer->addFilter(hdr = new HDR());
 	renderer->addFilter(new FXAA());
+	renderer->addFilter(new HorizontalGaussianBlur());
+	renderer->addFilter(new VerticalGaussianBlur());
 
 	// 2D
 	rect = new Rectangle(glm::vec2(300.f, 300.f));
@@ -241,7 +243,7 @@ void setup()
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
 		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
 		//scene3d->loadFromFile("res/sponza/sponza.3ds");
-		//scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
+		scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
 		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
 		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
 		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
