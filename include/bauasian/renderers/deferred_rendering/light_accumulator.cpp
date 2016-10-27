@@ -48,10 +48,10 @@ const Texture* const LightAccumulator::getTexture() const
 	return m_accumulation_buffer.get();
 }
 
-void LightAccumulator::initializeTextureLocations(const ShaderProgram* const shader) const
+void LightAccumulator::initializeTextureLocations(const ShaderProgram& shader) const
 {
-	shader->setUniform(shader->getUniformLocation("albedo_buffer"), 0);
-	shader->setUniform(shader->getUniformLocation("specular_buffer"), 1);
-	shader->setUniform(shader->getUniformLocation("normal_buffer"), 2);
-	shader->setUniform(shader->getUniformLocation("position_buffer"), 3);
+	shader.setUniform(shader.getUniformLocation("albedo_buffer"), 0);
+	shader.setUniform(shader.getUniformLocation("specular_buffer"), 1);
+	shader.setUniform(shader.getUniformLocation("normal_buffer"), 2);
+	shader.setUniform(shader.getUniformLocation("position_buffer"), 3);
 }

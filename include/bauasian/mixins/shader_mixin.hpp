@@ -16,7 +16,7 @@ class bauasian::ShaderMixin
 public:
 	ShaderMixin(const boost::filesystem::path& vs_path, const boost::filesystem::path& fs_path);
 
-	const ShaderProgram* const getShader() const;
+	const ShaderProgram& getShader() const;
 
 protected:
 	std::unique_ptr<ShaderProgram> m_shader;
