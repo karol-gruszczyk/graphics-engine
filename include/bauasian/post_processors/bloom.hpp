@@ -19,7 +19,7 @@ public:
 
 private:
 	FrameBuffer* m_frame_buffer = nullptr;
-	Texture* m_intensity_texture = nullptr;
+	std::shared_ptr<Texture> m_intensity_texture = nullptr;
 	ShaderProgram* m_shader;
 
 };

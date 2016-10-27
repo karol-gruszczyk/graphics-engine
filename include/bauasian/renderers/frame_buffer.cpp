@@ -5,9 +5,9 @@
 using bauasian::FrameBuffer;
 using bauasian::FrameBufferAttachment;
 
-FrameBuffer::FrameBuffer(const std::initializer_list<FrameBufferAttachment*>& color_attachments,
-						 FrameBufferAttachment* depth_attachment, const glm::uvec2& size)
-		: SizeInterface(size)
+FrameBuffer::FrameBuffer(const std::initializer_list<std::shared_ptr<FrameBufferAttachment>>& color_attachments,
+						 const std::shared_ptr<FrameBufferAttachment>& depth_attachment, const glm::uvec2& size)
+		: m_size(size)
 {
 	glGenFramebuffers(1, &m_fbo_id);
 
@@ -24,9 +24,9 @@ FrameBuffer::FrameBuffer(const std::initializer_list<FrameBufferAttachment*>& co
 		auto i = m_color_attachments.size();
 		m_color_attachments.push_back(attachment);
 		GLenum color_attachment = GLenum(GL_COLOR_ATTACHMENT0 + i);
-		if (auto rbo = dynamic_cast<RenderBuffer*>(attachment))
+		if (auto rbo = dynamic_cast<RenderBuffer*>(attachment.get()))
 			glNamedFramebufferRenderbuffer(m_fbo_id, color_attachment, GL_RENDERBUFFER, rbo->getId());
-		else if (auto tex = dynamic_cast<Texture*>(attachment))
+		else if (auto tex = dynamic_cast<Texture*>(attachment.get()))
 			glNamedFramebufferTextureEXT(m_fbo_id, color_attachment, tex->getId(), 0);
 		draw_buffers[i] = color_attachment;
 	}
@@ -34,9 +34,9 @@ FrameBuffer::FrameBuffer(const std::initializer_list<FrameBufferAttachment*>& co
 	delete[] draw_buffers;
 
 	m_depth_attachment = depth_attachment;
-	if (auto rbo = dynamic_cast<RenderBuffer*>(m_depth_attachment))
+	if (auto rbo = dynamic_cast<RenderBuffer*>(m_depth_attachment.get()))
 		glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo->getId());
-	else if (auto tex = dynamic_cast<Texture*>(m_depth_attachment))
+	else if (auto tex = dynamic_cast<Texture*>(m_depth_attachment.get()))
 		glNamedFramebufferTextureEXT(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, tex->getId(), 0);
 
 	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
@@ -45,15 +45,10 @@ FrameBuffer::FrameBuffer(const std::initializer_list<FrameBufferAttachment*>& co
 FrameBuffer::~FrameBuffer()
 {
 	glDeleteFramebuffers(1, &m_fbo_id);
-
-	for (auto& attachment : m_color_attachments)
-		delete attachment;
-	delete m_depth_attachment;
 }
 
 void FrameBuffer::setSize(const glm::uvec2& size)
 {
-	SizeInterface::setSize(size);
 	for (auto& attachment : m_color_attachments)
 		attachment->setSize(size);
 	m_depth_attachment->setSize(size);
@@ -64,12 +59,12 @@ const GLuint& FrameBuffer::getId() const
 	return m_fbo_id;
 }
 
-const std::list<FrameBufferAttachment*>& FrameBuffer::getColorAttachments() const
+const std::list<std::shared_ptr<FrameBufferAttachment>>& FrameBuffer::getColorAttachments() const
 {
 	return m_color_attachments;
 }
 
-const FrameBufferAttachment* FrameBuffer::getDepthAttachment() const
+const std::shared_ptr<FrameBufferAttachment>& FrameBuffer::getDepthAttachment() const
 {
 	return m_depth_attachment;
 }

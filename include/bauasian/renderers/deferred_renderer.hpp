@@ -1,6 +1,7 @@
 #ifndef BAUASIAN_DEFERRED_RENDERER_HPP
 #define BAUASIAN_DEFERRED_RENDERER_HPP
 
+#include "deferred_rendering/geometry_renderer.hpp"
 #include "frame_buffer.hpp"
 #include "bauasian/post_processors/filter.hpp"
 #include "bauasian/materials/texture.hpp"
@@ -31,11 +32,12 @@ public:
 private:
 	std::list<Filter*> m_filters;
 
+	GeometryRenderer m_geometry_renderer;
 	FrameBuffer* m_frame_buffer;
-	Texture* m_albedo_buffer;
-	Texture* m_specular_buffer;
-	Texture* m_normal_buffer;
-	Texture* m_position_buffer;
+	std::shared_ptr<Texture> m_albedo_buffer;
+	std::shared_ptr<Texture> m_specular_buffer;
+	std::shared_ptr<Texture> m_normal_buffer;
+	std::shared_ptr<Texture> m_position_buffer;
 	ShaderProgram* m_geometry_shader;
 	ShaderProgram* m_dir_light_shader;
 	ShaderProgram* m_point_light_shader;

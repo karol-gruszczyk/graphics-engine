@@ -28,7 +28,7 @@ public:
 
 protected:
 	FrameBuffer* m_frame_buffer = nullptr;
-	Texture* m_color_texture = nullptr;
+	std::shared_ptr<Texture> m_color_texture = nullptr;
 	ShaderProgram* m_shader = nullptr;
 	glm::uvec2 m_size;
 

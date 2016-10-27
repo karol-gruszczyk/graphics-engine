@@ -15,14 +15,15 @@
 using bauasian::DeferredRenderer;
 
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
-		: SizeInterface(size)
+		: SizeInterface(size), m_geometry_renderer(size)
 {
-	m_albedo_buffer = new Texture(GL_RGB, GL_RGB, size);
-	m_specular_buffer = new Texture(GL_RGBA, GL_RGBA, size);
-	m_normal_buffer = new Texture(GL_RGB16F, GL_RGB, size);
-	m_position_buffer = new Texture(GL_RGB16F, GL_RGB, size);
-	m_frame_buffer = new FrameBuffer({ m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
-									 new RenderBuffer(), size);
+	m_albedo_buffer = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
+	m_specular_buffer = std::make_shared<Texture>(GL_RGBA, GL_RGBA, size);
+	m_normal_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
+	m_position_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
+	m_frame_buffer = new FrameBuffer(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
+											 { m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
+									 std::make_shared<RenderBuffer>(), size);
 	auto vs = std::make_unique<Shader>("deferred_rendering/gbuffer_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/gbuffer_fs.glsl", Shader::FRAGMENT_SHADER);
 	m_geometry_shader = new ShaderProgram({ vs.get(), fs.get() });
@@ -58,6 +59,7 @@ DeferredRenderer::~DeferredRenderer()
 void DeferredRenderer::setSize(const glm::uvec2& size)
 {
 	SizeInterface::setSize(size);
+	m_geometry_renderer.setSize(m_size);
 	m_frame_buffer->setSize(m_size);
 	for (auto& filter : m_filters)
 		filter->setSize(m_size);

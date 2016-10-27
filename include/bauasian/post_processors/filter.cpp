@@ -57,8 +57,10 @@ void Filter::loadShader(Shader& fragment_shader)
 
 void Filter::initFrameBuffer(const GLenum& storage)
 {
-	m_color_texture = new Texture(storage, GL_RGB);
-	m_frame_buffer = new FrameBuffer({ m_color_texture }, new RenderBuffer());
+	m_color_texture = std::make_shared<Texture>(storage, GL_RGB);
+	m_frame_buffer = new FrameBuffer(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
+											 { m_color_texture },
+			std::make_shared<RenderBuffer>());
 	m_screen_quad = new ScreenQuad();
 }
 
