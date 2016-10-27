@@ -23,7 +23,7 @@ Scene3D::~Scene3D()
 		delete camera;
 }
 
-Camera* Scene3D::getCamera()
+Camera* Scene3D::getCamera() const
 {
 	return m_current_camera;
 }

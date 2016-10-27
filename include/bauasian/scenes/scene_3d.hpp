@@ -23,7 +23,7 @@ public:
 	Scene3D(SkyBox* sky_box);
 	~Scene3D();
 
-	Camera* getCamera();
+	Camera* getCamera() const;
 	void setCamera(Camera* camera);
 	void addCamera(Camera* camera);
 	void addEntity(Entity3D* entity);

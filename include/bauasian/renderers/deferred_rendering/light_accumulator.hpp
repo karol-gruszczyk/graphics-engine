@@ -4,6 +4,7 @@
 #include "bauasian/renderers/frame_buffer.hpp"
 #include "bauasian/materials/texture.hpp"
 #include "directional_light_renderer.hpp"
+#include "point_light_renderer.hpp"
 
 
 namespace bauasian
@@ -24,6 +25,7 @@ private:
 	std::shared_ptr<Texture> m_accumulation_buffer;
 
 	DirectionalLightRenderer m_directional_light_renderer;
+	PointLightRenderer m_point_light_renderer;
 
 	void initializeTextureLocations(const ShaderProgram* const shader) const;
 
