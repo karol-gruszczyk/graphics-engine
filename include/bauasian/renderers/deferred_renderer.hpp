@@ -3,14 +3,9 @@
 
 #include "deferred_rendering/geometry_renderer.hpp"
 #include "deferred_rendering/light_accumulator.hpp"
-#include "frame_buffer.hpp"
 #include "bauasian/post_processors/filter.hpp"
-#include "bauasian/materials/texture.hpp"
-#include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/interfaces/size_interface.hpp"
-#include "bauasian/primitives/screen_quad.hpp"
-#include "bauasian/primitives/sphere_volume.hpp"
-#include "bauasian/primitives/cone_volume.hpp"
+#include "bauasian/post_processors/hdr.hpp"
 
 
 namespace bauasian
@@ -29,41 +24,16 @@ public:
 	void addFilter(Filter* filter);
 	void clearScreen() const;
 	void render(Scene3D* scene) const;
+	const float& getExposure() const;
+	void setExposure(const float& exposure);
 
 private:
+	HDR m_hdr;
 	std::list<Filter*> m_filters;
 
 	std::shared_ptr<RenderBuffer> m_depth_buffer;
 	GeometryRenderer m_geometry_renderer;
 	LightAccumulator m_light_accumulator;
-	FrameBuffer* m_frame_buffer;
-	std::shared_ptr<Texture> m_albedo_buffer;
-	std::shared_ptr<Texture> m_specular_buffer;
-	std::shared_ptr<Texture> m_normal_buffer;
-	std::shared_ptr<Texture> m_position_buffer;
-	ShaderProgram* m_geometry_shader;
-	ShaderProgram* m_dir_light_shader;
-	ShaderProgram* m_point_light_shader;
-	ShaderProgram* m_spot_light_shader;
-	ScreenQuad* m_screen_quad;
-	SphereVolume* m_sphere_volume;
-	ConeVolume* m_cone_volume;
-
-	GLint m_location_point_light_projection_view_matrix;
-	GLint m_location_point_light_screen_size;
-
-	GLint m_location_spot_light_projection_view_matrix;
-	GLint m_location_spot_light_screen_size;
-
-	void initDirectionalLightShader();
-	void initPointLightShader();
-	void initSpotLightShader();
-	void initLightShaderUniformLocation(ShaderProgram* shader) const;
-	void geometryPass(Scene3D* scene) const;
-	void renderLighting(Scene3D* scene) const;
-	void directionalLightPass(Scene3D* scene) const;
-	void pointLightPass(Scene3D* scene) const;
-	void spotLightPass(Scene3D* scene) const;
 
 };
 

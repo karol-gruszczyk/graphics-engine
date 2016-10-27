@@ -19,7 +19,8 @@ public:
 	~GeometryRenderer();
 
 	void setSize(const glm::uvec2& size);
-	void render(const Scene3D* const scene);
+	void render(const Scene3D* const scene) const;
+	void bindTextures() const;
 
 private:
 	FrameBuffer* m_frame_buffer = nullptr;

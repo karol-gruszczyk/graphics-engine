@@ -2,6 +2,7 @@
 
 
 using bauasian::Filter;
+using bauasian::Texture;
 
 Filter::Filter(const boost::filesystem::path& fragment_shader_path, const GLenum& storage)
 {
@@ -23,12 +24,6 @@ Filter::~Filter()
 	delete m_frame_buffer;
 }
 
-void Filter::bindForRendering()
-{
-	m_frame_buffer->bind();
-	m_frame_buffer->clear();
-}
-
 void Filter::setSize(const glm::uvec2& size)
 {
 	m_size = size;
@@ -36,13 +31,15 @@ void Filter::setSize(const glm::uvec2& size)
 	m_color_texture->setSize(size);
 }
 
-void Filter::renderToFrameBuffer(const GLuint& fbo_id) const
+void Filter::process(const Texture* const texture, bool to_screen) const
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo_id);
-	glClear(GL_COLOR_BUFFER_BIT);
+	if (to_screen)
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	else
+		m_frame_buffer->bind();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
-	m_color_texture->bind(0);
-//	glViewport(0, 0, m_size.x, m_size.y);
+	texture->bind();
 	m_screen_quad->render();
 }
 
@@ -64,7 +61,7 @@ void Filter::initFrameBuffer(const GLenum& storage)
 	m_screen_quad = new ScreenQuad();
 }
 
-const GLuint& Filter::getFrameBufferId() const
+const Texture* const Filter::getTexture() const
 {
-	return m_frame_buffer->getId();
+	return m_color_texture.get();
 }

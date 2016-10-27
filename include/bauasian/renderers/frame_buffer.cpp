@@ -79,11 +79,6 @@ void FrameBuffer::unbind() const
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FrameBuffer::clear() const
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
 void FrameBuffer::copyBuffer(GLbitfield mask, const GLuint& destination_fbo_id) const
 {
 	glBlitNamedFramebuffer(m_fbo_id, destination_fbo_id,

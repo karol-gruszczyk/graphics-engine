@@ -35,15 +35,19 @@ void GeometryRenderer::setSize(const glm::uvec2& size)
 	m_frame_buffer->setSize(size);
 }
 
-void GeometryRenderer::render(const bauasian::Scene3D* const scene)
+void GeometryRenderer::render(const Scene3D* const scene) const
 {
 	m_frame_buffer->bind();
-	m_frame_buffer->clear();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	m_shader->use();
-	glEnable(GL_STENCIL_TEST);
-	glStencilMask(0xFF);
 	glClear(GL_STENCIL_BUFFER_BIT);
-	glStencilFunc(GL_ALWAYS, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	scene->render();
+}
+
+void GeometryRenderer::bindTextures() const
+{
+	m_albedo_buffer->bind(0);
+	m_specular_buffer->bind(1);
+	m_normal_buffer->bind(2);
+	m_position_buffer->bind(3);
 }

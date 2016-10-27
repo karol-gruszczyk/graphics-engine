@@ -35,7 +35,7 @@ void SpotLightRenderer::render(const Scene3D* const scene) const
 {
 	m_shader->use();
 	m_shader->setUniform(m_location_spot_light_projection_view_matrix,
-									scene->getCamera()->getProjectionViewMatrix());
+						 scene->getCamera()->getProjectionViewMatrix());
 	for (const auto& light : scene->getSpotLights())
 	{
 		SpotLightBuffer::getInstance().setData(light);

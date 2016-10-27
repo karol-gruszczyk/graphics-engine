@@ -21,14 +21,13 @@ public:
 	Filter(Shader& fragment_shader, const GLenum& storage = GL_RGBA);
 	virtual ~Filter();
 
-	void bindForRendering();
 	virtual void setSize(const glm::uvec2& size);
-	virtual void renderToFrameBuffer(const GLuint& fbo_id = 0) const;
-	const GLuint& getFrameBufferId() const;
+	virtual void process(const Texture* const texture, bool to_screen = true) const;
+	const Texture* const getTexture() const;
 
 protected:
 	FrameBuffer* m_frame_buffer = nullptr;
-	std::shared_ptr<Texture> m_color_texture = nullptr;
+	std::shared_ptr<Texture> m_color_texture;
 	ShaderProgram* m_shader = nullptr;
 	glm::uvec2 m_size;
 

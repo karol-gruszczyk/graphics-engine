@@ -28,7 +28,6 @@ public:
 	const std::shared_ptr<FrameBufferAttachment>& getDepthAttachment() const;
 	void bind() const;
 	void unbind() const;
-	void clear() const;
 	void copyBuffer(GLbitfield mask, const GLuint& destination_fbo_id = 0) const;
 
 protected:
