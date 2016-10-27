@@ -9,11 +9,9 @@ layout(std140) uniform SceneBuffer
 
 layout(std140) uniform Material
 {
-	vec4 ambient_color;
 	vec4 diffuse_color;
 	vec4 specular_color;
 
-	int use_ambient_texture;
 	int use_diffuse_texture;
 	int use_specular_texture;
 	int use_normal_texture;
@@ -23,7 +21,6 @@ layout(std140) uniform Material
 	float shininess;
 } material;
 
-uniform sampler2D ambient_texture;
 uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
 uniform sampler2D normal_texture;

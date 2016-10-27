@@ -191,14 +191,12 @@ void setup()
 
 	// 3D
 	brick_material = std::make_shared<Material>();
-	brick_material->setAmbient(TextureFactory::getInstance().getTexture("res/bricks-diff.jpg"));
 	brick_material->setDiffuse(TextureFactory::getInstance().getTexture("res/bricks-diff.jpg"));
 	brick_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/bricks-normal.jpg", false));
 	brick_material->setDisplacementTexture(TextureFactory::getInstance().getTexture("res/bricks-disp.jpg", false));
 	brick_material->setShininess(12);
 
 	pavement_material = std::make_shared<Material>();
-	pavement_material->setAmbient(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
 	pavement_material->setDiffuse(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
 	pavement_material->setSpecular(TextureFactory::getInstance().getTexture("res/brick-specular.png", false));
 	pavement_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/brick-normal.png", false));

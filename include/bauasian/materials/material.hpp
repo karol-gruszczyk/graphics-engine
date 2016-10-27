@@ -18,8 +18,6 @@ class bauasian::Material : public NameInterface
 public:
 	static void setShaderLocations(ShaderProgram* shader);
 
-	void setAmbient(const glm::vec3& color);
-	void setAmbient(Texture* texture);
 	void setDiffuse(const glm::vec3& color);
 	void setDiffuse(Texture* texture);
 	void setSpecular(const glm::vec3& color);
@@ -33,7 +31,6 @@ public:
 
 protected:
 	MaterialBuffer::GlslMaterial m_material;
-	Texture* m_ambient_texture = nullptr;
 	Texture* m_diffuse_texture = nullptr;
 	Texture* m_specular_texture = nullptr;
 	Texture* m_normal_texture = nullptr;
