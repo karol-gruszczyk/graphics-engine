@@ -46,3 +46,8 @@ Shader::~Shader()
 {
 	glDeleteShader(m_shader_id);
 }
+
+const GLuint& Shader::getId() const
+{
+	return m_shader_id;
+}

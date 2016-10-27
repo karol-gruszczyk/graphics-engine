@@ -16,8 +16,6 @@ namespace bauasian
 
 class bauasian::Shader
 {
-	friend class ShaderProgram;
-
 public:
 	enum ShaderType
 	{
@@ -29,6 +27,8 @@ public:
 	Shader(const Shader&) = delete;
 	Shader& operator=(const Shader&) = delete;
 	virtual ~Shader();
+
+	const GLuint& getId() const;
 
 protected:
 	GLuint m_shader_id;

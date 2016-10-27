@@ -11,7 +11,7 @@ ShaderProgram::ShaderProgram(const std::initializer_list<Shader*>& shaders)
 {
 	m_shader_program_id = glCreateProgram();
 	for (auto& shader : shaders)
-		glAttachShader(m_shader_program_id, shader->m_shader_id);
+		glAttachShader(m_shader_program_id, shader->getId());
 	glLinkProgram(m_shader_program_id);
 
 	GLint success, info_log_length;
@@ -34,7 +34,7 @@ ShaderProgram::ShaderProgram(const std::initializer_list<Shader*>& shaders)
 		Bauasian::getInstance().logWarning(info_log);
 	}
 	for (auto& shader : shaders)
-		glDetachShader(m_shader_program_id, shader->m_shader_id);
+		glDetachShader(m_shader_program_id, shader->getId());
 }
 
 ShaderProgram::~ShaderProgram()

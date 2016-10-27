@@ -1,6 +1,7 @@
 #ifndef BAUASIAN_GEOMETRY_RENDERER_HPP
 #define BAUASIAN_GEOMETRY_RENDERER_HPP
 
+#include "bauasian/mixins/shader_mixin.hpp"
 #include "bauasian/renderers/frame_buffer.hpp"
 #include "bauasian/shaders/shader_program.hpp"
 #include "bauasian/materials/texture.hpp"
@@ -12,7 +13,7 @@ namespace bauasian
 	class GeometryRenderer;
 }
 
-class bauasian::GeometryRenderer
+class bauasian::GeometryRenderer : public ShaderMixin
 {
 public:
 	GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
@@ -23,8 +24,6 @@ public:
 
 private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
-
-	std::unique_ptr<ShaderProgram> m_shader;
 
 	std::shared_ptr<Texture> m_albedo_buffer;
 	std::shared_ptr<Texture> m_specular_buffer;

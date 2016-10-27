@@ -8,8 +8,8 @@ using bauasian::TexturedSkyBox;
 TexturedSkyBox::TexturedSkyBox(bauasian::CubeTexture* texture)
 		: SkyBox("skybox/basic_fs.glsl"), m_texture(texture)
 {
-	const auto location_cube_texture = m_shader_program->getUniformLocation("cube_texture");
-	m_shader_program->setUniform(location_cube_texture, 0);
+	const auto location_cube_texture = m_shader->getUniformLocation("cube_texture");
+	m_shader->setUniform(location_cube_texture, 0);
 }
 
 void TexturedSkyBox::render(const glm::mat4& projection_view_matrix) const

@@ -6,6 +6,7 @@
 using bauasian::GeometryRenderer;
 
 GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
+		: ShaderMixin("deferred_rendering/gbuffer_vs.glsl", "deferred_rendering/gbuffer_fs.glsl")
 {
 	m_albedo_buffer = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
 	m_specular_buffer = std::make_shared<Texture>(GL_RGBA, GL_RGBA, size);
@@ -15,10 +16,6 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 			std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
 					{ m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
 			depth_buffer, size);
-
-	const auto vs = std::make_unique<Shader>("deferred_rendering/gbuffer_vs.glsl", Shader::VERTEX_SHADER);
-	const auto fs = std::make_unique<Shader>("deferred_rendering/gbuffer_fs.glsl", Shader::FRAGMENT_SHADER);
-	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>{ vs.get(), fs.get() });
 
 	Material::setShaderLocations(m_shader.get());
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
