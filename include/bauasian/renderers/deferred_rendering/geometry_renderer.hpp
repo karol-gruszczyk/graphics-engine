@@ -15,7 +15,7 @@ namespace bauasian
 class bauasian::GeometryRenderer
 {
 public:
-	GeometryRenderer(const glm::uvec2& size);
+	GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
 	~GeometryRenderer();
 
 	void setSize(const glm::uvec2& size);

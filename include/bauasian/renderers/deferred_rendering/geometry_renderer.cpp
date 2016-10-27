@@ -5,7 +5,7 @@
 
 using bauasian::GeometryRenderer;
 
-GeometryRenderer::GeometryRenderer(const glm::uvec2& size)
+GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
 		: m_size(size)
 {
 	m_albedo_buffer = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
@@ -14,7 +14,7 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size)
 	m_position_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
 	m_frame_buffer = new FrameBuffer(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
 											 { m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
-									 std::make_shared<RenderBuffer>(), size);
+									 depth_buffer, size);
 
 	auto vs = std::make_unique<Shader>("deferred_rendering/gbuffer_vs.glsl", Shader::VERTEX_SHADER);
 	auto fs = std::make_unique<Shader>("deferred_rendering/gbuffer_fs.glsl", Shader::FRAGMENT_SHADER);

@@ -32,6 +32,7 @@ public:
 private:
 	std::list<Filter*> m_filters;
 
+	std::shared_ptr<RenderBuffer> m_depth_buffer;
 	GeometryRenderer m_geometry_renderer;
 	FrameBuffer* m_frame_buffer;
 	std::shared_ptr<Texture> m_albedo_buffer;
