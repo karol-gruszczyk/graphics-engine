@@ -11,23 +11,18 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 	m_specular_buffer = std::make_shared<Texture>(GL_RGBA, GL_RGBA, size);
 	m_normal_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
 	m_position_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
-	m_frame_buffer = new FrameBuffer(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
-											 { m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
-									 depth_buffer, size);
+	m_frame_buffer = std::make_unique<FrameBuffer>(
+			std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
+					{ m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
+			depth_buffer, size);
 
-	auto vs = std::make_unique<Shader>("deferred_rendering/gbuffer_vs.glsl", Shader::VERTEX_SHADER);
-	auto fs = std::make_unique<Shader>("deferred_rendering/gbuffer_fs.glsl", Shader::FRAGMENT_SHADER);
-	m_shader = new ShaderProgram({ vs.get(), fs.get() });
+	const auto vs = std::make_unique<Shader>("deferred_rendering/gbuffer_vs.glsl", Shader::VERTEX_SHADER);
+	const auto fs = std::make_unique<Shader>("deferred_rendering/gbuffer_fs.glsl", Shader::FRAGMENT_SHADER);
+	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>{ vs.get(), fs.get() });
 
-	Material::setShaderLocations(m_shader);
-	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader, "ModelMatrices");
-	SceneBuffer::getInstance().attachUniformBlock(m_shader, "SceneBuffer");
-}
-
-GeometryRenderer::~GeometryRenderer()
-{
-	delete m_frame_buffer;
-	delete m_shader;
+	Material::setShaderLocations(m_shader.get());
+	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
+	SceneBuffer::getInstance().attachUniformBlock(m_shader.get(), "SceneBuffer");
 }
 
 void GeometryRenderer::setSize(const glm::uvec2& size)

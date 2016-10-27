@@ -14,14 +14,13 @@ class bauasian::DirectionalLightRenderer
 {
 public:
 	DirectionalLightRenderer();
-	~DirectionalLightRenderer();
 
 	void render(const Scene3D* const scene) const;
 	const ShaderProgram* const getShader() const;
 
 private:
-	ShaderProgram* m_shader;
-	ScreenQuad* m_light_volume;
+	std::unique_ptr<ShaderProgram> m_shader;
+	std::unique_ptr<ScreenQuad> m_light_volume;
 
 };
 

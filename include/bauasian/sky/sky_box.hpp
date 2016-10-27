@@ -14,13 +14,13 @@ class bauasian::SkyBox
 {
 public:
 	SkyBox(const boost::filesystem::path& fragment_shader_path);
-	virtual ~SkyBox();
+	virtual ~SkyBox() {};
 
 	virtual void render(const glm::mat4& projection_view_matrix) const;
 
 protected:
-	ShaderProgram* m_shader_program;
-	ScreenCube* m_box;
+	std::unique_ptr<ShaderProgram> m_shader_program;
+	std::unique_ptr<ScreenCube> m_box;
 
 	GLint m_location_projection_view_matrix;
 

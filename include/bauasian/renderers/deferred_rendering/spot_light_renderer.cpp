@@ -7,23 +7,16 @@ using bauasian::SpotLightRenderer;
 using bauasian::ShaderProgram;
 
 SpotLightRenderer::SpotLightRenderer(const glm::uvec2& size)
+		: m_light_volume(std::make_unique<ConeVolume>())
 {
-	auto vs = std::make_unique<Shader>("deferred_rendering/spot_vs.glsl", Shader::VERTEX_SHADER);
-	auto fs = std::make_unique<Shader>("deferred_rendering/spot_fs.glsl", Shader::FRAGMENT_SHADER);
-	m_shader = new ShaderProgram({ vs.get(), fs.get() });
+	const auto vs = std::make_unique<Shader>("deferred_rendering/spot_vs.glsl", Shader::VERTEX_SHADER);
+	const auto fs = std::make_unique<Shader>("deferred_rendering/spot_fs.glsl", Shader::FRAGMENT_SHADER);
+	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>{ vs.get(), fs.get() });
 	m_location_spot_light_screen_size = m_shader->getUniformLocation("screen_size");
 	m_location_spot_light_projection_view_matrix = m_shader->getUniformLocation("projection_view_matrix");
-	SceneBuffer::getInstance().attachUniformBlock(m_shader, "SceneBuffer");
-	SpotLightBuffer::getInstance().attachUniformBlock(m_shader, "SpotLightBuffer");
+	SceneBuffer::getInstance().attachUniformBlock(m_shader.get(), "SceneBuffer");
+	SpotLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "SpotLightBuffer");
 	setSize(size);
-
-	m_light_volume = new ConeVolume();
-}
-
-SpotLightRenderer::~SpotLightRenderer()
-{
-	delete m_shader;
-	delete m_light_volume;
 }
 
 void SpotLightRenderer::setSize(const glm::uvec2& size)
@@ -45,5 +38,5 @@ void SpotLightRenderer::render(const Scene3D* const scene) const
 
 const ShaderProgram* const SpotLightRenderer::getShader() const
 {
-	return m_shader;
+	return m_shader.get();
 }

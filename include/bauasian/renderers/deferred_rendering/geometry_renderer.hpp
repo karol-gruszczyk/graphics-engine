@@ -16,16 +16,15 @@ class bauasian::GeometryRenderer
 {
 public:
 	GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
-	~GeometryRenderer();
 
 	void setSize(const glm::uvec2& size);
 	void render(const Scene3D* const scene) const;
 	void bindTextures() const;
 
 private:
-	FrameBuffer* m_frame_buffer = nullptr;
+	std::unique_ptr<FrameBuffer> m_frame_buffer;
 
-	ShaderProgram* m_shader;
+	std::unique_ptr<ShaderProgram> m_shader;
 
 	std::shared_ptr<Texture> m_albedo_buffer;
 	std::shared_ptr<Texture> m_specular_buffer;

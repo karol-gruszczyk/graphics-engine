@@ -9,7 +9,6 @@ namespace bauasian
 	class SizeMixin;
 }
 
-
 class bauasian::SizeMixin
 {
 public:

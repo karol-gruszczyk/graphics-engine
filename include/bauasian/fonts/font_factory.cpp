@@ -35,5 +35,4 @@ FontFactory::~FontFactory()
 {
 	for (const auto& font : m_fonts)
 		delete font.second;
-	Font::unloadShader();
 }

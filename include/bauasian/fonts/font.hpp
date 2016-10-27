@@ -25,14 +25,13 @@ public:
 	virtual ~Font();
 
 	static void loadShader();
-	static void unloadShader();
 
 	float getScale(const unsigned& font_size) const;
 	void bind() const;
 	void unbind() const;
 
 private:
-	static ShaderProgram* s_shader;
+	static std::unique_ptr<ShaderProgram> s_shader;
 	static GLint m_location_projection_matrix;
 
 	unsigned m_font_size;

@@ -7,20 +7,13 @@ using bauasian::DirectionalLightRenderer;
 using bauasian::ShaderProgram;
 
 DirectionalLightRenderer::DirectionalLightRenderer()
+		: m_light_volume(std::make_unique<ScreenQuad>())
 {
-	auto vs = std::make_unique<Shader>("deferred_rendering/directional_vs.glsl", Shader::VERTEX_SHADER);
-	auto fs = std::make_unique<Shader>("deferred_rendering/directional_fs.glsl", Shader::FRAGMENT_SHADER);
-	m_shader = new ShaderProgram({ vs.get(), fs.get() });
-	SceneBuffer::getInstance().attachUniformBlock(m_shader, "SceneBuffer");
-	DirectionalLightBuffer::getInstance().attachUniformBlock(m_shader, "DirectionalLightBuffer");
-
-	m_light_volume = new ScreenQuad();
-}
-
-DirectionalLightRenderer::~DirectionalLightRenderer()
-{
-	delete m_shader;
-	delete m_light_volume;
+	const auto vs = std::make_unique<Shader>("deferred_rendering/directional_vs.glsl", Shader::VERTEX_SHADER);
+	const auto fs = std::make_unique<Shader>("deferred_rendering/directional_fs.glsl", Shader::FRAGMENT_SHADER);
+	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>{ vs.get(), fs.get() });
+	SceneBuffer::getInstance().attachUniformBlock(m_shader.get(), "SceneBuffer");
+	DirectionalLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "DirectionalLightBuffer");
 }
 
 void DirectionalLightRenderer::render(const Scene3D* const scene) const
@@ -35,5 +28,5 @@ void DirectionalLightRenderer::render(const Scene3D* const scene) const
 
 const ShaderProgram* const DirectionalLightRenderer::getShader() const
 {
-	return m_shader;
+	return m_shader.get();
 }
