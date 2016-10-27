@@ -3,7 +3,7 @@
 
 #include "renderer.hpp"
 #include "bauasian/scenes/scene_2d.hpp"
-#include "bauasian/interfaces/context_size_interface.hpp"
+#include "bauasian/context_size_observer.hpp"
 
 
 namespace bauasian

@@ -1,15 +1,15 @@
-#ifndef BAUASIAN_NAME_INTERFACE_HPP
-#define BAUASIAN_NAME_INTERFACE_HPP
+#ifndef BAUASIAN_NAME_MIXIN_HPP
+#define BAUASIAN_NAME_MIXIN_HPP
 
 #include <string>
 
 
 namespace bauasian
 {
-	class NameInterface;
+	class NameMixin;
 }
 
-class bauasian::NameInterface
+class bauasian::NameMixin
 {
 public:
 	const std::string& getName() const;
@@ -17,6 +17,7 @@ public:
 
 protected:
 	std::string m_name;
+
 };
 
-#endif /* BAUASIAN_NAME_INTERFACE_HPP */
+#endif /* BAUASIAN_NAME_MIXIN_HPP */

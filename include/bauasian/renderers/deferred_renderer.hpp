@@ -4,7 +4,7 @@
 #include "deferred_rendering/geometry_renderer.hpp"
 #include "deferred_rendering/light_accumulator.hpp"
 #include "bauasian/post_processors/filter.hpp"
-#include "bauasian/interfaces/size_interface.hpp"
+#include "bauasian/mixins/size_mixin.hpp"
 #include "bauasian/post_processors/hdr.hpp"
 
 
@@ -13,7 +13,7 @@ namespace bauasian
 	class DeferredRenderer;
 }
 
-class bauasian::DeferredRenderer : public SizeInterface
+class bauasian::DeferredRenderer : public SizeMixin
 {
 public:
 	DeferredRenderer(const glm::uvec2 size);

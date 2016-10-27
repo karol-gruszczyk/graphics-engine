@@ -3,7 +3,7 @@
 
 #include "basic_material.hpp"
 #include "bauasian/shaders/buffers/material_buffer.hpp"
-#include "bauasian/interfaces/name_interface.hpp"
+#include "bauasian/mixins/name_mixin.hpp"
 
 #include <memory>
 
@@ -13,7 +13,7 @@ namespace bauasian
 	class Material;
 }
 
-class bauasian::Material : public NameInterface
+class bauasian::Material : public NameMixin
 {
 public:
 	static void setShaderLocations(ShaderProgram* shader);

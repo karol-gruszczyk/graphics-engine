@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_CAMERA_HPP
 #define BAUASIAN_CAMERA_HPP
 
-#include "bauasian/interfaces/name_interface.hpp"
+#include "bauasian/mixins/name_mixin.hpp"
 
 #include <glm/glm.hpp>
 
@@ -11,7 +11,7 @@ namespace bauasian
 	class Camera;
 }
 
-class bauasian::Camera : public NameInterface
+class bauasian::Camera : public NameMixin
 {
 public:
 	Camera(const float& near, const float& far);

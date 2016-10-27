@@ -2,7 +2,7 @@
 #define BAUASIAN_RENDERER_HPP
 
 #include "bauasian/bauasian.hpp"
-#include "bauasian/interfaces/context_size_interface.hpp"
+#include "bauasian/context_size_observer.hpp"
 #include "bauasian/shaders/shader_program.hpp"
 
 #include <glm/glm.hpp>
@@ -13,7 +13,7 @@ namespace bauasian
 	class Renderer;
 }
 
-class bauasian::Renderer : public ContextSizeInterface
+class bauasian::Renderer : public ContextSizeObserver
 {
 	friend class Scene;
 

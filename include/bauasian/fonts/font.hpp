@@ -2,7 +2,7 @@
 #define BAUASIAN_FONT_HPP
 
 #include "glyph.hpp"
-#include "bauasian/interfaces/context_size_interface.hpp"
+#include "bauasian/context_size_observer.hpp"
 #include "bauasian/shaders/shader_program.hpp"
 
 #include <map>
@@ -15,7 +15,7 @@ namespace bauasian
 	class Font;
 }
 
-class bauasian::Font : public bauasian::ContextSizeInterface
+class bauasian::Font : public bauasian::ContextSizeObserver
 {
 	friend class Text;
 

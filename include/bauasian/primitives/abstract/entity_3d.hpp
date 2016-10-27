@@ -5,7 +5,7 @@
 #include "drawable_stats.hpp"
 #include "affine_transformations_3d.hpp"
 #include "bauasian/materials/material.hpp"
-#include "bauasian/interfaces/name_interface.hpp"
+#include "bauasian/mixins/name_mixin.hpp"
 
 
 namespace bauasian
@@ -14,7 +14,7 @@ namespace bauasian
 }
 
 class bauasian::Entity3D : public IndexedDrawable, public DrawableStats, public AffineTransformations3D,
-                           public NameInterface
+                           public NameMixin
 {
 public:
 	struct Vertex3D

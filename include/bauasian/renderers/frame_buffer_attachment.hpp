@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_FRAME_BUFFER_ATTACHMENT_HPP
 #define BAUASIAN_FRAME_BUFFER_ATTACHMENT_HPP
 
-#include "bauasian/interfaces/size_interface.hpp"
+#include "bauasian/mixins/size_mixin.hpp"
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -12,7 +12,7 @@ namespace bauasian
 	class FrameBufferAttachment;
 }
 
-class bauasian::FrameBufferAttachment : public SizeInterface
+class bauasian::FrameBufferAttachment : public SizeMixin
 {
 public:
 	FrameBufferAttachment(const glm::uvec2& size);
