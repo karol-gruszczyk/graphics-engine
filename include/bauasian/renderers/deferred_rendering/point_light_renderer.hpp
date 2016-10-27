@@ -1,7 +1,6 @@
 #ifndef BAUASIAN_POINT_LIGHT_RENDERER_HPP
 #define BAUASIAN_POINT_LIGHT_RENDERER_HPP
 
-#include "bauasian/shaders/shader.hpp"
 #include "bauasian/primitives/sphere_volume.hpp"
 #include "bauasian/scenes/scene_3d.hpp"
 
@@ -29,6 +28,5 @@ private:
 	GLint m_location_point_light_screen_size;
 
 };
-
 
 #endif /* BAUASIAN_POINT_LIGHT_RENDERER_HPP */

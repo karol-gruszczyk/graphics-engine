@@ -4,7 +4,7 @@
 using bauasian::LightAccumulator;
 
 LightAccumulator::LightAccumulator(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
-		: m_point_light_renderer(size)
+		: m_point_light_renderer(size), m_spot_light_renderer(size)
 {
 	m_accumulation_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
 	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
@@ -13,17 +13,20 @@ LightAccumulator::LightAccumulator(const glm::uvec2& size, const std::shared_ptr
 
 	initializeTextureLocations(m_directional_light_renderer.getShader());
 	initializeTextureLocations(m_point_light_renderer.getShader());
+	initializeTextureLocations(m_spot_light_renderer.getShader());
 }
 
 void LightAccumulator::setSize(const glm::uvec2& size)
 {
 	m_frame_buffer->setSize(size);
 	m_point_light_renderer.setSize(size);
+	m_spot_light_renderer.setSize(size);
 }
 
 void LightAccumulator::render(const Scene3D* const scene) const
 {
 	m_directional_light_renderer.render(scene);
+	m_point_light_renderer.render(scene);
 	m_point_light_renderer.render(scene);
 }
 

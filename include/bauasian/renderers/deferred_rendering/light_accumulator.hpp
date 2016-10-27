@@ -5,6 +5,7 @@
 #include "bauasian/materials/texture.hpp"
 #include "directional_light_renderer.hpp"
 #include "point_light_renderer.hpp"
+#include "spot_light_renderer.hpp"
 
 
 namespace bauasian
@@ -26,10 +27,10 @@ private:
 
 	DirectionalLightRenderer m_directional_light_renderer;
 	PointLightRenderer m_point_light_renderer;
+	SpotLightRenderer m_spot_light_renderer;
 
 	void initializeTextureLocations(const ShaderProgram* const shader) const;
 
 };
-
 
 #endif /* BAUASIAN_LIGHT_RENDERER_HPP */
