@@ -2,7 +2,7 @@
 #define BAUASIAN_DEFERRED_RENDERER_HPP
 
 #include "frame_buffer.hpp"
-#include "post_processors/filter.hpp"
+#include "bauasian/post_processors/filter.hpp"
 #include "bauasian/materials/texture.hpp"
 #include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/interfaces/size_interface.hpp"

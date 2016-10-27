@@ -1,5 +1,5 @@
 #include "deferred_renderer.hpp"
-#include "post_processors/hdr.hpp"
+#include "bauasian/post_processors/hdr.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/scene_buffer.hpp"
 #include "bauasian/shaders/buffers/directional_light_buffer.hpp"

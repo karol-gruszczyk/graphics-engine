@@ -31,6 +31,7 @@ void Filter::bindForRendering()
 
 void Filter::setSize(const glm::uvec2& size)
 {
+	m_size = size;
 	m_frame_buffer->setSize(size);
 	m_color_texture->setSize(size);
 }
@@ -41,6 +42,7 @@ void Filter::renderToFrameBuffer(const GLuint& fbo_id) const
 	glClear(GL_COLOR_BUFFER_BIT);
 	m_shader->use();
 	m_color_texture->bind(0);
+//	glViewport(0, 0, m_size.x, m_size.y);
 	m_screen_quad->render();
 }
 

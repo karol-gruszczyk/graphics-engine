@@ -5,5 +5,4 @@ using bauasian::VerticalGaussianBlur;
 
 VerticalGaussianBlur::VerticalGaussianBlur()
 		: AreaFilter("post_processing/gaussian_blur/vertical_fs.glsl")
-{
-}
+{}
