@@ -6,7 +6,6 @@
 using bauasian::GeometryRenderer;
 
 GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
-		: m_size(size)
 {
 	m_albedo_buffer = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
 	m_specular_buffer = std::make_shared<Texture>(GL_RGBA, GL_RGBA, size);
@@ -33,8 +32,7 @@ GeometryRenderer::~GeometryRenderer()
 
 void GeometryRenderer::setSize(const glm::uvec2& size)
 {
-	m_size = size;
-	m_frame_buffer->setSize(m_size);
+	m_frame_buffer->setSize(size);
 }
 
 void GeometryRenderer::render(const bauasian::Scene3D* const scene)

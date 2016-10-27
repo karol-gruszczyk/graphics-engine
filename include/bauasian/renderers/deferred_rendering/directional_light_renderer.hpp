@@ -18,6 +18,7 @@ public:
 	~DirectionalLightRenderer();
 
 	void render(const Scene3D* const scene) const;
+	const ShaderProgram* const getShader() const;
 
 private:
 	ShaderProgram* m_shader;

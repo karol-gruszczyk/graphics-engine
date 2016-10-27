@@ -3,7 +3,7 @@
 
 #include "bauasian/renderers/frame_buffer.hpp"
 #include "bauasian/materials/texture.hpp"
-#include "bauasian/scenes/scene_3d.hpp"
+#include "directional_light_renderer.hpp"
 
 
 namespace bauasian
@@ -15,15 +15,17 @@ class bauasian::LightAccumulator
 {
 public:
 	LightAccumulator(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
-	~LightAccumulator();
 
 	void setSize(const glm::uvec2& size);
-	void render(const Scene3D* const scene);
+	void render(const Scene3D* const scene) const;
 
 private:
-	glm::uvec2 m_size;
-	FrameBuffer* m_frame_buffer = nullptr;
+	std::unique_ptr<FrameBuffer> m_frame_buffer = nullptr;
 	std::shared_ptr<Texture> m_accumulation_buffer;
+
+	DirectionalLightRenderer m_directional_light_renderer;
+
+	void initializeTextureLocations(const ShaderProgram* const shader) const;
 
 };
 

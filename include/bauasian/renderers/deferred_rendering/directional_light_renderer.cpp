@@ -4,6 +4,7 @@
 
 
 using bauasian::DirectionalLightRenderer;
+using bauasian::ShaderProgram;
 
 DirectionalLightRenderer::DirectionalLightRenderer()
 {
@@ -30,4 +31,9 @@ void DirectionalLightRenderer::render(const Scene3D* const scene) const
 		DirectionalLightBuffer::getInstance().setData(light);
 		m_light_volume->render();
 	}
+}
+
+const ShaderProgram* const DirectionalLightRenderer::getShader() const
+{
+	return m_shader;
 }

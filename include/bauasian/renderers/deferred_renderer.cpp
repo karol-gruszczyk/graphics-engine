@@ -15,8 +15,8 @@
 using bauasian::DeferredRenderer;
 
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
-		: SizeInterface(size),
-		  m_depth_buffer(std::make_shared<RenderBuffer>()), m_geometry_renderer(size, m_depth_buffer)
+		: SizeInterface(size), m_depth_buffer(std::make_shared<RenderBuffer>()),
+		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer)
 {
 	m_albedo_buffer = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
 	m_specular_buffer = std::make_shared<Texture>(GL_RGBA, GL_RGBA, size);

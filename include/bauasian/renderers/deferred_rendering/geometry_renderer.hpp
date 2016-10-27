@@ -22,8 +22,6 @@ public:
 	void render(const Scene3D* const scene);
 
 private:
-	glm::uvec2 m_size;
-
 	FrameBuffer* m_frame_buffer = nullptr;
 
 	ShaderProgram* m_shader;

@@ -2,6 +2,7 @@
 #define BAUASIAN_DEFERRED_RENDERER_HPP
 
 #include "deferred_rendering/geometry_renderer.hpp"
+#include "deferred_rendering/light_accumulator.hpp"
 #include "frame_buffer.hpp"
 #include "bauasian/post_processors/filter.hpp"
 #include "bauasian/materials/texture.hpp"
@@ -34,6 +35,7 @@ private:
 
 	std::shared_ptr<RenderBuffer> m_depth_buffer;
 	GeometryRenderer m_geometry_renderer;
+	LightAccumulator m_light_accumulator;
 	FrameBuffer* m_frame_buffer;
 	std::shared_ptr<Texture> m_albedo_buffer;
 	std::shared_ptr<Texture> m_specular_buffer;
