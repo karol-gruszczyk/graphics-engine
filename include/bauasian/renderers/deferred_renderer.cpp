@@ -38,6 +38,8 @@ void DeferredRenderer::clearScreen() const
 
 void DeferredRenderer::render(Scene3D* scene) const
 {
+	glViewport(0, 0, m_size.x, m_size.y);
+
 	glEnable(GL_STENCIL_TEST);  // use stencil test to process lights only on geometry
 	glStencilMask(0xFF);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -58,10 +60,10 @@ void DeferredRenderer::render(Scene3D* scene) const
 	const Texture* texture = m_light_accumulator.getTexture();
 	for (auto it = m_post_processors.begin(); it != --m_post_processors.end(); ++it)
 	{
-		(*it)->process(texture, false);
+		(*it)->process(texture);
 		texture = (*it)->getTexture();
 	}
-	m_post_processors.back()->process(texture);
+	m_post_processors.back()->processToScreen(texture);
 }
 
 const float& DeferredRenderer::getExposure() const

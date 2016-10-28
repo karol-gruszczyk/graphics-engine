@@ -30,12 +30,18 @@ void FXAA::setSize(const glm::uvec2& size)
 	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(size));
 }
 
-void FXAA::process(const Texture* const texture, bool to_screen) const
+void FXAA::process(const Texture* const texture) const
 {
-	if (to_screen)
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	else
-		m_frame_buffer->bind();
+	m_frame_buffer->bind();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	m_shader->use();
+	texture->bind();
+	m_screen_quad->render();
+}
+
+void FXAA::processToScreen(const Texture* const texture) const
+{
+	m_frame_buffer->unbind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
 	texture->bind();

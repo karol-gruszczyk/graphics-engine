@@ -19,12 +19,18 @@ void Filter::setSize(const glm::uvec2& size)
 	m_frame_buffer->setSize(size);
 }
 
-void Filter::process(const Texture* const texture, bool to_screen) const
+void Filter::process(const Texture* const texture) const
 {
-	if (to_screen)
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	else
-		m_frame_buffer->bind();
+	m_frame_buffer->bind();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	m_shader->use();
+	texture->bind();
+	m_screen_quad->render();
+}
+
+void Filter::processToScreen(const Texture* const texture) const
+{
+	m_frame_buffer->unbind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
 	texture->bind();
