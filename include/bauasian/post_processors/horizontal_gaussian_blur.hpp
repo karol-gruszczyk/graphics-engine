@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::HorizontalGaussianBlur : public AreaFilter
 {
 public:
-	HorizontalGaussianBlur(const glm::uvec2& size);
+	HorizontalGaussianBlur(const glm::uvec2& size, const GLenum& storage);
 
 };
 

@@ -1,4 +1,5 @@
 #include "deferred_renderer.hpp"
+#include "bauasian/post_processors/bloom.hpp"
 
 
 using bauasian::DeferredRenderer;
@@ -8,6 +9,7 @@ DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer),
 		  m_hdr(new HDR(size))
 {
+	addPostProcessor(new Bloom(size, 2));
 	addPostProcessor(m_hdr);
 }
 

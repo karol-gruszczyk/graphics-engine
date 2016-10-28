@@ -16,8 +16,7 @@ namespace bauasian
 class bauasian::Filter : public PostProcessor, public ShaderMixin
 {
 public:
-	Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path,
-		   const GLenum& storage = GL_RGBA);
+	Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path, const GLenum& storage);
 	virtual ~Filter() {}
 
 	virtual void setSize(const glm::uvec2& size) override;

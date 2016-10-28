@@ -1,5 +1,5 @@
 #version 330 core
-#include "../common/luminance.glsl"
+#include "../utils/luminance.glsl"
 
 uniform sampler2D screen_texture;
 
@@ -12,9 +12,5 @@ void main()
 {
     vec3 color = texture(screen_texture, texture_coord).rgb;
     float luma = luminance(color);
-
-    if (luma > 1.f)
-        out_color = vec4(color, 1.f);
-    else
-        out_color = vec4(0.f);
+    out_color = vec4(color * luma * luma, 1.f);
 }

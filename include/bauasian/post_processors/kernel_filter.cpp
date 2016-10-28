@@ -3,8 +3,8 @@
 
 using bauasian::KernelFilter;
 
-KernelFilter::KernelFilter(const glm::uvec2& size, const KernelFilter::KernelFilterType& type)
-		: AreaFilter(size, "post_processing/kernel_fs.glsl")
+KernelFilter::KernelFilter(const glm::uvec2& size, const KernelFilter::KernelFilterType& type, const GLenum& storage)
+		: AreaFilter(size, "post_processing/kernel_fs.glsl", storage)
 {
 	const auto& location = m_shader->getUniformLocation("kernel_matrix");
 	m_shader->setUniform(location, getKernelMatrix(type));
