@@ -1,6 +1,5 @@
 #version 400 core
 
-#define FXAA_GREEN_AS_LUMA 1
 #define FXAA_PC 1
 #define FXAA_GLSL_130 1
 #include "fxaa/Fxaa3_11.h"

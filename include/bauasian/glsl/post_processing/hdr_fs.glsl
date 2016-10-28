@@ -1,4 +1,5 @@
 #version 330 core
+#include "../utils/luminance.glsl"
 
 uniform sampler2D screen_texture;
 uniform float exposure;
@@ -6,7 +7,7 @@ uniform float gamma;
 
 in vec2 texture_coord;
 
-out vec3 out_color;
+out vec4 out_color;
 
 
 void main()
@@ -19,5 +20,5 @@ void main()
     // gamma correction
     color = pow(color, vec3(1.f / gamma));
 
-    out_color = color;
+    out_color = vec4(color, luminance(color));
 }

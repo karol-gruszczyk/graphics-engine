@@ -17,7 +17,6 @@ Filter::Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_s
 void Filter::setSize(const glm::uvec2& size)
 {
 	m_frame_buffer->setSize(size);
-	m_color_texture->setSize(size);
 }
 
 void Filter::process(const Texture* const texture, bool to_screen) const

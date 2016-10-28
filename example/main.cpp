@@ -31,7 +31,6 @@ BasicMaterial* basic_tile_material;
 std::shared_ptr<Material> brick_material, pavement_material;
 Text* fps_text, * stat_text, * loading_text;
 SunSkyBox* sky_box;
-HDR* hdr;
 DirectionalLight* dir_light;
 
 float counter;
@@ -71,8 +70,18 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+	if (key == GLFW_KEY_KP_ADD)
+		renderer->setExposure(renderer->getExposure() + 0.01f);
+	else if (key == GLFW_KEY_KP_SUBTRACT)
+		renderer->setExposure(std::max(renderer->getExposure() - 0.1f, 0.01f));
+	else if (key == GLFW_KEY_KP_9)
+		counter += 0.01f;
+	else if (key == GLFW_KEY_KP_3)
+		counter -= 0.01f;
+
 	if (action == GLFW_REPEAT)
 		return;
+
 	button_pressed[key] = action == GLFW_PRESS;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
@@ -86,14 +95,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			Bauasian::getInstance().setWireframe(wireframe);
 		}
 	}
-	else if (key == GLFW_KEY_KP_9)
-		counter += 0.01f;
-	else if (key == GLFW_KEY_KP_3)
-		counter -= 0.01f;
-	else if (key == GLFW_KEY_KP_ADD)
-		hdr->setExposure(hdr->getExposure() + 0.01f);
-	else if (key == GLFW_KEY_KP_SUBTRACT)
-		hdr->setExposure(std::max(hdr->getExposure() - 0.1f, 0.01f));
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)

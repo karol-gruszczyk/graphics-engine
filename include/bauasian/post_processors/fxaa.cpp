@@ -16,6 +16,7 @@ FXAA::FXAA(const glm::uvec2& size, const Quality& quality)
 	m_location_subpix = m_shader->getUniformLocation("subpix");
 	m_location_edge_threshold = m_shader->getUniformLocation("edge_threshold");
 	m_location_edge_threshold_min = m_shader->getUniformLocation("edge_threshold_min");
+	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(size));
 
 	m_color_texture = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
 	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
@@ -26,8 +27,7 @@ FXAA::FXAA(const glm::uvec2& size, const Quality& quality)
 void FXAA::setSize(const glm::uvec2& size)
 {
 	m_frame_buffer->setSize(size);
-	m_color_texture->setSize(size);
-	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(m_color_texture->getSize()));
+	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(size));
 }
 
 void FXAA::process(const Texture* const texture, bool to_screen) const
