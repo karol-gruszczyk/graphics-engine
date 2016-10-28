@@ -12,5 +12,5 @@ void main()
 {
     vec3 color = texture(screen_texture, texture_coord).rgb;
     float luma = luminance(color);
-    out_color = vec4(color * luma * luma, 1.f);
+    out_color = vec4(color * luma, 1.f);
 }

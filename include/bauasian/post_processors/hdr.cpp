@@ -8,8 +8,8 @@ HDR::HDR(const glm::uvec2& size, const float& exposure, const float& gamma)
 {
 	m_location_exposure = m_shader->getUniformLocation("exposure");
 	m_location_gamma = m_shader->getUniformLocation("gamma");
-	m_shader->setUniform(m_shader->getUniformLocation("bloom_texture"), 0);
-	m_shader->setUniform(m_shader->getUniformLocation("screen_texture"), 1);
+	m_shader->setUniform(m_shader->getUniformLocation("screen_texture"), 0);
+	m_shader->setUniform(m_shader->getUniformLocation("bloom_texture"), 1);
 	setExposure(exposure);
 	setGamma(gamma);
 }

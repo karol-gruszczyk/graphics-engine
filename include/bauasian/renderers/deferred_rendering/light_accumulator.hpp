@@ -21,9 +21,10 @@ public:
 	void setSize(const glm::uvec2& size);
 	void render(const Scene3D* const scene) const;
 	const Texture* const getTexture() const;
+	const FrameBuffer& getFrameBuffer() const;
 
 private:
-	std::unique_ptr<FrameBuffer> m_frame_buffer = nullptr;
+	std::unique_ptr<FrameBuffer> m_frame_buffer;
 	std::shared_ptr<Texture> m_accumulation_buffer;
 
 	DirectionalLightRenderer m_directional_light_renderer;

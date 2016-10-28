@@ -104,4 +104,5 @@ void main()
     out_color += mie_color * mie_phase;
     out_color += rayleigh_color;
     out_color += sun * mie_color;
+    out_color = max(vec3(0.f), out_color);
 }

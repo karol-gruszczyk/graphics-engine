@@ -1,5 +1,4 @@
 #include "deferred_renderer.hpp"
-#include "bauasian/post_processors/bloom.hpp"
 
 
 using bauasian::DeferredRenderer;
@@ -7,9 +6,8 @@ using bauasian::DeferredRenderer;
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 		: SizeMixin(size), m_depth_buffer(std::make_shared<RenderBuffer>(size)),
 		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer),
-		  m_hdr(new HDR(size))
+		  m_hdr(new HDR(size)), m_bloom(new Bloom(size))
 {
-	addPostProcessor(new Bloom(size, 2));
 	addPostProcessor(m_hdr);
 }
 
@@ -55,10 +53,14 @@ void DeferredRenderer::render(Scene3D* scene) const
 	m_light_accumulator.render(scene);
 	glDisable(GL_STENCIL_TEST);
 
+	m_bloom->process(m_light_accumulator.getTexture());
+
+	m_light_accumulator.getFrameBuffer().bind();
 	glEnable(GL_DEPTH_TEST);
 	scene->renderSkyBox();
 	glDisable(GL_DEPTH_TEST);
 
+	m_bloom->getTexture()->bind(1);
 	const Texture* texture = m_light_accumulator.getTexture();
 	for (auto it = m_post_processors.begin(); it != --m_post_processors.end(); ++it)
 	{

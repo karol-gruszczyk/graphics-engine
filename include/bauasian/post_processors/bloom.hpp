@@ -15,7 +15,7 @@ namespace bauasian
 class bauasian::Bloom : public PostProcessor
 {
 public:
-	Bloom(const glm::uvec2& size, unsigned down_sample = 2);
+	Bloom(const glm::uvec2& size);
 
 	virtual void setSize(const glm::uvec2& size);
 	virtual void process(const Texture* const texture) const;
@@ -24,11 +24,15 @@ public:
 
 private:
 	glm::uvec2 m_size;
-	unsigned m_down_sample;
+	unsigned m_down_sample = 2;
+	unsigned m_down_sample_2 = 8;
 	glm::uvec2 m_sampled_size;
+	glm::uvec2 m_sampled_size_2;
 	IntensityFilter m_intensity_filter;
 	HorizontalGaussianBlur m_horizontal_blur;
 	VerticalGaussianBlur m_vertical_blur;
+	HorizontalGaussianBlur m_horizontal_blur_2;
+	VerticalGaussianBlur m_vertical_blur_2;
 
 };
 

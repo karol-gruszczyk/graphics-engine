@@ -5,6 +5,7 @@
 #include "deferred_rendering/light_accumulator.hpp"
 #include "bauasian/mixins/size_mixin.hpp"
 #include "bauasian/post_processors/hdr.hpp"
+#include "bauasian/post_processors/bloom.hpp"
 
 
 namespace bauasian
@@ -34,6 +35,7 @@ private:
 	LightAccumulator m_light_accumulator;
 
 	HDR* m_hdr;
+	Bloom* m_bloom;
 
 };
 
