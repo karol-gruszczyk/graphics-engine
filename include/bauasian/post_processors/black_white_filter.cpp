@@ -3,6 +3,6 @@
 
 using bauasian::BlackWhiteFilter;
 
-BlackWhiteFilter::BlackWhiteFilter()
-		: Filter("post_processing/black_white_fs.glsl")
+BlackWhiteFilter::BlackWhiteFilter(const glm::uvec2& size)
+		: Filter(size, "post_processing/black_white_fs.glsl")
 {}

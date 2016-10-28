@@ -13,7 +13,7 @@ namespace bauasian
 class bauasian::AreaFilter : public Filter
 {
 public:
-	AreaFilter(const boost::filesystem::path& fragment_shader_path);
+	AreaFilter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path);
 
 	virtual void setSize(const glm::uvec2& size) override;
 

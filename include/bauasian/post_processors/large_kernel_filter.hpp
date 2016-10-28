@@ -16,7 +16,7 @@ public:
 	{
 		UNSHARP, SHARPEN, GAUSSIAN_BLUR
 	};
-	LargeKernelFilter(const LargeKernelFilterType& type);
+	LargeKernelFilter(const glm::uvec2& size, const LargeKernelFilterType& type);
 
 private:
 	const std::vector<float> getKernelMatrix(const LargeKernelFilterType& type);

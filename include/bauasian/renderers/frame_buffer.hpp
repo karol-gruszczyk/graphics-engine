@@ -18,7 +18,7 @@ class bauasian::FrameBuffer
 {
 public:
 	FrameBuffer(const std::initializer_list<std::shared_ptr<FrameBufferAttachment>>& color_attachments,
-	            const std::shared_ptr<FrameBufferAttachment>& depth_attachment, const glm::uvec2& size = { 0, 0 });
+	            const std::shared_ptr<FrameBufferAttachment>& depth_attachment, const glm::uvec2& size);
 	virtual ~FrameBuffer();
 
 	void setSize(const glm::uvec2& size);

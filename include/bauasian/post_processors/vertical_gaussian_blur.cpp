@@ -3,6 +3,6 @@
 
 using bauasian::VerticalGaussianBlur;
 
-VerticalGaussianBlur::VerticalGaussianBlur()
-		: AreaFilter("post_processing/gaussian_blur/vertical_fs.glsl")
+VerticalGaussianBlur::VerticalGaussianBlur(const glm::uvec2& size)
+		: AreaFilter(size, "post_processing/gaussian_blur/vertical_fs.glsl")
 {}

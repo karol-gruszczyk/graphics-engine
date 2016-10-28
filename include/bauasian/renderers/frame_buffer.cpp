@@ -11,13 +11,6 @@ FrameBuffer::FrameBuffer(const std::initializer_list<std::shared_ptr<FrameBuffer
 {
 	glGenFramebuffers(1, &m_fbo_id);
 
-	if (size.x && size.y)
-	{
-		for (auto& attachment : color_attachments)
-			attachment->setSize(m_size);
-		depth_attachment->setSize(m_size);
-	}
-
 	GLenum* draw_buffers = new GLenum[color_attachments.size()];
 	for (auto& attachment : color_attachments)
 	{

@@ -21,7 +21,7 @@ public:
 		EMBOSS,
 		BOTTOM_SOBEL, TOP_SOBEL, LEFT_SOBEL, RIGHT_SOBEL
 	};
-	KernelFilter(const KernelFilterType& type);
+	KernelFilter(const glm::uvec2& size, const KernelFilterType& type);
 
 protected:
 	const glm::mat3 getKernelMatrix(const KernelFilterType& type);

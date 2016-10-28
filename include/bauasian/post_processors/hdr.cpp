@@ -3,8 +3,8 @@
 
 using bauasian::HDR;
 
-HDR::HDR(const float& exposure, const float& gamma)
-		: Filter("post_processing/hdr_fs.glsl", GL_RGBA16F)
+HDR::HDR(const glm::uvec2& size, const float& exposure, const float& gamma)
+		: Filter(size, "post_processing/hdr_fs.glsl", GL_RGBA16F)
 {
 	m_location_exposure = m_shader->getUniformLocation("exposure");
 	m_location_gamma = m_shader->getUniformLocation("gamma");

@@ -4,7 +4,7 @@
 using bauasian::FXAA;
 using bauasian::Texture;
 
-FXAA::FXAA(const Quality& quality)
+FXAA::FXAA(const glm::uvec2& size, const Quality& quality)
 		: m_screen_quad(std::make_unique<ScreenQuad>())
 {
 	const auto vs = std::make_unique<Shader>("post_processing/basic_vs.glsl", Shader::VERTEX_SHADER);
@@ -17,10 +17,10 @@ FXAA::FXAA(const Quality& quality)
 	m_location_edge_threshold = m_shader->getUniformLocation("edge_threshold");
 	m_location_edge_threshold_min = m_shader->getUniformLocation("edge_threshold_min");
 
-	m_color_texture = std::make_shared<Texture>(GL_RGB, GL_RGB);
+	m_color_texture = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
 	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
 														   { m_color_texture },
-												   std::make_shared<RenderBuffer>());
+												   std::make_shared<RenderBuffer>(size), size);
 }
 
 void FXAA::setSize(const glm::uvec2& size)

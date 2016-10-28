@@ -4,9 +4,9 @@
 using bauasian::DeferredRenderer;
 
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
-		: SizeMixin(size), m_depth_buffer(std::make_shared<RenderBuffer>()),
+		: SizeMixin(size), m_depth_buffer(std::make_shared<RenderBuffer>(size)),
 		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer),
-		  m_hdr(new HDR())
+		  m_hdr(new HDR(size))
 {
 	addPostProcessor(m_hdr);
 }
@@ -28,7 +28,6 @@ void DeferredRenderer::setSize(const glm::uvec2& size)
 
 void DeferredRenderer::addPostProcessor(PostProcessor* post_processor)
 {
-	post_processor->setSize(m_size);
 	m_post_processors.push_back(post_processor);
 }
 

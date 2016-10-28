@@ -20,7 +20,7 @@ public:
 		VERY_LOW = 10, LOW = 12, MEDIUM = 15, HIGH = 20, VERY_HIGH = 25, ULTRA = 29, EXTREME = 39
 	};
 
-	FXAA(const Quality& quality = LOW);
+	FXAA(const glm::uvec2& size, const Quality& quality = LOW);
 
 	virtual void setSize(const glm::uvec2& size) override;
 	virtual void process(const Texture* const texture, bool to_screen = true) const override;

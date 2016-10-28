@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::HDR : public Filter
 {
 public:
-	HDR(const float& exposure = 1.f, const float& gamma = 2.2f);
+	HDR(const glm::uvec2& size, const float& exposure = 1.f, const float& gamma = 2.2f);
 
 	const float& getExposure() const;
 	void setExposure(const float& exposure);
