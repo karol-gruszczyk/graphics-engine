@@ -4,7 +4,7 @@
 using bauasian::DeferredRenderer;
 
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
-		: SizeMixin(size), m_depth_buffer(std::make_shared<RenderBuffer>(size)),
+		: SizeMixin(size), m_depth_buffer(std::make_shared<Texture>(GL_DEPTH24_STENCIL8, GL_DEPTH_COMPONENT, size)),
 		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer),
 		  m_hdr(new HDR(size)), m_bloom(new Bloom(size))
 {

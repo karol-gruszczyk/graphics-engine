@@ -30,7 +30,7 @@ FrameBuffer::FrameBuffer(const std::initializer_list<std::shared_ptr<FrameBuffer
 	if (auto rbo = dynamic_cast<RenderBuffer*>(m_depth_attachment.get()))
 		glNamedFramebufferRenderbuffer(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo->getId());
 	else if (auto tex = dynamic_cast<Texture*>(m_depth_attachment.get()))
-		glNamedFramebufferTextureEXT(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, tex->getId(), 0);
+		glNamedFramebufferTexture(m_fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, tex->getId(), 0);
 
 	assert(glCheckNamedFramebufferStatus(m_fbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 }

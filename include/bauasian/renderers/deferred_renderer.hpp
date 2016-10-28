@@ -30,7 +30,7 @@ public:
 private:
 	std::list<PostProcessor*> m_post_processors;
 
-	std::shared_ptr<RenderBuffer> m_depth_buffer;
+	std::shared_ptr<Texture> m_depth_buffer;
 	GeometryRenderer m_geometry_renderer;
 	LightAccumulator m_light_accumulator;
 
