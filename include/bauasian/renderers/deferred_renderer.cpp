@@ -12,7 +12,7 @@ DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 
 DeferredRenderer::~DeferredRenderer()
 {
-	for (auto& filter : m_filters)
+	for (auto& filter : m_post_processors)
 		delete filter;
 }
 
@@ -21,14 +21,14 @@ void DeferredRenderer::setSize(const glm::uvec2& size)
 	SizeMixin::setSize(size);
 	m_geometry_renderer.setSize(m_size);
 	m_light_accumulator.setSize(m_size);
-	for (auto& filter : m_filters)
+	for (auto& filter : m_post_processors)
 		filter->setSize(m_size);
 }
 
-void DeferredRenderer::addFilter(Filter* filter)
+void DeferredRenderer::addPostProcessor(PostProcessor* post_processor)
 {
-	filter->setSize(m_size);
-	m_filters.push_back(filter);
+	post_processor->setSize(m_size);
+	m_post_processors.push_back(post_processor);
 }
 
 void DeferredRenderer::clearScreen() const
@@ -55,13 +55,13 @@ void DeferredRenderer::render(Scene3D* scene) const
 	scene->renderSkyBox();
 	glDisable(GL_DEPTH_TEST);
 
-	if (m_filters.size())
+	if (m_post_processors.size())
 	{
 		m_hdr.process(m_light_accumulator.getTexture(), false);
 		const Texture* texture = m_hdr.getTexture();
-		for (auto it = m_filters.begin();; it++)
+		for (auto it = m_post_processors.begin();; it++)
 		{
-			bool last = *it == m_filters.back();
+			bool last = *it == m_post_processors.back();
 			(*it)->process(texture, last);
 			if (last)
 				break;

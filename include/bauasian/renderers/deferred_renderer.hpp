@@ -3,7 +3,6 @@
 
 #include "deferred_rendering/geometry_renderer.hpp"
 #include "deferred_rendering/light_accumulator.hpp"
-#include "bauasian/post_processors/filter.hpp"
 #include "bauasian/mixins/size_mixin.hpp"
 #include "bauasian/post_processors/hdr.hpp"
 
@@ -21,7 +20,7 @@ public:
 
 	virtual void setSize(const glm::uvec2& size) override;
 
-	void addFilter(Filter* filter);
+	void addPostProcessor(PostProcessor* post_processor);
 	void clearScreen() const;
 	void render(Scene3D* scene) const;
 	const float& getExposure() const;
@@ -29,7 +28,7 @@ public:
 
 private:
 	HDR m_hdr;
-	std::list<Filter*> m_filters;
+	std::list<PostProcessor*> m_post_processors;
 
 	std::shared_ptr<RenderBuffer> m_depth_buffer;
 	GeometryRenderer m_geometry_renderer;
