@@ -27,12 +27,13 @@ public:
 	void setExposure(const float& exposure);
 
 private:
-	HDR m_hdr;
 	std::list<PostProcessor*> m_post_processors;
 
 	std::shared_ptr<RenderBuffer> m_depth_buffer;
 	GeometryRenderer m_geometry_renderer;
 	LightAccumulator m_light_accumulator;
+
+	HDR* m_hdr;
 
 };
 

@@ -5,9 +5,10 @@ using bauasian::DeferredRenderer;
 
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
 		: SizeMixin(size), m_depth_buffer(std::make_shared<RenderBuffer>()),
-		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer)
+		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer),
+		  m_hdr(new HDR())
 {
-	m_hdr.setSize(size);
+	addPostProcessor(m_hdr);
 }
 
 DeferredRenderer::~DeferredRenderer()
@@ -55,29 +56,21 @@ void DeferredRenderer::render(Scene3D* scene) const
 	scene->renderSkyBox();
 	glDisable(GL_DEPTH_TEST);
 
-	if (m_post_processors.size())
+	const Texture* texture = m_light_accumulator.getTexture();
+	for (auto it = m_post_processors.begin(); it != --m_post_processors.end(); ++it)
 	{
-		m_hdr.process(m_light_accumulator.getTexture(), false);
-		const Texture* texture = m_hdr.getTexture();
-		for (auto it = m_post_processors.begin();; it++)
-		{
-			bool last = *it == m_post_processors.back();
-			(*it)->process(texture, last);
-			if (last)
-				break;
-			texture = (*it)->getTexture();
-		}
+		(*it)->process(texture, false);
+		texture = (*it)->getTexture();
 	}
-	else
-		m_hdr.process(m_light_accumulator.getTexture());
+	m_post_processors.back()->process(texture);
 }
 
 const float& DeferredRenderer::getExposure() const
 {
-	return m_hdr.getExposure();
+	return m_hdr->getExposure();
 }
 
 void DeferredRenderer::setExposure(const float& exposure)
 {
-	m_hdr.setExposure(exposure);
+	m_hdr->setExposure(exposure);
 }
