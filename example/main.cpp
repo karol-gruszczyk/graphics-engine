@@ -172,9 +172,9 @@ void draw(void)
 void setup()
 {
 	renderer = new DeferredRenderer(glm::uvec2(window_width, window_height));
-	renderer->addFilter(new FXAA());
-	renderer->addFilter(new HorizontalGaussianBlur());
-	renderer->addFilter(new VerticalGaussianBlur());
+	renderer->addPostProcessor(new FXAA());
+	renderer->addPostProcessor(new HorizontalGaussianBlur());
+	renderer->addPostProcessor(new VerticalGaussianBlur());
 
 	// 2D
 	rect = new Rectangle(glm::vec2(300.f, 300.f));
