@@ -1,5 +1,5 @@
 #include "point_light_renderer.hpp"
-#include "bauasian/shaders/buffers/scene_buffer.hpp"
+#include "bauasian/shaders/buffers/camera_buffer.hpp"
 #include "bauasian/shaders/buffers/point_light_buffer.hpp"
 
 
@@ -12,7 +12,7 @@ PointLightRenderer::PointLightRenderer(const glm::uvec2& size)
 {
 	m_location_point_light_projection_view_matrix = m_shader->getUniformLocation("projection_view_matrix");
 	m_location_point_light_screen_size = m_shader->getUniformLocation("screen_size");
-	SceneBuffer::getInstance().attachUniformBlock(m_shader.get(), "SceneBuffer");
+	CameraBuffer::getInstance().attachUniformBlock(m_shader.get(), "CameraBuffer");
 	PointLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "PointLightBuffer");
 	setSize(size);
 }

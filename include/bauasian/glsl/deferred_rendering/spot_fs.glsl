@@ -2,9 +2,11 @@
 #include "../common/lights.glsl"
 #include "../common/attenuation.glsl"
 
-layout (std140) uniform SceneBuffer
+layout (std140) uniform CameraBuffer
 {
     vec3 camera_position;
+	float near;
+	float far;
 };
 
 layout (std140) uniform SpotLightBuffer

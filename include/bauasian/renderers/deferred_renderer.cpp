@@ -4,9 +4,9 @@
 using bauasian::DeferredRenderer;
 
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
-		: SizeMixin(size), m_depth_buffer(std::make_shared<Texture>(GL_DEPTH24_STENCIL8, GL_DEPTH_COMPONENT, size)),
+		: SizeMixin(size), m_depth_buffer(std::make_shared<RenderBuffer>(size)),
 		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer),
-		  m_ssao(size), m_hdr(size), m_bloom(size)
+		  m_hdr(size), m_bloom(size)
 {}
 
 DeferredRenderer::~DeferredRenderer()
@@ -20,7 +20,6 @@ void DeferredRenderer::setSize(const glm::uvec2& size)
 	SizeMixin::setSize(size);
 	m_geometry_renderer.setSize(m_size);
 	m_light_accumulator.setSize(m_size);
-	m_ssao.setSize(size);
 	m_hdr.setSize(size);
 	m_bloom.setSize(size);
 	for (auto& filter : m_post_processors)

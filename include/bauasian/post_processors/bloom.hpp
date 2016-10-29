@@ -12,15 +12,14 @@ namespace bauasian
 	class Bloom;
 }
 
-class bauasian::Bloom : public PostProcessor
+class bauasian::Bloom
 {
 public:
 	Bloom(const glm::uvec2& size);
 
-	virtual void setSize(const glm::uvec2& size);
-	virtual void process(const Texture* const texture) const;
-	virtual void processToScreen(const Texture* const texture) const;
-	virtual const Texture* const getTexture() const;
+	void setSize(const glm::uvec2& size);
+	void process(const Texture* const texture) const;
+	const Texture* const getTexture() const;
 
 private:
 	glm::uvec2 m_size;

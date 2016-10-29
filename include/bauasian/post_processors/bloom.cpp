@@ -15,6 +15,7 @@ void Bloom::setSize(const glm::uvec2& size)
 {
 	m_size = size;
 	m_sampled_size = m_size / m_down_sample;
+	m_sampled_size_2 = m_size / m_down_sample_2;
 	m_intensity_filter.setSize(m_sampled_size);
 	m_horizontal_blur.setSize(m_sampled_size);
 	m_vertical_blur.setSize(m_sampled_size);
@@ -32,11 +33,6 @@ void Bloom::process(const Texture* const texture) const
 	m_horizontal_blur_2.process(m_vertical_blur.getTexture());
 	m_vertical_blur_2.process(m_horizontal_blur_2.getTexture());
 	glViewport(0, 0, m_size.x, m_size.y);
-}
-
-void Bloom::processToScreen(const Texture* const texture) const
-{
-	throw std::runtime_error("Bloom effect is designed to work with HDR");
 }
 
 const Texture* const Bloom::getTexture() const

@@ -1,6 +1,6 @@
 #include "geometry_renderer.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
-#include "bauasian/shaders/buffers/scene_buffer.hpp"
+#include "bauasian/shaders/buffers/camera_buffer.hpp"
 
 
 using bauasian::GeometryRenderer;
@@ -19,7 +19,7 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 
 	Material::setShaderLocations(m_shader.get());
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
-	SceneBuffer::getInstance().attachUniformBlock(m_shader.get(), "SceneBuffer");
+	CameraBuffer::getInstance().attachUniformBlock(m_shader.get(), "CameraBuffer");
 }
 
 void GeometryRenderer::setSize(const glm::uvec2& size)

@@ -2,9 +2,11 @@
 #include "../common/lights.glsl"
 #include "../common/parallax.glsl"
 
-layout(std140) uniform SceneBuffer
+layout(std140) uniform CameraBuffer
 {
     vec3 camera_position;
+	float near;
+	float far;
 };
 
 layout(std140) uniform Material
@@ -38,11 +40,6 @@ layout (location = 0) out vec3 out_albedo;
 layout (location = 1) out vec4 out_specular;
 layout (location = 2) out vec3 out_normal;
 layout (location = 3) out vec3 out_position;
-
-vec3 fragment_ambient_color;
-vec3 fragment_diffuse_color;
-vec3 fragment_specular_color;
-vec3 fragment_normal;
 
 
 void main()

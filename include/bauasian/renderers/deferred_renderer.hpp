@@ -4,7 +4,6 @@
 #include "deferred_rendering/geometry_renderer.hpp"
 #include "deferred_rendering/light_accumulator.hpp"
 #include "bauasian/mixins/size_mixin.hpp"
-#include "bauasian/post_processors/ssao.hpp"
 #include "bauasian/post_processors/hdr.hpp"
 #include "bauasian/post_processors/bloom.hpp"
 
@@ -31,11 +30,10 @@ public:
 private:
 	std::list<PostProcessor*> m_post_processors;
 
-	std::shared_ptr<Texture> m_depth_buffer;
+	std::shared_ptr<RenderBuffer> m_depth_buffer;
 	GeometryRenderer m_geometry_renderer;
 	LightAccumulator m_light_accumulator;
 
-	SSAO m_ssao;
 	HDR m_hdr;
 	Bloom m_bloom;
 

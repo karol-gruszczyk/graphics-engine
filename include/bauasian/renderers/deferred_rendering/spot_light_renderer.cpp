@@ -1,5 +1,5 @@
 #include "spot_light_renderer.hpp"
-#include "bauasian/shaders/buffers/scene_buffer.hpp"
+#include "bauasian/shaders/buffers/camera_buffer.hpp"
 #include "bauasian/shaders/buffers/spot_light_buffer.hpp"
 
 
@@ -12,7 +12,7 @@ SpotLightRenderer::SpotLightRenderer(const glm::uvec2& size)
 {
 	m_location_spot_light_screen_size = m_shader->getUniformLocation("screen_size");
 	m_location_spot_light_projection_view_matrix = m_shader->getUniformLocation("projection_view_matrix");
-	SceneBuffer::getInstance().attachUniformBlock(m_shader.get(), "SceneBuffer");
+	CameraBuffer::getInstance().attachUniformBlock(m_shader.get(), "CameraBuffer");
 	SpotLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "SpotLightBuffer");
 	setSize(size);
 }

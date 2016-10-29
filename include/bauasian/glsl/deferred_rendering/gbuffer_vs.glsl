@@ -7,9 +7,11 @@ layout(location = 2) in vec2 vertex_texture_coord;
 layout(location = 3) in vec3 vertex_tangent;
 layout(location = 4) in vec3 vertex_bi_tangent;
 
-layout(std140) uniform SceneBuffer
+layout(std140) uniform CameraBuffer
 {
     vec3 camera_position;
+	float near;
+	float far;
 };
 
 layout(std140) uniform ModelMatrices

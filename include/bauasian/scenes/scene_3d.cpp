@@ -1,7 +1,7 @@
 #include "scene_3d.hpp"
 #include "scene_loader.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
-#include "bauasian/shaders/buffers/scene_buffer.hpp"
+#include "bauasian/shaders/buffers/camera_buffer.hpp"
 
 
 using bauasian::Scene3D;
@@ -98,7 +98,7 @@ void Scene3D::render() const
 {
 	glEnable(GL_DEPTH_TEST);
 
-	SceneBuffer::getInstance().setCameraPosition(m_current_camera->getPosition());
+	CameraBuffer::getInstance().setCamera(*m_current_camera);
 	auto projection_view_matrix = m_current_camera->getProjectionViewMatrix();
 	for (auto& entity : m_entities)
 	{

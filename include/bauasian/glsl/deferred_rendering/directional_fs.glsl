@@ -2,9 +2,11 @@
 #include "../common/lights.glsl"
 #include "../utils/luminance.glsl"
 
-layout(std140) uniform SceneBuffer
+layout(std140) uniform CameraBuffer
 {
     vec3 camera_position;
+	float near;
+	float far;
 };
 
 uniform sampler2D albedo_buffer;
