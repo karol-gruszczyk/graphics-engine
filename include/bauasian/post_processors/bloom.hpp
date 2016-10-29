@@ -25,7 +25,7 @@ public:
 private:
 	glm::uvec2 m_size;
 	unsigned m_down_sample = 2;
-	unsigned m_down_sample_2 = 8;
+	unsigned m_down_sample_2 = 4;
 	glm::uvec2 m_sampled_size;
 	glm::uvec2 m_sampled_size_2;
 	IntensityFilter m_intensity_filter;
