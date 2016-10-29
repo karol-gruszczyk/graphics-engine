@@ -27,6 +27,12 @@ ImageLoader::ImageLoader(const boost::filesystem::path& path, const unsigned& nu
 		m_bitmap = FreeImage_ConvertTo32Bits(m_bitmap);
 		FreeImage_Unload(temp);
 	}
+	else if (FreeImage_GetBPP(m_bitmap) < 8)
+	{
+		FIBITMAP* temp = m_bitmap;
+		m_bitmap = FreeImage_ConvertTo8Bits(m_bitmap);
+		FreeImage_Unload(temp);
+	}
 	m_bits_per_pixel = FreeImage_GetBPP(m_bitmap);
 	if (num_rotate_sides)
 		m_bitmap = FreeImage_Rotate(m_bitmap, num_rotate_sides * 90);

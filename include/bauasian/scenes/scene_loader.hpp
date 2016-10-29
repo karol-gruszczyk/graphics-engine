@@ -36,7 +36,7 @@ private:
 	std::list<DirectionalLight*> m_directional_lights;
 	std::list<PointLight*> m_point_lights;
 	std::list<SpotLight*> m_spot_lights;
-	aiTextureType m_normal_map;
+	aiTextureType m_normal_map, m_height_map;
 
 	static inline const glm::vec3 to_vec(const aiVector3D& v);
 	static inline const glm::vec3 to_vec(const aiColor3D& v);

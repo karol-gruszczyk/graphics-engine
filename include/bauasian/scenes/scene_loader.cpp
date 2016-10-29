@@ -20,7 +20,8 @@ using bauasian::Texture;
 
 SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs,
                          const bool& map_bump_to_normal)
-		: m_normal_map(map_bump_to_normal ? aiTextureType_HEIGHT : aiTextureType_NORMALS)
+		: m_normal_map(map_bump_to_normal ? aiTextureType_HEIGHT : aiTextureType_NORMALS),
+		  m_height_map(map_bump_to_normal ? aiTextureType_NORMALS : aiTextureType_HEIGHT)
 {
 	using namespace std::chrono;
 
@@ -109,6 +110,9 @@ std::shared_ptr<Material> SceneLoader::processMaterial(const aiMaterial* materia
 
 	if (material->GetTexture(m_normal_map, 0, &tmp_string) == AI_SUCCESS)
 		result_mat->setNormalTexture(getTexture(tmp_string, false));
+
+	if (material->GetTexture(m_height_map, 0, &tmp_string) == AI_SUCCESS)
+		result_mat->setDisplacementTexture(getTexture(tmp_string, false));
 
 	if (material->GetTexture(aiTextureType_OPACITY, 0, &tmp_string) == AI_SUCCESS)
 		result_mat->setOpacityTexture(getTexture(tmp_string, false));

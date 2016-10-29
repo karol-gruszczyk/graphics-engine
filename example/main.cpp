@@ -180,7 +180,7 @@ void setup()
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
 
-//	scene3d->loadFromFile("scenes/sponza/sponza.obj", false, true);
+	scene3d->loadFromFile("scenes/sponza/sponza.obj", false, true);
 //	scene3d->loadFromFile("scenes/dragon.obj");
 
 	camera = new PerspectiveCamera(8.f / 6.f);
