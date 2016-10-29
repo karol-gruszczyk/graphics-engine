@@ -15,7 +15,7 @@ void SSAO::setSize(const glm::uvec2& size)
 
 void SSAO::process(const Texture* const texture) const
 {
-
+	m_ssao_filter.process(texture);
 }
 
 void SSAO::processToScreen(const Texture* const texture) const

@@ -14,6 +14,18 @@ HDR::HDR(const glm::uvec2& size, const float& exposure, const float& gamma)
 	setGamma(gamma);
 }
 
+void HDR::process(const Texture* const color_texture, const Texture* const bloom_texture) const
+{
+	bloom_texture->bind(1);
+	Filter::process(color_texture);
+}
+
+void HDR::processToScreen(const Texture* const color_texture, const Texture* const bloom_texture) const
+{
+	bloom_texture->bind(1);
+	Filter::processToScreen(color_texture);
+}
+
 const float& HDR::getExposure() const
 {
 	return m_exposure;

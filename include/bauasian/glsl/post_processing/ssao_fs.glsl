@@ -9,7 +9,7 @@ out vec3 out_color;
 
 void main()
 {
-    float depth = texture(screen_texture, texture_coord).r;
+    float depth = texture(depth_texture, texture_coord).r;
 
     out_color = vec3(depth);
 }

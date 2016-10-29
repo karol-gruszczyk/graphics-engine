@@ -14,6 +14,9 @@ class bauasian::HDR : public Filter
 public:
 	HDR(const glm::uvec2& size, const float& exposure = 1.f, const float& gamma = 2.2f);
 
+	void process(const Texture* const color_texture, const Texture* const bloom_texture) const;
+	void processToScreen(const Texture* const color_texture, const Texture* const bloom_texture) const;
+
 	const float& getExposure() const;
 	void setExposure(const float& exposure);
 	const float& getGamma() const;

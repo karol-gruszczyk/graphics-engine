@@ -30,15 +30,13 @@ void main()
     float fragment_shininess = 1.f / fragment_specular_buffer.a;
     vec3 fragment_normal = texture(normal_buffer, texture_coord).rgb;
     vec3 fragment_position = texture(position_buffer, texture_coord).rgb;
-    vec3 fragment_ambient = fragment_diffuse;
 
     vec3 view_dir = normalize(camera_position - fragment_position);
 	vec3 light_ray_direction = normalize(-dir_light.direction);
-	vec3 ambient = processAmbientLight(dir_light.ambient_color) * fragment_ambient;
 	vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, dir_light.diffuse_color) * fragment_diffuse;
 	vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, dir_light.specular_color,
 	                                     view_dir, fragment_shininess) * fragment_specular;
 
-    vec3 result_color = ambient + diffuse + specular;
+    vec3 result_color = diffuse + specular;
 	out_color = vec4(result_color, 1.f);
 }
