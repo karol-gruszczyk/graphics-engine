@@ -96,8 +96,6 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 
 void Scene3D::render() const
 {
-	glEnable(GL_DEPTH_TEST);
-
 	CameraBuffer::getInstance().setCamera(*m_current_camera);
 	auto projection_view_matrix = m_current_camera->getProjectionViewMatrix();
 	for (auto& entity : m_entities)

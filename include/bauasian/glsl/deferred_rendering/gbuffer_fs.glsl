@@ -1,6 +1,7 @@
 #version 330 core
 #include "../common/lights.glsl"
 #include "../common/parallax.glsl"
+#include "../utils/linearize_depth.glsl"
 
 layout(std140) uniform CameraBuffer
 {
@@ -39,7 +40,7 @@ in vec3 tangent_camera_position;
 layout (location = 0) out vec3 out_albedo;
 layout (location = 1) out vec4 out_specular;
 layout (location = 2) out vec3 out_normal;
-layout (location = 3) out vec3 out_position;
+layout (location = 3) out vec4 out_position;
 
 
 void main()
@@ -80,5 +81,5 @@ void main()
     	out_normal = normalize(tbn * (texture2D(normal_texture, corrected_texture_coord).rgb * 2.f - 1.f));
     else
         out_normal = normal;
-    out_position = position;
+    out_position = vec4(position, linearizeDepth(gl_FragCoord.z, near, far));
 }

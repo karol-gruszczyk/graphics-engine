@@ -11,7 +11,7 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 	m_albedo_buffer = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
 	m_specular_buffer = std::make_shared<Texture>(GL_RGBA, GL_RGBA, size);
 	m_normal_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
-	m_position_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
+	m_position_buffer = std::make_shared<Texture>(GL_RGBA16F, GL_RGBA, size);
 	m_frame_buffer = std::make_unique<FrameBuffer>(
 			std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
 					{ m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },

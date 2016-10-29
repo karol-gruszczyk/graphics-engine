@@ -44,6 +44,7 @@ void DeferredRenderer::render(Scene3D* scene) const
 	glStencilMask(0xFF);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	glEnable(GL_DEPTH_TEST);
 	m_geometry_renderer.render(scene);
 	glDisable(GL_DEPTH_TEST);
 
@@ -55,11 +56,10 @@ void DeferredRenderer::render(Scene3D* scene) const
 
 	m_bloom.process(m_light_accumulator.getTexture());
 
-	m_light_accumulator.getFrameBuffer().bind();
+	m_light_accumulator.getFrameBuffer().bind();  // render sky-box after bloom
 	glEnable(GL_DEPTH_TEST);
 	scene->renderSkyBox();
 	glDisable(GL_DEPTH_TEST);
-
 
 	if (m_post_processors.size())
 	{
