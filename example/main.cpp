@@ -14,22 +14,14 @@ unsigned window_width = 800;
 unsigned window_height = 600;
 
 int fps = 0;
-bool initialization_done = false;
 std::chrono::steady_clock::time_point last_frame_time;
 
 using namespace bauasian;
 
-Renderer2D* renderer2d;
 DeferredRenderer* renderer;
-PerspectiveCamera* camera;
-Scene2D* scene2d, * loading_scene;
+Camera* camera;
 Scene3D* scene3d;
-Rectangle* rect, * loading_rect;
-Plane* plane;
-Box* box;
-BasicMaterial* basic_tile_material;
-std::shared_ptr<Material> brick_material, pavement_material;
-Text* fps_text, * stat_text, * loading_text;
+Text* fps_text, * stat_text;
 SunSkyBox* sky_box;
 DirectionalLight* dir_light;
 
@@ -64,7 +56,7 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 	window_width = (unsigned) width;
 	window_height = (unsigned) height;
 	Bauasian::getInstance().setContextSize({ width, height });
-	camera->setAspectRatio((float) width / height);
+//	camera->setAspectRatio((float) width / height);
 	renderer->setSize({ width, height });
 }
 
@@ -150,11 +142,6 @@ void draw(void)
 	fps_text->setText(title);
 
 	updateCameraPosition();
-	rect->rotate(glm::radians(1.f));
-	auto scale = (sin(counter) + 2.f) / 3.f;
-	rect->setScale({ scale, scale });
-	box->setScale({ scale, scale, scale });
-	box->rotate({ 0.f, glm::radians(1.f), 0.f });
 
 	glm::vec3 light_direction(glm::cos(counter), sin(counter), glm::cos(counter));
 	dir_light->setDirection(light_direction);
@@ -163,7 +150,6 @@ void draw(void)
 	renderer->clearScreen();
 	renderer->render(scene3d);
 
-	renderer2d->render(scene2d);
 	fps_text->render();
 	stat_text->render();
 	idle();
@@ -174,42 +160,6 @@ void setup()
 {
 	renderer = new DeferredRenderer(glm::uvec2(window_width, window_height));
 	renderer->addPostProcessor(new FXAA(renderer->getSize()));
-
-	// 2D
-	rect = new Rectangle(glm::vec2(300.f, 300.f));
-	rect->setPosition({ 400.f, 300.f });
-	rect->setPivot({ 150.f, 150.f });
-	basic_tile_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/tile.jpg"));
-	rect->setMaterial(basic_tile_material);
-	Circle* circle = new Circle(100.f);
-	circle->setPosition({ 400.f, 300.f });
-	circle->setMaterial(basic_tile_material);
-	scene2d = new Scene2D();
-//	scene2d->addEntity(rect);
-//	scene2d->addEntity(circle);
-
-	// 3D
-	brick_material = std::make_shared<Material>();
-	brick_material->setDiffuse(TextureFactory::getInstance().getTexture("res/bricks-diff.jpg"));
-	brick_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/bricks-normal.jpg", false));
-	brick_material->setDisplacementTexture(TextureFactory::getInstance().getTexture("res/bricks-disp.jpg", false));
-	brick_material->setShininess(12);
-
-	pavement_material = std::make_shared<Material>();
-	pavement_material->setDiffuse(TextureFactory::getInstance().getTexture("res/brick-diffuse.png"));
-	pavement_material->setSpecular(TextureFactory::getInstance().getTexture("res/brick-specular.png", false));
-	pavement_material->setNormalTexture(TextureFactory::getInstance().getTexture("res/brick-normal.png", false));
-	pavement_material->setShininess(32);
-	box = new Box(glm::vec3(5.f, 5.f, 5.f));
-	box->setPosition({ 20.f, 2.5f, 10.f });
-	box->setPivot({ 2.5f, 2.5f, 2.5f });
-	box->setMaterial(brick_material);
-	plane = new Plane({ 200.f, 200.f }, 100);
-	plane->setPosition({ -100.f, 0.f, -100.f });
-	plane->setMaterial(pavement_material);
-	Sphere* sphere = new Sphere(10.f, 18);
-	sphere->setPosition({ 0.f, 15.f, 0.f });
-	sphere->setMaterial(pavement_material);
 
 	dir_light = new DirectionalLight(glm::vec3(-1.f, -0.3f, -1.f));
 	PointLight* point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
@@ -226,88 +176,41 @@ void setup()
 	sky_box = new SunSkyBox(dir_light->getDirection());
 
 	scene3d = new Scene3D(sky_box);
-	scene3d->addEntity(box);
-	scene3d->addEntity(plane);
-	scene3d->addEntity(sphere);
 	scene3d->addLight(dir_light);
 	scene3d->addLight(point_light);
 	scene3d->addLight(spot_light);
 
-	try
-	{
-		//scene3d->loadFromFile("res/sibenik/sibenik.obj");
-		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_0.obj");
-		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_1.obj");
-		//scene3d->loadFromFile("res/Damaged Downtown/Downtown_Damage_2.obj");
-		//scene3d->loadFromFile("res/sponza/sponza.3ds");
-		scene3d->loadFromFile("res/crytek/sponza2.obj", false, true);
-		//scene3d->loadFromFile("res/pabellon/pavillon_barcelone_v1.2.blend");
-		//scene3d->loadFromFile("res/Medieval/Medieval_City.obj", false);
-		//scene3d->loadFromFile("res/aerial_landscape_v1.0.blend", true);
-	}
-	catch (FileNotFoundException& e)
-	{
-		Bauasian::getInstance().logError(e.what());
-	}
+//	scene3d->loadFromFile("scenes/sponza/sponza.obj", false, true);
+//	scene3d->loadFromFile("scenes/dragon.obj");
+
 	camera = new PerspectiveCamera(8.f / 6.f);
-	camera->setFar(10000.f);
 	camera->lookAt(glm::vec3(25.f, 25.f, 25.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	scene3d->addCamera(camera);
 
-	fps_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14));
+	camera = scene3d->getCamera();
+	camera->setFar(10000.f);
+
+	fps_text = new Text(FontFactory::getInstance().getFont("scenes/liberation.ttf", 14));
 	fps_text->setPosition({ 0, 14 });
 	fps_text->setTextColor({ 1.f, 1.f, 0.f });
 	auto text = "vertices: " + std::to_string(scene3d->getNumVertices()) +
 				"\nfaces: " + std::to_string(scene3d->getNumFaces()) +
 				"\nentities: " + std::to_string(scene3d->getNumMeshes());
-	stat_text = new Text(FontFactory::getInstance().getFont("res/comic_sans.ttf", 14), text);
+	stat_text = new Text(FontFactory::getInstance().getFont("scenes/liberation.ttf", 14), text);
 	stat_text->setPosition({ 0, 32 });
 	stat_text->setTextColor({ 1.f, 1.f, 1.f });
 
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetCursorPosCallback(window, mouse_pos_callback);
-	initialization_done = true;
 }
 
 void cleanup()
 {
-	delete renderer2d;
 	delete renderer;
-	delete scene2d;
 	delete scene3d;
 	delete fps_text;
 	delete stat_text;
-	delete loading_scene;
 	delete sky_box;
-}
-
-void setup_loading()
-{
-	renderer2d = new Renderer2D();
-	loading_rect = new Rectangle(glm::vec2(150.f, 150.f));
-	loading_rect->setPosition({ 400.f, 300.f });
-	loading_rect->setPivot({ 75.f, 75.f });
-
-	auto loading_material = new BasicMaterial(TextureFactory::getInstance().getTexture("res/loading.png", false));
-	loading_rect->setMaterial(loading_material);
-	loading_scene = new Scene2D();
-	loading_scene->addEntity(loading_rect);
-
-	loading_text = new Text(FontFactory::getInstance().getFont("res/unispace bd.ttf", 25), "Loading scene ...");
-	loading_text->setPosition({ 300, 420 });
-	loading_text->setTextColor({ 1.f, 1.f, 1.f });
-}
-
-void draw_loading()
-{
-	glfwPollEvents();
-	calc_fps();
-	renderer2d->clearScreen();
-	renderer2d->render(loading_scene);
-	loading_rect->rotate(glm::radians(5.f));
-	loading_text->render();
-	idle();
-	glfwSwapBuffers(window);
 }
 
 int main(int argc, char** argv)
@@ -346,11 +249,7 @@ int main(int argc, char** argv)
 	//Bauasian::getInstance().initialize();
 	Bauasian::getInstance().setContextSize({ window_width, window_height });
 
-	setup_loading();
 	setup();
-
-	while (!glfwWindowShouldClose(window) && !initialization_done)
-		draw_loading();
 
 	while (!glfwWindowShouldClose(window))
 		draw();
