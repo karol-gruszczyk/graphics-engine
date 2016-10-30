@@ -1,33 +1,11 @@
 #include "material.hpp"
-
-#define AMBIENT_TEXTURE 0
-#define DIFFUSE_TEXTURE 1
-#define SPECULAR_TEXTURE 2
-#define NORMAL_TEXTURE 3
-#define DISPLACEMENT_TEXTURE 4
-#define OPACITY_TEXTURE 5
+#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::Material;
 using bauasian::ShaderProgram;
 using bauasian::Texture;
 using bauasian::UniformBuffer;
-
-void Material::setShaderLocations(ShaderProgram* shader)
-{
-	const auto& diffuse_texture = shader->getUniformLocation("diffuse_texture");
-	const auto& specular_texture = shader->getUniformLocation("specular_texture");
-	const auto& normal_texture = shader->getUniformLocation("normal_texture");
-	const auto& displacement_texture = shader->getUniformLocation("displacement_texture");
-	const auto& opacity_texture = shader->getUniformLocation("opacity_texture");
-	shader->setUniform(diffuse_texture, DIFFUSE_TEXTURE);
-	shader->setUniform(specular_texture, SPECULAR_TEXTURE);
-	shader->setUniform(normal_texture, NORMAL_TEXTURE);
-	shader->setUniform(displacement_texture, DISPLACEMENT_TEXTURE);
-	shader->setUniform(opacity_texture, OPACITY_TEXTURE);
-
-	MaterialBuffer::getInstance().attachUniformBlock(shader, "Material");
-}
 
 void Material::setDiffuse(const glm::vec3& color)
 {
@@ -77,14 +55,14 @@ void Material::setOpacityTexture(Texture* texture)
 void Material::bind() const
 {
 	if (m_material.use_diffuse_texture)
-		m_diffuse_texture->bind(DIFFUSE_TEXTURE);
+		m_diffuse_texture->bind(MATERIAL_DIFFUSE_BINDING);
 	if (m_material.use_specular_texture)
-		m_specular_texture->bind(SPECULAR_TEXTURE);
+		m_specular_texture->bind(MATERIAL_SPECULAR_BINDING);
 	if (m_material.use_normal_texture)
-		m_normal_texture->bind(NORMAL_TEXTURE);
+		m_normal_texture->bind(MATERIAL_NORMAL_BINDING);
 	if (m_material.use_displacement_texture)
-		m_displacement_texture->bind(DISPLACEMENT_TEXTURE);
+		m_displacement_texture->bind(MATERIAL_DISPLACEMENT_BINDING);
 	if (m_material.use_opacity_texture)
-		m_opacity_texture->bind(OPACITY_TEXTURE);
+		m_opacity_texture->bind(MATERIAL_OPACITY_BINDING);
 	MaterialBuffer::getInstance().setData(&m_material);
 }

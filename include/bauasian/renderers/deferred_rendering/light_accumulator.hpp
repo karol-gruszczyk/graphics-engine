@@ -33,8 +33,6 @@ private:
 	PointLightRenderer m_point_light_renderer;
 	SpotLightRenderer m_spot_light_renderer;
 
-	void initializeTextureLocations(const ShaderProgram& shader) const;
-
 };
 
 #endif /* BAUASIAN_LIGHT_RENDERER_HPP */

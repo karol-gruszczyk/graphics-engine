@@ -1,4 +1,5 @@
-#version 330 core
+#version 420 core
+#include "../bindings.glsl"
 #include "../common/lights.glsl"
 #include "../common/parallax.glsl"
 #include "../utils/linearize_depth.glsl"
@@ -24,11 +25,11 @@ layout(std140) uniform Material
 	float shininess;
 } material;
 
-uniform sampler2D diffuse_texture;
-uniform sampler2D specular_texture;
-uniform sampler2D normal_texture;
-uniform sampler2D displacement_texture;
-uniform sampler2D opacity_texture;
+layout (binding = MATERIAL_DIFFUSE_BINDING) uniform sampler2D diffuse_texture;
+layout (binding = MATERIAL_SPECULAR_BINDING) uniform sampler2D specular_texture;
+layout (binding = MATERIAL_NORMAL_BINDING) uniform sampler2D normal_texture;
+layout (binding = MATERIAL_DISPLACEMENT_BINDING) uniform sampler2D displacement_texture;
+layout (binding = MATERIAL_OPACITY_BINDING) uniform sampler2D opacity_texture;
 
 in vec3 position;
 in vec2 texture_coord;
@@ -37,10 +38,10 @@ in mat3 tbn;
 in vec3 tangent_position;
 in vec3 tangent_camera_position;
 
-layout (location = 0) out vec3 out_albedo;
-layout (location = 1) out vec4 out_specular;
-layout (location = 2) out vec3 out_normal;
-layout (location = 3) out vec4 out_position;
+layout (location = DEFERRED_ALBEDO_BINDING) out vec3 out_albedo;
+layout (location = DEFERRED_SPECULAR_BINDING) out vec4 out_specular;
+layout (location = DEFERRED_NORMAL_BINDING) out vec3 out_normal;
+layout (location = DEFERRED_POSITION_BINDING) out vec4 out_position;
 
 
 void main()

@@ -1,6 +1,7 @@
 #include "geometry_renderer.hpp"
 #include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/camera_buffer.hpp"
+#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::GeometryRenderer;
@@ -17,7 +18,7 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 					{ m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
 			depth_buffer, size);
 
-	Material::setShaderLocations(m_shader.get());
+	MaterialBuffer::getInstance().attachUniformBlock(m_shader.get(), "Material");
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
 	CameraBuffer::getInstance().attachUniformBlock(m_shader.get(), "CameraBuffer");
 }
@@ -38,8 +39,8 @@ void GeometryRenderer::render(const Scene3D* const scene) const
 
 void GeometryRenderer::bindTextures() const
 {
-	m_albedo_buffer->bind(0);
-	m_specular_buffer->bind(1);
-	m_normal_buffer->bind(2);
-	m_position_buffer->bind(3);
+	m_albedo_buffer->bind(DEFERRED_ALBEDO_BINDING);
+	m_specular_buffer->bind(DEFERRED_SPECULAR_BINDING);
+	m_normal_buffer->bind(DEFERRED_NORMAL_BINDING);
+	m_position_buffer->bind(DEFERRED_POSITION_BINDING);
 }

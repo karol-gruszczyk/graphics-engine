@@ -1,4 +1,5 @@
-#version 330 core
+#version 420 core
+#include "../bindings.glsl"
 #include "../common/lights.glsl"
 #include "../utils/luminance.glsl"
 
@@ -9,10 +10,10 @@ layout(std140) uniform CameraBuffer
 	float far;
 };
 
-uniform sampler2D albedo_buffer;
-uniform sampler2D specular_buffer;
-uniform sampler2D normal_buffer;
-uniform sampler2D position_buffer;
+layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
+layout (binding = DEFERRED_SPECULAR_BINDING) uniform sampler2D specular_buffer;
+layout (binding = DEFERRED_NORMAL_BINDING) uniform sampler2D normal_buffer;
+layout (binding = DEFERRED_POSITION_BINDING) uniform sampler2D position_buffer;
 
 layout (std140) uniform DirectionalLightBuffer
 {

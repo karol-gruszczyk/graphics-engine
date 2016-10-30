@@ -16,8 +16,6 @@ namespace bauasian
 class bauasian::Material : public NameMixin
 {
 public:
-	static void setShaderLocations(ShaderProgram* shader);
-
 	void setDiffuse(const glm::vec3& color);
 	void setDiffuse(Texture* texture);
 	void setSpecular(const glm::vec3& color);
