@@ -3,4 +3,4 @@
 	url = https://gist.github.com/f1d6380a56f756cfd344b0d3204c9150.git
 [submodule "bin/scenes"]
 	path = bin/scenes
-	url = git@github.com:karol-gruszczyk/3d-scenes.git
+	url = https://github.com/karol-gruszczyk/3d-scenes.git

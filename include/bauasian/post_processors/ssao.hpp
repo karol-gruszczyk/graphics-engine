@@ -1,7 +1,10 @@
 #ifndef BAUASIAN_SSAO_HPP
 #define BAUASIAN_SSAO_HPP
 
-#include "ssao_filter.hpp"
+#include "bauasian/mixins/shader_mixin.hpp"
+#include "bauasian/renderers/frame_buffer.hpp"
+#include "bauasian/materials/texture.hpp"
+#include "bauasian/primitives/screen_quad.hpp"
 
 
 namespace bauasian
@@ -9,18 +12,19 @@ namespace bauasian
 	class SSAO;
 }
 
-class bauasian::SSAO : public PostProcessor
+class bauasian::SSAO : public ShaderMixin
 {
 public:
 	SSAO(const glm::uvec2& size);
 
-	virtual void setSize(const glm::uvec2& size);
-	virtual void process(const Texture* const texture) const;
-	virtual void processToScreen(const Texture* const texture) const;
-	virtual const Texture* const getTexture() const;
+	void setSize(const glm::uvec2& size);
+	void process(const FrameBuffer* const frame_buffer) const;
 
 private:
-	SSAOFilter m_ssao_filter;
+	ScreenQuad m_screen_quad;
+	std::unique_ptr<Texture> m_noise_texture;
+	std::shared_ptr<Texture> m_ssao_texture;
+	std::unique_ptr<FrameBuffer> m_frame_buffer;
 
 };
 
