@@ -118,18 +118,7 @@ const glm::mat4& Camera::getProjectionMatrix() const
 	return m_projection_matrix;
 }
 
-const glm::mat4& Camera::getProjectionViewMatrix() const
-{
-	return m_projection_view_matrix;
-}
-
 void Camera::setViewMatrix(const glm::mat4& view_matrix)
 {
 	m_view_matrix = view_matrix;
-	updateProjectionViewMatrix();
-}
-
-void Camera::updateProjectionViewMatrix()
-{
-	m_projection_view_matrix = m_projection_matrix * m_view_matrix;
 }

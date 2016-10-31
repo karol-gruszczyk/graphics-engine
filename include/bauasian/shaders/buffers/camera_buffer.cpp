@@ -12,7 +12,7 @@ CameraBuffer& CameraBuffer::getInstance()
 }
 
 CameraBuffer::CameraBuffer()
-		: UniformBuffer(sizeof(GlslSceneBuffer), UniformBuffer::SCENE)
+		: UniformBuffer(sizeof(GlslSceneBuffer), UniformBuffer::CAMERA)
 {}
 
 void CameraBuffer::setCamera(const Camera& camera) const

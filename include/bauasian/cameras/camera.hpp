@@ -53,10 +53,8 @@ protected:
 
 	glm::mat4 m_view_matrix;
 	glm::mat4 m_projection_matrix;
-	glm::mat4 m_projection_view_matrix;
 
 	void setViewMatrix(const glm::mat4& view_matrix);
-	void updateProjectionViewMatrix();
 	virtual void updateProjectionMatrix() = 0;
 
 };

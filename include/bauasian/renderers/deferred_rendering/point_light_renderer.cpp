@@ -26,7 +26,7 @@ void PointLightRenderer::render(const Scene3D* const scene) const
 {
 	m_shader->use();
 	m_shader->setUniform(m_location_point_light_projection_view_matrix,
-						 scene->getCamera()->getProjectionViewMatrix());
+						 scene->getCamera()->getProjectionMatrix() * scene->getCamera()->getViewMatrix());
 	for (const auto& light : scene->getPointLights())
 	{
 		PointLightBuffer::getInstance().setData(light);

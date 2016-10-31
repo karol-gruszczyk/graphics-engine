@@ -17,7 +17,7 @@
 #define DEFERRED_SSAO_BINDING 4
 
 // post-processing passes
-#define FILTER_COLOR_TEXTURE
-#define FILTER_BLOOM_TEXTURE
+#define FILTER_COLOR_TEXTURE 0
+#define FILTER_BLOOM_TEXTURE 1
 
 #endif /* LOCATIONS_GLSL */

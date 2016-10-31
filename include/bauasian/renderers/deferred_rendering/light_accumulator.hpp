@@ -1,12 +1,11 @@
 #ifndef BAUASIAN_LIGHT_RENDERER_HPP
 #define BAUASIAN_LIGHT_RENDERER_HPP
 
-#include "bauasian/renderers/frame_buffer.hpp"
 #include "bauasian/materials/texture.hpp"
 #include "directional_light_renderer.hpp"
 #include "point_light_renderer.hpp"
 #include "spot_light_renderer.hpp"
-#include "bauasian/post_processors/ssao.hpp"
+#include "ambient_light_renderer.hpp"
 
 
 namespace bauasian
@@ -28,7 +27,7 @@ private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
 	std::shared_ptr<Texture> m_accumulation_buffer;
 
-	SSAO m_ssao;
+	AmbientLightRenderer m_ambient_renderer;
 	DirectionalLightRenderer m_directional_light_renderer;
 	PointLightRenderer m_point_light_renderer;
 	SpotLightRenderer m_spot_light_renderer;

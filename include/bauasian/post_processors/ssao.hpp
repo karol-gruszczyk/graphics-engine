@@ -18,13 +18,19 @@ public:
 	SSAO(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size);
-	void process(const FrameBuffer* const frame_buffer) const;
+	void process() const;
+	const Texture* const getTexture() const;
 
 private:
 	ScreenQuad m_screen_quad;
 	std::unique_ptr<Texture> m_noise_texture;
 	std::shared_ptr<Texture> m_ssao_texture;
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
+
+	GLint m_location_noise_scale;
+
+	void generateKernel();
+	void generateNoiseTexture();
 
 };
 

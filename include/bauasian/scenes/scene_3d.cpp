@@ -97,13 +97,12 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 void Scene3D::render() const
 {
 	CameraBuffer::getInstance().setCamera(*m_current_camera);
-	auto projection_view_matrix = m_current_camera->getProjectionViewMatrix();
+	ModelMatricesBuffer::getInstance().setProjectionMatrix(m_current_camera->getProjectionMatrix());
+	ModelMatricesBuffer::getInstance().setViewMatrix(m_current_camera->getViewMatrix());
 	for (auto& entity : m_entities)
 	{
-		const auto& buffer = ModelMatricesBuffer::getInstance();
-		buffer.setProjectionViewModelMatrix(projection_view_matrix * entity->getModelMatrix());
-		buffer.setModelMatrix(entity->getModelMatrix());
-		buffer.setNormalMatrix(entity->getNormalMatrix());
+		ModelMatricesBuffer::getInstance().setModelMatrix(entity->getModelMatrix());
+		ModelMatricesBuffer::getInstance().setNormalMatrix(entity->getNormalMatrix());
 		entity->render();
 	}
 }

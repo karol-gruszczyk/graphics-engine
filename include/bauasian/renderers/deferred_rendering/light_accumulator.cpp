@@ -6,7 +6,7 @@ using bauasian::Texture;
 using bauasian::FrameBuffer;
 
 LightAccumulator::LightAccumulator(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
-		: m_ssao(size), m_point_light_renderer(size), m_spot_light_renderer(size)
+		: m_ambient_renderer(size), m_point_light_renderer(size), m_spot_light_renderer(size)
 {
 	m_accumulation_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
 	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
@@ -23,7 +23,7 @@ void LightAccumulator::setSize(const glm::uvec2& size)
 
 void LightAccumulator::render(const Scene3D* const scene) const
 {
-	m_ssao.process(m_frame_buffer.get());
+	m_ambient_renderer.process(m_frame_buffer.get());
 
 	glEnable(GL_BLEND);  // setup additive blending
 	glBlendEquation(GL_FUNC_ADD);

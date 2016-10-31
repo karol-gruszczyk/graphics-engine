@@ -18,9 +18,11 @@ namespace bauasian
 class bauasian::Texture final : public TextureInterface, public FrameBufferAttachment
 {
 public:
-	Texture(const glm::uvec2& size, const GLubyte* const pixels, const GLint& internal_format,
-	        const GLenum& format, const bool& generate_mipmaps, std::string image_name = "");
-	Texture(const GLint& internal_format, const GLenum& format, const glm::uvec2& size);
+	Texture(const glm::uvec2& size, const void* const pixels, const GLint& internal_format,
+	        const GLenum& format, const bool& generate_mipmaps, std::string image_name = "",
+			const GLenum& type = GL_UNSIGNED_BYTE);
+	Texture(const GLint& internal_format, const GLenum& format, const glm::uvec2& size,
+			const GLenum& type = GL_UNSIGNED_BYTE);
 
 	void save(const boost::filesystem::path& path);
 

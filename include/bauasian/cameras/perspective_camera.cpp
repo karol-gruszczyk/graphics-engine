@@ -37,5 +37,4 @@ void PerspectiveCamera::setFieldOfView(const float& field_of_view)
 void PerspectiveCamera::updateProjectionMatrix()
 {
 	m_projection_matrix = glm::perspective(m_field_of_view, m_aspect_ratio, m_near, m_far);
-	updateProjectionViewMatrix();
 }

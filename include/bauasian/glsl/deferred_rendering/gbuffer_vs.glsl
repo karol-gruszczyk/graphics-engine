@@ -16,7 +16,8 @@ layout(std140) uniform CameraBuffer
 
 layout(std140) uniform ModelMatrices
 {
-    mat4 projection_view_model_matrix;
+    mat4 projection_matrix;
+    mat4 view_matrix;
     mat4 model_matrix;
     mat4 normal_matrix;
 };
@@ -33,7 +34,7 @@ void main()
 	position = vec3(model_matrix * vec4(vertex_position, 1.f));
 	texture_coord = vertex_texture_coord;
 	normal = normalize(mat3(normal_matrix) * vertex_normal);
-	gl_Position = projection_view_model_matrix * vec4(vertex_position, 1.f);
+	gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertex_position, 1.f);
 
     tbn = mat3(normal_matrix) * mat3(vertex_tangent, vertex_bi_tangent, vertex_normal);
 

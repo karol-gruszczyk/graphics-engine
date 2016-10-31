@@ -11,19 +11,24 @@ ModelMatricesBuffer& ModelMatricesBuffer::getInstance()
 	return instance;
 }
 
-void ModelMatricesBuffer::setProjectionViewModelMatrix(const glm::mat4& matrix) const
+void ModelMatricesBuffer::setProjectionMatrix(const glm::mat4& matrix) const
 {
 	setSubData(0, sizeof(glm::mat4), glm::value_ptr(matrix));
 }
 
-void ModelMatricesBuffer::setModelMatrix(const glm::mat4& matrix) const
+void ModelMatricesBuffer::setViewMatrix(const glm::mat4& matrix) const
 {
 	setSubData(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
 }
 
-void ModelMatricesBuffer::setNormalMatrix(const glm::mat4& matrix) const
+void ModelMatricesBuffer::setModelMatrix(const glm::mat4& matrix) const
 {
 	setSubData(2 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
+}
+
+void ModelMatricesBuffer::setNormalMatrix(const glm::mat4& matrix) const
+{
+	setSubData(3 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
 }
 
 ModelMatricesBuffer::ModelMatricesBuffer()
