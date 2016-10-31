@@ -70,6 +70,12 @@ const GLuint& Texture::getId() const
 	return m_texture_id;
 }
 
+void Texture::setFiltering(const GLenum& filtering) const
+{
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER, filtering);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, filtering);
+}
+
 void Texture::save(const boost::filesystem::path& path)
 {
 	auto fif = FreeImage_GetFIFFromFilename(path.filename().c_str());

@@ -73,6 +73,7 @@ void SSAO::generateNoiseTexture()
 		);
 	}
 	m_noise_texture = std::make_unique<Texture>(glm::uvec2(4, 4), noise.data(), GL_RGB16F, GL_RGB, false, "", GL_FLOAT);
+	m_noise_texture->setFiltering(GL_NEAREST);
 }
 const Texture* const SSAO::getTexture() const
 {
