@@ -6,13 +6,14 @@
 using bauasian::SSAO;
 using bauasian::Texture;
 
-SSAO::SSAO(const glm::uvec2& size)
-		: ShaderMixin("post_processing/basic_vs.glsl", "post_processing/ssao_fs.glsl")
+SSAO::SSAO(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
+		: ShaderMixin("post_processing/basic_vs.glsl", "post_processing/ssao_fs.glsl"),
+		  m_ssao_blur(size, depth_buffer)
 {
-	m_ssao_texture = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
+	m_ssao_texture = std::make_shared<Texture>(GL_RED, GL_RED, size);
 	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
 														   { m_ssao_texture },
-												   std::make_shared<RenderBuffer>(size), size);
+												   depth_buffer, size);
 	m_location_noise_scale = m_shader->getUniformLocation("noise_scale");
 	m_shader->setUniform(m_location_noise_scale, glm::vec2(size) / 4.f);
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
@@ -22,18 +23,21 @@ SSAO::SSAO(const glm::uvec2& size)
 
 void SSAO::setSize(const glm::uvec2& size)
 {
+	m_ssao_blur.setSize(size);
 	m_frame_buffer->setSize(size);
 	m_shader->setUniform(m_location_noise_scale, glm::vec2(size) / 4.f);
 }
 
 void SSAO::process() const
 {
-//	m_frame_buffer->bind();
-//	glClear(GL_COLOR_BUFFER_BIT);
+	m_frame_buffer->bind();
+	glClear(GL_COLOR_BUFFER_BIT);
 
 	m_shader->use();
 	m_noise_texture->bind(DEFERRED_SSAO_NOISE_BINDING);
 	m_screen_quad.render();
+	m_ssao_texture->bind(DEFERRED_SSAO_BINDING);
+	m_ssao_blur.process();
 }
 
 void SSAO::generateKernel()
@@ -77,5 +81,5 @@ void SSAO::generateNoiseTexture()
 }
 const Texture* const SSAO::getTexture() const
 {
-	return m_ssao_texture.get();
+	return m_ssao_blur.getTexture();
 }

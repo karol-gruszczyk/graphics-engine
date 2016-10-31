@@ -15,7 +15,7 @@ namespace bauasian
 class bauasian::AmbientLightRenderer : ShaderMixin
 {
 public:
-	AmbientLightRenderer(const glm::uvec2& size);
+	AmbientLightRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
 
 	void setSize(const glm::uvec2& size);
 	void process(const FrameBuffer* const frame_buffer) const;

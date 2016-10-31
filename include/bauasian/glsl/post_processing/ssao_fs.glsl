@@ -1,6 +1,5 @@
 #version 420 core
 #include "../bindings.glsl"
-#include "../utils/linearize_depth.glsl"
 
 #define MAX_KERNEL_SIZE 64
 
@@ -23,7 +22,7 @@ layout(std140) uniform ModelMatrices
 
 in vec2 texture_coord;
 
-layout (location = 0) out vec3 out_color;
+layout (location = 0) out float out_color;
 
 
 void main()
@@ -53,5 +52,5 @@ void main()
         float range_check = smoothstep(0.f, 1.f, ssao_radius / abs(position.z - sample_depth));
         occlusion += (sample_depth >= sample_position.z ? 1.f : 0.f) * range_check;
     }
-    out_color = vec3(1.f - occlusion / kernel_size);
+    out_color = 1.f - occlusion / kernel_size;
 }
