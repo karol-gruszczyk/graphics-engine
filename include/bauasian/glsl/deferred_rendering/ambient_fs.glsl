@@ -4,7 +4,7 @@
 layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
 layout (binding = DEFERRED_SSAO_BINDING) uniform sampler2D ssao_texture;
 
-uniform float occlusion_factor = 0.3f;
+uniform float occlusion_factor = 0.1f;
 
 in vec2 texture_coord;
 

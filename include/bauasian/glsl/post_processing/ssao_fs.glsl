@@ -8,7 +8,7 @@ layout (binding = DEFERRED_POSITION_BINDING) uniform sampler2D position_buffer;
 layout (binding = DEFERRED_SSAO_NOISE_BINDING) uniform sampler2D noise_buffer;
 
 uniform vec3 kernel[MAX_KERNEL_SIZE];
-uniform int kernel_size = 8;
+uniform int kernel_size = 16;
 uniform float ssao_radius = 100.f;
 uniform vec2 noise_scale;
 
@@ -52,5 +52,6 @@ void main()
         float range_check = smoothstep(0.f, 1.f, ssao_radius / abs(position.z - sample_depth));
         occlusion += (sample_depth >= sample_position.z ? 1.f : 0.f) * range_check;
     }
-    out_color = 1.f - occlusion / kernel_size;
+    occlusion = 1.f - occlusion / kernel_size;
+    out_color = occlusion;
 }

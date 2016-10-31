@@ -15,15 +15,12 @@ layout (location = 0) out float out_color;
 void main()
 {
     float result = 0.f;
-    vec2 offset = texture_coord - pixel_size;
     for (int i = 0; i < BLUR_SIZE; ++i)
     {
         for (int j = 0; j < BLUR_SIZE; ++j)
         {
-            result += texture(ssao_texture, offset).r;
-            offset.x += pixel_size.x;
+            result += texture(ssao_texture, texture_coord + (vec2(float(i), float(j)) - 2.f) * pixel_size).r;
         }
-        offset = vec2(texture_coord.x - pixel_size.x, offset.y + pixel_size.y);
     }
     out_color = result / (BLUR_SIZE * BLUR_SIZE);
 }
