@@ -19,7 +19,7 @@ public:
 	void render(const Scene3D* const scene) const;
 
 private:
-	std::unique_ptr<ScreenQuad> m_light_volume;
+	ScreenQuad m_light_volume;
 
 };
 

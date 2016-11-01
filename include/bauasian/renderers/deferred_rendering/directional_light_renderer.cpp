@@ -7,8 +7,7 @@ using bauasian::DirectionalLightRenderer;
 using bauasian::ShaderProgram;
 
 DirectionalLightRenderer::DirectionalLightRenderer()
-		: ShaderMixin("deferred_rendering/directional_vs.glsl", "deferred_rendering/directional_fs.glsl"),
-		  m_light_volume(std::make_unique<ScreenQuad>())
+		: ShaderMixin("deferred_rendering/directional_vs.glsl", "deferred_rendering/directional_fs.glsl")
 {
 	CameraBuffer::getInstance().attachUniformBlock(m_shader.get(), "CameraBuffer");
 	DirectionalLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "DirectionalLightBuffer");
@@ -20,6 +19,6 @@ void DirectionalLightRenderer::render(const Scene3D* const scene) const
 	for (const auto& light : scene->getDirectionalLights())
 	{
 		DirectionalLightBuffer::getInstance().setData(light);
-		m_light_volume->render();
+		m_light_volume.render();
 	}
 }

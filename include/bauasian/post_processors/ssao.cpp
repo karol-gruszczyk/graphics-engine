@@ -6,7 +6,7 @@ using bauasian::SSAO;
 using bauasian::Texture;
 
 SSAO::SSAO(const glm::uvec2& size)
-		: Filter(size, "post_processing/ssao_fs.glsl", GL_RED),
+		: Filter(size, "post_processing/ssao_vs.glsl", "post_processing/ssao_fs.glsl", GL_RED),
 		  m_ssao_blur(size)
 {
 	m_location_noise_scale = m_shader->getUniformLocation("noise_scale");

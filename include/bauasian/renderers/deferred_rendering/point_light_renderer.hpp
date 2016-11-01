@@ -20,9 +20,8 @@ public:
 	void render(const Scene3D* const scene) const;
 
 private:
-	std::unique_ptr<SphereVolume> m_light_volume;
+	SphereVolume m_light_volume;
 
-	GLint m_location_point_light_projection_view_matrix;
 	GLint m_location_point_light_screen_size;
 
 };

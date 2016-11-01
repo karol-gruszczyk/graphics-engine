@@ -16,6 +16,8 @@ namespace bauasian
 class bauasian::Filter : public PostProcessor, public ShaderMixin
 {
 public:
+	Filter(const glm::uvec2& size, const boost::filesystem::path& vertex_shader_path,
+		   const boost::filesystem::path& fragment_shader_path, const GLenum& storage);
 	Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path, const GLenum& storage);
 	virtual ~Filter() {}
 
@@ -28,7 +30,7 @@ protected:
 	std::shared_ptr<Texture> m_color_texture;
 
 private:
-	std::unique_ptr<ScreenQuad> m_screen_quad;
+	ScreenQuad m_screen_quad;
 
 };
 

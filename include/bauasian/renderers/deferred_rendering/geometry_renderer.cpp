@@ -19,7 +19,7 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 			depth_buffer, size);
 
 	MaterialBuffer::getInstance().attachUniformBlock(m_shader.get(), "Material");
-	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
+	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "MatricesBuffer");
 	CameraBuffer::getInstance().attachUniformBlock(m_shader.get(), "CameraBuffer");
 }
 

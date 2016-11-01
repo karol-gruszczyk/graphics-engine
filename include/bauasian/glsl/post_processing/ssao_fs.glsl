@@ -22,6 +22,7 @@ layout(std140) uniform ModelMatrices
 };
 
 in vec2 texture_coord;
+flat in mat3 view_normal_matrix;
 
 layout (location = 0) out float out_color;
 
@@ -32,7 +33,7 @@ void main()
     position = vec3(view_matrix * vec4(position, 1.f));
 
     vec3 normal = texture(normal_buffer, texture_coord).xyz;
-    normal = normalize(transpose(inverse(mat3(view_matrix))) * normal);
+    normal = normalize(view_normal_matrix * normal);
     vec3 random_vec = texture(noise_buffer, texture_coord * noise_scale).xyz;
 
     vec3 tangent = normalize(random_vec - normal * dot(random_vec, normal));

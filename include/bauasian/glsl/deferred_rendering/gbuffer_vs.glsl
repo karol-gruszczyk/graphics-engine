@@ -14,7 +14,7 @@ layout(std140) uniform CameraBuffer
 	float far;
 };
 
-layout(std140) uniform ModelMatrices
+layout(std140) uniform MatricesBuffer
 {
     mat4 projection_matrix;
     mat4 view_matrix;
@@ -31,10 +31,11 @@ out vec3 tangent_camera_position;
 
 void main()
 {
-	position = vec3(model_matrix * vec4(vertex_position, 1.f));
+    vec4 model_space_position = model_matrix * vec4(vertex_position, 1.f);
+	position = vec3(model_space_position);
 	texture_coord = vertex_texture_coord;
 	normal = normalize(mat3(normal_matrix) * vertex_normal);
-	gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertex_position, 1.f);
+	gl_Position = projection_matrix * view_matrix * model_space_position;
 
     tbn = mat3(normal_matrix) * mat3(vertex_tangent, vertex_bi_tangent, vertex_normal);
 
