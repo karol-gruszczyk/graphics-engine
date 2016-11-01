@@ -1,4 +1,5 @@
 #include "entity_3d.hpp"
+#include "bauasian/shaders/buffers/matrices_buffer.hpp"
 
 #include <iostream>
 
@@ -28,6 +29,8 @@ void Entity3D::setMaterial(Material* material)
 
 void Entity3D::render() const
 {
+	MatricesBuffer::getInstance().setModelMatrix(getModelMatrix());
+	MatricesBuffer::getInstance().setNormalMatrix(getNormalMatrix());
 	if (m_material)
 	{
 		m_material->bind();

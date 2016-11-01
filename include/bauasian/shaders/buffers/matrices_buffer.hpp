@@ -6,13 +6,13 @@
 
 namespace bauasian
 {
-	class ModelMatricesBuffer;
+	class MatricesBuffer;
 }
 
-class bauasian::ModelMatricesBuffer : public UniformBuffer
+class bauasian::MatricesBuffer : public UniformBuffer
 {
 public:
-	struct alignas(16) GlslModelMatrices
+	struct alignas(16) GlslMatricesBuffer
 	{
 		glm::mat4 projection_matrix;
 		glm::mat4 view_matrix;
@@ -20,7 +20,7 @@ public:
 		glm::mat4 normal_matrix;
 	};
 
-	static ModelMatricesBuffer& getInstance();
+	static MatricesBuffer& getInstance();
 
 	void setProjectionMatrix(const glm::mat4& matrix) const;
 	void setViewMatrix(const glm::mat4& matrix) const;
@@ -28,7 +28,7 @@ public:
 	void setNormalMatrix(const glm::mat4& matrix) const;
 
 private:
-	ModelMatricesBuffer();
+	MatricesBuffer();
 
 };
 

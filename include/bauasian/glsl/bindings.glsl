@@ -1,7 +1,7 @@
 #ifndef LOCATIONS_GLSL
 #define LOCATIONS_GLSL
 
-// geometry pass:
+// geometry pass
 #define MATERIAL_DIFFUSE_BINDING 0
 #define MATERIAL_SPECULAR_BINDING 1
 #define MATERIAL_NORMAL_BINDING 2

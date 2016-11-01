@@ -1,6 +1,6 @@
 #include "scene_3d.hpp"
 #include "scene_loader.hpp"
-#include "bauasian/shaders/buffers/model_matrices_buffer.hpp"
+#include "bauasian/shaders/buffers/matrices_buffer.hpp"
 #include "bauasian/shaders/buffers/camera_buffer.hpp"
 
 
@@ -40,6 +40,11 @@ void Scene3D::addCamera(Camera* camera)
 		setCamera(m_cameras.front());
 }
 
+void Scene3D::addEntity(Entity3D* entity)
+{
+	m_entities.push_back(entity);
+}
+
 const std::vector<DirectionalLight*>& Scene3D::getDirectionalLights() const
 {
 	return m_directional_lights;
@@ -70,11 +75,6 @@ void Scene3D::addLight(SpotLight* spot_light)
 	m_spot_lights.push_back(spot_light);
 }
 
-void Scene3D::addEntity(Entity3D* entity)
-{
-	m_entities.push_back(entity);
-}
-
 void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs, const bool& map_bump_to_normal)
 {
 	if (!boost::filesystem::exists(path))
@@ -97,14 +97,10 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 void Scene3D::render() const
 {
 	CameraBuffer::getInstance().setCamera(*m_current_camera);
-	ModelMatricesBuffer::getInstance().setProjectionMatrix(m_current_camera->getProjectionMatrix());
-	ModelMatricesBuffer::getInstance().setViewMatrix(m_current_camera->getViewMatrix());
+	MatricesBuffer::getInstance().setProjectionMatrix(m_current_camera->getProjectionMatrix());
+	MatricesBuffer::getInstance().setViewMatrix(m_current_camera->getViewMatrix());
 	for (auto& entity : m_entities)
-	{
-		ModelMatricesBuffer::getInstance().setModelMatrix(entity->getModelMatrix());
-		ModelMatricesBuffer::getInstance().setNormalMatrix(entity->getNormalMatrix());
 		entity->render();
-	}
 }
 
 const unsigned Scene3D::getNumVertices() const
