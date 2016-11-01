@@ -30,7 +30,7 @@ void FXAA::setSize(const glm::uvec2& size)
 	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(size));
 }
 
-void FXAA::process(const GLenum& out_binding) const
+void FXAA::process(const unsigned short& out_binding) const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

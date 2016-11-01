@@ -20,7 +20,7 @@ public:
 	virtual ~Filter() {}
 
 	virtual void setSize(const glm::uvec2& size) override;
-	virtual void process(const GLenum& out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
+	virtual void process(const unsigned short& out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
 	virtual void processToScreen() const override;
 
 protected:
