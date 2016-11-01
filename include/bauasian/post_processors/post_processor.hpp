@@ -2,6 +2,7 @@
 #define BAUASIAN_POST_PROCESSOR_HPP
 
 #include "bauasian/materials/texture.hpp"
+#include "bauasian/glsl/bindings.glsl"
 
 
 namespace bauasian
@@ -15,7 +16,7 @@ public:
 	virtual ~PostProcessor() {}
 
 	virtual void setSize(const glm::uvec2& size) = 0;
-	virtual void process() const = 0;
+	virtual void process(const GLenum& out_binding = POST_PROCESSING_COLOR_TEXTURE) const = 0;
 	virtual void processToScreen() const = 0;
 
 };

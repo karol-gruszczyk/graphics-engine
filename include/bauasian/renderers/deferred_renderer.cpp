@@ -40,18 +40,11 @@ void DeferredRenderer::render(Scene3D* scene) const
 {
 	glViewport(0, 0, m_size.x, m_size.y);
 
-	glEnable(GL_STENCIL_TEST);  // use stencil test to process lights only on geometry
-	glStencilMask(0xFF);
-	glStencilFunc(GL_ALWAYS, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	glEnable(GL_DEPTH_TEST);
 	m_geometry_renderer.render(scene);
 	glDisable(GL_DEPTH_TEST);
 
-	glStencilFunc(GL_EQUAL, 1, 0xFF);
-	glStencilMask(0x00);
 	m_light_accumulator.render(scene);
-	glDisable(GL_STENCIL_TEST);
 
 	m_bloom.process();
 

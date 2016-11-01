@@ -1,5 +1,4 @@
 #include "fxaa.hpp"
-#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::FXAA;
@@ -31,14 +30,14 @@ void FXAA::setSize(const glm::uvec2& size)
 	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(size));
 }
 
-void FXAA::process() const
+void FXAA::process(const GLenum& out_binding) const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
 	m_screen_quad->render();
 
-	m_color_texture->bind(POST_PROCESSING_COLOR_TEXTURE);
+	m_color_texture->bind(out_binding);
 }
 
 void FXAA::processToScreen() const

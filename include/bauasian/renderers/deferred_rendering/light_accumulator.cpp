@@ -7,7 +7,7 @@ using bauasian::Texture;
 using bauasian::FrameBuffer;
 
 LightAccumulator::LightAccumulator(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
-		: m_ambient_renderer(size, depth_buffer), m_point_light_renderer(size), m_spot_light_renderer(size)
+		: m_ambient_renderer(size), m_point_light_renderer(size), m_spot_light_renderer(size)
 {
 	m_accumulation_buffer = std::make_shared<Texture>(GL_RGB16F, GL_RGB, size);
 	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>

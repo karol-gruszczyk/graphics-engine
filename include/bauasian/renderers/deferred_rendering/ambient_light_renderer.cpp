@@ -4,9 +4,8 @@
 
 using bauasian::AmbientLightRenderer;
 
-AmbientLightRenderer::AmbientLightRenderer(const glm::uvec2& size,
-										   const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
-		: ShaderMixin("post_processing/basic_vs.glsl", "deferred_rendering/ambient_fs.glsl"), m_ssao(size, depth_buffer)
+AmbientLightRenderer::AmbientLightRenderer(const glm::uvec2& size)
+		: ShaderMixin("post_processing/basic_vs.glsl", "deferred_rendering/ambient_fs.glsl"), m_ssao(size)
 {}
 
 void AmbientLightRenderer::setSize(const glm::uvec2& size)

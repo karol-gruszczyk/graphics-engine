@@ -1,5 +1,4 @@
 #include "hdr.hpp"
-#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::HDR;
