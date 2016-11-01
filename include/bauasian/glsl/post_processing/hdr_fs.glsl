@@ -1,8 +1,10 @@
-#version 330 core
+#version 420 core
 #include "../utils/luminance.glsl"
+#include "../bindings.glsl"
 
-uniform sampler2D screen_texture;
-uniform sampler2D bloom_texture;
+layout (binding = POST_PROCESSING_BLOOM_COLOR_TEXTURE) uniform sampler2D screen_texture;
+layout (binding = POST_PROCESSING_BLOOM_TEXTURE) uniform sampler2D bloom_texture;
+
 uniform float exposure;
 uniform float gamma;
 

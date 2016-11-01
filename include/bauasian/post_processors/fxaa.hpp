@@ -23,9 +23,8 @@ public:
 	FXAA(const glm::uvec2& size, const Quality& quality = LOW);
 
 	virtual void setSize(const glm::uvec2& size) override;
-	virtual void process(const Texture* const texture) const override;
-	virtual void processToScreen(const Texture* const texture) const override;
-	virtual const Texture* const getTexture() const override;
+	virtual void process() const override;
+	virtual void processToScreen() const override;
 
 	void setSubPixelRemoval(const float& sub_pixel_removal) const;
 	void setEdgeThreshold(const float& edge_threshold) const;

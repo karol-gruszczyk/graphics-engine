@@ -18,8 +18,7 @@ public:
 	Bloom(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size);
-	void process(const Texture* const texture) const;
-	const Texture* const getTexture() const;
+	void process() const;
 
 private:
 	glm::uvec2 m_size;

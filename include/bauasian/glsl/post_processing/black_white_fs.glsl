@@ -1,7 +1,8 @@
-#version 330 core
+#version 420 core
 #include "../utils/luminance.glsl"
+#include "../bindings.glsl"
 
-uniform sampler2D screen_texture;
+layout (binding = POST_PROCESSING_COLOR_TEXTURE) uniform sampler2D screen_texture;
 
 in vec2 texture_coord;
 

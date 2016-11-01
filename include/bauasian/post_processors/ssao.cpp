@@ -17,6 +17,7 @@ SSAO::SSAO(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>&
 	m_location_noise_scale = m_shader->getUniformLocation("noise_scale");
 	m_location_kernel_size = m_shader->getUniformLocation("kernel_size");
 	m_location_ssao_radius = m_shader->getUniformLocation("ssao_radius");
+	m_location_ssao_power = m_shader->getUniformLocation("ssao_power");
 	m_shader->setUniform(m_location_noise_scale, glm::vec2(size) / 4.f);
 	ModelMatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
 	generateKernel();
@@ -81,10 +82,6 @@ void SSAO::generateNoiseTexture()
 	m_noise_texture = std::make_unique<Texture>(glm::uvec2(4, 4), noise.data(), GL_RGB16F, GL_RGB, false, "", GL_FLOAT);
 	m_noise_texture->setFiltering(GL_NEAREST);
 }
-const Texture* const SSAO::getTexture() const
-{
-	return m_ssao_blur.getTexture();
-}
 
 void SSAO::setKernelSize(const int& kernel_size) const
 {
@@ -94,4 +91,9 @@ void SSAO::setKernelSize(const int& kernel_size) const
 void SSAO::setRadius(const float& radius) const
 {
 	m_shader->setUniform(m_location_ssao_radius, radius);
+}
+
+void SSAO::setPower(const float& power) const
+{
+	m_shader->setUniform(m_location_ssao_power, power);
 }

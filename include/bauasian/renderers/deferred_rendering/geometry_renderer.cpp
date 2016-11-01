@@ -33,12 +33,8 @@ void GeometryRenderer::render(const Scene3D* const scene) const
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	m_shader->use();
-	glClear(GL_STENCIL_BUFFER_BIT);
 	scene->render();
-}
 
-void GeometryRenderer::bindTextures() const
-{
 	m_albedo_buffer->bind(DEFERRED_ALBEDO_BINDING);
 	m_specular_buffer->bind(DEFERRED_SPECULAR_BINDING);
 	m_normal_buffer->bind(DEFERRED_NORMAL_BINDING);

@@ -20,9 +20,8 @@ public:
 	virtual ~Filter() {}
 
 	virtual void setSize(const glm::uvec2& size) override;
-	virtual void process(const Texture* const texture) const;
-	virtual void processToScreen(const Texture* const texture) const;
-	virtual const Texture* const getTexture() const override;
+	virtual void process() const override;
+	virtual void processToScreen() const override;
 
 protected:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;

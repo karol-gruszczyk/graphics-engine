@@ -23,19 +23,16 @@ void Bloom::setSize(const glm::uvec2& size)
 	m_vertical_blur_2.setSize(m_sampled_size_2);
 }
 
-void Bloom::process(const Texture* const texture) const
+void Bloom::process() const
 {
 	glViewport(0, 0, m_sampled_size.x, m_sampled_size.y);
-	m_intensity_filter.process(texture);
-	m_horizontal_blur.process(m_intensity_filter.getTexture());
-	m_vertical_blur.process(m_horizontal_blur.getTexture());
+	m_intensity_filter.process();
+	m_horizontal_blur.process();
+	m_vertical_blur.process();
 	glViewport(0, 0, m_sampled_size_2.x, m_sampled_size_2.y);
-	m_horizontal_blur_2.process(m_vertical_blur.getTexture());
-	m_vertical_blur_2.process(m_horizontal_blur_2.getTexture());
+	m_horizontal_blur_2.process();
+	m_vertical_blur_2.process();
 	glViewport(0, 0, m_size.x, m_size.y);
-}
 
-const Texture* const Bloom::getTexture() const
-{
-	return m_vertical_blur_2.getTexture();
+
 }

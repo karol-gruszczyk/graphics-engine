@@ -1,6 +1,8 @@
-#version 330 core
+#version 420 core
+#include "../bindings.glsl"
 
-uniform sampler2D screen_texture;
+layout (binding = POST_PROCESSING_COLOR_TEXTURE) uniform sampler2D screen_texture;
+
 uniform mat3 kernel_matrix;
 uniform vec2 pixel_size;
 

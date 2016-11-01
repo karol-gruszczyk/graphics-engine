@@ -1,4 +1,5 @@
 #include "fxaa.hpp"
+#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::FXAA;
@@ -30,27 +31,22 @@ void FXAA::setSize(const glm::uvec2& size)
 	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(size));
 }
 
-void FXAA::process(const Texture* const texture) const
+void FXAA::process() const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
-	texture->bind();
 	m_screen_quad->render();
+
+	m_color_texture->bind(POST_PROCESSING_COLOR_TEXTURE);
 }
 
-void FXAA::processToScreen(const Texture* const texture) const
+void FXAA::processToScreen() const
 {
 	m_frame_buffer->unbind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
-	texture->bind();
 	m_screen_quad->render();
-}
-
-const Texture* const FXAA::getTexture() const
-{
-	return m_color_texture.get();
 }
 
 void FXAA::setSubPixelRemoval(const float& sub_pixel_removal) const

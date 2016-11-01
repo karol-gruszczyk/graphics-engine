@@ -10,6 +10,7 @@ layout (binding = DEFERRED_SSAO_NOISE_BINDING) uniform sampler2D noise_buffer;
 uniform vec3 kernel[MAX_KERNEL_SIZE];
 uniform int kernel_size = 16;
 uniform float ssao_radius = 100.f;
+uniform float ssao_power = 5.f;
 uniform vec2 noise_scale;
 
 layout(std140) uniform ModelMatrices
@@ -53,5 +54,5 @@ void main()
         occlusion += (sample_depth >= sample_position.z ? 1.f : 0.f) * range_check;
     }
     occlusion = 1.f - occlusion / kernel_size;
-    out_color = occlusion;
+    out_color = pow(occlusion, ssao_power);
 }

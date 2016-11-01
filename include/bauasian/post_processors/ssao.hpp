@@ -20,9 +20,9 @@ public:
 
 	void setSize(const glm::uvec2& size);
 	void process() const;
-	const Texture* const getTexture() const;
 	void setKernelSize(const int& kernel_size) const;
 	void setRadius(const float& radius) const;
+	void setPower(const float& power) const;
 
 private:
 	SSAOBlur m_ssao_blur;
@@ -33,6 +33,7 @@ private:
 
 	GLint m_location_kernel_size;
 	GLint m_location_ssao_radius;
+	GLint m_location_ssao_power;
 	GLint m_location_noise_scale;
 
 	void generateKernel();

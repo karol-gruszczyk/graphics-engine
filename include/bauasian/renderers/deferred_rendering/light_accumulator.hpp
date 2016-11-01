@@ -20,7 +20,6 @@ public:
 
 	void setSize(const glm::uvec2& size);
 	void render(const Scene3D* const scene) const;
-	const Texture* const getTexture() const;
 	const FrameBuffer& getFrameBuffer() const;
 
 private:

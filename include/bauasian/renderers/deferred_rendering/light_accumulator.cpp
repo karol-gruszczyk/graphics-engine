@@ -1,4 +1,5 @@
 #include "light_accumulator.hpp"
+#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::LightAccumulator;
@@ -37,11 +38,9 @@ void LightAccumulator::render(const Scene3D* const scene) const
 	glCullFace(GL_BACK);
 
 	glDisable(GL_BLEND);
-}
 
-const Texture* const LightAccumulator::getTexture() const
-{
-	return m_accumulation_buffer.get();
+	m_accumulation_buffer->bind(POST_PROCESSING_COLOR_TEXTURE);
+	m_accumulation_buffer->bind(POST_PROCESSING_BLOOM_COLOR_TEXTURE);
 }
 
 const FrameBuffer& LightAccumulator::getFrameBuffer() const

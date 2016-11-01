@@ -22,6 +22,5 @@ void AmbientLightRenderer::process(const FrameBuffer* const frame_buffer) const
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	m_shader->use();
-	m_ssao.getTexture()->bind(DEFERRED_SSAO_BINDING);
 	m_screen_quad.render();
 }

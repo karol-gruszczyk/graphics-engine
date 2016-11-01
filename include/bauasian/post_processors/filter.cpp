@@ -1,4 +1,5 @@
 #include "filter.hpp"
+#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::Filter;
@@ -19,25 +20,20 @@ void Filter::setSize(const glm::uvec2& size)
 	m_frame_buffer->setSize(size);
 }
 
-void Filter::process(const Texture* const texture) const
+void Filter::process() const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
-	texture->bind();
 	m_screen_quad->render();
+
+	m_color_texture->bind(POST_PROCESSING_COLOR_TEXTURE);
 }
 
-void Filter::processToScreen(const Texture* const texture) const
+void Filter::processToScreen() const
 {
 	m_frame_buffer->unbind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_shader->use();
-	texture->bind();
 	m_screen_quad->render();
-}
-
-const Texture* const Filter::getTexture() const
-{
-	return m_color_texture.get();
 }

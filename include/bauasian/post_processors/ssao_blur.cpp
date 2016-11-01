@@ -1,4 +1,5 @@
 #include "ssao_blur.hpp"
+#include "bauasian/glsl/bindings.glsl"
 
 
 using bauasian::SSAOBlur;
@@ -28,9 +29,6 @@ void SSAOBlur::process() const
 
 	m_shader->use();
 	m_screen_quad.render();
-}
 
-const Texture* const SSAOBlur::getTexture() const
-{
-	return m_ssao_texture.get();
+	m_ssao_texture->bind(DEFERRED_SSAO_BINDING);
 }

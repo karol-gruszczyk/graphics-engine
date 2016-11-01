@@ -1,10 +1,12 @@
-#version 400 core
+#version 420 core
+#include "../bindings.glsl"
 
 #define FXAA_PC 1
 #define FXAA_GLSL_130 1
 #include "fxaa/Fxaa3_11.h"
 
-uniform sampler2D screen_texture;
+layout (binding = POST_PROCESSING_COLOR_TEXTURE) uniform sampler2D screen_texture;
+
 uniform vec2 pixel_size;
 
 uniform float subpix = 0.5;
