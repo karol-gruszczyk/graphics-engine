@@ -1,11 +1,12 @@
 #version 330 core
 #include "../common/lights.glsl"
+#include "../locations.glsl"
 
-layout(location = 0) in vec3 vertex_position;
-layout(location = 1) in vec3 vertex_normal;
-layout(location = 2) in vec2 vertex_texture_coord;
-layout(location = 3) in vec3 vertex_tangent;
-layout(location = 4) in vec3 vertex_bi_tangent;
+layout (location = DEFERRED_GBUFFER_POSITION) in vec3 vertex_position;
+layout (location = DEFERRED_GBUFFER_NORMAL) in vec3 vertex_normal;
+layout (location = DEFERRED_GBUFFER_TEXTURE_COORD) in vec2 vertex_texture_coord;
+layout (location = DEFERRED_GBUFFER_TANGENT) in vec3 vertex_tangent;
+layout (location = DEFERRED_GBUFFER_BI_TANGENT) in vec3 vertex_bi_tangent;
 
 layout(std140) uniform CameraBuffer
 {
@@ -28,6 +29,7 @@ out vec3 normal;
 out mat3 tbn;
 out vec3 tangent_position;
 out vec3 tangent_camera_position;
+
 
 void main()
 {
