@@ -1,7 +1,7 @@
 #include "spot_light_renderer.hpp"
-#include "bauasian/shaders/buffers/camera_buffer.hpp"
-#include "bauasian/shaders/buffers/matrices_buffer.hpp"
-#include "bauasian/shaders/buffers/spot_light_buffer.hpp"
+#include "bauasian/buffers/camera_buffer.hpp"
+#include "bauasian/buffers/matrices_buffer.hpp"
+#include "bauasian/buffers/spot_light_buffer.hpp"
 
 
 using bauasian::SpotLightRenderer;

@@ -1,5 +1,5 @@
 #include "ssao.hpp"
-#include "bauasian/shaders/buffers/matrices_buffer.hpp"
+#include "bauasian/buffers/matrices_buffer.hpp"
 
 
 using bauasian::SSAO;

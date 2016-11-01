@@ -1,6 +1,6 @@
 #include "geometry_renderer.hpp"
-#include "bauasian/shaders/buffers/matrices_buffer.hpp"
-#include "bauasian/shaders/buffers/camera_buffer.hpp"
+#include "bauasian/buffers/matrices_buffer.hpp"
+#include "bauasian/buffers/camera_buffer.hpp"
 #include "bauasian/glsl/bindings.glsl"
 
 

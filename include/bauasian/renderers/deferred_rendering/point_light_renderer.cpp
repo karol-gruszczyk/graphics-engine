@@ -1,7 +1,7 @@
 #include "point_light_renderer.hpp"
-#include "bauasian/shaders/buffers/camera_buffer.hpp"
-#include "bauasian/shaders/buffers/matrices_buffer.hpp"
-#include "bauasian/shaders/buffers/point_light_buffer.hpp"
+#include "bauasian/buffers/camera_buffer.hpp"
+#include "bauasian/buffers/matrices_buffer.hpp"
+#include "bauasian/buffers/point_light_buffer.hpp"
 
 
 using bauasian::PointLightRenderer;

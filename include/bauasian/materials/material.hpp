@@ -2,7 +2,7 @@
 #define BAUASIAN_MATERIAL_HPP
 
 #include "bauasian/textures/texture.hpp"
-#include "bauasian/shaders/buffers/material_buffer.hpp"
+#include "bauasian/buffers/material_buffer.hpp"
 #include "bauasian/mixins/name_mixin.hpp"
 
 #include <memory>
@@ -24,6 +24,7 @@ public:
 	void setNormalTexture(Texture* texture);
 	void setDisplacementTexture(Texture* texture);
 	void setOpacityTexture(Texture* texture);
+	void setEmissive();
 
 	void bind() const;
 

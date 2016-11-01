@@ -1,7 +1,7 @@
 #include "scene_3d.hpp"
 #include "scene_loader.hpp"
-#include "bauasian/shaders/buffers/matrices_buffer.hpp"
-#include "bauasian/shaders/buffers/camera_buffer.hpp"
+#include "bauasian/buffers/matrices_buffer.hpp"
+#include "bauasian/buffers/camera_buffer.hpp"
 
 
 using bauasian::Scene3D;
