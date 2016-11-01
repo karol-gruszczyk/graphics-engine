@@ -2,7 +2,7 @@
 #define BAUASIAN_SPOT_LIGHT_HPP
 
 #include "point_light.hpp"
-#include "interfaces/direction_interface.hpp"
+#include "bauasian/lights/mixins/direction_mixin.hpp"
 
 
 namespace bauasian
@@ -10,7 +10,7 @@ namespace bauasian
 	class SpotLight;
 }
 
-class bauasian::SpotLight final : public PointLight, public DirectionInterface
+class bauasian::SpotLight final : public PointLight, public DirectionMixin
 {
 public:
 	SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range, const float& inner_angle,
