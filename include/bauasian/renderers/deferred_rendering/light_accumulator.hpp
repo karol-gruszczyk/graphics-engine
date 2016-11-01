@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_LIGHT_RENDERER_HPP
 #define BAUASIAN_LIGHT_RENDERER_HPP
 
-#include "bauasian/materials/texture.hpp"
+#include "bauasian/textures/texture.hpp"
 #include "directional_light_renderer.hpp"
 #include "point_light_renderer.hpp"
 #include "spot_light_renderer.hpp"

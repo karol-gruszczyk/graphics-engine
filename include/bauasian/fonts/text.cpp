@@ -5,11 +5,10 @@
 
 using bauasian::Text;
 
-Text::Text(bauasian::Font* font, const std::string& text /* = "" */, const unsigned& font_size /* = 0 */
-		, const glm::vec3& color /* = { 0.f, 0.f, 0.f } */)
+Text::Text(Font* font, const std::string& text, const unsigned& font_size, const glm::vec3& color)
 		: Entity2D(GL_TRIANGLE_STRIP, 0, GL_UNSIGNED_INT), m_font(font), m_text(text), m_color(color)
 {
-	setFontSize(font_size ?: m_font->m_font_size);
+	setFontSize(font_size ? : m_font->m_font_size);
 	updateBufferObjects();
 
 	m_location_text_color = m_font->s_shader->getUniformLocation("text_color");

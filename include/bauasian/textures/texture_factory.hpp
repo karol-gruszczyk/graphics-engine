@@ -26,7 +26,7 @@ private:
 	TextureFactory();
 	~TextureFactory();
 
-	std::map<std::string, TextureInterface*> m_textures;
+	std::map<std::string, TextureMixin*> m_textures;
 
 	const GLenum getFormatFromBPP(const unsigned& bpp, const bool& is_internal, const bool& is_standardized);
 

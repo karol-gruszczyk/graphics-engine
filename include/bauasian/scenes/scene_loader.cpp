@@ -1,5 +1,5 @@
 #include "scene_loader.hpp"
-#include "bauasian/materials/texture_factory.hpp"
+#include "bauasian/textures/texture_factory.hpp"
 #include "bauasian/bauasian.hpp"
 
 #include <chrono>

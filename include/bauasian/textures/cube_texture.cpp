@@ -6,7 +6,7 @@ using bauasian::CubeTexture;
 CubeTexture::CubeTexture(const std::vector<glm::uvec2>& sizes, const std::vector<unsigned char*> pixel_ptrs,
                          const GLint& internal_format,
                          const GLenum& format, std::string image_name)
-		: TextureInterface(GL_TEXTURE_CUBE_MAP, internal_format, format)
+		: TextureMixin(GL_TEXTURE_CUBE_MAP, internal_format, format)
 {
 	assert(sizes.size() == pixel_ptrs.size() && pixel_ptrs.size() == 6);
 

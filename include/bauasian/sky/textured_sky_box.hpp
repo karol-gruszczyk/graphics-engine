@@ -2,7 +2,7 @@
 #define BAUASIAN_TEXTURED_SKY_BOX_HPP
 
 #include "sky_box.hpp"
-#include "bauasian/materials/cube_texture.hpp"
+#include "bauasian/textures/cube_texture.hpp"
 
 
 namespace bauasian

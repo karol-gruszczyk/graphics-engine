@@ -12,7 +12,7 @@
 #include "primitives/sphere.hpp"
 #include "primitives/plane.hpp"
 #include "primitives/mesh.hpp"
-#include "materials/texture_factory.hpp"
+#include "bauasian/textures/texture_factory.hpp"
 #include "materials/material.hpp"
 #include "post_processors/kernel_filter.hpp"
 #include "post_processors/large_kernel_filter.hpp"

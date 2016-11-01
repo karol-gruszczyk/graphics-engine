@@ -22,11 +22,6 @@ void Entity3D::setMaterial(std::shared_ptr<Material> material)
 	m_material = material;
 }
 
-void Entity3D::setMaterial(Material* material)
-{
-	m_material.reset(material);
-}
-
 void Entity3D::render() const
 {
 	MatricesBuffer::getInstance().setModelMatrix(getModelMatrix());

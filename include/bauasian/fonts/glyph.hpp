@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_GLYPH_HPP
 #define BAUASIAN_GLYPH_HPP
 
-#include "bauasian/materials/texture.hpp"
+#include "bauasian/textures/texture.hpp"
 #include "bauasian/primitives/rectangle.hpp"
 
 #include <glm/glm.hpp>

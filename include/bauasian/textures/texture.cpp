@@ -1,5 +1,5 @@
 #include "texture.hpp"
-#include "image_loader.hpp"
+#include "bauasian/textures/utils/image_loader.hpp"
 #include "bauasian/bauasian.hpp"
 #include "bauasian/open_gl_extensions.hpp"
 #include "bauasian/exceptions/unknown_extension_exception.hpp"
@@ -11,7 +11,7 @@ using bauasian::Texture;
 
 Texture::Texture(const glm::uvec2& size, const void* const pixels, const GLint& internal_format,
                  const GLenum& format, const bool& generate_mipmaps, std::string image_name, const GLenum& type)
-		: TextureInterface(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
+		: TextureMixin(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
 {
 	auto is_power_of_2 = [](unsigned number) -> bool { return !(number & (number - 1)); };
 	if (!is_power_of_2(m_size.x) || !is_power_of_2(m_size.y))
@@ -46,7 +46,7 @@ Texture::Texture(const glm::uvec2& size, const void* const pixels, const GLint& 
 }
 
 Texture::Texture(const GLint& internal_format, const GLenum& format, const glm::uvec2& size, const GLenum& type)
-		: TextureInterface(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
+		: TextureMixin(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
 {
 	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_size.x, m_size.y,
 	                    0, format, type, nullptr);

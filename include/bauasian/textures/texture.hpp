@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_TEXTURE_HPP
 #define BAUASIAN_TEXTURE_HPP
 
-#include "texture_interface.hpp"
+#include "mixins/texture_mixin.hpp"
 #include "bauasian/renderers/frame_buffer_attachment.hpp"
 
 #include <map>
@@ -15,7 +15,7 @@ namespace bauasian
 	class Texture;
 }
 
-class bauasian::Texture final : public TextureInterface, public FrameBufferAttachment
+class bauasian::Texture final : public TextureMixin, public FrameBufferAttachment
 {
 public:
 	Texture(const glm::uvec2& size, const void* const pixels, const GLint& internal_format,

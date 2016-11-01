@@ -1,6 +1,6 @@
 #include "texture_factory.hpp"
-#include "image_loader.hpp"
-#include "image_slicer.hpp"
+#include "utils/image_loader.hpp"
+#include "utils/image_slicer.hpp"
 
 
 using bauasian::TextureFactory;

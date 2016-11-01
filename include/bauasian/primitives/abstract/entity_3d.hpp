@@ -32,7 +32,6 @@ public:
 	         const unsigned& num_vertices, const unsigned& num_faces);
 
 	void setMaterial(std::shared_ptr<Material> material);
-	void setMaterial(Material* material);
 	void render() const override;
 
 protected:

@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_POST_PROCESSOR_HPP
 #define BAUASIAN_POST_PROCESSOR_HPP
 
-#include "bauasian/materials/texture.hpp"
+#include "bauasian/textures/texture.hpp"
 #include "bauasian/glsl/bindings.glsl"
 
 

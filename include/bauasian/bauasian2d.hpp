@@ -7,7 +7,7 @@
 #include "bauasian/scenes/scene_2d.hpp"
 #include "primitives/rectangle.hpp"
 #include "primitives/circle.hpp"
-#include "materials/texture.hpp"
+#include "bauasian/textures/texture.hpp"
 #include "materials/basic_material.hpp"
 #include "fonts/font.hpp"
 #include "fonts/font_factory.hpp"

@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_BASIC_MATERIAL_HPP
 #define BAUASIAN_BASIC_MATERIAL_HPP
 
-#include "texture.hpp"
+#include "bauasian/textures/texture.hpp"
 #include "bauasian/shaders/buffers/basic_material_buffer.hpp"
 
 #include <glm/glm.hpp>

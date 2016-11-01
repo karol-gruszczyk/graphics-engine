@@ -1,5 +1,5 @@
 #include "frame_buffer.hpp"
-#include "bauasian/materials/texture.hpp"
+#include "bauasian/textures/texture.hpp"
 
 
 using bauasian::FrameBuffer;
