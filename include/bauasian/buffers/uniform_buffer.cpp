@@ -7,10 +7,10 @@ using bauasian::ShaderProgram;
 UniformBuffer::UniformBuffer(const GLsizeiptr& data_size, const bauasian::UniformBuffer::BindingPoint& binding_point)
 		: m_uniform_block_size(data_size), m_binding_point(binding_point)
 {
-	glGenBuffers(1, &m_ubo_id);
-	glBindBuffer(GL_UNIFORM_BUFFER, m_ubo_id);
-	glBufferData(GL_UNIFORM_BUFFER, m_uniform_block_size, nullptr, GL_DYNAMIC_DRAW);
+	glCreateBuffers(1, &m_ubo_id);
+	glNamedBufferData(m_ubo_id, m_uniform_block_size, nullptr, GL_DYNAMIC_DRAW);
 	glBindBufferBase(GL_UNIFORM_BUFFER, m_binding_point, m_ubo_id);
+	bind();
 }
 
 UniformBuffer::~UniformBuffer()
@@ -20,14 +20,12 @@ UniformBuffer::~UniformBuffer()
 
 void UniformBuffer::setData(const void* data) const
 {
-	glBindBuffer(GL_UNIFORM_BUFFER, m_ubo_id);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, m_uniform_block_size, data);
+	glNamedBufferSubData(m_ubo_id, 0, m_uniform_block_size, data);
 }
 
 void UniformBuffer::setSubData(const GLintptr& offset, const GLsizeiptr& size, const void* data) const
 {
-	glBindBuffer(GL_UNIFORM_BUFFER, m_ubo_id);
-	glBufferSubData(GL_UNIFORM_BUFFER, offset, size, data);
+	glNamedBufferSubData(m_ubo_id, offset, size, data);
 }
 
 void UniformBuffer::attachUniformBlock(ShaderProgram* shader, const std::string& block_name) const
@@ -38,4 +36,9 @@ void UniformBuffer::attachUniformBlock(ShaderProgram* shader, const std::string&
 	glGetActiveUniformBlockiv(shader->getId(), block_index, GL_UNIFORM_BLOCK_DATA_SIZE, &block_size);
 	assert(m_uniform_block_size == block_size);
 	glUniformBlockBinding(shader->getId(), block_index, m_binding_point);
+}
+
+void UniformBuffer::bind() const
+{
+	glBindBufferBase(GL_UNIFORM_BUFFER, m_binding_point, m_ubo_id);
 }

@@ -24,6 +24,7 @@ public:
 	void setData(const void* data) const;
 	void setSubData(const GLintptr& offset, const GLsizeiptr& size, const void* data) const;
 	void attachUniformBlock(ShaderProgram* shader, const std::string& block_name) const;
+	void bind() const;
 
 private:
 	GLuint m_ubo_id;
