@@ -9,7 +9,6 @@ PointLightRenderer::PointLightRenderer(const glm::uvec2& size)
 		: ShaderMixin("deferred_rendering/point_vs.glsl", "deferred_rendering/point_fs.glsl")
 {
 	m_location_point_light_screen_size = m_shader->getUniformLocation("screen_size");
-	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "MatricesBuffer");
 	setSize(size);
 }
 

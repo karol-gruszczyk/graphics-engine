@@ -6,10 +6,12 @@
 
 layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
-    vec3 camera_position;
+    mat4 projection_matrix;
+    mat4 view_matrix;
+    vec3 position;
 	float near;
 	float far;
-};
+} camera;
 
 layout(std140, binding = BUFFER_MATERIAL_BINDING) uniform Material
 {
@@ -82,5 +84,5 @@ void main()
     	out_normal = normalize(tbn * (texture2D(normal_texture, corrected_texture_coord).rgb * 2.f - 1.f));
     else
         out_normal = normal;
-    out_position = vec4(position, linearizeDepth(gl_FragCoord.z, near, far));
+    out_position = vec4(position, linearizeDepth(gl_FragCoord.z, camera.near, camera.far));
 }

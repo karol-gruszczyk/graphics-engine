@@ -5,10 +5,12 @@
 
 layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
-    vec3 camera_position;
+    mat4 projection_matrix;
+    mat4 view_matrix;
+    vec3 position;
 	float near;
 	float far;
-};
+} camera;
 
 layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
 layout (binding = DEFERRED_SPECULAR_BINDING) uniform sampler2D specular_buffer;
@@ -34,7 +36,7 @@ void main()
     vec3 fragment_normal = texture(normal_buffer, texture_coord).rgb;
     vec3 fragment_position = texture(position_buffer, texture_coord).rgb;
 
-    vec3 view_dir = normalize(camera_position - fragment_position);
+    vec3 view_dir = normalize(camera.position - fragment_position);
 	vec3 light_ray_direction = normalize(-dir_light.direction);
 	vec3 diffuse = processDiffuseLight(fragment_normal, light_ray_direction, dir_light.diffuse_color) * fragment_diffuse;
 	vec3 specular = processSpecularLight(fragment_normal, light_ray_direction, dir_light.specular_color,

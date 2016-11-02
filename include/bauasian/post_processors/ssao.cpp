@@ -1,5 +1,4 @@
 #include "ssao.hpp"
-#include "bauasian/uniform_buffers/matrices_buffer.hpp"
 
 
 using bauasian::SSAO;
@@ -14,7 +13,6 @@ SSAO::SSAO(const glm::uvec2& size)
 	m_location_ssao_radius = m_shader->getUniformLocation("ssao_radius");
 	m_location_ssao_power = m_shader->getUniformLocation("ssao_power");
 	m_shader->setUniform(m_location_noise_scale, glm::vec2(size) / 4.f);
-	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "ModelMatrices");
 	generateKernel();
 	generateNoiseTexture();
 }

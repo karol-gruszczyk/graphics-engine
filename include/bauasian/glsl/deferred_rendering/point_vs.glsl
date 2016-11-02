@@ -9,16 +9,17 @@ layout (std140, binding = BUFFER_POINT_LIGHT_BINDING) uniform PointLightBuffer
     PointLight point_light;
 };
 
-layout(std140) uniform MatricesBuffer
+layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
     mat4 projection_matrix;
     mat4 view_matrix;
-    mat4 model_matrix;
-    mat4 normal_matrix;
-};
+    vec3 position;
+	float near;
+	float far;
+} camera;
 
 
 void main()
 {
-    gl_Position = projection_matrix * view_matrix * point_light.model_matrix * vec4(vertex_position, 1.f);
+    gl_Position = camera.projection_matrix * camera.view_matrix * point_light.model_matrix * vec4(vertex_position, 1.f);
 }

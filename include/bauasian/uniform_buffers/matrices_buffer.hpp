@@ -14,16 +14,12 @@ class bauasian::MatricesBuffer : public UniformBuffer
 public:
 	struct alignas(16) GlslMatricesBuffer
 	{
-		glm::mat4 projection_matrix;
-		glm::mat4 view_matrix;
 		glm::mat4 model_matrix;
 		glm::mat4 normal_matrix;
 	};
 
 	static MatricesBuffer& getInstance();
 
-	void setProjectionMatrix(const glm::mat4& matrix) const;
-	void setViewMatrix(const glm::mat4& matrix) const;
 	void setModelMatrix(const glm::mat4& matrix) const;
 	void setNormalMatrix(const glm::mat4& matrix) const;
 

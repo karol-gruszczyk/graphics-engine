@@ -132,4 +132,5 @@ const glm::mat4& Camera::getProjectionMatrix() const
 void Camera::setViewMatrix(const glm::mat4& view_matrix)
 {
 	m_view_matrix = view_matrix;
+	m_buffer.setViewMatrix(m_view_matrix);
 }

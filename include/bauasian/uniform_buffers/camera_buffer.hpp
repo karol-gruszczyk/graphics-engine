@@ -16,6 +16,8 @@ public:
 
 	using UniformBuffer::bind;
 
+	void setProjectionMatrix(const glm::mat4& matrix) const;
+	void setViewMatrix(const glm::mat4& matrix) const;
 	void setPosition(const glm::vec3& position) const;
 	void setNear(const float& near) const;
 	void setFar(const float& far) const;

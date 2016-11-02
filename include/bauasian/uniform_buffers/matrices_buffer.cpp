@@ -11,24 +11,14 @@ MatricesBuffer& MatricesBuffer::getInstance()
 	return instance;
 }
 
-void MatricesBuffer::setProjectionMatrix(const glm::mat4& matrix) const
+void MatricesBuffer::setModelMatrix(const glm::mat4& matrix) const
 {
 	setSubData(0, sizeof(glm::mat4), glm::value_ptr(matrix));
 }
 
-void MatricesBuffer::setViewMatrix(const glm::mat4& matrix) const
-{
-	setSubData(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
-}
-
-void MatricesBuffer::setModelMatrix(const glm::mat4& matrix) const
-{
-	setSubData(2 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
-}
-
 void MatricesBuffer::setNormalMatrix(const glm::mat4& matrix) const
 {
-	setSubData(3 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
+	setSubData(sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(matrix));
 }
 
 MatricesBuffer::MatricesBuffer()

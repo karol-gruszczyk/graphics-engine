@@ -1,6 +1,5 @@
 #include "scene_3d.hpp"
 #include "scene_loader.hpp"
-#include "bauasian/uniform_buffers/matrices_buffer.hpp"
 
 
 using bauasian::Scene3D;
@@ -96,8 +95,6 @@ void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip
 void Scene3D::render() const
 {
 	m_current_camera->bind();
-	MatricesBuffer::getInstance().setProjectionMatrix(m_current_camera->getProjectionMatrix());
-	MatricesBuffer::getInstance().setViewMatrix(m_current_camera->getViewMatrix());
 	for (auto& entity : m_entities)
 		entity->render();
 }

@@ -11,15 +11,15 @@ layout (location = DEFERRED_GBUFFER_BI_TANGENT) in vec3 vertex_bi_tangent;
 
 layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
-    vec3 camera_position;
+    mat4 projection_matrix;
+    mat4 view_matrix;
+    vec3 position;
 	float near;
 	float far;
-};
+} camera;
 
 layout(std140) uniform MatricesBuffer
 {
-    mat4 projection_matrix;
-    mat4 view_matrix;
     mat4 model_matrix;
     mat4 normal_matrix;
 };
@@ -38,11 +38,11 @@ void main()
 	position = vec3(model_space_position);
 	texture_coord = vertex_texture_coord;
 	normal = normalize(mat3(normal_matrix) * vertex_normal);
-	gl_Position = projection_matrix * view_matrix * model_space_position;
+	gl_Position = camera.projection_matrix * camera.view_matrix * model_space_position;
 
     tbn = mat3(normal_matrix) * mat3(vertex_tangent, vertex_bi_tangent, vertex_normal);
 
     mat3 TBN = transpose(tbn);
     tangent_position = TBN * position;
-    tangent_camera_position = TBN * camera_position;
+    tangent_camera_position = TBN * camera.position;
 }

@@ -13,13 +13,14 @@ uniform float ssao_radius = 100.f;
 uniform float ssao_power = 5.f;
 uniform vec2 noise_scale;
 
-layout(std140) uniform ModelMatrices
+layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
     mat4 projection_matrix;
     mat4 view_matrix;
-    mat4 model_matrix;
-    mat4 normal_matrix;
-};
+    vec3 position;
+	float near;
+	float far;
+} camera;
 
 in vec2 texture_coord;
 flat in mat3 view_normal_matrix;
@@ -30,7 +31,7 @@ layout (location = 0) out float out_color;
 void main()
 {
     vec3 position = texture(position_buffer, texture_coord).xyz;
-    position = vec3(view_matrix * vec4(position, 1.f));
+    position = vec3(camera.view_matrix * vec4(position, 1.f));
 
     vec3 normal = texture(normal_buffer, texture_coord).xyz;
     normal = normalize(view_normal_matrix * normal);
@@ -46,7 +47,7 @@ void main()
         vec3 kernel_position = TBN * kernel[i];
         vec3 sample_position = position + kernel_position * ssao_radius;
 
-        vec4 offset = projection_matrix * vec4(sample_position, 1.f);
+        vec4 offset = camera.projection_matrix * vec4(sample_position, 1.f);
         offset.xyz /= offset.w;  // perspective division
         offset.xyz = offset.xyz / 2.f + 0.5f;
 

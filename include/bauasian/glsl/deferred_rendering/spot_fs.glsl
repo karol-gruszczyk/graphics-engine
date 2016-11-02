@@ -5,10 +5,12 @@
 
 layout (std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
-    vec3 camera_position;
+    mat4 projection_matrix;
+    mat4 view_matrix;
+    vec3 position;
 	float near;
 	float far;
-};
+} camera;
 
 layout (std140, binding = BUFFER_SPOT_LIGHT_BINDING) uniform SpotLightBuffer
 {
@@ -35,7 +37,7 @@ void main()
     vec3 fragment_normal = texture(normal_buffer, texture_coord).rgb;
     vec3 fragment_position = texture(position_buffer, texture_coord).rgb;
 
-    vec3 view_dir = normalize(camera_position - fragment_position);
+    vec3 view_dir = normalize(camera.position - fragment_position);
 
 
     vec3 light_ray = spot_light.position - fragment_position;
