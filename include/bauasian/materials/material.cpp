@@ -20,7 +20,7 @@ void Material::setDiffuse(Texture* texture)
 
 void Material::setSpecular(const glm::vec3& color)
 {
-	m_buffer.setSpecular(color);
+	m_buffer.setSpecularColor(color);
 }
 
 void Material::setSpecular(Texture* texture)

@@ -9,10 +9,17 @@ using bauasian::Camera;
 
 Camera::Camera(const float& near, const float& far)
 		: m_near(near), m_far(far)
-{}
+{
+	m_buffer.setNear(m_near);
+	m_buffer.setFar(m_far);
+}
 
 Camera::~Camera()
 {}
+
+void Camera::bind() const
+{
+}
 
 const glm::vec3& Camera::getPosition() const
 {
@@ -23,6 +30,7 @@ void Camera::move(const glm::vec3& position)
 {
 	setViewMatrix(glm::translate(m_view_matrix, -position));
 	m_position += position;
+	m_buffer.setPosition(m_position);
 }
 
 void Camera::setPosition(const glm::vec3& position)
@@ -69,6 +77,7 @@ void Camera::lookAt(const glm::vec3& eye_position, const glm::vec3& position, co
 	m_direction_vector = glm::normalize(position - m_position);
 	m_right_vector = glm::cross(m_direction_vector, m_up_vector);
 	setViewMatrix(glm::lookAt(eye_position, position, up));
+	m_buffer.setPosition(m_position);
 }
 
 const glm::vec3& Camera::getDirection() const
@@ -95,6 +104,7 @@ void Camera::setNear(const float& near)
 {
 	m_near = near;
 	updateProjectionMatrix();
+	m_buffer.setNear(m_near);
 }
 
 const float& Camera::getFar() const
@@ -106,6 +116,7 @@ void Camera::setFar(const float& far)
 {
 	m_far = far;
 	updateProjectionMatrix();
+	m_buffer.setFar(m_far);
 }
 
 const glm::mat4& Camera::getViewMatrix() const

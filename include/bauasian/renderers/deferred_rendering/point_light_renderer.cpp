@@ -1,5 +1,4 @@
 #include "point_light_renderer.hpp"
-#include "bauasian/buffers/camera_buffer.hpp"
 #include "bauasian/buffers/matrices_buffer.hpp"
 #include "bauasian/buffers/point_light_buffer.hpp"
 
@@ -11,7 +10,6 @@ PointLightRenderer::PointLightRenderer(const glm::uvec2& size)
 		: ShaderMixin("deferred_rendering/point_vs.glsl", "deferred_rendering/point_fs.glsl")
 {
 	m_location_point_light_screen_size = m_shader->getUniformLocation("screen_size");
-	CameraBuffer::getInstance().attachUniformBlock(m_shader.get(), "CameraBuffer");
 	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "MatricesBuffer");
 	PointLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "PointLightBuffer");
 	setSize(size);

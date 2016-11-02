@@ -2,6 +2,7 @@
 #define BAUASIAN_CAMERA_HPP
 
 #include "bauasian/mixins/name_mixin.hpp"
+#include "bauasian/buffers/camera_buffer.hpp"
 
 #include <glm/glm.hpp>
 
@@ -16,6 +17,8 @@ class bauasian::Camera : public NameMixin
 public:
 	Camera(const float& near, const float& far);
 	virtual ~Camera();
+
+	void bind() const;
 
 	const glm::vec3& getPosition() const;
 	void move(const glm::vec3& position);
@@ -40,9 +43,10 @@ public:
 
 	const glm::mat4& getViewMatrix() const;
 	const glm::mat4& getProjectionMatrix() const;
-	const glm::mat4& getProjectionViewMatrix() const;
 
 protected:
+	CameraBuffer m_buffer;
+
 	glm::vec3 m_position;
 	float m_near;
 	float m_far;

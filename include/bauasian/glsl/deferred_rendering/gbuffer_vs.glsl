@@ -1,6 +1,7 @@
-#version 330 core
-#include "../common/lights.glsl"
+#version 420 core
 #include "../locations.glsl"
+#include "../bindings.glsl"
+#include "../common/lights.glsl"
 
 layout (location = DEFERRED_GBUFFER_POSITION) in vec3 vertex_position;
 layout (location = DEFERRED_GBUFFER_NORMAL) in vec3 vertex_normal;
@@ -8,7 +9,7 @@ layout (location = DEFERRED_GBUFFER_TEXTURE_COORD) in vec2 vertex_texture_coord;
 layout (location = DEFERRED_GBUFFER_TANGENT) in vec3 vertex_tangent;
 layout (location = DEFERRED_GBUFFER_BI_TANGENT) in vec3 vertex_bi_tangent;
 
-layout(std140) uniform CameraBuffer
+layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
     vec3 camera_position;
 	float near;

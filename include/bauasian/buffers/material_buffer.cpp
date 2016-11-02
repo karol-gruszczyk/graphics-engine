@@ -29,7 +29,7 @@ void MaterialBuffer::setDiffuseColor(const glm::vec3& color)
 	setSubData(0, sizeof(glm::vec3), glm::value_ptr(color));
 }
 
-void MaterialBuffer::setSpecular(const glm::vec3& color)
+void MaterialBuffer::setSpecularColor(const glm::vec3& color)
 {
 	setSubData(16, sizeof(glm::vec3), glm::value_ptr(color));
 }

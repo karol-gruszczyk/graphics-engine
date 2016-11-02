@@ -3,7 +3,7 @@
 #include "../common/lights.glsl"
 #include "../common/attenuation.glsl"
 
-layout (std140) uniform CameraBuffer
+layout (std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
     vec3 camera_position;
 	float near;

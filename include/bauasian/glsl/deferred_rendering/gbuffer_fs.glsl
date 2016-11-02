@@ -3,9 +3,8 @@
 #include "../common/lights.glsl"
 #include "../common/parallax.glsl"
 #include "../utils/linearize_depth.glsl"
-#include "../bindings.glsl"
 
-layout(std140) uniform CameraBuffer
+layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
     vec3 camera_position;
 	float near;
