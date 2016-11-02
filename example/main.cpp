@@ -19,7 +19,7 @@ std::chrono::steady_clock::time_point last_frame_time;
 using namespace bauasian;
 
 DeferredRenderer* renderer;
-Camera* camera;
+PerspectiveCamera* camera;
 Scene3D* scene3d;
 Text* fps_text, * stat_text;
 SunSkyBox* sky_box;
@@ -56,7 +56,7 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 	window_width = (unsigned) width;
 	window_height = (unsigned) height;
 	Bauasian::getInstance().setContextSize({ width, height });
-//	camera->setAspectRatio((float) width / height);
+	camera->setAspectRatio((float) width / height);
 	renderer->setSize({ width, height });
 }
 
@@ -187,7 +187,7 @@ void setup()
 	camera->lookAt(glm::vec3(25.f, 25.f, 25.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	scene3d->addCamera(camera);
 
-	camera = scene3d->getCamera();
+	camera = dynamic_cast<PerspectiveCamera*>(scene3d->getCamera());
 	camera->setFar(10000.f);
 
 	fps_text = new Text(FontFactory::getInstance().getFont("scenes/liberation.ttf", 14));

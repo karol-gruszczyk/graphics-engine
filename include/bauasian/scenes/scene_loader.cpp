@@ -224,7 +224,7 @@ void SceneLoader::processLights(const aiScene* scene)
 					{ light->mAttenuationConstant, light->mAttenuationLinear, light->mAttenuationQuadratic },
 					light->mAngleInnerCone, light->mAngleOuterCone);
 			spot->setColor(to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
-			m_point_lights.push_back(spot);
+			m_spot_lights.push_back(spot);
 		}
 	}
 }

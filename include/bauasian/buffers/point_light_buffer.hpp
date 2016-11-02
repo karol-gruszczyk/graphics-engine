@@ -9,7 +9,7 @@ namespace bauasian
 	class PointLightBuffer;
 }
 
-class bauasian::PointLightBuffer : public UniformBuffer
+class bauasian::PointLightBuffer : protected UniformBuffer
 {
 public:
 	PointLightBuffer();

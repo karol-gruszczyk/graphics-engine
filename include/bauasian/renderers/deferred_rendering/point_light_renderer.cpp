@@ -1,6 +1,5 @@
 #include "point_light_renderer.hpp"
 #include "bauasian/buffers/matrices_buffer.hpp"
-#include "bauasian/buffers/point_light_buffer.hpp"
 
 
 using bauasian::PointLightRenderer;

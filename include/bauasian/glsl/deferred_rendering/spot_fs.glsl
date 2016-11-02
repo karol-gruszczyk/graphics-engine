@@ -10,7 +10,7 @@ layout (std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 	float far;
 };
 
-layout (std140) uniform SpotLightBuffer
+layout (std140, binding = BUFFER_SPOT_LIGHT_BINDING) uniform SpotLightBuffer
 {
     SpotLight spot_light;
 };
@@ -55,4 +55,5 @@ void main()
                                          view_dir, fragment_shininess) * fragment_specular;
 
 	out_color = vec4(diffuse + specular, 1.f) * falloff * attenuation;
+	out_color += vec4(1.f, 0.f, 0.f, 1.f);
 }

@@ -18,6 +18,7 @@ LightAccumulator::LightAccumulator(const glm::uvec2& size, const std::shared_ptr
 void LightAccumulator::setSize(const glm::uvec2& size)
 {
 	m_frame_buffer->setSize(size);
+	m_ambient_renderer.setSize(size);
 	m_point_light_renderer.setSize(size);
 	m_spot_light_renderer.setSize(size);
 }

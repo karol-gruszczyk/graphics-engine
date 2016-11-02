@@ -19,13 +19,12 @@ struct PointLight
 
 struct SpotLight
 {
+	mat4 model_matrix;
 	vec3 diffuse_color;
 	vec3 specular_color;
-	mat4 model_matrix;
-	vec3 position; float a;
-	float range;
-	vec3 attenuation; float b;
+	vec3 position;
 	vec3 direction;
+	vec3 attenuation;
 	float inner_angle;
 	float outer_angle;
 };
