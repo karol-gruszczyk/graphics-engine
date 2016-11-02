@@ -19,6 +19,7 @@ Camera::~Camera()
 
 void Camera::bind() const
 {
+	m_buffer.bind();
 }
 
 const glm::vec3& Camera::getPosition() const

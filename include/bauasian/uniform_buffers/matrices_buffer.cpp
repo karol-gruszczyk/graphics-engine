@@ -1,4 +1,5 @@
 #include "matrices_buffer.hpp"
+#include "bauasian/glsl/bindings.glsl"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -22,5 +23,5 @@ void MatricesBuffer::setNormalMatrix(const glm::mat4& matrix) const
 }
 
 MatricesBuffer::MatricesBuffer()
-		: UniformBuffer(sizeof(GlslMatricesBuffer), UniformBuffer::MATRICES)
+		: UniformBuffer(sizeof(GlslMatricesBuffer), BUFFER_MATRICES_BINDING)
 {}

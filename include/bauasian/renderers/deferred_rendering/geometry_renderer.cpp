@@ -1,5 +1,4 @@
 #include "geometry_renderer.hpp"
-#include "bauasian/uniform_buffers/matrices_buffer.hpp"
 #include "bauasian/glsl/bindings.glsl"
 
 
@@ -16,8 +15,6 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 			std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
 					{ m_albedo_buffer, m_specular_buffer, m_normal_buffer, m_position_buffer },
 			depth_buffer, size);
-
-	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "MatricesBuffer");
 }
 
 void GeometryRenderer::setSize(const glm::uvec2& size)
