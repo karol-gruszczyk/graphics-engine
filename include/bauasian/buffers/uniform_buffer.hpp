@@ -18,7 +18,7 @@ public:
 	{
 		MATERIAL, MATRICES, CAMERA, BASIC_MATERIAL, DIRECTIONAL_LIGHT, POINT_LIGHT, SPOT_LIGHT
 	};
-	UniformBuffer(const GLsizeiptr& data_size, const BindingPoint& binding_point);
+	UniformBuffer(const GLsizeiptr& data_size, const GLuint& binding_point);
 	~UniformBuffer();
 
 	void setData(const void* data) const;
@@ -30,6 +30,7 @@ private:
 	GLuint m_ubo_id;
 	GLsizeiptr m_uniform_block_size;
 	GLuint m_binding_point;
+
 };
 
 #endif /* BAUASIAN_UNIFORM_BUFFER_HPP */

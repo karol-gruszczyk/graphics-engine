@@ -3,6 +3,7 @@
 #include "../common/lights.glsl"
 #include "../common/parallax.glsl"
 #include "../utils/linearize_depth.glsl"
+#include "../bindings.glsl"
 
 layout(std140) uniform CameraBuffer
 {
@@ -11,7 +12,7 @@ layout(std140) uniform CameraBuffer
 	float far;
 };
 
-layout(std140) uniform Material
+layout(std140, binding = BUFFER_MATERIAL_BINDING) uniform Material
 {
 	vec4 diffuse_color;
 	vec4 specular_color;

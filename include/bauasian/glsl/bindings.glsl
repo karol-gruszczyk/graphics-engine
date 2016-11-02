@@ -1,6 +1,9 @@
 #ifndef BINDINGS_GLSL
 #define BINDINGS_GLSL
 
+// buffers
+#define BUFFER_MATERIAL_BINDING 0
+
 // geometry pass
 #define MATERIAL_DIFFUSE_BINDING 0
 #define MATERIAL_SPECULAR_BINDING 1

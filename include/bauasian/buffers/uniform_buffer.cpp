@@ -4,7 +4,7 @@
 using bauasian::UniformBuffer;
 using bauasian::ShaderProgram;
 
-UniformBuffer::UniformBuffer(const GLsizeiptr& data_size, const bauasian::UniformBuffer::BindingPoint& binding_point)
+UniformBuffer::UniformBuffer(const GLsizeiptr& data_size, const GLuint& binding_point)
 		: m_uniform_block_size(data_size), m_binding_point(binding_point)
 {
 	glCreateBuffers(1, &m_ubo_id);

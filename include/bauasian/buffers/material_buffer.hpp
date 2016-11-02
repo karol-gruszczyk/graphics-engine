@@ -9,27 +9,21 @@ namespace bauasian
 	class MaterialBuffer;
 }
 
-class bauasian::MaterialBuffer : public UniformBuffer
+class bauasian::MaterialBuffer : protected UniformBuffer
 {
 public:
-	struct alignas(16) GlslMaterial
-	{
-		glm::vec4 diffuse_color = glm::vec4(1.f);
-		glm::vec4 specular_color = glm::vec4(1.f);
-
-		GLint use_diffuse_texture = 0;
-		GLint use_specular_texture = 0;
-		GLint use_normal_texture = 0;
-		GLint use_displacement_texture = 0;
-		GLint use_opacity_texture = 0;
-
-		float shininess = 0.f;
-	};
-
-	static MaterialBuffer& getInstance();
-
-private:
 	MaterialBuffer();
+
+	using UniformBuffer::bind;
+
+	void setDiffuseColor(const glm::vec3& color);
+	void setSpecular(const glm::vec3& color);
+	void setUseDiffuseTexture(const GLint& value);
+	void setUseSpecularTexture(const GLint& value);
+	void setUseNormalTexture(const GLint& value);
+	void setUseDisplacementTexture(const GLint& value);
+	void setUseOpacityTexture(const GLint& value);
+	void setShininess(const float& shininess);
 
 };
 

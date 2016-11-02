@@ -13,7 +13,7 @@ namespace bauasian
 	class Material;
 }
 
-class bauasian::Material : public NameMixin
+class bauasian::Material final : public NameMixin
 {
 public:
 	void setDiffuse(const glm::vec3& color);
@@ -24,12 +24,11 @@ public:
 	void setNormalTexture(Texture* texture);
 	void setDisplacementTexture(Texture* texture);
 	void setOpacityTexture(Texture* texture);
-	void setEmissive();
 
 	void bind() const;
 
-protected:
-	MaterialBuffer::GlslMaterial m_material;
+private:
+	MaterialBuffer m_buffer;
 	Texture* m_diffuse_texture = nullptr;
 	Texture* m_specular_texture = nullptr;
 	Texture* m_normal_texture = nullptr;
