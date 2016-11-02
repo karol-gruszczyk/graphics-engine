@@ -15,6 +15,7 @@ class bauasian::ShaderMixin
 {
 public:
 	ShaderMixin(const boost::filesystem::path& vs_path, const boost::filesystem::path& fs_path);
+	ShaderMixin(const boost::filesystem::path& vs_path);
 
 	const ShaderProgram& getShader() const;
 

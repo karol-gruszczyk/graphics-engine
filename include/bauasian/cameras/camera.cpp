@@ -22,6 +22,11 @@ void Camera::bind() const
 	m_buffer.bind();
 }
 
+void Camera::bind(const GLuint& binding_point) const
+{
+	m_buffer.bind(binding_point);
+}
+
 const glm::vec3& Camera::getPosition() const
 {
 	return m_position;
