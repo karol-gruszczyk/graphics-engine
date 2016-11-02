@@ -2,7 +2,7 @@
 #define BAUASIAN_MATERIAL_HPP
 
 #include "bauasian/textures/texture.hpp"
-#include "bauasian/buffers/material_buffer.hpp"
+#include "bauasian/uniform_buffers/material_buffer.hpp"
 #include "bauasian/mixins/name_mixin.hpp"
 
 #include <memory>

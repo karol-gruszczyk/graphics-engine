@@ -1,5 +1,5 @@
 #include "ssao.hpp"
-#include "bauasian/buffers/matrices_buffer.hpp"
+#include "bauasian/uniform_buffers/matrices_buffer.hpp"
 
 
 using bauasian::SSAO;

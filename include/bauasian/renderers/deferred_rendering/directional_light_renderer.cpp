@@ -1,5 +1,5 @@
 #include "directional_light_renderer.hpp"
-#include "bauasian/buffers/directional_light_buffer.hpp"
+#include "bauasian/uniform_buffers/directional_light_buffer.hpp"
 
 
 using bauasian::DirectionalLightRenderer;

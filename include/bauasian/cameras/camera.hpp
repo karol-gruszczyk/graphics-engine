@@ -2,7 +2,7 @@
 #define BAUASIAN_CAMERA_HPP
 
 #include "bauasian/mixins/name_mixin.hpp"
-#include "bauasian/buffers/camera_buffer.hpp"
+#include "bauasian/uniform_buffers/camera_buffer.hpp"
 
 #include <glm/glm.hpp>
 

@@ -3,7 +3,7 @@
 
 #include "light.hpp"
 #include "mixins/point_light_mixin.hpp"
-#include "bauasian/buffers/point_light_buffer.hpp"
+#include "bauasian/uniform_buffers/point_light_buffer.hpp"
 
 
 namespace bauasian

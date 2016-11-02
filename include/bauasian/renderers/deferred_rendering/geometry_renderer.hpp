@@ -2,7 +2,7 @@
 #define BAUASIAN_GEOMETRY_RENDERER_HPP
 
 #include "bauasian/mixins/shader_mixin.hpp"
-#include "bauasian/renderers/frame_buffer.hpp"
+#include "bauasian/frame_buffers/frame_buffer.hpp"
 #include "bauasian/shaders/shader_program.hpp"
 #include "bauasian/textures/texture.hpp"
 #include "bauasian/scenes/scene_3d.hpp"

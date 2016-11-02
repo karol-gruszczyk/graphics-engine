@@ -1,6 +1,6 @@
 #include "spot_light_renderer.hpp"
-#include "bauasian/buffers/matrices_buffer.hpp"
-#include "bauasian/buffers/spot_light_buffer.hpp"
+#include "bauasian/uniform_buffers/matrices_buffer.hpp"
+#include "bauasian/uniform_buffers/spot_light_buffer.hpp"
 
 
 using bauasian::SpotLightRenderer;

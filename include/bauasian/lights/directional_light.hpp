@@ -3,7 +3,7 @@
 
 #include "light.hpp"
 #include "mixins/direction_mixin.hpp"
-#include "bauasian/buffers/directional_light_buffer.hpp"
+#include "bauasian/uniform_buffers/directional_light_buffer.hpp"
 
 
 namespace bauasian

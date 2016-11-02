@@ -2,7 +2,7 @@
 #define BAUASIAN_TEXTURE_HPP
 
 #include "mixins/texture_mixin.hpp"
-#include "bauasian/renderers/frame_buffer_attachment.hpp"
+#include "bauasian/frame_buffers/frame_buffer_attachment.hpp"
 
 #include <map>
 

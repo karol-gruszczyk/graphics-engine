@@ -3,7 +3,7 @@
 
 #include "post_processor.hpp"
 #include "bauasian/shaders/shader_program.hpp"
-#include "bauasian/renderers/frame_buffer.hpp"
+#include "bauasian/frame_buffers/frame_buffer.hpp"
 #include "bauasian/primitives/screen_quad.hpp"
 
 

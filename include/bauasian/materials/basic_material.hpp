@@ -2,7 +2,7 @@
 #define BAUASIAN_BASIC_MATERIAL_HPP
 
 #include "bauasian/textures/texture.hpp"
-#include "bauasian/buffers/basic_material_buffer.hpp"
+#include "bauasian/uniform_buffers/basic_material_buffer.hpp"
 
 #include <glm/glm.hpp>
 
