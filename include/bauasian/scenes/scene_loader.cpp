@@ -205,7 +205,7 @@ void SceneLoader::processLights(const aiScene* scene)
 		if (light->mType == aiLightSource_DIRECTIONAL)
 		{
 			auto dir = new DirectionalLight(to_vec(light->mDirection));
-			dir->setColor(to_vec(light->mColorAmbient), to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
+			dir->setColor(to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
 			m_directional_lights.push_back(dir);
 			break;
 		}
@@ -214,7 +214,7 @@ void SceneLoader::processLights(const aiScene* scene)
 			auto point = new PointLight(
 					to_vec(light->mPosition),
 					{ light->mAttenuationConstant, light->mAttenuationLinear, light->mAttenuationQuadratic });
-			point->setColor(to_vec(light->mColorAmbient), to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
+			point->setColor(to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
 			m_point_lights.push_back(point);
 		}
 		else if (light->mType == aiLightSource_SPOT)
@@ -223,7 +223,7 @@ void SceneLoader::processLights(const aiScene* scene)
 					to_vec(light->mPosition), to_vec(light->mDirection),
 					{ light->mAttenuationConstant, light->mAttenuationLinear, light->mAttenuationQuadratic },
 					light->mAngleInnerCone, light->mAngleOuterCone);
-			spot->setColor(to_vec(light->mColorAmbient), to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
+			spot->setColor(to_vec(light->mColorDiffuse), to_vec(light->mColorSpecular));
 			m_point_lights.push_back(spot);
 		}
 	}

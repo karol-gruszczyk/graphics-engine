@@ -3,7 +3,6 @@
 
 struct DirectionalLight
 {
-	vec3 ambient_color;
 	vec3 diffuse_color;
 	vec3 specular_color;
 	vec3 direction;
@@ -11,7 +10,6 @@ struct DirectionalLight
 
 struct PointLight
 {
-	vec3 ambient_color;
 	vec3 diffuse_color;
 	vec3 specular_color;
 	mat4 model_matrix;
@@ -22,7 +20,6 @@ struct PointLight
 
 struct SpotLight
 {
-	vec3 ambient_color;
 	vec3 diffuse_color;
 	vec3 specular_color;
 	mat4 model_matrix;

@@ -8,8 +8,9 @@ using bauasian::SpotLight;
 
 SpotLight::SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range,
                      const float& inner_angle, const float& outer_angle)
-		: PointLight(position, range), DirectionMixin(direction), m_inner_angle(inner_angle)
+		: PointLight(position, range), m_inner_angle(inner_angle)
 {
+	setDirection(direction);
 	setOuterAngle(outer_angle);
 	setAttenuation(m_attenuation);
 	calculateModelMatrix();
@@ -17,8 +18,9 @@ SpotLight::SpotLight(const glm::vec3& position, const glm::vec3& direction, cons
 
 SpotLight::SpotLight(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& attenuation,
                      const float& inner_angle, const float& outer_angle)
-		: PointLight(position, attenuation), DirectionMixin(direction), m_inner_angle(inner_angle)
+		: PointLight(position, attenuation), m_inner_angle(inner_angle)
 {
+	setDirection(direction);
 	setOuterAngle(outer_angle);
 	setAttenuation(m_attenuation);
 	calculateModelMatrix();

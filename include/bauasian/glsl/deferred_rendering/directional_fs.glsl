@@ -15,7 +15,7 @@ layout (binding = DEFERRED_SPECULAR_BINDING) uniform sampler2D specular_buffer;
 layout (binding = DEFERRED_NORMAL_BINDING) uniform sampler2D normal_buffer;
 layout (binding = DEFERRED_POSITION_BINDING) uniform sampler2D position_buffer;
 
-layout (std140) uniform DirectionalLightBuffer
+layout (std140, binding = BUFFER_DIRECTIONAL_LIGHT_BINDING) uniform DirectionalLightBuffer
 {
     DirectionalLight dir_light;
 };

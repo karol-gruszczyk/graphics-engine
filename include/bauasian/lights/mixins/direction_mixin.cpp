@@ -3,17 +3,12 @@
 
 using bauasian::DirectionMixin;
 
-DirectionMixin::DirectionMixin(const glm::vec3& direction)
-{
-	setDirection(direction);
-}
-
 void DirectionMixin::setDirection(const glm::vec3& direction)
 {
-	m_direction = glm::vec4(glm::normalize(direction), 0.f);
+	m_direction = glm::normalize(direction);
 }
 
-const glm::vec3 DirectionMixin::getDirection() const
+const glm::vec3& DirectionMixin::getDirection() const
 {
-	return (glm::vec3) m_direction;
+	return m_direction;
 }

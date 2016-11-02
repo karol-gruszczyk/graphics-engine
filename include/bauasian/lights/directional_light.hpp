@@ -2,7 +2,8 @@
 #define BAUASIAN_DIRECTIONAL_LIGHT_HPP
 
 #include "light.hpp"
-#include "bauasian/lights/mixins/direction_mixin.hpp"
+#include "mixins/direction_mixin.hpp"
+#include "bauasian/buffers/directional_light_buffer.hpp"
 
 
 namespace bauasian
@@ -14,6 +15,15 @@ class bauasian::DirectionalLight final : public Light, public DirectionMixin
 {
 public:
 	DirectionalLight(const glm::vec3& direction);
+
+	void bind() const;
+
+	virtual void setDiffuseColor(const glm::vec3& color) override;
+	virtual void setSpecularColor(const glm::vec3& color) override;
+	virtual void setDirection(const glm::vec3& direction) override;
+
+private:
+	DirectionalLightBuffer m_buffer;
 
 };
 

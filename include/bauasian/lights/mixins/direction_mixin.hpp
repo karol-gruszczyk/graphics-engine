@@ -12,13 +12,11 @@ namespace bauasian
 class bauasian::DirectionMixin
 {
 public:
-	DirectionMixin(const glm::vec3& direction);
-
-	void setDirection(const glm::vec3& direction);
-	const glm::vec3 getDirection() const;
+	virtual void setDirection(const glm::vec3& direction);
+	const glm::vec3& getDirection() const;
 
 protected:
-	glm::vec4 m_direction;
+	glm::vec3 m_direction;
 
 };
 

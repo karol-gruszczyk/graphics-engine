@@ -12,10 +12,13 @@ namespace bauasian
 class bauasian::DirectionalLightBuffer : public UniformBuffer
 {
 public:
-	static DirectionalLightBuffer& getInstance();
-
-private:
 	DirectionalLightBuffer();
+
+	using UniformBuffer::bind;
+
+	void setDiffuseColor(const glm::vec3& color) const;
+	void setSpecularColor(const glm::vec3& color) const;
+	void setDirection(const glm::vec3& direction) const;
 
 };
 

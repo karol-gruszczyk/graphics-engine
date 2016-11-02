@@ -11,7 +11,7 @@ SpotLightRenderer::SpotLightRenderer(const glm::uvec2& size)
 {
 	m_location_spot_light_screen_size = m_shader->getUniformLocation("screen_size");
 	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "MatricesBuffer");
-	SpotLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "SpotLightBuffer");
+//	SpotLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "SpotLightBuffer");
 	setSize(size);
 }
 
@@ -25,7 +25,7 @@ void SpotLightRenderer::render(const Scene3D* const scene) const
 	m_shader->use();
 	for (const auto& light : scene->getSpotLights())
 	{
-		SpotLightBuffer::getInstance().setData(light);
-		m_light_volume.render();
+//		SpotLightBuffer::getInstance().setData(light);
+//		m_light_volume.render();
 	}
 }
