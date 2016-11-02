@@ -1,5 +1,5 @@
-#ifndef BAUASIAN_AMBIENT_RENDERER_HPP
-#define BAUASIAN_AMBIENT_RENDERER_HPP
+#ifndef BAUASIAN_AMBIENT_LIGHT_PASS_HPP
+#define BAUASIAN_AMBIENT_LIGHT_PASS_HPP
 
 #include "bauasian/mixins/shader_mixin.hpp"
 #include "bauasian/primitives/screen_quad.hpp"
@@ -9,13 +9,13 @@
 
 namespace bauasian
 {
-	class AmbientLightRenderer;
+	class AmbientLightPass;
 }
 
-class bauasian::AmbientLightRenderer : ShaderMixin
+class bauasian::AmbientLightPass : ShaderMixin
 {
 public:
-	AmbientLightRenderer(const glm::uvec2& size);
+	AmbientLightPass(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size);
 	void process(const FrameBuffer* const frame_buffer) const;
@@ -26,4 +26,4 @@ private:
 
 };
 
-#endif /* BAUASIAN_AMBIENT_RENDERER_HPP */
+#endif /* BAUASIAN_AMBIENT_LIGHT_PASS_HPP */

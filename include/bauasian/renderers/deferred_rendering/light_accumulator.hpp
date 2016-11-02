@@ -2,10 +2,10 @@
 #define BAUASIAN_LIGHT_RENDERER_HPP
 
 #include "bauasian/textures/texture.hpp"
-#include "directional_light_renderer.hpp"
-#include "point_light_renderer.hpp"
-#include "spot_light_renderer.hpp"
-#include "ambient_light_renderer.hpp"
+#include "directional_light_pass.hpp"
+#include "point_light_pass.hpp"
+#include "spot_light_pass.hpp"
+#include "ambient_light_pass.hpp"
 
 
 namespace bauasian
@@ -26,10 +26,10 @@ private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
 	std::shared_ptr<Texture> m_accumulation_buffer;
 
-	AmbientLightRenderer m_ambient_renderer;
-	DirectionalLightRenderer m_directional_light_renderer;
-	PointLightRenderer m_point_light_renderer;
-	SpotLightRenderer m_spot_light_renderer;
+	AmbientLightPass m_ambient_renderer;
+	DirectionalLightPass m_directional_light_renderer;
+	PointLightPass m_point_light_renderer;
+	SpotLightPass m_spot_light_renderer;
 
 };
 

@@ -1,10 +1,10 @@
-#include "geometry_renderer.hpp"
+#include "geometry_pass.hpp"
 #include "bauasian/glsl/bindings.glsl"
 
 
-using bauasian::GeometryRenderer;
+using bauasian::GeometryPass;
 
-GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
+GeometryPass::GeometryPass(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer)
 		: ShaderMixin("deferred_rendering/gbuffer_vs.glsl", "deferred_rendering/gbuffer_fs.glsl")
 {
 	m_albedo_buffer = std::make_shared<Texture>(GL_RGB, GL_RGB, size);
@@ -17,12 +17,12 @@ GeometryRenderer::GeometryRenderer(const glm::uvec2& size, const std::shared_ptr
 			depth_buffer, size);
 }
 
-void GeometryRenderer::setSize(const glm::uvec2& size)
+void GeometryPass::setSize(const glm::uvec2& size)
 {
 	m_frame_buffer->setSize(size);
 }
 
-void GeometryRenderer::render(const Scene3D* const scene) const
+void GeometryPass::render(const Scene3D* const scene) const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

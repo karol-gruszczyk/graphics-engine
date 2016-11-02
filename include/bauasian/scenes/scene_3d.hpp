@@ -4,7 +4,6 @@
 #include "bauasian/cameras/camera.hpp"
 #include "bauasian/sky/sky_box.hpp"
 #include "bauasian/primitives/abstract/entity_3d.hpp"
-#include "bauasian/lights/directional_light.hpp"
 #include "bauasian/lights/point_light.hpp"
 #include "bauasian/lights/spot_light.hpp"
 #include "bauasian/exceptions/light_limit_reached_exception.hpp"
@@ -15,6 +14,7 @@
 namespace bauasian
 {
 	class Scene3D;
+	class DirectionalLight;
 }
 
 class bauasian::Scene3D

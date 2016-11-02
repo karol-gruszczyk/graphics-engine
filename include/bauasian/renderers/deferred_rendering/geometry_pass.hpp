@@ -1,5 +1,5 @@
-#ifndef BAUASIAN_GEOMETRY_RENDERER_HPP
-#define BAUASIAN_GEOMETRY_RENDERER_HPP
+#ifndef BAUASIAN_GEOMETRY_PASS_HPP
+#define BAUASIAN_GEOMETRY_PASS_HPP
 
 #include "bauasian/mixins/shader_mixin.hpp"
 #include "bauasian/frame_buffers/frame_buffer.hpp"
@@ -10,13 +10,13 @@
 
 namespace bauasian
 {
-	class GeometryRenderer;
+	class GeometryPass;
 }
 
-class bauasian::GeometryRenderer : public ShaderMixin
+class bauasian::GeometryPass : public ShaderMixin
 {
 public:
-	GeometryRenderer(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
+	GeometryPass(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
 
 	void setSize(const glm::uvec2& size);
 	void render(const Scene3D* const scene) const;
@@ -31,4 +31,4 @@ private:
 
 };
 
-#endif /* BAUASIAN_GEOMETRY_RENDERER_HPP */
+#endif /* BAUASIAN_GEOMETRY_PASS_HPP */

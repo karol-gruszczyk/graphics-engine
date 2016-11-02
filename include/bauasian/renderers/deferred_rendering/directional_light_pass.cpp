@@ -1,14 +1,15 @@
-#include "directional_light_renderer.hpp"
+#include "directional_light_pass.hpp"
+#include "bauasian/lights/directional_light.hpp"
 
 
-using bauasian::DirectionalLightRenderer;
+using bauasian::DirectionalLightPass;
 using bauasian::ShaderProgram;
 
-DirectionalLightRenderer::DirectionalLightRenderer()
+DirectionalLightPass::DirectionalLightPass()
 		: ShaderMixin("deferred_rendering/directional_vs.glsl", "deferred_rendering/directional_fs.glsl")
 {}
 
-void DirectionalLightRenderer::render(const Scene3D* const scene) const
+void DirectionalLightPass::render(const Scene3D* const scene) const
 {
 	m_shader->use();
 	for (const auto& light : scene->getDirectionalLights())

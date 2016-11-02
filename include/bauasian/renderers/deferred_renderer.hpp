@@ -1,7 +1,7 @@
 #ifndef BAUASIAN_DEFERRED_RENDERER_HPP
 #define BAUASIAN_DEFERRED_RENDERER_HPP
 
-#include "deferred_rendering/geometry_renderer.hpp"
+#include "bauasian/renderers/deferred_rendering/geometry_pass.hpp"
 #include "deferred_rendering/light_accumulator.hpp"
 #include "bauasian/mixins/size_mixin.hpp"
 #include "bauasian/post_processors/hdr.hpp"
@@ -31,7 +31,7 @@ private:
 	std::list<PostProcessor*> m_post_processors;
 
 	std::shared_ptr<RenderBuffer> m_depth_buffer;
-	GeometryRenderer m_geometry_renderer;
+	GeometryPass m_geometry_renderer;
 	LightAccumulator m_light_accumulator;
 
 	HDR m_hdr;

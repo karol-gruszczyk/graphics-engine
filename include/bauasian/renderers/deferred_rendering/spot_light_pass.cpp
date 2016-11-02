@@ -1,12 +1,12 @@
-#include "spot_light_renderer.hpp"
+#include "spot_light_pass.hpp"
 #include "bauasian/uniform_buffers/matrices_buffer.hpp"
 #include "bauasian/uniform_buffers/spot_light_buffer.hpp"
 
 
-using bauasian::SpotLightRenderer;
+using bauasian::SpotLightPass;
 using bauasian::ShaderProgram;
 
-SpotLightRenderer::SpotLightRenderer(const glm::uvec2& size)
+SpotLightPass::SpotLightPass(const glm::uvec2& size)
 		: ShaderMixin("deferred_rendering/spot_vs.glsl", "deferred_rendering/spot_fs.glsl")
 {
 	m_location_spot_light_screen_size = m_shader->getUniformLocation("screen_size");
@@ -14,12 +14,12 @@ SpotLightRenderer::SpotLightRenderer(const glm::uvec2& size)
 	setSize(size);
 }
 
-void SpotLightRenderer::setSize(const glm::uvec2& size)
+void SpotLightPass::setSize(const glm::uvec2& size)
 {
 	m_shader->setUniform(m_location_spot_light_screen_size, size);
 }
 
-void SpotLightRenderer::render(const Scene3D* const scene) const
+void SpotLightPass::render(const Scene3D* const scene) const
 {
 	m_shader->use();
 	for (const auto& light : scene->getSpotLights())

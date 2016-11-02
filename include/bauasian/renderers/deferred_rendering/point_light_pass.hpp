@@ -1,5 +1,5 @@
-#ifndef BAUASIAN_POINT_LIGHT_RENDERER_HPP
-#define BAUASIAN_POINT_LIGHT_RENDERER_HPP
+#ifndef BAUASIAN_POINT_LIGHT_PASS_HPP
+#define BAUASIAN_POINT_LIGHT_PASS_HPP
 
 #include "bauasian/mixins/shader_mixin.hpp"
 #include "bauasian/primitives/sphere_volume.hpp"
@@ -8,13 +8,13 @@
 
 namespace bauasian
 {
-	class PointLightRenderer;
+	class PointLightPass;
 }
 
-class bauasian::PointLightRenderer : public ShaderMixin
+class bauasian::PointLightPass : public ShaderMixin
 {
 public:
-	PointLightRenderer(const glm::uvec2& size);
+	PointLightPass(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size);
 	void render(const Scene3D* const scene) const;
@@ -26,4 +26,4 @@ private:
 
 };
 
-#endif /* BAUASIAN_POINT_LIGHT_RENDERER_HPP */
+#endif /* BAUASIAN_POINT_LIGHT_PASS_HPP */
