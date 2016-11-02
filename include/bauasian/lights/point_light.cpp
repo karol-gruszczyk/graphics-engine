@@ -5,68 +5,53 @@
 
 using bauasian::PointLight;
 
-
 PointLight::PointLight(const glm::vec3& position, const float& range)
 {
-	setRange(range);
+	setDiffuseColor(m_diffuse_color);
+	setSpecularColor(m_specular_color);
 	setPosition(position);
+	setRange(range);
 }
 
 PointLight::PointLight(const glm::vec3& position, const glm::vec3& attenuation)
 {
-	setAttenuation(attenuation);
+	setDiffuseColor(m_diffuse_color);
+	setSpecularColor(m_specular_color);
 	setPosition(position);
+	setAttenuation(attenuation);
 }
 
-const glm::vec3& PointLight::getPosition() const
+void PointLight::bind() const
 {
-	return m_position;
+	m_buffer.bind();
+}
+
+void PointLight::setDiffuseColor(const glm::vec3& color)
+{
+	Light::setDiffuseColor(color);
+	m_buffer.setDiffuseColor(m_diffuse_color);
+}
+
+void PointLight::setSpecularColor(const glm::vec3& color)
+{
+	Light::setSpecularColor(color);
+	m_buffer.setSpecularColor(m_specular_color);
 }
 
 void PointLight::setPosition(const glm::vec3& position)
 {
-	m_model_matrix = glm::translate(m_model_matrix, (position - m_position) / m_range);
-	m_position = position;
-}
-
-float PointLight::getRange() const
-{
-	return m_range;
-}
-
-void PointLight::setRange(const float& range)
-{
-	setAttenuation({ 1.f, 2.f / range, 1.f / (range * range) });
-	calculateModelMatrix();
-}
-
-const glm::vec3& PointLight::getAttenuation() const
-{
-	return m_attenuation;
+	PointLightMixin::setPosition(position);
+	m_buffer.setPosition(m_position);
+	m_buffer.setModelMatrix(m_model_matrix);
 }
 
 void PointLight::setAttenuation(const glm::vec3& attenuation)
 {
-	m_attenuation = attenuation;
-	m_range = calculateRange();
+	PointLightMixin::setAttenuation(attenuation);
+	m_buffer.setAttenuation(m_attenuation);
 }
-
-const glm::mat4& PointLight::getModelMatrix() const
-{
-	return m_model_matrix;
-}
-
-const float PointLight::calculateRange() const
-{
-	const float threshold = 0.01f;
-	float a = threshold * m_attenuation.z;
-	float b = threshold * m_attenuation.y;
-	float c = threshold * m_attenuation.x - 1;
-	float delta = b * b - 4 * a * c;
-	return glm::abs(-b - glm::sqrt(delta)) / (2.f * a);
-}
-
 void PointLight::calculateModelMatrix()
 {
-	m_model_matrix = glm::scale(m_model_matrix, glm::vec3(m_range));
+	PointLightMixin::calculateModelMatrix();
+	m_buffer.setModelMatrix(m_model_matrix);
 }

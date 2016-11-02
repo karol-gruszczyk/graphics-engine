@@ -16,14 +16,14 @@ public:
 
 	using UniformBuffer::bind;
 
-	void setDiffuseColor(const glm::vec3& color);
-	void setSpecularColor(const glm::vec3& color);
-	void setUseDiffuseTexture(const GLint& value);
-	void setUseSpecularTexture(const GLint& value);
-	void setUseNormalTexture(const GLint& value);
-	void setUseDisplacementTexture(const GLint& value);
-	void setUseOpacityTexture(const GLint& value);
-	void setShininess(const float& shininess);
+	void setDiffuseColor(const glm::vec3& color) const;
+	void setSpecularColor(const glm::vec3& color) const;
+	void setUseDiffuseTexture(const GLint& value) const;
+	void setUseSpecularTexture(const GLint& value) const;
+	void setUseNormalTexture(const GLint& value) const;
+	void setUseDisplacementTexture(const GLint& value) const;
+	void setUseOpacityTexture(const GLint& value) const;
+	void setShininess(const float& shininess) const;
 
 };
 

@@ -9,7 +9,7 @@ namespace bauasian
 	class DirectionalLightBuffer;
 }
 
-class bauasian::DirectionalLightBuffer : public UniformBuffer
+class bauasian::DirectionalLightBuffer : protected UniformBuffer
 {
 public:
 	DirectionalLightBuffer();

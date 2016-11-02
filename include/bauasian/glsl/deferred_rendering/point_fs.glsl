@@ -10,7 +10,7 @@ layout (std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 	float far;
 };
 
-layout (std140) uniform PointLightBuffer
+layout (std140, binding = BUFFER_POINT_LIGHT_BINDING) uniform PointLightBuffer
 {
     PointLight point_light;
 };

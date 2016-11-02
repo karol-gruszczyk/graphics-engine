@@ -11,7 +11,6 @@ PointLightRenderer::PointLightRenderer(const glm::uvec2& size)
 {
 	m_location_point_light_screen_size = m_shader->getUniformLocation("screen_size");
 	MatricesBuffer::getInstance().attachUniformBlock(m_shader.get(), "MatricesBuffer");
-//	PointLightBuffer::getInstance().attachUniformBlock(m_shader.get(), "PointLightBuffer");
 	setSize(size);
 }
 
@@ -25,7 +24,7 @@ void PointLightRenderer::render(const Scene3D* const scene) const
 	m_shader->use();
 	for (const auto& light : scene->getPointLights())
 	{
-//		PointLightBuffer::getInstance().setData(light);
-//		m_light_volume.render();
+		light->bind();
+		m_light_volume.render();
 	}
 }

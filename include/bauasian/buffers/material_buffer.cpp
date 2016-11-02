@@ -24,42 +24,42 @@ MaterialBuffer::MaterialBuffer()
 		: UniformBuffer(sizeof(UniformBlock), BUFFER_MATERIAL_BINDING)
 {}
 
-void MaterialBuffer::setDiffuseColor(const glm::vec3& color)
+void MaterialBuffer::setDiffuseColor(const glm::vec3& color) const
 {
 	setSubData(0, sizeof(glm::vec3), glm::value_ptr(color));
 }
 
-void MaterialBuffer::setSpecularColor(const glm::vec3& color)
+void MaterialBuffer::setSpecularColor(const glm::vec3& color) const
 {
 	setSubData(16, sizeof(glm::vec3), glm::value_ptr(color));
 }
 
-void MaterialBuffer::setUseDiffuseTexture(const GLint& value)
+void MaterialBuffer::setUseDiffuseTexture(const GLint& value) const
 {
 	setSubData(32, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseSpecularTexture(const GLint& value)
+void MaterialBuffer::setUseSpecularTexture(const GLint& value) const
 {
 	setSubData(36, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseNormalTexture(const GLint& value)
+void MaterialBuffer::setUseNormalTexture(const GLint& value) const
 {
 	setSubData(40, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseDisplacementTexture(const GLint& value)
+void MaterialBuffer::setUseDisplacementTexture(const GLint& value) const
 {
 	setSubData(44, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseOpacityTexture(const GLint& value)
+void MaterialBuffer::setUseOpacityTexture(const GLint& value) const
 {
 	setSubData(48, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setShininess(const float& shininess)
+void MaterialBuffer::setShininess(const float& shininess) const
 {
 	setSubData(52, sizeof(GLfloat), &shininess);
 }

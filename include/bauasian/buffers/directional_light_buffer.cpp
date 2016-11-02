@@ -8,7 +8,7 @@ struct alignas(16) UniformBlock
 {
 	glm::vec3 diffuse_color;		// 0
 	glm::vec3 specular_color;		// 16
-	glm::vec3 light_direction;		// 32
+	glm::vec3 direction;			// 32
 };
 
 using bauasian::DirectionalLightBuffer;

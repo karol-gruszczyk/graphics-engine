@@ -2,6 +2,8 @@
 #define BAUASIAN_POINT_LIGHT_HPP
 
 #include "light.hpp"
+#include "mixins/point_light_mixin.hpp"
+#include "bauasian/buffers/point_light_buffer.hpp"
 
 
 namespace bauasian
@@ -9,30 +11,24 @@ namespace bauasian
 	class PointLight;
 }
 
-class bauasian::PointLight : public Light
+class bauasian::PointLight : public Light, public PointLightMixin
 {
 public:
 	PointLight(const glm::vec3& position, const float& range);
 	PointLight(const glm::vec3& position, const glm::vec3& attenuation);
 
-	const glm::vec3& getPosition() const;
-	void setPosition(const glm::vec3& position);
-	float getRange() const;
-	void setRange(const float& range);
-	const glm::vec3& getAttenuation() const;
-	void setAttenuation(const glm::vec3& attenuation);
-	const glm::mat4& getModelMatrix() const;
+	void bind() const;
 
-protected:
-	glm::mat4 m_model_matrix;
-	glm::vec3 m_position; float a;
-	float m_range; glm::vec3 off;
-	glm::vec3 m_attenuation; float b;
+	virtual void setDiffuseColor(const glm::vec3& color) override;
+	virtual void setSpecularColor(const glm::vec3& color) override;
+	virtual void setPosition(const glm::vec3& position) override;
+	virtual void setAttenuation(const glm::vec3& attenuation) override;
 
-	const float calculateRange() const;
 
 private:
-	void calculateModelMatrix();
+	PointLightBuffer m_buffer;
+
+	virtual void calculateModelMatrix() override;
 
 };
 

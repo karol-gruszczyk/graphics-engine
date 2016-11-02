@@ -12,10 +12,15 @@ namespace bauasian
 class bauasian::PointLightBuffer : public UniformBuffer
 {
 public:
-	static PointLightBuffer& getInstance();
-
-private:
 	PointLightBuffer();
+
+	using UniformBuffer::bind;
+
+	void setModelMatrix(const glm::mat4& matrix) const;
+	void setDiffuseColor(const glm::vec3& color) const;
+	void setSpecularColor(const glm::vec3& color) const;
+	void setPosition(const glm::vec3& position) const;
+	void setAttenuation(const glm::vec3& attenuation) const;
 
 };
 

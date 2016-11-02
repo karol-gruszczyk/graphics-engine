@@ -1,9 +1,10 @@
-#version 330 core
+#version 420 core
+#include "../bindings.glsl"
 #include "../common/lights.glsl"
 
 layout (location = 0) in vec3 vertex_position;
 
-layout (std140) uniform PointLightBuffer
+layout (std140, binding = BUFFER_POINT_LIGHT_BINDING) uniform PointLightBuffer
 {
     PointLight point_light;
 };
