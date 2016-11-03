@@ -8,13 +8,8 @@ using bauasian::OrthographicCamera;
 OrthographicCamera::OrthographicCamera(const glm::uvec2& size, const float& near, const float& far)
 		: Camera(near, far)
 {
-	setSize(size);
-	updateProjectionMatrix();
-}
-
-void OrthographicCamera::setSize(const glm::uvec2& size)
-{
 	SizeMixin::setSize(size);
+	updateProjectionMatrix();
 }
 
 void OrthographicCamera::updateProjectionMatrix()

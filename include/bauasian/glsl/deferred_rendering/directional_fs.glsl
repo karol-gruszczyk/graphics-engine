@@ -2,6 +2,7 @@
 #include "../bindings.glsl"
 #include "../common/lights.glsl"
 #include "../utils/luminance.glsl"
+#include "../globals.glsl"
 
 layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
 {
@@ -46,9 +47,13 @@ void main()
         vec4 shadow_position = shadow_camera.projection_matrix * shadow_camera.view_matrix * vec4(frag_position, 1.f);
         shadow_position.xyz /= shadow_position.w;
         shadow_position.xyz = shadow_position.xyz * 0.5f + 0.5f;
+        shadow_position.z -= SHADOW_MAPPING_BIAS;
+        if (shadow_position.x < 0.f || shadow_position.y < 0.f || shadow_position.x > 1.f || shadow_position.y > 1.f)
+        {
+            out_color = vec4(1.f, 0.f, 0.f, 1.f);
+            return;
+        }
         shadow_depth = texture(shadow_map, shadow_position.xyz);
-        if (shadow_depth == 0.f)
-            discard;
     }
     vec3 frag_diffuse = texture(albedo_buffer, texture_coord).rgb;
     vec4 frag_specular_buffer = texture(specular_buffer, texture_coord);
@@ -63,5 +68,5 @@ void main()
 	                                     view_dir, frag_shininess) * frag_specular;
 
     vec3 result_color = diffuse + specular;
-	out_color = vec4(result_color, shadow_depth);
+	out_color = vec4(result_color, 1.f) * shadow_depth;
 }

@@ -6,7 +6,7 @@ using bauasian::ShadowRenderer;
 using bauasian::Texture;
 
 ShadowRenderer::ShadowRenderer(const glm::uvec2& size)
-		: ShaderMixin("deferred_rendering/shadow_vs.glsl"), m_camera(size, 0.1f, 1.f)
+		: ShaderMixin("deferred_rendering/shadow_vs.glsl"), m_camera(size, -10000.1f, 10000.f)
 {
 	SizeMixin::setSize(size);
 	m_depth_texture = std::make_shared<Texture>(GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, size, GL_FLOAT);
@@ -22,12 +22,13 @@ void ShadowRenderer::setSize(const glm::uvec2& size)
 
 void ShadowRenderer::render(const Scene3D* const scene, const glm::vec3& light_direction)
 {
-	glViewport(0, 0, m_size.x, m_size.y);
 	calculateCameraBounds(light_direction);
-	m_camera.bind(BUFFER_SHADOW_CAMERA_BINDING);
 	m_frame_buffer->bind();
-	glEnable(GL_DEPTH_TEST);
+	glViewport(0, 0, m_size.x, m_size.y);
+	m_camera.bind(BUFFER_SHADOW_CAMERA_BINDING);
+	m_shader->use();
 	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 	scene->render();
 	glDisable(GL_DEPTH_TEST);
 }

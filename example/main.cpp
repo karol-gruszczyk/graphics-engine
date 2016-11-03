@@ -162,6 +162,7 @@ void setup()
 	renderer->addPostProcessor(new FXAA(renderer->getSize()));
 
 	dir_light = new DirectionalLight(glm::vec3(-1.f, -0.3f, -1.f));
+	dir_light->enableShadows(4096);
 	PointLight* point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	SpotLight* spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
 										  glm::radians(25.f));
