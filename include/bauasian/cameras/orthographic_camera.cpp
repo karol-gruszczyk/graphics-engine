@@ -6,7 +6,7 @@
 using bauasian::OrthographicCamera;
 
 OrthographicCamera::OrthographicCamera(const glm::uvec2& size, const float& near, const float& far)
-		: Camera(near, far), SizeMixin(size)
+		: Camera(near, far)
 {
 	setSize(size);
 	updateProjectionMatrix();

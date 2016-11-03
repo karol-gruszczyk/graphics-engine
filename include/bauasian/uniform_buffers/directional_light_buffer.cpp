@@ -9,6 +9,7 @@ struct alignas(16) UniformBlock
 	glm::vec3 diffuse_color;		// 0
 	glm::vec3 specular_color;		// 16
 	glm::vec3 direction;			// 32
+	int use_shadow_map;				// 44
 };
 
 using bauasian::DirectionalLightBuffer;
@@ -30,4 +31,9 @@ void DirectionalLightBuffer::setSpecularColor(const glm::vec3& color) const
 void DirectionalLightBuffer::setDirection(const glm::vec3& direction) const
 {
 	setSubData(32, sizeof(glm::vec3), glm::value_ptr(direction));
+}
+
+void DirectionalLightBuffer::setUseShadowMap(const int& value) const
+{
+	setSubData(44, sizeof(GLint), &value);
 }

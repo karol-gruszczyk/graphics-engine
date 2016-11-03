@@ -34,11 +34,11 @@ out vec3 tangent_camera_position;
 
 void main()
 {
-    vec4 model_space_position = model_matrix * vec4(vertex_position, 1.f);
-	position = vec3(model_space_position);
+    vec4 world_space_position = model_matrix * vec4(vertex_position, 1.f);
+	position = vec3(world_space_position);
 	texture_coord = vertex_texture_coord;
 	normal = normalize(mat3(normal_matrix) * vertex_normal);
-	gl_Position = camera.projection_matrix * camera.view_matrix * model_space_position;
+	gl_Position = camera.projection_matrix * camera.view_matrix * world_space_position;
 
     tbn = mat3(normal_matrix) * mat3(vertex_tangent, vertex_bi_tangent, vertex_normal);
 

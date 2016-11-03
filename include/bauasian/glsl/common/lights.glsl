@@ -6,6 +6,7 @@ struct DirectionalLight
 	vec3 diffuse_color;
 	vec3 specular_color;
 	vec3 direction;
+	int use_shadow_map;
 };
 
 struct PointLight

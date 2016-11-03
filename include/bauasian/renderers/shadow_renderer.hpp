@@ -16,21 +16,21 @@ namespace bauasian
 	class ShadowRenderer;
 }
 
-class bauasian::ShadowRenderer : public ShaderMixin
+class bauasian::ShadowRenderer : public SizeMixin, public ShaderMixin
 {
 public:
 	ShadowRenderer(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size);
-	void render(const Scene3D* const scene, const PerspectiveCamera* const camera);
-	const Texture* const getDepthTexture() const;
+	void render(const Scene3D* const scene, const glm::vec3& light_direction);
+	void bind() const;
 
 private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
 	std::shared_ptr<Texture> m_depth_texture;
 	OrthographicCamera m_camera;
 
-	void calculateCameraBounds(const PerspectiveCamera* const camera);
+	void calculateCameraBounds(const glm::vec3& light_dir);
 
 };
 

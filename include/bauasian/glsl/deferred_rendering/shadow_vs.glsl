@@ -1,7 +1,7 @@
 #version 420 core
 #include "../bindings.glsl"
 
-layout (location = 0) vec3 vertex_position;
+layout (location = 0) in vec3 vertex_position;
 
 layout (std140, binding = BUFFER_SHADOW_CAMERA_BINDING) uniform CameraBuffer
 {

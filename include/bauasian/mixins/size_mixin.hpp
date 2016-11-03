@@ -12,8 +12,6 @@ namespace bauasian
 class bauasian::SizeMixin
 {
 public:
-	SizeMixin(const glm::uvec2& size);
-
 	virtual const glm::uvec2& getSize() const;
 	virtual void setSize(const glm::uvec2& size);
 

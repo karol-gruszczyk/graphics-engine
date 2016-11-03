@@ -1,13 +1,16 @@
 #include "deferred_renderer.hpp"
+#include "bauasian/lights/directional_light.hpp"
 
 
 using bauasian::DeferredRenderer;
 
 DeferredRenderer::DeferredRenderer(const glm::uvec2 size)
-		: SizeMixin(size), m_depth_buffer(std::make_shared<RenderBuffer>(size)),
+		: m_depth_buffer(std::make_shared<RenderBuffer>(size)),
 		  m_geometry_renderer(size, m_depth_buffer), m_light_accumulator(size, m_depth_buffer),
 		  m_hdr(size), m_bloom(size)
-{}
+{
+	SizeMixin::setSize(size);
+}
 
 DeferredRenderer::~DeferredRenderer()
 {
@@ -38,6 +41,9 @@ void DeferredRenderer::clearScreen() const
 
 void DeferredRenderer::render(Scene3D* scene) const
 {
+	for (const auto& light : scene->getDirectionalLights())
+		light->updateShadowMap(scene);
+
 	glViewport(0, 0, m_size.x, m_size.y);
 
 	glEnable(GL_DEPTH_TEST);

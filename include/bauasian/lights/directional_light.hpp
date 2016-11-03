@@ -24,6 +24,7 @@ public:
 	void bind() const;
 	void enableShadows(const unsigned& size);
 	void disableShadows();
+	void updateShadowMap(const Scene3D* const scene);
 
 private:
 	DirectionalLightBuffer m_buffer;

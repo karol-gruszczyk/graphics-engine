@@ -58,24 +58,6 @@ Texture::Texture(const GLint& internal_format, const GLenum& format, const glm::
 	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 }
 
-void Texture::setSize(const glm::uvec2& size)
-{
-	FrameBufferAttachment::setSize(size);
-	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, m_internal_format, m_size.x, m_size.y,
-	                    0, m_format, GL_UNSIGNED_BYTE, nullptr);
-}
-
-const GLuint& Texture::getId() const
-{
-	return m_texture_id;
-}
-
-void Texture::setFiltering(const GLenum& filtering) const
-{
-	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER, filtering);
-	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, filtering);
-}
-
 void Texture::save(const boost::filesystem::path& path)
 {
 	auto fif = FreeImage_GetFIFFromFilename(path.filename().c_str());
@@ -101,4 +83,27 @@ void Texture::save(const boost::filesystem::path& path)
 
 	FreeImage_Unload(image);
 	delete[] pixels;
+}
+
+void Texture::setSize(const glm::uvec2& size)
+{
+	FrameBufferAttachment::setSize(size);
+	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, m_internal_format, m_size.x, m_size.y,
+						0, m_format, GL_UNSIGNED_BYTE, nullptr);
+}
+
+const GLuint& Texture::getId() const
+{
+	return m_texture_id;
+}
+
+void Texture::setFiltering(const GLenum& filtering) const
+{
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER, filtering);
+	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, filtering);
+}
+
+void Texture::enableDepthComparison() const
+{
+	glTextureParameteri(m_texture_id, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 }

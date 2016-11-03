@@ -27,6 +27,7 @@ public:
 	void save(const boost::filesystem::path& path);
 
 	void setFiltering(const GLenum& filtering) const;
+	void enableDepthComparison() const;
 	virtual const GLuint& getId() const override;
 	virtual void setSize(const glm::uvec2& size) override;
 

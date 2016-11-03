@@ -4,8 +4,9 @@
 using bauasian::FrameBufferAttachment;
 
 FrameBufferAttachment::FrameBufferAttachment(const glm::uvec2& size)
-		: SizeMixin(size)
-{}
+{
+	setSize(size);
+}
 
 FrameBufferAttachment::~FrameBufferAttachment()
 {}
