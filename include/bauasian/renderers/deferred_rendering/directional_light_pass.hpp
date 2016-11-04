@@ -16,7 +16,7 @@ class bauasian::DirectionalLightPass : public ShaderMixin
 public:
 	DirectionalLightPass();
 
-	void render(const Scene3D* const scene) const;
+	void render(const Scene3D* scene) const;
 
 private:
 	ScreenQuad m_light_volume;

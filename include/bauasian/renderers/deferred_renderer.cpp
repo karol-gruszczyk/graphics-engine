@@ -39,7 +39,7 @@ void DeferredRenderer::clearScreen() const
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void DeferredRenderer::render(Scene3D* scene) const
+void DeferredRenderer::render(const Scene3D* scene) const
 {
 	for (const auto& light : scene->getDirectionalLights())
 		light->updateShadowMap(scene);
@@ -72,12 +72,12 @@ void DeferredRenderer::render(Scene3D* scene) const
 		m_hdr.processToScreen();
 }
 
-const float& DeferredRenderer::getExposure() const
+float DeferredRenderer::getExposure() const
 {
 	return m_hdr.getExposure();
 }
 
-void DeferredRenderer::setExposure(const float& exposure)
+void DeferredRenderer::setExposure(float exposure)
 {
 	m_hdr.setExposure(exposure);
 }

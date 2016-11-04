@@ -4,14 +4,14 @@
 using bauasian::FXAA;
 using bauasian::Texture;
 
-FXAA::FXAA(const glm::uvec2& size, const Quality& quality)
+FXAA::FXAA(const glm::uvec2& size, Quality quality)
 		: m_screen_quad(std::make_unique<ScreenQuad>())
 {
 	const auto vs = std::make_unique<Shader>("post_processing/basic_vs.glsl", Shader::VERTEX_SHADER);
 	const auto fs = std::make_unique<Shader>("post_processing/fxaa_fs.glsl", Shader::FRAGMENT_SHADER,
 											 std::map<std::string, std::string>
 													 {{ "FXAA_QUALITY__PRESET", std::to_string(quality) }});
-	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>{ vs.get(), fs.get() });
+	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<const Shader*>{ vs.get(), fs.get() });
 	m_location_pixel_size = m_shader->getUniformLocation("pixel_size");
 	m_location_subpix = m_shader->getUniformLocation("subpix");
 	m_location_edge_threshold = m_shader->getUniformLocation("edge_threshold");
@@ -30,7 +30,7 @@ void FXAA::setSize(const glm::uvec2& size)
 	m_shader->setUniform(m_location_pixel_size, 1.f / glm::vec2(size));
 }
 
-void FXAA::process(const unsigned short& out_binding) const
+void FXAA::process(unsigned short out_binding) const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -48,17 +48,17 @@ void FXAA::processToScreen() const
 	m_screen_quad->render();
 }
 
-void FXAA::setSubPixelRemoval(const float& sub_pixel_removal) const
+void FXAA::setSubPixelRemoval(float sub_pixel_removal) const
 {
 	m_shader->setUniform(m_location_subpix, sub_pixel_removal);
 }
 
-void FXAA::setEdgeThreshold(const float& edge_threshold) const
+void FXAA::setEdgeThreshold(float edge_threshold) const
 {
 	m_shader->setUniform(m_location_edge_threshold, edge_threshold);
 }
 
-void FXAA::setEdgeThresholdMin(const float& edge_threshold_min) const
+void FXAA::setEdgeThresholdMin(float edge_threshold_min) const
 {
 	m_shader->setUniform(m_location_edge_threshold_min, edge_threshold_min);
 }

@@ -7,7 +7,7 @@
 
 using bauasian::Camera;
 
-Camera::Camera(const float& near, const float& far)
+Camera::Camera(float near, float far)
 		: m_near(near), m_far(far)
 {
 	m_buffer.setNear(m_near);
@@ -39,7 +39,7 @@ void Camera::setPosition(const glm::vec3& position)
 	move(position - m_position);
 }
 
-void Camera::rotate(const float& angle, const glm::vec3& axis)
+void Camera::rotate(float angle, const glm::vec3& axis)
 {
 	m_view_matrix = glm::translate(m_view_matrix, m_position);
 	m_view_matrix = glm::rotate(m_view_matrix, -angle, axis);
@@ -49,17 +49,17 @@ void Camera::rotate(const float& angle, const glm::vec3& axis)
 	setViewMatrix(glm::translate(m_view_matrix, -m_position));
 }
 
-void Camera::roll(const float& angle)
+void Camera::roll(float angle)
 {
 	rotate(angle, m_direction_vector);
 }
 
-void Camera::pitch(const float& angle)
+void Camera::pitch(float angle)
 {
 	rotate(angle, m_right_vector);
 }
 
-void Camera::yaw(const float& angle)
+void Camera::yaw(float angle)
 {
 	rotate(angle, m_up_vector);
 }
@@ -96,24 +96,24 @@ const glm::vec3& Camera::getRight() const
 	return m_right_vector;
 }
 
-const float& Camera::getNear() const
+float Camera::getNear() const
 {
 	return m_near;
 }
 
-void Camera::setNear(const float& near)
+void Camera::setNear(float near)
 {
 	m_near = near;
 	updateProjectionMatrix();
 	m_buffer.setNear(m_near);
 }
 
-const float& Camera::getFar() const
+float Camera::getFar() const
 {
 	return m_far;
 }
 
-void Camera::setFar(const float& far)
+void Camera::setFar(float far)
 {
 	m_far = far;
 	updateProjectionMatrix();

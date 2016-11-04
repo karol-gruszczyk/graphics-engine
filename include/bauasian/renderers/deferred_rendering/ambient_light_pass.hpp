@@ -18,7 +18,7 @@ public:
 	AmbientLightPass(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size);
-	void process(const FrameBuffer* const frame_buffer) const;
+	void process(const FrameBuffer* frame_buffer) const;
 
 private:
 	SSAO m_ssao;

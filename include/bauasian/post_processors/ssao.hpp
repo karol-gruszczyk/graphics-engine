@@ -16,10 +16,10 @@ public:
 	SSAO(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size) override;
-	void process(const unsigned short& out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
-	void setKernelSize(const int& kernel_size) const;
-	void setRadius(const float& radius) const;
-	void setPower(const float& power) const;
+	void process(unsigned short out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
+	void setKernelSize(int kernel_size) const;
+	void setRadius(float radius) const;
+	void setPower(float power) const;
 
 private:
 	SSAOBlur m_ssao_blur;

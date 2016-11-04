@@ -15,11 +15,10 @@ namespace bauasian
 class bauasian::Glyph
 {
 public:
-	Glyph(const GLfloat* const texture_coords, const glm::uvec2& size, const glm::ivec2& bearing,
-	      const glm::ivec2& advance);
+	Glyph(GLfloat* const texture_coords, const glm::uvec2& size, const glm::ivec2& bearing, const glm::ivec2& advance);
 
 	const glm::ivec2& getAdvance() const;
-	const GLfloat* const getPositions() const;
+	const GLfloat* getPositions() const;
 
 private:
 	glm::ivec2 m_advance;

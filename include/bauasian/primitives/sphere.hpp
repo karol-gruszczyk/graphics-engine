@@ -12,9 +12,9 @@ namespace bauasian
 class bauasian::Sphere : public Entity3D
 {
 public:
-	Sphere(const float& radius, const unsigned& num_sides);
+	Sphere(float radius, unsigned num_sides);
 
-	const float& getRadius() const;
+	float getRadius() const;
 
 private:
 	float m_radius;

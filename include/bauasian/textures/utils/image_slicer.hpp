@@ -15,7 +15,7 @@ namespace bauasian
 class bauasian::ImageSlicer
 {
 public:
-	ImageSlicer(const glm::uvec2& image_size, unsigned char* image_pixels, const unsigned& bytes_per_pixel);
+	ImageSlicer(const glm::uvec2& image_size, const unsigned char* image_pixels, unsigned bytes_per_pixel);
 	~ImageSlicer();
 
 	std::tuple<std::vector<glm::uvec2>, std::vector<unsigned char*>> getCubeTextureFaces();
@@ -23,7 +23,7 @@ public:
 
 private:
 	glm::uvec2 m_image_size;
-	unsigned char* m_image_pixels;
+	const unsigned char* m_image_pixels;
 	unsigned m_bytes_per_pixel;
 	std::list<unsigned char*> m_ptrs;
 

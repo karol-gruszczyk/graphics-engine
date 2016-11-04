@@ -12,7 +12,7 @@ void Material::setDiffuse(const glm::vec3& color)
 	m_buffer.setDiffuseColor(color);
 }
 
-void Material::setDiffuse(Texture* texture)
+void Material::setDiffuse(const Texture* texture)
 {
 	m_diffuse_texture = texture;
 	m_buffer.setUseDiffuseTexture(texture != nullptr);
@@ -23,30 +23,30 @@ void Material::setSpecular(const glm::vec3& color)
 	m_buffer.setSpecularColor(color);
 }
 
-void Material::setSpecular(Texture* texture)
+void Material::setSpecular(const Texture* texture)
 {
 	m_specular_texture = texture;
 	m_buffer.setUseSpecularTexture(texture != nullptr);
 }
 
-void Material::setShininess(const float& shininess)
+void Material::setShininess(float shininess)
 {
 	m_buffer.setShininess(shininess);
 }
 
-void Material::setNormalTexture(Texture* texture)
+void Material::setNormalTexture(const Texture* texture)
 {
 	m_normal_texture = texture;
 	m_buffer.setUseNormalTexture(texture != nullptr);
 }
 
-void Material::setDisplacementTexture(Texture* texture)
+void Material::setDisplacementTexture(const Texture* texture)
 {
 	m_displacement_texture = texture;
 	m_buffer.setUseDiffuseTexture(texture != nullptr);
 }
 
-void Material::setOpacityTexture(Texture* texture)
+void Material::setOpacityTexture(const Texture* texture)
 {
 	m_opacity_texture = texture;
 	m_buffer.setUseOpacityTexture(texture != nullptr);

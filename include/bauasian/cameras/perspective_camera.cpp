@@ -5,30 +5,30 @@
 
 using bauasian::PerspectiveCamera;
 
-PerspectiveCamera::PerspectiveCamera(const float& aspect_ratio, const float& field_of_view, const float& near,
-									 const float& far)
+PerspectiveCamera::PerspectiveCamera(float aspect_ratio, float field_of_view, float near,
+									 float far)
 		: Camera(near, far), m_aspect_ratio(aspect_ratio), m_field_of_view(field_of_view)
 {
 	updateProjectionMatrix();
 }
 
-const float& PerspectiveCamera::getAspectRatio() const
+float PerspectiveCamera::getAspectRatio() const
 {
 	return m_aspect_ratio;
 }
 
-void PerspectiveCamera::setAspectRatio(const float& aspect_ratio)
+void PerspectiveCamera::setAspectRatio(float aspect_ratio)
 {
 	m_aspect_ratio = aspect_ratio;
 	updateProjectionMatrix();
 }
 
-const float& PerspectiveCamera::getFieldOfView() const
+float PerspectiveCamera::getFieldOfView() const
 {
 	return m_field_of_view;
 }
 
-void PerspectiveCamera::setFieldOfView(const float& field_of_view)
+void PerspectiveCamera::setFieldOfView(float field_of_view)
 {
 	m_field_of_view = field_of_view;
 	updateProjectionMatrix();

@@ -4,7 +4,7 @@
 
 using bauasian::ConeVolume;
 
-ConeVolume::ConeVolume(const unsigned& num_sides)
+ConeVolume::ConeVolume(unsigned num_sides)
 		: Entity3D(GL_TRIANGLE_FAN, ConeFactory::getNumIndices(num_sides), GL_UNSIGNED_INT,
 				   ConeFactory::getNumVertices(num_sides), ConeFactory::getNumTriangles(num_sides))
 {

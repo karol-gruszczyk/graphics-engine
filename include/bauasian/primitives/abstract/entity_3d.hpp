@@ -14,7 +14,7 @@ namespace bauasian
 }
 
 class bauasian::Entity3D : public IndexedDrawable, public DrawableStats, public AffineTransformations3D,
-                           public NameMixin
+						   public NameMixin
 {
 public:
 	struct Vertex3D
@@ -28,8 +28,8 @@ public:
 		static const std::vector<unsigned> offsets;
 	};
 
-	Entity3D(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type,
-	         const unsigned& num_vertices, const unsigned& num_faces);
+	Entity3D(GLenum elements_mode, GLsizei elements_count, GLenum elements_type, unsigned num_vertices,
+			 unsigned num_faces);
 
 	void setMaterial(std::shared_ptr<Material> material);
 	void render() const override;
@@ -37,8 +37,8 @@ public:
 protected:
 	std::shared_ptr<Material> m_material;
 
-	static void calculateTangents(Vertex3D* vertices, const unsigned* indices, const unsigned& num_indices);
-	static void calculateTangents(Vertex3D* vertices, const unsigned short* indices, const unsigned& num_indices);
+	static void calculateTangents(Vertex3D* vertices, const unsigned* indices, unsigned num_indices);
+	static void calculateTangents(Vertex3D* vertices, const unsigned short* indices, unsigned num_indices);
 
 };
 

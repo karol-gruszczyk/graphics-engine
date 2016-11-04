@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::IndexedDrawable : public Drawable
 {
 public:
-    IndexedDrawable(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type);
+    IndexedDrawable(GLenum elements_mode, GLsizei elements_count, GLenum elements_type);
     virtual ~IndexedDrawable();
 
     virtual void render() const override;
@@ -21,7 +21,7 @@ protected:
     GLuint m_index_vbo_id;
 	GLenum m_elements_type;
 
-    void updateIndexBuffer(const GLsizeiptr& size, const void* data, const GLenum& draw_type) const;
+    void updateIndexBuffer(GLsizeiptr size, const void* data, GLenum draw_type) const;
 
 };
 

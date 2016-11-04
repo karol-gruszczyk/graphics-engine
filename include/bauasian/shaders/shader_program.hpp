@@ -15,26 +15,26 @@ namespace bauasian
 class bauasian::ShaderProgram final
 {
 public:
-	ShaderProgram(const std::initializer_list<Shader*>& shaders);
+	ShaderProgram(const std::initializer_list<const Shader*>& shaders);
 	~ShaderProgram();
 
-	const GLuint& getId() const;
+	GLuint getId() const;
 	void use() const;
-	const GLint getUniformLocation(const std::string& uniform_name) const;
-	void setUniform(const GLint& location, const bool& value) const;
-	void setUniform(const GLint& location, const float& value) const;
-	void setUniform(const GLint& location, const double& value) const;
-	void setUniform(const GLint& location, const int& value) const;
-	void setUniform(const GLint& location, const unsigned& value) const;
-	void setUniform(const GLint& location, const glm::vec2& vector, const GLsizei& count = 1) const;
-	void setUniform(const GLint& location, const glm::vec3& vector, const GLsizei& count = 1) const;
-	void setUniform(const GLint& location, const glm::vec4& vector, const GLsizei& count = 1) const;
-	void setUniform(const GLint& location, const glm::mat3& matrix, const GLsizei& count = 1) const;
-	void setUniform(const GLint& location, const glm::mat4& matrix, const GLsizei& count = 1) const;
-	void setUniform(const GLint& location, const float* const values_ptr, const GLsizei& count) const;
-	void setUniform(const GLint& location, const double* const values_ptr, const GLsizei& count) const;
-	void setUniform(const GLint& location, const int* const values_ptr, const GLsizei& count) const;
-	void setUniform(const GLint& location, const unsigned* const values_ptr, const GLsizei& count) const;
+	GLint getUniformLocation(const std::string& uniform_name) const;
+	void setUniform(GLint location, bool value) const;
+	void setUniform(GLint location, float value) const;
+	void setUniform(GLint location, double value) const;
+	void setUniform(GLint location, int value) const;
+	void setUniform(GLint location, unsigned value) const;
+	void setUniform(GLint location, const glm::vec2& vector, GLsizei count = 1) const;
+	void setUniform(GLint location, const glm::vec3& vector, GLsizei count = 1) const;
+	void setUniform(GLint location, const glm::vec4& vector, GLsizei count = 1) const;
+	void setUniform(GLint location, const glm::mat3& matrix, GLsizei count = 1) const;
+	void setUniform(GLint location, const glm::mat4& matrix, GLsizei count = 1) const;
+	void setUniform(GLint location, const float* values_ptr, GLsizei count) const;
+	void setUniform(GLint location, const double* values_ptr, GLsizei count) const;
+	void setUniform(GLint location, const int* values_ptr, GLsizei count) const;
+	void setUniform(GLint location, const unsigned* values_ptr, GLsizei count) const;
 	
 private:
 	GLuint m_shader_program_id;

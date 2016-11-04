@@ -19,7 +19,7 @@ void SpotLightPass::setSize(const glm::uvec2& size)
 	m_shader->setUniform(m_location_spot_light_screen_size, size);
 }
 
-void SpotLightPass::render(const Scene3D* const scene) const
+void SpotLightPass::render(const Scene3D* scene) const
 {
 	m_shader->use();
 	for (const auto& light : scene->getSpotLights())

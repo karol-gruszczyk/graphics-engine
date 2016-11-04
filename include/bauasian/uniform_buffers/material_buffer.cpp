@@ -34,32 +34,32 @@ void MaterialBuffer::setSpecularColor(const glm::vec3& color) const
 	setSubData(16, sizeof(glm::vec3), glm::value_ptr(color));
 }
 
-void MaterialBuffer::setUseDiffuseTexture(const GLint& value) const
+void MaterialBuffer::setUseDiffuseTexture(GLint value) const
 {
 	setSubData(32, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseSpecularTexture(const GLint& value) const
+void MaterialBuffer::setUseSpecularTexture(GLint value) const
 {
 	setSubData(36, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseNormalTexture(const GLint& value) const
+void MaterialBuffer::setUseNormalTexture(GLint value) const
 {
 	setSubData(40, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseDisplacementTexture(const GLint& value) const
+void MaterialBuffer::setUseDisplacementTexture(GLint value) const
 {
 	setSubData(44, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setUseOpacityTexture(const GLint& value) const
+void MaterialBuffer::setUseOpacityTexture(GLint value) const
 {
 	setSubData(48, sizeof(GLint), &value);
 }
 
-void MaterialBuffer::setShininess(const float& shininess) const
+void MaterialBuffer::setShininess(float shininess) const
 {
 	setSubData(52, sizeof(GLfloat), &shininess);
 }

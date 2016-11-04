@@ -37,7 +37,7 @@ void DirectionalLight::bind() const
 		m_shadow_renderer->bind();
 }
 
-void DirectionalLight::enableShadows(const unsigned& size)
+void DirectionalLight::enableShadows(unsigned size)
 {
 	m_shadow_renderer = std::make_unique<ShadowRenderer>(size);
 	m_buffer.setUseShadowMap(true);
@@ -49,7 +49,7 @@ void DirectionalLight::disableShadows()
 	m_buffer.setUseShadowMap(false);
 }
 
-void DirectionalLight::updateShadowMap(const bauasian::Scene3D* const scene)
+void DirectionalLight::updateShadowMap(const Scene3D* scene)
 {
 	if (m_shadow_renderer)
 		m_shadow_renderer->render(scene, m_direction);

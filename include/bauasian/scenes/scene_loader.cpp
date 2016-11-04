@@ -18,8 +18,8 @@ using bauasian::PointLight;
 using bauasian::SpotLight;
 using bauasian::Texture;
 
-SceneLoader::SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs,
-                         const bool& map_bump_to_normal)
+SceneLoader::SceneLoader(const boost::filesystem::path& path, bool flip_uvs,
+						 bool map_bump_to_normal)
 		: m_normal_map(map_bump_to_normal ? aiTextureType_HEIGHT : aiTextureType_NORMALS),
 		  m_height_map(map_bump_to_normal ? aiTextureType_NORMALS : aiTextureType_HEIGHT)
 {
@@ -236,7 +236,7 @@ const std::string SceneLoader::getPath(const std::string& path)
 	return full_dir;
 }
 
-Texture* SceneLoader::getTexture(const aiString& path, const bool& is_standardized)
+Texture* SceneLoader::getTexture(const aiString& path, bool is_standardized)
 {
 	try
 	{

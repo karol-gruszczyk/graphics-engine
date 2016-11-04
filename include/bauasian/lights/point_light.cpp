@@ -5,7 +5,7 @@
 
 using bauasian::PointLight;
 
-PointLight::PointLight(const glm::vec3& position, const float& range)
+PointLight::PointLight(const glm::vec3& position, float range)
 {
 	setDiffuseColor(m_diffuse_color);
 	setSpecularColor(m_specular_color);

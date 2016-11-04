@@ -23,7 +23,7 @@ public:
 private:
 	std::string m_source_code;
 
-	bool isInsideComment(const std::size_t& position, const std::string& code) const;
+	bool isInsideComment(size_t position, const std::string& code) const;
 	const std::string parseIncludes(const std::string& code, const boost::filesystem::path& path) const;
 	const std::string getFileContent(const boost::filesystem::path& path) const;
 	void insertDefines(const std::map<std::string, std::string>& defines);

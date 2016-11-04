@@ -17,16 +17,16 @@ class bauasian::BasicMaterial
 public:
 	BasicMaterial();
 	BasicMaterial(const glm::vec3& diffuse_color);
-	BasicMaterial(Texture* diffuse_texture);
+	BasicMaterial(Texture* const diffuse_texture);
 
 	void setDiffuse(const glm::vec3& color);
-	void setDiffuse(Texture* texture);
+	void setDiffuse(const Texture* texture);
 
 	virtual void bind() const;
 
 protected:
 	BasicMaterialBuffer::GlslBasicMaterial m_material;
-	Texture* m_diffuse_texture = nullptr;
+	const Texture* m_diffuse_texture = nullptr;
 
 };
 

@@ -14,20 +14,20 @@ namespace bauasian
 class bauasian::Drawable
 {
 public:
-	Drawable(const GLenum& elements_mode, const GLsizei& elements_count);
+	Drawable(GLenum elements_mode, GLsizei elements_count);
 	virtual ~Drawable();
 
-	const GLsizei& getNumElements() const;
+	GLsizei getNumElements() const;
 	virtual void render() const;
 
 protected:
 	GLuint m_vao_id;
-    GLuint m_vertex_vbo_id;
+	GLuint m_vertex_vbo_id;
 	GLenum m_elements_mode;
 	GLsizei m_elements_count;
 
-	void updateVertexBuffer(const GLsizeiptr& size, const void* data,
-	                        const std::vector<unsigned>& offsets, const GLenum& draw_type) const;
+	void updateVertexBuffer(GLsizeiptr size, const void* data, const std::vector<unsigned>& offsets,
+					   GLenum draw_type) const;
 
 };
 

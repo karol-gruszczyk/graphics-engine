@@ -9,7 +9,7 @@ DirectionalLightPass::DirectionalLightPass()
 		: ShaderMixin("deferred_rendering/directional_vs.glsl", "deferred_rendering/directional_fs.glsl")
 {}
 
-void DirectionalLightPass::render(const Scene3D* const scene) const
+void DirectionalLightPass::render(const Scene3D* scene) const
 {
 	m_shader->use();
 	for (const auto& light : scene->getDirectionalLights())

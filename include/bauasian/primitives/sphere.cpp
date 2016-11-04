@@ -4,7 +4,7 @@
 
 using bauasian::Sphere;
 
-Sphere::Sphere(const float& radius, const unsigned& num_sides)
+Sphere::Sphere(float radius, unsigned num_sides)
 		: Entity3D(GL_TRIANGLE_STRIP, SphereFactory::getNumIndices(num_sides), GL_UNSIGNED_INT,
 				   SphereFactory::getNumVertices(num_sides), SphereFactory::getNumTriangles(num_sides)),
 		  m_radius(radius)
@@ -34,7 +34,7 @@ Sphere::Sphere(const float& radius, const unsigned& num_sides)
 	delete[] vertices;
 }
 
-const float& Sphere::getRadius() const
+float Sphere::getRadius() const
 {
 	return m_radius;
 }

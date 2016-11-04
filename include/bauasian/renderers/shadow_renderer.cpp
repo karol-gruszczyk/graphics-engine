@@ -7,7 +7,7 @@
 using bauasian::ShadowRenderer;
 using bauasian::Texture;
 
-ShadowRenderer::ShadowRenderer(const unsigned& size)
+ShadowRenderer::ShadowRenderer(unsigned size)
 		: ShaderMixin("deferred_rendering/shadow_vs.glsl")
 {
 	SizeMixin::setSize(size);
@@ -25,7 +25,7 @@ void ShadowRenderer::setSize(const unsigned& size)
 	m_buffer.setShadowPixelSize(1.f / size);
 }
 
-void ShadowRenderer::render(const Scene3D* const scene, const glm::vec3& light_direction)
+void ShadowRenderer::render(const Scene3D* scene, const glm::vec3& light_direction)
 {
 	calculateCameraBounds(light_direction);
 	m_frame_buffer->bind();

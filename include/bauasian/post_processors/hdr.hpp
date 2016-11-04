@@ -12,12 +12,12 @@ namespace bauasian
 class bauasian::HDR : public Filter
 {
 public:
-	HDR(const glm::uvec2& size, const float& exposure = 1.f, const float& gamma = 2.2f);
+	HDR(const glm::uvec2& size, float exposure = 1.f, float gamma = 2.2f);
 
-	const float& getExposure() const;
-	void setExposure(const float& exposure);
-	const float& getGamma() const;
-	void setGamma(const float& gamma);
+	float getExposure() const;
+	void setExposure(float exposure);
+	float getGamma() const;
+	void setGamma(float gamma);
 
 private:
 	float m_exposure, m_gamma;

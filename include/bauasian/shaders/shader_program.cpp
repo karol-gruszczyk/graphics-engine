@@ -7,7 +7,7 @@ using bauasian::ShaderProgram;
 using bauasian::Shader;
 
 
-ShaderProgram::ShaderProgram(const std::initializer_list<Shader*>& shaders)
+ShaderProgram::ShaderProgram(const std::initializer_list<const Shader*>& shaders)
 {
 	m_shader_program_id = glCreateProgram();
 	for (auto& shader : shaders)
@@ -42,7 +42,7 @@ ShaderProgram::~ShaderProgram()
 	glDeleteProgram(m_shader_program_id);
 }
 
-const GLuint& ShaderProgram::getId() const
+GLuint ShaderProgram::getId() const
 {
 	return m_shader_program_id;
 }
@@ -52,79 +52,79 @@ void ShaderProgram::use() const
 	glUseProgram(m_shader_program_id);
 }
 
-const GLint ShaderProgram::getUniformLocation(const std::string& uniform_name) const
+GLint ShaderProgram::getUniformLocation(const std::string& uniform_name) const
 {
 	const GLint location = glGetUniformLocation(m_shader_program_id, uniform_name.c_str());
 	assert(location != (int) GL_INVALID_INDEX);
 	return location;
 }
 
-void ShaderProgram::setUniform(const GLint& location, const bool& value) const
+void ShaderProgram::setUniform(GLint location, bool value) const
 {
 	glProgramUniform1i(m_shader_program_id, location, value);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const float& value) const
+void ShaderProgram::setUniform(GLint location, float value) const
 {
 	glProgramUniform1f(m_shader_program_id, location, value);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const double& value) const
+void ShaderProgram::setUniform(GLint location, double value) const
 {
 	glProgramUniform1d(m_shader_program_id, location, value);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const int& value) const
+void ShaderProgram::setUniform(GLint location, int value) const
 {
 	glProgramUniform1i(m_shader_program_id, location, value);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const unsigned& value) const
+void ShaderProgram::setUniform(GLint location, unsigned value) const
 {
 	glProgramUniform1ui(m_shader_program_id, location, value);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const glm::vec2& vector, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const glm::vec2& vector, GLsizei count) const
 {
 	glProgramUniform2fv(m_shader_program_id, location, count, glm::value_ptr(vector));
 }
 
-void ShaderProgram::setUniform(const GLint& location, const glm::vec3& vector, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const glm::vec3& vector, GLsizei count) const
 {
 	glProgramUniform3fv(m_shader_program_id, location, count, glm::value_ptr(vector));
 }
 
-void ShaderProgram::setUniform(const GLint& location, const glm::vec4& vector, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const glm::vec4& vector, GLsizei count) const
 {
 	glProgramUniform4fv(m_shader_program_id, location, count, glm::value_ptr(vector));
 }
 
-void ShaderProgram::setUniform(const GLint& location, const glm::mat3& matrix, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const glm::mat3& matrix, GLsizei count) const
 {
 	glProgramUniformMatrix3fv(m_shader_program_id, location, count, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void ShaderProgram::setUniform(const GLint& location, const glm::mat4& matrix, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const glm::mat4& matrix, GLsizei count) const
 {
 	glProgramUniformMatrix4fv(m_shader_program_id, location, count, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void ShaderProgram::setUniform(const GLint& location, const float* const values_ptr, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const float* values_ptr, GLsizei count) const
 {
 	glProgramUniform1fv(m_shader_program_id, location, count, values_ptr);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const double* const values_ptr, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const double* values_ptr, GLsizei count) const
 {
 	glProgramUniform1dv(m_shader_program_id, location, count, values_ptr);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const int* const values_ptr, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const int* values_ptr, GLsizei count) const
 {
 	glProgramUniform1iv(m_shader_program_id, location, count, values_ptr);
 }
 
-void ShaderProgram::setUniform(const GLint& location, const unsigned* const values_ptr, const GLsizei& count) const
+void ShaderProgram::setUniform(GLint location, const unsigned* values_ptr, GLsizei count) const
 {
 	glProgramUniform1uiv(m_shader_program_id, location, count, values_ptr);
 }

@@ -16,7 +16,7 @@ public:
 	~RenderBuffer();
 
 	virtual void setSize(const glm::uvec2& size) override;
-	virtual const GLuint& getId() const override;
+	virtual GLuint getId() const override;
 
 private:
 	GLuint m_rbo_id;

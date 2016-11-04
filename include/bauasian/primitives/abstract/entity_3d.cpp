@@ -11,8 +11,8 @@ using bauasian::Material;
 
 const std::vector<unsigned> Entity3D::Vertex3D::offsets = { 3, 3, 2, 3, 3 };
 
-Entity3D::Entity3D(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type,
-				   const unsigned& num_vertices, const unsigned& num_faces)
+Entity3D::Entity3D(GLenum elements_mode, GLsizei elements_count, GLenum elements_type,
+				   unsigned num_vertices, unsigned num_faces)
 		: IndexedDrawable(elements_mode, elements_count, elements_type), DrawableStats(num_vertices, num_faces)
 {
 }
@@ -35,7 +35,7 @@ void Entity3D::render() const
 		IndexedDrawable::render();
 }
 
-void Entity3D::calculateTangents(Entity3D::Vertex3D* vertices, const unsigned* indices, const unsigned& num_indices)
+void Entity3D::calculateTangents(Entity3D::Vertex3D* vertices, const unsigned* indices, unsigned num_indices)
 {
 	unsigned i = 2;
 	while (i < num_indices)
@@ -72,7 +72,7 @@ void Entity3D::calculateTangents(Entity3D::Vertex3D* vertices, const unsigned* i
 	}
 }
 
-void Entity3D::calculateTangents(Vertex3D* vertices, const unsigned short* indices, const unsigned& num_indices)
+void Entity3D::calculateTangents(Vertex3D* vertices, const unsigned short* indices, unsigned num_indices)
 {
 	unsigned* casted_indices = new unsigned[num_indices];
 	for (unsigned i = 0; i < num_indices; i++)

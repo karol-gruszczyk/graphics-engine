@@ -5,8 +5,7 @@
 
 using bauasian::ConeFactory;
 
-const std::vector<glm::vec3> ConeFactory::getPositions(const unsigned& num_sides, const float& radius,
-													   const float& height)
+const std::vector<glm::vec3> ConeFactory::getPositions(unsigned num_sides, float radius, float height)
 {
 	std::vector<glm::vec3> positions(getNumVertices(num_sides));
 
@@ -21,7 +20,7 @@ const std::vector<glm::vec3> ConeFactory::getPositions(const unsigned& num_sides
 	return positions;
 }
 
-const std::vector<GLuint> ConeFactory::getIndices(const unsigned& num_sides)
+const std::vector<GLuint> ConeFactory::getIndices(unsigned num_sides)
 {
 	unsigned num_vertices = getNumVertices(num_sides);
 	std::vector<GLuint> indices(getNumIndices(num_sides));
@@ -41,17 +40,17 @@ const std::vector<GLuint> ConeFactory::getIndices(const unsigned& num_sides)
 	return indices;
 }
 
-const unsigned ConeFactory::getNumVertices(const unsigned& num_sides)
+unsigned ConeFactory::getNumVertices(unsigned num_sides)
 {
 	return num_sides + 2;
 }
 
-const unsigned ConeFactory::getNumIndices(const unsigned& num_sides)
+unsigned ConeFactory::getNumIndices(unsigned num_sides)
 {
 	return num_sides * 2 + 5;
 }
 
-const unsigned ConeFactory::getNumTriangles(const unsigned& num_sides)
+unsigned ConeFactory::getNumTriangles(unsigned num_sides)
 {
 	return 2 * num_sides;
 }

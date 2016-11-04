@@ -24,8 +24,8 @@ public:
 	void setPosition(const glm::vec3& position) const;
 	void setDirection(const glm::vec3& direction) const;
 	void setAttenuation(const glm::vec3& attenuation) const;
-	void setInnerAngle(const float& angle) const;
-	void setOuterAngle(const float& angle) const;
+	void setInnerAngle(float angle) const;
+	void setOuterAngle(float angle) const;
 
 };
 

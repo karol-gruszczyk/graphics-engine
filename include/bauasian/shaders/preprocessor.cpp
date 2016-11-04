@@ -18,7 +18,7 @@ std::string Preprocessor::getSourceCode() const
 	return m_source_code;
 }
 
-bool Preprocessor::isInsideComment(const std::size_t& position, const std::string& code) const
+bool Preprocessor::isInsideComment(size_t position, const std::string& code) const
 {
 	const auto first_block = code.rfind("/*", position);
 	const auto last_block = code.rfind("*/", position);

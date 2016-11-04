@@ -6,7 +6,7 @@
 
 using bauasian::ImageSlicer;
 
-ImageSlicer::ImageSlicer(const glm::uvec2& image_size, unsigned char* image_pixels, const unsigned& bytes_per_pixel)
+ImageSlicer::ImageSlicer(const glm::uvec2& image_size, const unsigned char* image_pixels, unsigned bytes_per_pixel)
 		: m_image_size(image_size), m_image_pixels(image_pixels), m_bytes_per_pixel(bytes_per_pixel)
 {}
 
@@ -37,13 +37,12 @@ std::tuple<std::vector<glm::uvec2>, std::vector<unsigned char*>> ImageSlicer::ge
 unsigned char* ImageSlicer::getSubImage(const glm::uvec2& sub_image_size, const glm::uvec2& sub_image_position)
 {
 	assert(sub_image_position.x + sub_image_size.x <= m_image_size.x &&
-	       sub_image_position.y + sub_image_size.y <= m_image_size.y);
+		   sub_image_position.y + sub_image_size.y <= m_image_size.y);
 
 	const unsigned bytes_per_row = sub_image_size.x * m_bytes_per_pixel;
 	unsigned char* sub_image_pixels = new unsigned char[sub_image_size.y * bytes_per_row];
 
-	unsigned char* src_ptr = m_image_pixels + (sub_image_position.x + sub_image_position.y * m_image_size.x)
-	                                          * m_bytes_per_pixel;
+	auto src_ptr = m_image_pixels + (sub_image_position.x + sub_image_position.y * m_image_size.x) * m_bytes_per_pixel;
 	for (unsigned row = 0; row < sub_image_size.y; row++)
 	{
 		std::memcpy(sub_image_pixels + row * bytes_per_row, src_ptr, bytes_per_row);

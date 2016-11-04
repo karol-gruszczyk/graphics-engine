@@ -18,17 +18,15 @@ namespace bauasian
 class bauasian::Texture final : public TextureMixin, public FrameBufferAttachment
 {
 public:
-	Texture(const glm::uvec2& size, const void* const pixels, const GLint& internal_format,
-	        const GLenum& format, const bool& generate_mipmaps, std::string image_name = "",
-			const GLenum& type = GL_UNSIGNED_BYTE);
-	Texture(const GLint& internal_format, const GLenum& format, const glm::uvec2& size,
-			const GLenum& type = GL_UNSIGNED_BYTE);
+	Texture(const glm::uvec2& size, const void* pixels, GLint internal_format, GLenum format, bool generate_mipmaps,
+			std::string image_name = "", GLenum type = GL_UNSIGNED_BYTE);
+	Texture(GLint internal_format, GLenum format, glm::uvec2 size, GLenum type = GL_UNSIGNED_BYTE);
 
 	void save(const boost::filesystem::path& path);
 
-	void setFiltering(const GLenum& filtering) const;
+	void setFiltering(GLenum filtering) const;
 	void enableDepthComparison() const;
-	virtual const GLuint& getId() const override;
+	virtual GLuint getId() const override;
 	virtual void setSize(const glm::uvec2& size) override;
 
 };

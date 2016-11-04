@@ -5,7 +5,7 @@
 
 using bauasian::OrthographicCamera;
 
-OrthographicCamera::OrthographicCamera(const glm::uvec2& size, const float& near, const float& far)
+OrthographicCamera::OrthographicCamera(const glm::uvec2& size, float near, float far)
 		: Camera(near, far)
 {
 	SizeMixin::setSize(size);

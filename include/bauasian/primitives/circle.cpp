@@ -5,7 +5,7 @@
 
 using bauasian::Circle;
 
-Circle::Circle(const float& radius, const unsigned short& num_sides)
+Circle::Circle(float radius, unsigned short num_sides)
 		: Entity2D(GL_TRIANGLE_FAN, num_sides + 2, GL_UNSIGNED_SHORT), m_radius(radius)
 {
 	assert(num_sides >= 3);
@@ -34,7 +34,7 @@ Circle::Circle(const float& radius, const unsigned short& num_sides)
 	delete[] indices;
 }
 
-const float& Circle::getRadius() const
+float Circle::getRadius() const
 {
 	return m_radius;
 }

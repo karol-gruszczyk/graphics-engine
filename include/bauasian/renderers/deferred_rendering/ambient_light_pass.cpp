@@ -13,7 +13,7 @@ void AmbientLightPass::setSize(const glm::uvec2& size)
 	m_ssao.setSize(size);
 }
 
-void AmbientLightPass::process(const FrameBuffer* const frame_buffer) const
+void AmbientLightPass::process(const FrameBuffer* frame_buffer) const
 {
 	m_ssao.process();
 

@@ -33,12 +33,12 @@ void CameraBuffer::setPosition(const glm::vec3& position) const
 	setSubData(128, sizeof(glm::vec3), glm::value_ptr(position));
 }
 
-void CameraBuffer::setNear(const float& near) const
+void CameraBuffer::setNear(float near) const
 {
 	setSubData(140, sizeof(float), &near);
 }
 
-void CameraBuffer::setFar(const float& far) const
+void CameraBuffer::setFar(float far) const
 {
 	setSubData(144, sizeof(float), &far);
 }

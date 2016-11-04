@@ -26,12 +26,12 @@ float AffineTransformations2D::getRotation() const
 	return m_rotation;
 }
 
-void AffineTransformations2D::setRotation(const float& rotation)
+void AffineTransformations2D::setRotation(float rotation)
 {
 	rotate(rotation - m_rotation);
 }
 
-void AffineTransformations2D::rotate(const float& rotation)
+void AffineTransformations2D::rotate(float rotation)
 {
 	m_model_matrix = glm::translate(m_model_matrix, glm::vec3(m_pivot, 0.f));
 	m_model_matrix = glm::rotate(m_model_matrix, rotation, { 0.f, 0.f, 1.f });

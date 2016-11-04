@@ -4,7 +4,7 @@
 
 using bauasian::SphereVolume;
 
-SphereVolume::SphereVolume(const unsigned& num_sides)
+SphereVolume::SphereVolume(unsigned num_sides)
 		: Entity3D(GL_TRIANGLE_STRIP, SphereFactory::getNumIndices(num_sides), GL_UNSIGNED_INT,
 				   SphereFactory::getNumVertices(num_sides), SphereFactory::getNumTriangles(num_sides))
 {

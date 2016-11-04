@@ -17,7 +17,7 @@ void PointLightPass::setSize(const glm::uvec2& size)
 	m_shader->setUniform(m_location_point_light_screen_size, size);
 }
 
-void PointLightPass::render(const Scene3D* const scene) const
+void PointLightPass::render(const Scene3D* scene) const
 {
 	m_shader->use();
 	for (const auto& light : scene->getPointLights())

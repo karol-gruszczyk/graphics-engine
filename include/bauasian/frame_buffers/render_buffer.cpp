@@ -21,7 +21,7 @@ void RenderBuffer::setSize(const glm::uvec2& size)
 	glNamedRenderbufferStorageEXT(m_rbo_id, GL_DEPTH24_STENCIL8, size.x, size.y);
 }
 
-const GLuint& RenderBuffer::getId() const
+GLuint RenderBuffer::getId() const
 {
 	return m_rbo_id;
 }

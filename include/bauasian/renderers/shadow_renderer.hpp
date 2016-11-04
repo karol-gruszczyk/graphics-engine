@@ -20,10 +20,10 @@ namespace bauasian
 class bauasian::ShadowRenderer : public SizeMixin<unsigned>, public ShaderMixin
 {
 public:
-	ShadowRenderer(const unsigned& size);
+	ShadowRenderer(unsigned size);
 
 	void setSize(const unsigned& size) override;
-	void render(const Scene3D* const scene, const glm::vec3& light_direction);
+	void render(const Scene3D* scene, const glm::vec3& light_direction);
 	void bind() const;
 
 private:

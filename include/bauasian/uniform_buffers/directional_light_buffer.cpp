@@ -33,7 +33,7 @@ void DirectionalLightBuffer::setDirection(const glm::vec3& direction) const
 	setSubData(32, sizeof(glm::vec3), glm::value_ptr(direction));
 }
 
-void DirectionalLightBuffer::setUseShadowMap(const int& value) const
+void DirectionalLightBuffer::setUseShadowMap(int value) const
 {
 	setSubData(44, sizeof(GLint), &value);
 }

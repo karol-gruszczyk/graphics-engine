@@ -17,12 +17,12 @@ class bauasian::Filter : public PostProcessor, public ShaderMixin
 {
 public:
 	Filter(const glm::uvec2& size, const boost::filesystem::path& vertex_shader_path,
-		   const boost::filesystem::path& fragment_shader_path, const GLenum& storage);
-	Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path, const GLenum& storage);
+		   const boost::filesystem::path& fragment_shader_path, GLenum storage);
+	Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path, GLenum storage);
 	virtual ~Filter() {}
 
 	virtual void setSize(const glm::uvec2& size) override;
-	virtual void process(const unsigned short& out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
+	virtual void process(unsigned short out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
 	virtual void processToScreen() const override;
 
 protected:

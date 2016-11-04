@@ -14,7 +14,7 @@ namespace bauasian
 class bauasian::PointLight : public Light, public PointLightMixin
 {
 public:
-	PointLight(const glm::vec3& position, const float& range);
+	PointLight(const glm::vec3& position, float range);
 	PointLight(const glm::vec3& position, const glm::vec3& attenuation);
 
 	void bind() const;

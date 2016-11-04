@@ -20,8 +20,7 @@ namespace bauasian
 class bauasian::SceneLoader final
 {
 public:
-	SceneLoader(const boost::filesystem::path& path, const bool& flip_uvs = false,
-	            const bool& map_bump_to_normal = false);
+	SceneLoader(const boost::filesystem::path& path, bool flip_uvs = false, bool map_bump_to_normal = false);
 
 	const std::list<Mesh*>& getMeshes() const;
 	const std::list<PerspectiveCamera*>& getCameras() const;
@@ -48,7 +47,7 @@ private:
 	void processCameras(const aiScene* scene);
 	void processLights(const aiScene* scene);
 	const std::string getPath(const std::string& path);
-	Texture* getTexture(const aiString& path, const bool& is_standardized);
+	Texture* getTexture(const aiString& path, bool is_standardized);
 };
 
 #endif /* BAUASIAN_MODEL_LOADER_HPP */

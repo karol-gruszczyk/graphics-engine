@@ -58,12 +58,12 @@ void SpotLightBuffer::setAttenuation(const glm::vec3& attenuation) const
 	setSubData(128, sizeof(glm::vec3), glm::value_ptr(attenuation));
 }
 
-void SpotLightBuffer::setInnerAngle(const float& angle) const
+void SpotLightBuffer::setInnerAngle(float angle) const
 {
 	setSubData(140, sizeof(GLfloat), &angle);
 }
 
-void SpotLightBuffer::setOuterAngle(const float& angle) const
+void SpotLightBuffer::setOuterAngle(float angle) const
 {
 	setSubData(144, sizeof(GLfloat), &angle);
 }

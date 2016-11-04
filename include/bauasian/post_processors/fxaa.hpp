@@ -20,15 +20,15 @@ public:
 		VERY_LOW = 10, LOW = 12, MEDIUM = 15, HIGH = 20, VERY_HIGH = 25, ULTRA = 29, EXTREME = 39
 	};
 
-	FXAA(const glm::uvec2& size, const Quality& quality = LOW);
+	FXAA(const glm::uvec2& size, Quality quality = LOW);
 
 	virtual void setSize(const glm::uvec2& size) override;
-	virtual void process(const unsigned short& out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
+	virtual void process(unsigned short out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
 	virtual void processToScreen() const override;
 
-	void setSubPixelRemoval(const float& sub_pixel_removal) const;
-	void setEdgeThreshold(const float& edge_threshold) const;
-	void setEdgeThresholdMin(const float& edge_threshold_min) const;
+	void setSubPixelRemoval(float sub_pixel_removal) const;
+	void setEdgeThreshold(float edge_threshold) const;
+	void setEdgeThresholdMin(float edge_threshold_min) const;
 
 private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;

@@ -20,13 +20,12 @@ class bauasian::Font : public bauasian::ContextSizeObserver
 	friend class Text;
 
 public:
-	Font(const unsigned& font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas,
-	     const int& line_spacing);
+	Font(unsigned font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas, int line_spacing);
 	virtual ~Font();
 
 	static void loadShader();
 
-	float getScale(const unsigned& font_size) const;
+	float getScale(unsigned font_size) const;
 	void bind() const;
 	void unbind() const;
 

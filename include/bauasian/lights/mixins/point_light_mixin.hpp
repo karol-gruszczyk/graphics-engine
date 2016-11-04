@@ -16,7 +16,7 @@ public:
 	virtual void setPosition(const glm::vec3& position);
 
 	float getRange() const;
-	void setRange(const float& range);
+	void setRange(float range);
 	const glm::vec3& getAttenuation() const;
 	virtual void setAttenuation(const glm::vec3& attenuation);
 
@@ -31,7 +31,7 @@ protected:
 	virtual void calculateModelMatrix();
 
 private:
-	const float calculateRange() const;
+	float calculateRange() const;
 
 };
 

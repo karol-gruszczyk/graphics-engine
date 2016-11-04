@@ -22,7 +22,7 @@ void GeometryPass::setSize(const glm::uvec2& size)
 	m_frame_buffer->setSize(size);
 }
 
-void GeometryPass::render(const Scene3D* const scene) const
+void GeometryPass::render(const Scene3D* scene) const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

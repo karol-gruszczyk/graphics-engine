@@ -15,7 +15,7 @@ namespace bauasian
 class bauasian::Camera : public NameMixin
 {
 public:
-	Camera(const float& near, const float& far);
+	Camera(float near, float far);
 	virtual ~Camera();
 
 	void bind() const;
@@ -24,10 +24,10 @@ public:
 	void move(const glm::vec3& position);
 	void setPosition(const glm::vec3& position);
 
-	void rotate(const float& angle, const glm::vec3& axis);
-	void roll(const float& angle);
-	void pitch(const float& angle);
-	void yaw(const float& angle);
+	void rotate(float angle, const glm::vec3& axis);
+	void roll(float angle);
+	void pitch(float angle);
+	void yaw(float angle);
 
 	void lookAt(const glm::vec3& position);
 	void lookAt(const glm::vec3& eye_position, const glm::vec3& position, const glm::vec3& up);
@@ -36,10 +36,10 @@ public:
 	const glm::vec3& getUp() const;
 	const glm::vec3& getRight() const;
 
-	const float& getNear() const;
-	void setNear(const float& near);
-	const float& getFar() const;
-	void setFar(const float&  far);
+	float getNear() const;
+	void setNear(float near);
+	float getFar() const;
+	void setFar(float far);
 
 	const glm::mat4& getViewMatrix() const;
 	const glm::mat4& getProjectionMatrix() const;

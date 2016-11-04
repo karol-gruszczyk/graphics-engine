@@ -79,14 +79,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	else if (key == GLFW_KEY_LEFT_SHIFT)
 		accelerate = action == GLFW_PRESS;
-	else if (key == GLFW_KEY_F3)
-	{
-		if (action == GLFW_PRESS)
-		{
-			wireframe = !wireframe;
-			Bauasian::getInstance().setWireframe(wireframe);
-		}
-	}
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -162,7 +154,7 @@ void setup()
 	renderer->addPostProcessor(new FXAA(renderer->getSize()));
 
 	dir_light = new DirectionalLight(glm::vec3(-1.f, -0.3f, -1.f));
-	dir_light->enableShadows(4096);
+	dir_light->enableShadows(512);
 	PointLight* point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	SpotLight* spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
 										  glm::radians(25.f));
@@ -197,7 +189,7 @@ void setup()
 	auto text = "vertices: " + std::to_string(scene3d->getNumVertices()) +
 				"\nfaces: " + std::to_string(scene3d->getNumFaces()) +
 				"\nentities: " + std::to_string(scene3d->getNumMeshes());
-	stat_text = new Text(FontFactory::getInstance().getFont("scenes/liberation.ttf", 14), text);
+	stat_text = new Text(FontFactory::getInstance().getFont("scenes/liberation.ttf", 14));
 	stat_text->setPosition({ 0, 32 });
 	stat_text->setTextColor({ 1.f, 1.f, 1.f });
 

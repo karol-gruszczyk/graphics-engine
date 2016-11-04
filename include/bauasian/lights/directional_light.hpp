@@ -22,9 +22,9 @@ public:
 	virtual void setDirection(const glm::vec3& direction) override;
 
 	void bind() const;
-	void enableShadows(const unsigned& size);
+	void enableShadows(unsigned size);
 	void disableShadows();
-	void updateShadowMap(const Scene3D* const scene);
+	void updateShadowMap(const Scene3D* scene);
 
 private:
 	DirectionalLightBuffer m_buffer;

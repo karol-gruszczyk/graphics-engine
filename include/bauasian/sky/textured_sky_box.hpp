@@ -13,12 +13,12 @@ namespace bauasian
 class bauasian::TexturedSkyBox : public SkyBox
 {
 public:
-	TexturedSkyBox(CubeTexture* texture);
+	TexturedSkyBox(const CubeTexture* texture);
 
 	void render(const glm::mat4& projection_view_matrix) const override;
 
 private:
-	CubeTexture* m_texture;
+	const CubeTexture* m_texture;
 
 };
 

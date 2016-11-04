@@ -4,7 +4,7 @@
 using bauasian::Plane;
 
 
-Plane::Plane(const glm::vec2& size, const unsigned& tile /* = 1 */)
+Plane::Plane(const glm::vec2& size, unsigned tile /* = 1 */)
 		: Entity3D(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 4, 2), m_size(size), m_tile(tile)
 {
 	const float& width(size.x), & height(size.y);
@@ -30,7 +30,7 @@ const glm::vec2& Plane::getSize() const
 	return m_size;
 }
 
-const float& Plane::getTile() const
+float Plane::getTile() const
 {
 	return m_tile;
 }
