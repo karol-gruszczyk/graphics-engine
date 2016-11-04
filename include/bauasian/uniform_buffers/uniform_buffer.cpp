@@ -42,8 +42,3 @@ void UniformBuffer::bind() const
 {
 	glBindBufferBase(GL_UNIFORM_BUFFER, m_binding_point, m_ubo_id);
 }
-
-void UniformBuffer::bind(const GLuint& binding_point) const
-{
-	glBindBufferBase(GL_UNIFORM_BUFFER, binding_point, m_ubo_id);
-}

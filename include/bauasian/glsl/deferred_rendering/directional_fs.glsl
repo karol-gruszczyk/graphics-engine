@@ -1,37 +1,14 @@
 #version 420 core
-#include "../bindings.glsl"
-#include "../common/lights.glsl"
-#include "../utils/luminance.glsl"
+#include "../uniform_buffers/shadow_buffer.glsl"
+#include "../uniform_buffers/camera_buffer.glsl"
+#include "../uniform_buffers/dir_light_buffer.glsl"
 #include "../globals.glsl"
-
-layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
-{
-    mat4 projection_matrix;
-    mat4 view_matrix;
-    vec3 position;
-	float near;
-	float far;
-} camera;
 
 layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
 layout (binding = DEFERRED_SPECULAR_BINDING) uniform sampler2D specular_buffer;
 layout (binding = DEFERRED_NORMAL_BINDING) uniform sampler2D normal_buffer;
 layout (binding = DEFERRED_POSITION_BINDING) uniform sampler2D position_buffer;
 layout (binding = DEFERRED_SHADOW_MAP_BINDING) uniform sampler2DShadow shadow_map;
-
-layout (std140, binding = BUFFER_DIRECTIONAL_LIGHT_BINDING) uniform DirectionalLightBuffer
-{
-    DirectionalLight dir_light;
-};
-
-layout (std140, binding = BUFFER_SHADOW_CAMERA_BINDING) uniform ShadowCameraBuffer
-{
-    mat4 projection_matrix;
-    mat4 view_matrix;
-    vec3 position;
-	float near;
-	float far;
-} shadow_camera;
 
 in vec2 texture_coord;
 
@@ -44,7 +21,7 @@ void main()
     vec3 frag_position = texture(position_buffer, texture_coord).rgb;
     if (dir_light.use_shadow_map == 1)
     {
-        vec4 shadow_position = shadow_camera.projection_matrix * shadow_camera.view_matrix * vec4(frag_position, 1.f);
+        vec4 shadow_position = shadow.light_space_matrix * vec4(frag_position, 1.f);
         shadow_position.xyz /= shadow_position.w;
         shadow_position.xyz = shadow_position.xyz * 0.5f + 0.5f;
         shadow_position.z -= SHADOW_MAPPING_BIAS;

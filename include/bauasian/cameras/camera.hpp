@@ -19,7 +19,6 @@ public:
 	virtual ~Camera();
 
 	void bind() const;
-	void bind(const GLuint& binding_point) const;
 
 	const glm::vec3& getPosition() const;
 	void move(const glm::vec3& position);

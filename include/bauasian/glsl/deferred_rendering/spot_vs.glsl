@@ -1,22 +1,8 @@
 #version 420 core
-#include "../bindings.glsl"
-#include "../common/lights.glsl"
+#include "../uniform_buffers/camera_buffer.glsl"
+#include "../uniform_buffers/spot_light_buffer.glsl"
 
 layout (location = 0) in vec3 vertex_position;
-
-layout (std140, binding = BUFFER_SPOT_LIGHT_BINDING) uniform SpotLightBuffer
-{
-    SpotLight spot_light;
-};
-
-layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
-{
-    mat4 projection_matrix;
-    mat4 view_matrix;
-    vec3 position;
-	float near;
-	float far;
-} camera;
 
 
 void main()

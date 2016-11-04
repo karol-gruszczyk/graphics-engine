@@ -1,5 +1,5 @@
 #version 420 core
-#include "../bindings.glsl"
+#include "../uniform_buffers/camera_buffer.glsl"
 
 #define MAX_KERNEL_SIZE 64
 
@@ -12,15 +12,6 @@ uniform int kernel_size = 16;
 uniform float ssao_radius = 100.f;
 uniform float ssao_power = 5.f;
 uniform vec2 noise_scale;
-
-layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
-{
-    mat4 projection_matrix;
-    mat4 view_matrix;
-    vec3 position;
-	float near;
-	float far;
-} camera;
 
 in vec2 texture_coord;
 flat in mat3 view_normal_matrix;

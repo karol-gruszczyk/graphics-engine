@@ -1,28 +1,13 @@
 #version 420 core
 #include "../locations.glsl"
-#include "../bindings.glsl"
-#include "../common/lights.glsl"
+#include "../uniform_buffers/camera_buffer.glsl"
+#include "../uniform_buffers/matrices_buffer.glsl"
 
 layout (location = DEFERRED_GBUFFER_POSITION) in vec3 vertex_position;
 layout (location = DEFERRED_GBUFFER_NORMAL) in vec3 vertex_normal;
 layout (location = DEFERRED_GBUFFER_TEXTURE_COORD) in vec2 vertex_texture_coord;
 layout (location = DEFERRED_GBUFFER_TANGENT) in vec3 vertex_tangent;
 layout (location = DEFERRED_GBUFFER_BI_TANGENT) in vec3 vertex_bi_tangent;
-
-layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
-{
-    mat4 projection_matrix;
-    mat4 view_matrix;
-    vec3 position;
-	float near;
-	float far;
-} camera;
-
-layout(std140, binding = BUFFER_MATRICES_BINDING) uniform MatricesBuffer
-{
-    mat4 model_matrix;
-    mat4 normal_matrix;
-};
 
 out vec3 position;
 out vec2 texture_coord;

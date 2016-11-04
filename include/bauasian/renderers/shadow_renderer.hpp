@@ -7,6 +7,7 @@
 #include "bauasian/scenes/scene_3d.hpp"
 #include "bauasian/cameras/orthographic_camera.hpp"
 #include "bauasian/cameras/perspective_camera.hpp"
+#include "bauasian/uniform_buffers/shadow_buffer.hpp"
 
 #include <glm/glm.hpp>
 
@@ -28,7 +29,7 @@ public:
 private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
 	std::shared_ptr<Texture> m_depth_texture;
-	OrthographicCamera m_camera;
+	ShadowBuffer m_buffer;
 
 	void calculateCameraBounds(const glm::vec3& light_dir);
 

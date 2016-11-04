@@ -1,31 +1,10 @@
 #version 420 core
-#include "../bindings.glsl"
-#include "../common/lights.glsl"
+#include "../globals.glsl"
+#include "../uniform_buffers/camera_buffer.glsl"
+#include "../uniform_buffers/material_buffer.glsl"
 #include "../common/parallax.glsl"
 #include "../utils/linearize_depth.glsl"
 
-layout(std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
-{
-    mat4 projection_matrix;
-    mat4 view_matrix;
-    vec3 position;
-	float near;
-	float far;
-} camera;
-
-layout(std140, binding = BUFFER_MATERIAL_BINDING) uniform Material
-{
-	vec4 diffuse_color;
-	vec4 specular_color;
-
-	int use_diffuse_texture;
-	int use_specular_texture;
-	int use_normal_texture;
-	int use_displacement_texture;
-	int use_opacity_texture;
-
-	float shininess;
-} material;
 
 layout (binding = MATERIAL_DIFFUSE_BINDING) uniform sampler2D diffuse_texture;
 layout (binding = MATERIAL_SPECULAR_BINDING) uniform sampler2D specular_texture;

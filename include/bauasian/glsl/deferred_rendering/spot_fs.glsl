@@ -1,21 +1,7 @@
 #version 420 core
-#include "../bindings.glsl"
-#include "../common/lights.glsl"
+#include "../uniform_buffers/camera_buffer.glsl"
+#include "../uniform_buffers/spot_light_buffer.glsl"
 #include "../common/attenuation.glsl"
-
-layout (std140, binding = BUFFER_CAMERA_BINDING) uniform CameraBuffer
-{
-    mat4 projection_matrix;
-    mat4 view_matrix;
-    vec3 position;
-	float near;
-	float far;
-} camera;
-
-layout (std140, binding = BUFFER_SPOT_LIGHT_BINDING) uniform SpotLightBuffer
-{
-    SpotLight spot_light;
-};
 
 layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
 layout (binding = DEFERRED_SPECULAR_BINDING) uniform sampler2D specular_buffer;
