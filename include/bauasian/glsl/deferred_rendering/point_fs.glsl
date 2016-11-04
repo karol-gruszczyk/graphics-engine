@@ -1,6 +1,7 @@
 #version 420 core
 #include "../uniform_buffers/camera_buffer.glsl"
 #include "../uniform_buffers/point_light_buffer.glsl"
+#include "../common/blinn_phong.glsl"
 #include "../common/attenuation.glsl"
 
 layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;

@@ -1,7 +1,10 @@
 #include "../bindings.glsl"
-#include "../common/lights.glsl"
 
 layout (std140, binding = BUFFER_POINT_LIGHT_BINDING) uniform PointLightBuffer
 {
-    PointLight point_light;
-};
+	mat4 model_matrix;
+	vec3 diffuse_color;
+	vec3 specular_color;
+	vec3 position;
+	vec3 attenuation;
+} point_light;

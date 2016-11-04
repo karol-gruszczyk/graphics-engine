@@ -2,6 +2,7 @@
 #include "../uniform_buffers/shadow_buffer.glsl"
 #include "../uniform_buffers/camera_buffer.glsl"
 #include "../uniform_buffers/dir_light_buffer.glsl"
+#include "../common/blinn_phong.glsl"
 #include "../globals.glsl"
 
 layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
