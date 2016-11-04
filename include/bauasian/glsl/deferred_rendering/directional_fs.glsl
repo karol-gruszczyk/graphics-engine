@@ -3,7 +3,6 @@
 #include "../uniform_buffers/camera_buffer.glsl"
 #include "../uniform_buffers/dir_light_buffer.glsl"
 #include "../common/blinn_phong.glsl"
-#include "../globals.glsl"
 
 layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
 layout (binding = DEFERRED_SPECULAR_BINDING) uniform sampler2D specular_buffer;
@@ -16,6 +15,17 @@ in vec2 texture_coord;
 out vec4 out_color;
 
 
+float pcf(sampler2DShadow shadow_texture, vec3 projected_position)
+{
+    float z = projected_position.z;
+    float depth = texture(shadow_texture, projected_position.xyz);
+    depth += texture(shadow_texture, vec3(projected_position.xy + vec2(shadow.pixel_size), z));
+    depth += texture(shadow_texture, vec3(projected_position.xy - vec2(shadow.pixel_size), z));
+    depth += texture(shadow_texture, vec3(projected_position.xy + vec2(-shadow.pixel_size, shadow.pixel_size), z));
+    depth += texture(shadow_texture, vec3(projected_position.xy + vec2(shadow.pixel_size, -shadow.pixel_size), z));
+    return depth / 5.f;
+}
+
 void main()
 {
     float shadow_depth = 1.f;
@@ -25,13 +35,13 @@ void main()
         vec4 shadow_position = shadow.light_space_matrix * vec4(frag_position, 1.f);
         shadow_position.xyz /= shadow_position.w;
         shadow_position.xyz = shadow_position.xyz * 0.5f + 0.5f;
-        shadow_position.z -= SHADOW_MAPPING_BIAS;
+        shadow_position.z -= shadow.pixel_size;
         if (shadow_position.x < 0.f || shadow_position.y < 0.f || shadow_position.x > 1.f || shadow_position.y > 1.f)
         {
             out_color = vec4(1.f, 0.f, 0.f, 1.f);
             return;
         }
-        shadow_depth = texture(shadow_map, shadow_position.xyz);
+        shadow_depth = pcf(shadow_map, shadow_position.xyz);
     }
     vec3 frag_diffuse = texture(albedo_buffer, texture_coord).rgb;
     vec4 frag_specular_buffer = texture(specular_buffer, texture_coord);

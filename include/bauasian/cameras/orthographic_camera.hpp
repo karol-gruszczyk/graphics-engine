@@ -10,7 +10,7 @@ namespace bauasian
 	class OrthographicCamera;
 }
 
-class bauasian::OrthographicCamera : public Camera, public SizeMixin
+class bauasian::OrthographicCamera : public Camera, public SizeMixin<glm::uvec2>
 {
 public:
 	OrthographicCamera(const glm::uvec2& size, const float& near = -1000.f, const float& far = 1000.f);

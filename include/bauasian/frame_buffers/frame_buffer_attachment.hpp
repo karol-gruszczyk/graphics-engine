@@ -12,7 +12,7 @@ namespace bauasian
 	class FrameBufferAttachment;
 }
 
-class bauasian::FrameBufferAttachment : public SizeMixin
+class bauasian::FrameBufferAttachment : public SizeMixin<glm::uvec2>
 {
 public:
 	FrameBufferAttachment(const glm::uvec2& size);

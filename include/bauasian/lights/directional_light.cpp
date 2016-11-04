@@ -39,7 +39,7 @@ void DirectionalLight::bind() const
 
 void DirectionalLight::enableShadows(const unsigned& size)
 {
-	m_shadow_renderer = std::make_unique<ShadowRenderer>(glm::uvec2(size, size));
+	m_shadow_renderer = std::make_unique<ShadowRenderer>(size);
 	m_buffer.setUseShadowMap(true);
 }
 

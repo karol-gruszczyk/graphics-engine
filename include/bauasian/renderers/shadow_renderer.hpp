@@ -17,12 +17,12 @@ namespace bauasian
 	class ShadowRenderer;
 }
 
-class bauasian::ShadowRenderer : public SizeMixin, public ShaderMixin
+class bauasian::ShadowRenderer : public SizeMixin<unsigned>, public ShaderMixin
 {
 public:
-	ShadowRenderer(const glm::uvec2& size);
+	ShadowRenderer(const unsigned& size);
 
-	void setSize(const glm::uvec2& size);
+	void setSize(const unsigned& size) override;
 	void render(const Scene3D* const scene, const glm::vec3& light_direction);
 	void bind() const;
 

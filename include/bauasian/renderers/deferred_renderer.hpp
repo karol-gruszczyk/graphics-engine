@@ -13,7 +13,7 @@ namespace bauasian
 	class DeferredRenderer;
 }
 
-class bauasian::DeferredRenderer : public SizeMixin
+class bauasian::DeferredRenderer : public SizeMixin<glm::uvec2>
 {
 public:
 	DeferredRenderer(const glm::uvec2 size);
