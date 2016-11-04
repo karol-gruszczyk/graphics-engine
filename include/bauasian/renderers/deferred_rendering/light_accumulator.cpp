@@ -23,7 +23,7 @@ void LightAccumulator::setSize(const glm::uvec2& size)
 	m_spot_light_renderer.setSize(size);
 }
 
-void LightAccumulator::render(const Scene3D* const scene) const
+void LightAccumulator::render(const Scene3D* scene) const
 {
 	m_ambient_renderer.process(m_frame_buffer.get());
 

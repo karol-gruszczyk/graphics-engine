@@ -18,8 +18,7 @@ class bauasian::CubeTexture final : public TextureMixin
 {
 public:
 	CubeTexture(const std::vector<glm::uvec2>& sizes, const std::vector<unsigned char*> pixel_ptrs,
-	            const GLint& internal_format, const GLenum& format,
-	            std::string image_name = "");
+				GLint internal_format, GLenum format, std::string image_name = "");
 
 };
 

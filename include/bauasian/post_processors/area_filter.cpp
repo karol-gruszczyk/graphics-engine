@@ -4,7 +4,7 @@
 using bauasian::AreaFilter;
 
 AreaFilter::AreaFilter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path,
-					   const GLenum& storage)
+					   GLenum storage)
 		: Filter(size, fragment_shader_path, storage)
 {
 	m_location_pixel_size = m_shader->getUniformLocation("pixel_size");

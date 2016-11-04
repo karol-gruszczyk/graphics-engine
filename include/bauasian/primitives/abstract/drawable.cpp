@@ -4,7 +4,7 @@
 
 using bauasian::Drawable;
 
-Drawable::Drawable(const GLenum& elements_mode, const GLsizei& elements_count)
+Drawable::Drawable(GLenum elements_mode, GLsizei elements_count)
 		: m_elements_mode(elements_mode), m_elements_count(elements_count)
 {
 	glGenVertexArrays(1, &m_vao_id);
@@ -17,8 +17,8 @@ Drawable::~Drawable()
 	glDeleteBuffers(1, &m_vertex_vbo_id);
 }
 
-void Drawable::updateVertexBuffer(const GLsizeiptr& size, const void* data,
-                                    const std::vector<unsigned>& offsets, const GLenum& draw_type) const
+void Drawable::updateVertexBuffer(GLsizeiptr size, const void* data,
+								  const std::vector<unsigned>& offsets, GLenum draw_type) const
 {
 	glBindVertexArray(m_vao_id);
 
@@ -38,7 +38,7 @@ void Drawable::updateVertexBuffer(const GLsizeiptr& size, const void* data,
 	glBindVertexArray(0);
 }
 
-const GLsizei& Drawable::getNumElements() const
+GLsizei Drawable::getNumElements() const
 {
 	return m_elements_count;
 }

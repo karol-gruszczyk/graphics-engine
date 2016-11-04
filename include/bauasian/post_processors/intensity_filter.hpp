@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::IntensityFilter : public Filter
 {
 public:
-	IntensityFilter(const glm::uvec2& size, const GLenum& storage);
+	IntensityFilter(const glm::uvec2& size, GLenum storage);
 
 };
 

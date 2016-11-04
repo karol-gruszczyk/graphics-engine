@@ -18,14 +18,13 @@ public:
 
 	void setDiffuseColor(const glm::vec3& color) const;
 	void setSpecularColor(const glm::vec3& color) const;
-	void setUseDiffuseTexture(const GLint& value) const;
-	void setUseSpecularTexture(const GLint& value) const;
-	void setUseNormalTexture(const GLint& value) const;
-	void setUseDisplacementTexture(const GLint& value) const;
-	void setUseOpacityTexture(const GLint& value) const;
-	void setShininess(const float& shininess) const;
+	void setUseDiffuseTexture(GLint value) const;
+	void setUseSpecularTexture(GLint value) const;
+	void setUseNormalTexture(GLint value) const;
+	void setUseDisplacementTexture(GLint value) const;
+	void setUseOpacityTexture(GLint value) const;
+	void setShininess(float shininess) const;
 
 };
-
 
 #endif /* BAUASIAN_MATERIAL_BUFFER_HPP */

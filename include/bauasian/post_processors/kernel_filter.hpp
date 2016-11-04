@@ -21,10 +21,10 @@ public:
 		EMBOSS,
 		BOTTOM_SOBEL, TOP_SOBEL, LEFT_SOBEL, RIGHT_SOBEL
 	};
-	KernelFilter(const glm::uvec2& size, const KernelFilterType& type, const GLenum& storage);
+	KernelFilter(const glm::uvec2& size, KernelFilterType type, GLenum storage);
 
 protected:
-	const glm::mat3 getKernelMatrix(const KernelFilterType& type);
+	const glm::mat3 getKernelMatrix(KernelFilterType type);
 
 };
 

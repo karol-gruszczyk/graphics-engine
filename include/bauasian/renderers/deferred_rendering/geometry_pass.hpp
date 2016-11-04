@@ -19,7 +19,7 @@ public:
 	GeometryPass(const glm::uvec2& size, const std::shared_ptr<FrameBufferAttachment>& depth_buffer);
 
 	void setSize(const glm::uvec2& size);
-	void render(const Scene3D* const scene) const;
+	void render(const Scene3D* scene) const;
 
 private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;

@@ -4,8 +4,8 @@
 using bauasian::Glyph;
 
 
-Glyph::Glyph(const GLfloat* const texture_coords, const glm::uvec2& size, const glm::ivec2& bearing,
-             const glm::ivec2& advance)
+Glyph::Glyph(GLfloat* const texture_coords, const glm::uvec2& size, const glm::ivec2& bearing,
+			 const glm::ivec2& advance)
 		: m_advance(advance)
 {
 	glm::vec2 offset = { bearing.x, -bearing.y };
@@ -35,7 +35,7 @@ const glm::ivec2& Glyph::getAdvance() const
 	return m_advance;
 }
 
-const GLfloat* const Glyph::getPositions() const
+const GLfloat* Glyph::getPositions() const
 {
 	return m_positions;
 }

@@ -23,9 +23,9 @@ public:
 
 	void addPostProcessor(PostProcessor* post_processor);
 	void clearScreen() const;
-	void render(Scene3D* scene) const;
-	const float& getExposure() const;
-	void setExposure(const float& exposure);
+	void render(const Scene3D* scene) const;
+	float getExposure() const;
+	void setExposure(float exposure);
 
 private:
 	std::list<PostProcessor*> m_post_processors;

@@ -15,11 +15,14 @@ public:
 	virtual const glm::vec2& getPosition() const;
 	virtual void setPosition(const glm::vec2& position);
 	virtual void translate(const glm::vec2& position);
+
 	virtual float getRotation() const;
-	virtual void setRotation(const float& rotation);
-	virtual void rotate(const float& rotation);
+	virtual void setRotation(float rotation);
+	virtual void rotate(float rotation);
+
 	virtual const glm::vec2& getScale() const;
 	virtual void setScale(const glm::vec2& scale);
+
 	virtual const glm::vec2& getPivot() const;
 	virtual void setPivot(const glm::vec2& pivot);
 

@@ -5,7 +5,7 @@
 using bauasian::ImageLoader;
 
 
-ImageLoader::ImageLoader(const boost::filesystem::path& path, const unsigned& num_rotate_sides)
+ImageLoader::ImageLoader(const boost::filesystem::path& path, unsigned num_rotate_sides)
 {
 	getStaticInstance();
 

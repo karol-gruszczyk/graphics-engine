@@ -5,7 +5,7 @@
 
 using bauasian::TexturedSkyBox;
 
-TexturedSkyBox::TexturedSkyBox(bauasian::CubeTexture* texture)
+TexturedSkyBox::TexturedSkyBox(const CubeTexture* texture)
 		: SkyBox("skybox/basic_fs.glsl"), m_texture(texture)
 {
 	const auto location_cube_texture = m_shader->getUniformLocation("cube_texture");

@@ -85,7 +85,7 @@ const std::map<char, Glyph*>& FontLoader::getGlyphs() const
 	return m_glyphs;
 }
 
-const int& FontLoader::getLineSpacing() const
+int FontLoader::getLineSpacing() const
 {
 	return m_line_spacing;
 }
@@ -110,8 +110,8 @@ FontLoader& FontLoader::getGlobalInstance()
 	return instance;
 }
 
-void FontLoader::createGlyphAtlas(const unsigned& glyph_width, const unsigned& glyph_height,
-                                  const GlyphBitmap* const glyph_bitmaps)
+void FontLoader::createGlyphAtlas(unsigned glyph_width, unsigned glyph_height,
+								  const GlyphBitmap* glyph_bitmaps)
 {
 	unsigned num_glyphs = s_last_char - s_first_char;
 	unsigned atlas_glyphs_per_line = (unsigned) ceil(sqrt(num_glyphs));

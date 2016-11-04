@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::TextureMixin
 {
 public:
-	TextureMixin(const GLenum& texture_target, const GLint& internal_format, const GLenum& format);
+	TextureMixin(GLenum texture_target, GLint internal_format, GLenum format);
 	virtual ~TextureMixin();
 
 	void bind(unsigned short texture_level = 0) const;

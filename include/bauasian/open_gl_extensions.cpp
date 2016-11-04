@@ -20,7 +20,7 @@ bool OpenGLExtensions::isAnisotropicFilteringSupported() const
 	return m_extensions.count(GL_EXT_texture_filter_anisotropic) != 0;
 }
 
-const GLfloat& OpenGLExtensions::getMaxAnisotropy()
+GLfloat OpenGLExtensions::getMaxAnisotropy()
 {
 	return m_max_anisotropy;
 }

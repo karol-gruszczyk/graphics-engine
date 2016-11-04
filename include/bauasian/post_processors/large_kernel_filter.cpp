@@ -3,15 +3,14 @@
 
 using bauasian::LargeKernelFilter;
 
-LargeKernelFilter::LargeKernelFilter(const glm::uvec2& size, const LargeKernelFilter::LargeKernelFilterType& type,
-									 const GLenum& storage)
+LargeKernelFilter::LargeKernelFilter(const glm::uvec2& size, LargeKernelFilterType type, GLenum storage)
 		: AreaFilter(size, "post_processing/large_kernel_fs.glsl", storage)
 {
 	const auto& location = m_shader->getUniformLocation("kernel_matrix");
 	m_shader->setUniform(location, &getKernelMatrix(type)[0], 25);
 }
 
-const std::vector<float> LargeKernelFilter::getKernelMatrix(const LargeKernelFilter::LargeKernelFilterType& type)
+const std::vector<float> LargeKernelFilter::getKernelMatrix(LargeKernelFilterType type)
 {
 	std::vector<float> result_matrix(25);
 	float matrix_multiplier(1.f);

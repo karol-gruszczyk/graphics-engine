@@ -21,7 +21,7 @@ float PointLightMixin::getRange() const
 	return m_range;
 }
 
-void PointLightMixin::setRange(const float& range)
+void PointLightMixin::setRange(float range)
 {
 	setAttenuation({ 1.f, 2.f / range, 1.f / (range * range) });
 	calculateModelMatrix();
@@ -48,7 +48,7 @@ void PointLightMixin::calculateModelMatrix()
 	m_model_matrix = glm::scale(m_model_matrix, glm::vec3(m_range));
 }
 
-const float PointLightMixin::calculateRange() const
+float PointLightMixin::calculateRange() const
 {
 	const float threshold = 0.01f;
 	float a = threshold * m_attenuation.z;

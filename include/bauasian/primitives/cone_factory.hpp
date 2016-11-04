@@ -19,12 +19,11 @@ public:
 	ConeFactory(const ConeFactory&) = delete;
 	ConeFactory& operator=(const ConeFactory&) = delete;
 
-	static const std::vector<glm::vec3> getPositions(const unsigned& num_sides, const float& radius,
-													 const float& height);
-	static const std::vector<GLuint> getIndices(const unsigned& num_sides);
-	static const unsigned getNumVertices(const unsigned& num_sides);
-	static const unsigned getNumIndices(const unsigned& num_sides);
-	static const unsigned getNumTriangles(const unsigned& num_sides);
+	static const std::vector<glm::vec3> getPositions(unsigned num_sides, float radius, float height);
+	static const std::vector<GLuint> getIndices(unsigned num_sides);
+	static unsigned getNumVertices(unsigned num_sides);
+	static unsigned getNumIndices(unsigned num_sides);
+	static unsigned getNumTriangles(unsigned num_sides);
 
 };
 

@@ -8,13 +8,13 @@ ShaderMixin::ShaderMixin(const boost::filesystem::path& vs_path, const boost::fi
 {
 	const auto vs = std::make_unique<Shader>(vs_path, Shader::VERTEX_SHADER);
 	const auto fs = std::make_unique<Shader>(fs_path, Shader::FRAGMENT_SHADER);
-	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>{ vs.get(), fs.get() });
+	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<const Shader*>{ vs.get(), fs.get() });
 }
 
 ShaderMixin::ShaderMixin(const boost::filesystem::path& vs_path)
 {
 	const auto vs = std::make_unique<Shader>(vs_path, Shader::VERTEX_SHADER);
-	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>{ vs.get() });
+	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<const Shader*>{ vs.get() });
 }
 
 const ShaderProgram& ShaderMixin::getShader() const

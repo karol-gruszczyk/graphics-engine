@@ -13,7 +13,7 @@ BasicMaterial::BasicMaterial(const glm::vec3& diffuse_color)
 	setDiffuse(diffuse_color);
 }
 
-BasicMaterial::BasicMaterial(bauasian::Texture* diffuse_texture)
+BasicMaterial::BasicMaterial(Texture* const diffuse_texture)
 		: BasicMaterial()
 {
 	setDiffuse(diffuse_texture);
@@ -24,7 +24,7 @@ void BasicMaterial::setDiffuse(const glm::vec3& color)
 	m_material.diffuse_color = color;
 }
 
-void BasicMaterial::setDiffuse(Texture* texture)
+void BasicMaterial::setDiffuse(const Texture* texture)
 {
 	m_diffuse_texture = texture;
 	m_material.use_diffuse_texture = 1;

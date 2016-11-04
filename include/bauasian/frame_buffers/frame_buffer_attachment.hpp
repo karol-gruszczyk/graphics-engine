@@ -18,7 +18,7 @@ public:
 	FrameBufferAttachment(const glm::uvec2& size);
 	virtual ~FrameBufferAttachment();
 
-	virtual const GLuint& getId() const = 0;
+	virtual GLuint getId() const = 0;
 
 };
 

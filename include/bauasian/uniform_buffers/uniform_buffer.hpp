@@ -18,12 +18,12 @@ public:
 	{
 		MATERIAL, MATRICES, CAMERA, BASIC_MATERIAL, DIRECTIONAL_LIGHT, POINT_LIGHT, SPOT_LIGHT
 	};
-	UniformBuffer(const GLsizeiptr& data_size, const GLuint& binding_point);
+	UniformBuffer(GLsizeiptr data_size, GLuint binding_point);
 	~UniformBuffer();
 
 	void setData(const void* data) const;
-	void setSubData(const GLintptr& offset, const GLsizeiptr& size, const void* data) const;
-	void attachUniformBlock(ShaderProgram* shader, const std::string& block_name) const;
+	void setSubData(GLintptr offset, GLsizeiptr size, const void* data) const;
+	void attachUniformBlock(const ShaderProgram* shader, const std::string& block_name) const;
 	void bind() const;
 
 private:

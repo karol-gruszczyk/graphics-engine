@@ -33,11 +33,10 @@ public:
 	void addLight(DirectionalLight* directional_light);
 	void addLight(PointLight* point_light);
 	void addLight(SpotLight* spot_light);
-	void loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs = false,
-	                  const bool& map_bump_to_normal = false);
-	const unsigned int getNumVertices() const;
-	const unsigned int getNumFaces() const;
-	const unsigned int getNumMeshes() const;
+	void loadFromFile(const boost::filesystem::path& path, bool flip_uvs = false, bool map_bump_to_normal = false);
+	unsigned getNumVertices() const;
+	unsigned getNumFaces() const;
+	unsigned getNumMeshes() const;
 	void render() const;
 	void renderSkyBox() const;
 

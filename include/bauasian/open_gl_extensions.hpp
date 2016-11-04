@@ -18,7 +18,7 @@ public:
 	static bool isExtensionSupported(const std::string& name);
 
 	bool isAnisotropicFilteringSupported() const;
-	const GLfloat& getMaxAnisotropy();
+	GLfloat getMaxAnisotropy();
 
 private:
 	OpenGLExtensions();

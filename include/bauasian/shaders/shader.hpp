@@ -22,13 +22,13 @@ public:
 		VERTEX_SHADER = GL_VERTEX_SHADER, FRAGMENT_SHADER = GL_FRAGMENT_SHADER
 	};
 
-	Shader(const boost::filesystem::path& path, const ShaderType& type,
-	       const std::map<std::string, std::string>& defines = {});
+	Shader(const boost::filesystem::path& path, ShaderType type,
+		   const std::map<std::string, std::string>& defines = {});
 	Shader(const Shader&) = delete;
 	Shader& operator=(const Shader&) = delete;
 	virtual ~Shader();
 
-	const GLuint& getId() const;
+	GLuint getId() const;
 
 protected:
 	GLuint m_shader_id;

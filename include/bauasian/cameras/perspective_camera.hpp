@@ -12,13 +12,13 @@ namespace bauasian
 class bauasian::PerspectiveCamera : public Camera
 {
 public:
-	PerspectiveCamera(const float& aspect_ratio = 16.f / 9.f, const float& field_of_view = 45.f,
-					  const float& near = 0.1f, const float& far = 1000.f);
+	PerspectiveCamera(float aspect_ratio = 16.f / 9.f, float field_of_view = 45.f, float near = 0.1f,
+					  float far = 1000.f);
 
-	const float& getAspectRatio() const;
-	void setAspectRatio(const float& aspect_ratio);
-	const float& getFieldOfView() const;
-	void setFieldOfView(const float& field_of_view);
+	float getAspectRatio() const;
+	void setAspectRatio(float aspect_ratio);
+	float getFieldOfView() const;
+	void setFieldOfView(float field_of_view);
 
 private:
 	float m_aspect_ratio;

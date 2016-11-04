@@ -22,7 +22,7 @@ public:
 	static const std::string getFreeTypeVersion();
 
 	const std::map<char, Glyph*>& getGlyphs() const;
-	const int& getLineSpacing() const;
+	int getLineSpacing() const;
 	Texture* getGlyphAtlas() const;
 
 private:
@@ -49,8 +49,7 @@ private:
 	static const unsigned s_last_char = 128;
 
 	FontLoader& getGlobalInstance();
-	void createGlyphAtlas(const unsigned& glyph_width, const unsigned& glyph_height,
-	                      const GlyphBitmap* const glyph_bitmaps);
+	void createGlyphAtlas(unsigned glyph_width, unsigned glyph_height, const GlyphBitmap* glyph_bitmaps);
 
 	static inline unsigned nextPowerOf2(unsigned x);
 };

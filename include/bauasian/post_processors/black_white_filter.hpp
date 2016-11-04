@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::BlackWhiteFilter : public Filter
 {
 public:
-	BlackWhiteFilter(const glm::uvec2& size, const GLenum& storage);
+	BlackWhiteFilter(const glm::uvec2& size, GLenum storage);
 
 };
 

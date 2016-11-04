@@ -5,8 +5,8 @@
 
 using bauasian::Text;
 
-Text::Text(Font* font, const std::string& text, const unsigned& font_size, const glm::vec3& color)
-		: Entity2D(GL_TRIANGLE_STRIP, 0, GL_UNSIGNED_INT), m_font(font), m_text(text), m_color(color)
+Text::Text(Font* font, unsigned font_size)
+		: Entity2D(GL_TRIANGLE_STRIP, 0, GL_UNSIGNED_INT), m_font(font)
 {
 	setFontSize(font_size ? : m_font->m_font_size);
 	updateBufferObjects();
@@ -36,12 +36,12 @@ void Text::setTextColor(const glm::vec3& text_color)
 	m_color = text_color;
 }
 
-const unsigned& Text::getFontSize() const
+unsigned Text::getFontSize() const
 {
 	return m_font_size;
 }
 
-void Text::setFontSize(const unsigned& font_size)
+void Text::setFontSize(unsigned font_size)
 {
 	m_font_size = font_size;
 	setScale({ 1.f, 1.f });

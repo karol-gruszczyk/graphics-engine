@@ -11,14 +11,13 @@ using bauasian::Texture;
 std::unique_ptr<ShaderProgram> Font::s_shader;
 GLint Font::m_location_projection_matrix;
 
-Font::Font(const unsigned& font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas,
-		   const int& line_spacing)
+Font::Font(unsigned font_size, const std::map<char, Glyph*>& glyphs, Texture* glyph_atlas, int line_spacing)
 		: m_font_size(font_size), m_glyphs(glyphs), m_glyph_atlas(glyph_atlas), m_line_spacing(line_spacing)
 {
 	updateContextSize();
 }
 
-float Font::getScale(const unsigned int& font_size) const
+float Font::getScale(unsigned font_size) const
 {
 	return font_size / (float) m_font_size;
 }
@@ -46,7 +45,7 @@ void Font::loadShader()
 {
 	const auto vertex_shader = std::make_unique<Shader>("fonts/font_vs.glsl", Shader::VERTEX_SHADER);
 	const auto fragment_shader = std::make_unique<Shader>("fonts/font_fs.glsl", Shader::FRAGMENT_SHADER);
-	s_shader = std::make_unique<ShaderProgram>(std::initializer_list<Shader*>
+	s_shader = std::make_unique<ShaderProgram>(std::initializer_list<const Shader*>
 													   { vertex_shader.get(), fragment_shader.get() });
 	m_location_projection_matrix = s_shader->getUniformLocation("projection_matrix");
 }

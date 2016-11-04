@@ -30,7 +30,6 @@ public:
 	void initialize(const boost::filesystem::path& log_file = "log.txt",
 	                const boost::filesystem::path& error_file = "error.log");
 	void initialize(std::streambuf* ostream, std::streambuf* err_ostream);
-	void setWireframe(const bool& enabled);
 	void logInfo(const std::string& message) const;
 	void logWarning(const std::string& message) const;
 	void logError(const std::string& message) const;

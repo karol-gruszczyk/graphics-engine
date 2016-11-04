@@ -17,7 +17,7 @@ public:
 	PointLightPass(const glm::uvec2& size);
 
 	void setSize(const glm::uvec2& size);
-	void render(const Scene3D* const scene) const;
+	void render(const Scene3D* scene) const;
 
 private:
 	SphereVolume m_light_volume;

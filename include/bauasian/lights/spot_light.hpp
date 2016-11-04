@@ -13,15 +13,14 @@ namespace bauasian
 class bauasian::SpotLight final : public PointLight, public DirectionMixin
 {
 public:
-	SpotLight(const glm::vec3& position, const glm::vec3& direction, const float& range, const float& inner_angle,
-	          const float& outer_angle);
+	SpotLight(const glm::vec3& position, const glm::vec3& direction, float range, float inner_angle, float outer_angle);
 	SpotLight(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& attenuation,
-	          const float& inner_angle, const float& outer_angle);
+			  float inner_angle, float outer_angle);
 
 	float getInnerAngle() const;
-	void setInnerAngle(const float& inner_angle);
+	void setInnerAngle(float inner_angle);
 	float getOuterAngle() const;
-	void setOuterAngle(const float& outer_angle);
+	void setOuterAngle(float outer_angle);
 
 private:
 	float m_inner_angle, m_outer_angle;

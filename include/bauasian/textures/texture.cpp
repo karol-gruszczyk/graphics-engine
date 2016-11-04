@@ -9,8 +9,8 @@
 
 using bauasian::Texture;
 
-Texture::Texture(const glm::uvec2& size, const void* const pixels, const GLint& internal_format,
-                 const GLenum& format, const bool& generate_mipmaps, std::string image_name, const GLenum& type)
+Texture::Texture(const glm::uvec2& size, const void* pixels, GLint internal_format,
+				 GLenum format, bool generate_mipmaps, std::string image_name, GLenum type)
 		: TextureMixin(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
 {
 	auto is_power_of_2 = [](unsigned number) -> bool { return !(number & (number - 1)); };
@@ -45,7 +45,7 @@ Texture::Texture(const glm::uvec2& size, const void* const pixels, const GLint& 
 	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-Texture::Texture(const GLint& internal_format, const GLenum& format, const glm::uvec2& size, const GLenum& type)
+Texture::Texture(GLint internal_format, GLenum format, glm::uvec2 size, GLenum type)
 		: TextureMixin(GL_TEXTURE_2D, internal_format, format), FrameBufferAttachment(size)
 {
 	glTextureImage2DEXT(m_texture_id, GL_TEXTURE_2D, 0, internal_format, m_size.x, m_size.y,
@@ -92,12 +92,12 @@ void Texture::setSize(const glm::uvec2& size)
 						0, m_format, GL_UNSIGNED_BYTE, nullptr);
 }
 
-const GLuint& Texture::getId() const
+GLuint Texture::getId() const
 {
 	return m_texture_id;
 }
 
-void Texture::setFiltering(const GLenum& filtering) const
+void Texture::setFiltering(GLenum filtering) const
 {
 	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER, filtering);
 	glTextureParameteri(m_texture_id, GL_TEXTURE_MAG_FILTER, filtering);

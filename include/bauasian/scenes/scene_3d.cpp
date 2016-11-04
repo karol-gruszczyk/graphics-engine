@@ -73,7 +73,7 @@ void Scene3D::addLight(SpotLight* spot_light)
 	m_spot_lights.push_back(spot_light);
 }
 
-void Scene3D::loadFromFile(const boost::filesystem::path& path, const bool& flip_uvs, const bool& map_bump_to_normal)
+void Scene3D::loadFromFile(const boost::filesystem::path& path, bool flip_uvs, bool map_bump_to_normal)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -99,7 +99,7 @@ void Scene3D::render() const
 		entity->render();
 }
 
-const unsigned Scene3D::getNumVertices() const
+unsigned Scene3D::getNumVertices() const
 {
 	unsigned num_vertices = 0;
 	for (const auto& entity : m_entities)
@@ -107,7 +107,7 @@ const unsigned Scene3D::getNumVertices() const
 	return num_vertices;
 }
 
-const unsigned Scene3D::getNumFaces() const
+unsigned Scene3D::getNumFaces() const
 {
 	unsigned num_faces = 0;
 	for (const auto& entity : m_entities)
@@ -115,7 +115,7 @@ const unsigned Scene3D::getNumFaces() const
 	return num_faces;
 }
 
-const unsigned Scene3D::getNumMeshes() const
+unsigned Scene3D::getNumMeshes() const
 {
 	return (unsigned) m_entities.size();
 }

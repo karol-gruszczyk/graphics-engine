@@ -18,7 +18,7 @@ namespace bauasian
 class bauasian::OpenGLVersionTooLow : public std::runtime_error
 {
 public:
-	OpenGLVersionTooLow(const int& current_major, const int& current_minor)
+	OpenGLVersionTooLow(int current_major, int current_minor)
 			: std::runtime_error("You are using OpenGL "
 			                     + std::to_string(current_major) + "." + std::to_string(current_minor) +
 			                     ". Required version is " + std::to_string(BAUASIAN_REQUIRED_OPEN_GL_MAJOR) + "."

@@ -21,7 +21,7 @@ void ShadowBuffer::setShadowSpaceMatrix(const glm::mat4& matrix) const
 	setSubData(0, sizeof(glm::mat4), glm::value_ptr(matrix));
 }
 
-void ShadowBuffer::setShadowPixelSize(const float& size) const
+void ShadowBuffer::setShadowPixelSize(float size) const
 {
 	setSubData(64, sizeof(GLfloat), &size);
 }

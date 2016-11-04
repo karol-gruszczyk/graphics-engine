@@ -17,23 +17,23 @@ class bauasian::Material final : public NameMixin
 {
 public:
 	void setDiffuse(const glm::vec3& color);
-	void setDiffuse(Texture* texture);
+	void setDiffuse(const Texture* texture);
 	void setSpecular(const glm::vec3& color);
-	void setSpecular(Texture* texture);
-	void setShininess(const float& shininess);
-	void setNormalTexture(Texture* texture);
-	void setDisplacementTexture(Texture* texture);
-	void setOpacityTexture(Texture* texture);
+	void setSpecular(const Texture* texture);
+	void setShininess(float shininess);
+	void setNormalTexture(const Texture* texture);
+	void setDisplacementTexture(const Texture* texture);
+	void setOpacityTexture(const Texture* texture);
 
 	void bind() const;
 
 private:
 	MaterialBuffer m_buffer;
-	Texture* m_diffuse_texture = nullptr;
-	Texture* m_specular_texture = nullptr;
-	Texture* m_normal_texture = nullptr;
-	Texture* m_displacement_texture = nullptr;
-	Texture* m_opacity_texture = nullptr;
+	const Texture* m_diffuse_texture = nullptr;
+	const Texture* m_specular_texture = nullptr;
+	const Texture* m_normal_texture = nullptr;
+	const Texture* m_displacement_texture = nullptr;
+	const Texture* m_opacity_texture = nullptr;
 
 };
 

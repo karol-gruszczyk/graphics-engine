@@ -5,8 +5,8 @@
 using bauasian::Shader;
 using bauasian::Preprocessor;
 
-Shader::Shader(const boost::filesystem::path& path, const ShaderType& type,
-               const std::map<std::string, std::string>& defines)
+Shader::Shader(const boost::filesystem::path& path, ShaderType type,
+			   const std::map<std::string, std::string>& defines)
 {
 	const auto& shader_path = Bauasian::getInstance().getShaderPath() / path;
 
@@ -47,7 +47,7 @@ Shader::~Shader()
 	glDeleteShader(m_shader_id);
 }
 
-const GLuint& Shader::getId() const
+GLuint Shader::getId() const
 {
 	return m_shader_id;
 }

@@ -23,12 +23,12 @@ public:
 
 	void setSize(const glm::uvec2& size);
 
-	const GLuint& getId() const;
+	GLuint getId() const;
 	const std::list<std::shared_ptr<FrameBufferAttachment>>& getColorAttachments() const;
 	const std::shared_ptr<FrameBufferAttachment>& getDepthAttachment() const;
 	void bind() const;
 	void unbind() const;
-	void copyBuffer(GLbitfield mask, const GLuint& destination_fbo_id = 0) const;
+	void copyBuffer(GLbitfield mask, GLuint destination_fbo_id = 0) const;
 
 protected:
 	GLuint m_fbo_id;

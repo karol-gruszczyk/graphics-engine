@@ -20,13 +20,13 @@ public:
 		glm::vec2 uv;
 	};
 
-	Entity2D(const GLenum& elements_mode, const GLsizei& elements_count, const GLenum& elements_type);
+	Entity2D(GLenum elements_mode, GLsizei elements_count, GLenum elements_type);
 
-	virtual void setMaterial(BasicMaterial* material);
+	virtual void setMaterial(const BasicMaterial* material);
 	virtual void render() const override;
 
 protected:
-	BasicMaterial* m_material = nullptr;
+	const BasicMaterial* m_material = nullptr;
 
 };
 

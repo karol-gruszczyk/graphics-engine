@@ -10,10 +10,10 @@ namespace bauasian
 class bauasian::DrawableStats
 {
 public:
-	DrawableStats(const unsigned& num_vertices, const unsigned& num_faces);
+	DrawableStats(unsigned num_vertices, unsigned num_faces);
 
-	const unsigned& getNumVertices() const;
-	const unsigned& getNumFaces() const;
+	unsigned getNumVertices() const;
+	unsigned getNumFaces() const;
 
 private:
 	unsigned m_num_vertices;

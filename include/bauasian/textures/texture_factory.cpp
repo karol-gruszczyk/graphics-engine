@@ -13,7 +13,7 @@ TextureFactory& TextureFactory::getInstance()
 	return instance;
 }
 
-Texture* TextureFactory::getTexture(const boost::filesystem::path& path, const bool& is_standardized)
+Texture* TextureFactory::getTexture(const boost::filesystem::path& path, bool is_standardized)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -31,7 +31,7 @@ Texture* TextureFactory::getTexture(const boost::filesystem::path& path, const b
 	return texture;
 }
 
-CubeTexture* TextureFactory::getCubeTexture(const boost::filesystem::path& path, const bool& is_standardized)
+CubeTexture* TextureFactory::getCubeTexture(const boost::filesystem::path& path, bool is_standardized)
 {
 	if (!boost::filesystem::exists(path))
 		throw FileNotFoundException(path);
@@ -54,7 +54,7 @@ CubeTexture* TextureFactory::getCubeTexture(const boost::filesystem::path& path,
 }
 
 CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem::path>& paths,
-											const bool& is_standardized)
+											bool is_standardized)
 {
 	assert(paths.size() == 6);
 
@@ -99,7 +99,7 @@ TextureFactory::~TextureFactory()
 		delete texture.second;
 }
 
-const GLenum TextureFactory::getFormatFromBPP(const unsigned& bpp, const bool& is_internal, const bool& is_standardized)
+const GLenum TextureFactory::getFormatFromBPP(unsigned bpp, bool is_internal, bool is_standardized)
 {
 	switch (bpp)
 	{

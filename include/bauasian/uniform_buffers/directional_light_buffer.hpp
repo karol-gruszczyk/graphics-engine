@@ -19,7 +19,7 @@ public:
 	void setDiffuseColor(const glm::vec3& color) const;
 	void setSpecularColor(const glm::vec3& color) const;
 	void setDirection(const glm::vec3& direction) const;
-	void setUseShadowMap(const int& value) const;
+	void setUseShadowMap(int value) const;
 
 };
 

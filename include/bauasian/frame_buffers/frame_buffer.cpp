@@ -52,7 +52,7 @@ void FrameBuffer::setSize(const glm::uvec2& size)
 	m_depth_attachment->setSize(size);
 }
 
-const GLuint& FrameBuffer::getId() const
+GLuint FrameBuffer::getId() const
 {
 	return m_fbo_id;
 }
@@ -77,7 +77,7 @@ void FrameBuffer::unbind() const
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FrameBuffer::copyBuffer(GLbitfield mask, const GLuint& destination_fbo_id) const
+void FrameBuffer::copyBuffer(GLbitfield mask, GLuint destination_fbo_id) const
 {
 	glBlitNamedFramebuffer(m_fbo_id, destination_fbo_id,
 						   0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y,

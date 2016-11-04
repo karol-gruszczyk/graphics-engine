@@ -13,9 +13,9 @@ class bauasian::Circle
 		: public Entity2D
 {
 public:
-	Circle(const float& radius, const unsigned short& num_sides = 32);
+	Circle(float radius, unsigned short num_sides = 32);
 
-	const float& getRadius() const;
+	float getRadius() const;
 
 private:
 	float m_radius;

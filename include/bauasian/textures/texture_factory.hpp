@@ -18,9 +18,9 @@ public:
 
 	static TextureFactory& getInstance();
 
-	Texture* getTexture(const boost::filesystem::path& path, const bool& is_standardized = true);
-	CubeTexture* getCubeTexture(const boost::filesystem::path& path, const bool& is_standardized = true);
-	CubeTexture* getCubeTexture(const std::vector<boost::filesystem::path>& paths, const bool& is_standardized = true);
+	Texture* getTexture(const boost::filesystem::path& path, bool is_standardized = true);
+	CubeTexture* getCubeTexture(const boost::filesystem::path& path, bool is_standardized = true);
+	CubeTexture* getCubeTexture(const std::vector<boost::filesystem::path>& paths, bool is_standardized = true);
 
 private:
 	TextureFactory();
@@ -28,7 +28,7 @@ private:
 
 	std::map<std::string, TextureMixin*> m_textures;
 
-	const GLenum getFormatFromBPP(const unsigned& bpp, const bool& is_internal, const bool& is_standardized);
+	const GLenum getFormatFromBPP(unsigned bpp, bool is_internal, bool is_standardized);
 
 };
 

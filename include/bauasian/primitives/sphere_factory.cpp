@@ -5,7 +5,7 @@
 
 using bauasian::SphereFactory;
 
-const std::vector<glm::vec3> SphereFactory::getPositions(const unsigned& num_sides, const float& radius)
+const std::vector<glm::vec3> SphereFactory::getPositions(unsigned num_sides, float radius)
 {
 	std::vector<glm::vec3> positions(getNumVertices(num_sides));
 	unsigned index = 0;
@@ -25,7 +25,7 @@ const std::vector<glm::vec3> SphereFactory::getPositions(const unsigned& num_sid
 	return positions;
 }
 
-const std::vector<GLuint> SphereFactory::getIndices(const unsigned& num_sides)
+const std::vector<GLuint> SphereFactory::getIndices(unsigned num_sides)
 {
 	std::vector<GLuint> indices(getNumIndices(num_sides));
 	auto num_vertices = getNumVertices(num_sides);
@@ -50,17 +50,17 @@ const std::vector<GLuint> SphereFactory::getIndices(const unsigned& num_sides)
 	return indices;
 }
 
-const unsigned SphereFactory::getNumVertices(const unsigned& num_sides)
+unsigned SphereFactory::getNumVertices(unsigned num_sides)
 {
 	return num_sides * (num_sides - 1) + 2;
 }
 
-const unsigned SphereFactory::getNumIndices(const unsigned& num_sides)
+unsigned SphereFactory::getNumIndices(unsigned num_sides)
 {
 	return ((num_sides - 1) * 2 + 3) * num_sides;
 }
 
-const unsigned SphereFactory::getNumTriangles(const unsigned& num_sides)
+unsigned SphereFactory::getNumTriangles(unsigned num_sides)
 {
 	return num_sides * (num_sides - 1) * 2;
 }

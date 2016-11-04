@@ -12,7 +12,7 @@ namespace bauasian
 class bauasian::ConeVolume : public Entity3D
 {
 public:
-	ConeVolume(const unsigned& num_sides = 12);
+	ConeVolume(unsigned num_sides = 12);
 
 };
 

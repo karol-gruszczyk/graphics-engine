@@ -12,10 +12,10 @@ namespace bauasian
 class bauasian::Plane : public Entity3D
 {
 public:
-	Plane(const glm::vec2& size, const unsigned& tile = 1);
+	Plane(const glm::vec2& size, unsigned tile = 1);
 
 	const glm::vec2& getSize() const;
-	const float& getTile() const;
+	float getTile() const;
 private:
 	glm::vec2 m_size;
 	float m_tile;

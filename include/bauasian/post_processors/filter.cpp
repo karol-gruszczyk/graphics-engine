@@ -5,7 +5,7 @@ using bauasian::Filter;
 using bauasian::Texture;
 
 Filter::Filter(const glm::uvec2& size, const boost::filesystem::path& vertex_shader_path,
-			   const boost::filesystem::path& fragment_shader_path, const GLenum& storage)
+			   const boost::filesystem::path& fragment_shader_path, GLenum storage)
 		: ShaderMixin(vertex_shader_path, fragment_shader_path)
 {
 	m_color_texture = std::make_shared<Texture>(storage, GL_RGB, size);
@@ -14,7 +14,7 @@ Filter::Filter(const glm::uvec2& size, const boost::filesystem::path& vertex_sha
 												   std::make_shared<RenderBuffer>(size), size);
 }
 
-Filter::Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path, const GLenum& storage)
+Filter::Filter(const glm::uvec2& size, const boost::filesystem::path& fragment_shader_path, GLenum storage)
 		: Filter(size, "post_processing/basic_vs.glsl", fragment_shader_path, storage)
 {}
 
@@ -23,7 +23,7 @@ void Filter::setSize(const glm::uvec2& size)
 	m_frame_buffer->setSize(size);
 }
 
-void Filter::process(const unsigned short& out_binding) const
+void Filter::process(unsigned short out_binding) const
 {
 	m_frame_buffer->bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
