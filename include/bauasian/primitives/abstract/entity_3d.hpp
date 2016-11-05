@@ -31,7 +31,8 @@ public:
 	Entity3D(GLenum elements_mode, GLsizei elements_count, GLenum elements_type, unsigned num_vertices,
 			 unsigned num_faces);
 
-	void setMaterial(std::shared_ptr<Material> material);
+	void setMaterial(std::shared_ptr<Material> material)
+	{ m_material = material; }
 	void render() const override;
 
 protected:

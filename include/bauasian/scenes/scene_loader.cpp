@@ -48,41 +48,6 @@ SceneLoader::SceneLoader(const boost::filesystem::path& path, bool flip_uvs,
 	                                std::to_string(loading_time.count()) + " ms");
 }
 
-const std::list<Mesh*>& SceneLoader::getMeshes() const
-{
-	return m_meshes;
-}
-
-const std::list<PerspectiveCamera*>& SceneLoader::getCameras() const
-{
-	return m_cameras;
-}
-
-const std::list<DirectionalLight*>& SceneLoader::getDirectionalLights() const
-{
-	return m_directional_lights;
-}
-
-const std::list<PointLight*>& SceneLoader::getPointLights() const
-{
-	return m_point_lights;
-}
-
-const std::list<SpotLight*>& SceneLoader::getSpotLights() const
-{
-	return m_spot_lights;
-}
-
-const glm::vec3 SceneLoader::to_vec(const aiVector3D& v)
-{
-	return glm::vec3(v.x, v.y, v.z);
-}
-
-const glm::vec3 SceneLoader::to_vec(const aiColor3D& v)
-{
-	return glm::vec3(v.r, v.g, v.b);
-}
-
 void SceneLoader::processMaterials(const aiScene* scene)
 {
 	for (unsigned i = 0; i < scene->mNumMaterials; i++)

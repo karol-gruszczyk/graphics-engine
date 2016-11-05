@@ -20,7 +20,8 @@ public:
 
 	void bind() const;
 
-	const glm::vec3& getPosition() const;
+	const glm::vec3& getPosition() const
+	{ return m_position; }
 	void move(const glm::vec3& position);
 	void setPosition(const glm::vec3& position);
 
@@ -32,17 +33,24 @@ public:
 	void lookAt(const glm::vec3& position);
 	void lookAt(const glm::vec3& eye_position, const glm::vec3& position, const glm::vec3& up);
 
-	const glm::vec3& getDirection() const;
-	const glm::vec3& getUp() const;
-	const glm::vec3& getRight() const;
+	const glm::vec3& getDirection() const
+	{ return m_direction; }
+	const glm::vec3& getUp() const
+	{ return m_up; }
+	const glm::vec3& getRight() const
+	{ return m_right; }
 
-	float getNear() const;
+	float getNear() const
+	{ return m_near; }
 	void setNear(float near);
-	float getFar() const;
+	float getFar() const
+	{ return m_far; }
 	void setFar(float far);
 
-	const glm::mat4& getViewMatrix() const;
-	const glm::mat4& getProjectionMatrix() const;
+	const glm::mat4& getViewMatrix() const
+	{ return m_view_matrix; }
+	const glm::mat4& getProjectionMatrix() const
+	{ return m_projection_matrix; }
 
 protected:
 	CameraBuffer m_buffer;
@@ -51,9 +59,9 @@ protected:
 	float m_near;
 	float m_far;
 
-	glm::vec3 m_direction_vector;
-	glm::vec3 m_up_vector = glm::vec3(0.f, 1.f, 0.f);
-	glm::vec3 m_right_vector;
+	glm::vec3 m_direction;
+	glm::vec3 m_up = glm::vec3(0.f, 1.f, 0.f);
+	glm::vec3 m_right;
 
 	glm::mat4 m_view_matrix;
 	glm::mat4 m_projection_matrix;

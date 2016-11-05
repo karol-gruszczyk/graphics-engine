@@ -22,7 +22,8 @@ public:
 
 	Entity2D(GLenum elements_mode, GLsizei elements_count, GLenum elements_type);
 
-	virtual void setMaterial(const BasicMaterial* material);
+	virtual void setMaterial(const BasicMaterial* material)
+	{ m_material = material; }
 	virtual void render() const override;
 
 protected:

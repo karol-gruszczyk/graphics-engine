@@ -90,8 +90,7 @@ CubeTexture* TextureFactory::getCubeTexture(const std::vector<boost::filesystem:
 }
 
 TextureFactory::TextureFactory()
-{
-}
+{}
 
 TextureFactory::~TextureFactory()
 {

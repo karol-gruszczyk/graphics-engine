@@ -5,20 +5,10 @@
 
 using bauasian::PointLightMixin;
 
-const glm::vec3& PointLightMixin::getPosition() const
-{
-	return m_position;
-}
-
 void PointLightMixin::setPosition(const glm::vec3& position)
 {
 	m_model_matrix = glm::translate(m_model_matrix, (position - m_position) / m_range);
 	m_position = position;
-}
-
-float PointLightMixin::getRange() const
-{
-	return m_range;
 }
 
 void PointLightMixin::setRange(float range)
@@ -27,20 +17,10 @@ void PointLightMixin::setRange(float range)
 	calculateModelMatrix();
 }
 
-const glm::vec3& PointLightMixin::getAttenuation() const
-{
-	return m_attenuation;
-}
-
 void PointLightMixin::setAttenuation(const glm::vec3& attenuation)
 {
 	m_attenuation = attenuation;
 	m_range = calculateRange();
-}
-
-const glm::mat4& PointLightMixin::getModelMatrix() const
-{
-	return m_model_matrix;
 }
 
 void PointLightMixin::calculateModelMatrix()

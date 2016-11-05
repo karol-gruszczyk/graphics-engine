@@ -12,20 +12,10 @@ PerspectiveCamera::PerspectiveCamera(float aspect_ratio, float field_of_view, fl
 	updateProjectionMatrix();
 }
 
-float PerspectiveCamera::getAspectRatio() const
-{
-	return m_aspect_ratio;
-}
-
 void PerspectiveCamera::setAspectRatio(float aspect_ratio)
 {
 	m_aspect_ratio = aspect_ratio;
 	updateProjectionMatrix();
-}
-
-float PerspectiveCamera::getFieldOfView() const
-{
-	return m_field_of_view;
 }
 
 void PerspectiveCamera::setFieldOfView(float field_of_view)

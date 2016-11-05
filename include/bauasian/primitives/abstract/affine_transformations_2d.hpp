@@ -12,21 +12,26 @@ namespace bauasian
 class bauasian::AffineTransformations2D
 {
 public:
-	virtual const glm::vec2& getPosition() const;
+	virtual const glm::vec2& getPosition() const
+	{ return m_position; }
 	virtual void setPosition(const glm::vec2& position);
 	virtual void translate(const glm::vec2& position);
 
-	virtual float getRotation() const;
+	virtual float getRotation() const
+	{ return m_rotation; }
 	virtual void setRotation(float rotation);
 	virtual void rotate(float rotation);
 
-	virtual const glm::vec2& getScale() const;
+	virtual const glm::vec2& getScale() const
+	{ return m_scale; }
 	virtual void setScale(const glm::vec2& scale);
 
-	virtual const glm::vec2& getPivot() const;
+	virtual const glm::vec2& getPivot() const
+	{ return m_pivot; }
 	virtual void setPivot(const glm::vec2& pivot);
 
-	virtual const glm::mat4& getModelMatrix() const;
+	virtual const glm::mat4& getModelMatrix() const
+	{ return m_model_matrix; }
 
 protected:
 	glm::vec2 m_position = { 0.f, 0.f };

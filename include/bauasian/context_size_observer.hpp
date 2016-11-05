@@ -20,7 +20,8 @@ public:
 
 protected:
 	virtual void updateContextSize() = 0;
-	static const glm::uvec2& getContextSize();
+	static const glm::uvec2& getContextSize()
+	{ return s_context_size; }
 
 private:
 	static glm::uvec2 s_context_size;

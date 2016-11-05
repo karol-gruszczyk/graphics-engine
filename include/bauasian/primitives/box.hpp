@@ -14,7 +14,8 @@ class bauasian::Box : public Entity3D
 public:
 	Box(const glm::vec3& size);
 
-	const glm::vec3& getSize() const;
+	const glm::vec3& getSize() const
+	{ return m_size; }
 
 private:
 	glm::vec3 m_size;

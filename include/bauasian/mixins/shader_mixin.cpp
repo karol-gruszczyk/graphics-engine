@@ -16,8 +16,3 @@ ShaderMixin::ShaderMixin(const boost::filesystem::path& vs_path)
 	const auto vs = std::make_unique<Shader>(vs_path, Shader::VERTEX_SHADER);
 	m_shader = std::make_unique<ShaderProgram>(std::initializer_list<const Shader*>{ vs.get() });
 }
-
-const ShaderProgram& ShaderMixin::getShader() const
-{
-	return *m_shader;
-}

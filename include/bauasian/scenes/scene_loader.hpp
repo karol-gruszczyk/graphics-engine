@@ -22,11 +22,16 @@ class bauasian::SceneLoader final
 public:
 	SceneLoader(const boost::filesystem::path& path, bool flip_uvs = false, bool map_bump_to_normal = false);
 
-	const std::list<Mesh*>& getMeshes() const;
-	const std::list<PerspectiveCamera*>& getCameras() const;
-	const std::list<DirectionalLight*>& getDirectionalLights() const;
-	const std::list<PointLight*>& getPointLights() const;
-	const std::list<SpotLight*>& getSpotLights() const;
+	const std::list<Mesh*>& getMeshes() const
+	{ return m_meshes; }
+	const std::list<PerspectiveCamera*>& getCameras() const
+	{ return m_cameras; }
+	const std::list<DirectionalLight*>& getDirectionalLights() const
+	{ return m_directional_lights; }
+	const std::list<PointLight*>& getPointLights() const
+	{ return m_point_lights; }
+	const std::list<SpotLight*>& getSpotLights() const
+	{ return m_spot_lights; }
 private:
 	boost::filesystem::path m_directory;
 	std::vector<std::shared_ptr<Material>> m_materials;
@@ -37,8 +42,10 @@ private:
 	std::list<SpotLight*> m_spot_lights;
 	aiTextureType m_normal_map, m_height_map;
 
-	static inline const glm::vec3 to_vec(const aiVector3D& v);
-	static inline const glm::vec3 to_vec(const aiColor3D& v);
+	static glm::vec3 to_vec(const aiVector3D& v)
+	{ return glm::vec3(v.x, v.y, v.z); }
+	static glm::vec3 to_vec(const aiColor3D& v)
+	{ return glm::vec3(v.r, v.g, v.b); }
 
 	void processMaterials(const aiScene* scene);
 	std::shared_ptr<Material> processMaterial(const aiMaterial* material);

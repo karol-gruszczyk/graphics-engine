@@ -15,7 +15,8 @@ class bauasian::Circle
 public:
 	Circle(float radius, unsigned short num_sides = 32);
 
-	float getRadius() const;
+	float getRadius() const
+	{ return m_radius; }
 
 private:
 	float m_radius;

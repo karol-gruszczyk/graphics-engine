@@ -21,16 +21,6 @@ Scene3D::~Scene3D()
 		delete camera;
 }
 
-Camera* Scene3D::getCamera() const
-{
-	return m_current_camera;
-}
-
-void Scene3D::setCamera(Camera* camera)
-{
-	m_current_camera = camera;
-}
-
 void Scene3D::addCamera(Camera* camera)
 {
 	m_cameras.push_back(camera);
@@ -41,21 +31,6 @@ void Scene3D::addCamera(Camera* camera)
 void Scene3D::addEntity(Entity3D* entity)
 {
 	m_entities.push_back(entity);
-}
-
-const std::vector<DirectionalLight*>& Scene3D::getDirectionalLights() const
-{
-	return m_directional_lights;
-}
-
-const std::vector<PointLight*>& Scene3D::getPointLights() const
-{
-	return m_point_lights;
-}
-
-const std::vector<SpotLight*>& Scene3D::getSpotLights() const
-{
-	return m_spot_lights;
 }
 
 void Scene3D::addLight(DirectionalLight* directional_light)
@@ -113,11 +88,6 @@ unsigned Scene3D::getNumFaces() const
 	for (const auto& entity : m_entities)
 		num_faces += entity->getNumFaces();
 	return num_faces;
-}
-
-unsigned Scene3D::getNumMeshes() const
-{
-	return (unsigned) m_entities.size();
 }
 
 void Scene3D::renderSkyBox() const

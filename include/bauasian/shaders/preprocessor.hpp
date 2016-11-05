@@ -19,7 +19,9 @@ class bauasian::Preprocessor
 public:
 	Preprocessor(const boost::filesystem::path& path, const std::map<std::string, std::string>& defines);
 
-	std::string getSourceCode() const;
+	std::string getSourceCode() const
+	{ return m_source_code; }
+
 private:
 	std::string m_source_code;
 

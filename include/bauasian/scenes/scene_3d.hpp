@@ -14,6 +14,7 @@
 namespace bauasian
 {
 	class Scene3D;
+
 	class DirectionalLight;
 }
 
@@ -23,20 +24,32 @@ public:
 	Scene3D(SkyBox* sky_box);
 	~Scene3D();
 
-	Camera* getCamera() const;
-	void setCamera(Camera* camera);
+	Camera* getCamera() const
+	{ return m_current_camera; }
+	void setCamera(Camera* camera)
+	{ m_current_camera = camera; }
 	void addCamera(Camera* camera);
+
 	void addEntity(Entity3D* entity);
-	const std::vector<DirectionalLight*>& getDirectionalLights() const;
-	const std::vector<PointLight*>& getPointLights() const;
-	const std::vector<SpotLight*>& getSpotLights() const;
+
+	const std::vector<DirectionalLight*>& getDirectionalLights() const
+	{ return m_directional_lights; }
+	const std::vector<PointLight*>& getPointLights() const
+	{ return m_point_lights; }
+	const std::vector<SpotLight*>& getSpotLights() const
+	{ return m_spot_lights; }
+
 	void addLight(DirectionalLight* directional_light);
 	void addLight(PointLight* point_light);
 	void addLight(SpotLight* spot_light);
+
 	void loadFromFile(const boost::filesystem::path& path, bool flip_uvs = false, bool map_bump_to_normal = false);
+
 	unsigned getNumVertices() const;
 	unsigned getNumFaces() const;
-	unsigned getNumMeshes() const;
+	unsigned getNumMeshes() const
+	{ return (unsigned) m_entities.size(); }
+
 	void render() const;
 	void renderSkyBox() const;
 

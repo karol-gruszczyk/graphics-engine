@@ -28,7 +28,8 @@ public:
 	Shader& operator=(const Shader&) = delete;
 	virtual ~Shader();
 
-	GLuint getId() const;
+	GLuint getId() const
+	{ return m_shader_id; }
 
 protected:
 	GLuint m_shader_id;

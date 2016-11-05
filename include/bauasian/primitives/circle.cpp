@@ -33,8 +33,3 @@ Circle::Circle(float radius, unsigned short num_sides)
 	delete[] vertices;
 	delete[] indices;
 }
-
-float Circle::getRadius() const
-{
-	return m_radius;
-}

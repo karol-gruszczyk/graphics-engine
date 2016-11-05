@@ -14,7 +14,8 @@ class bauasian::SunSkyBox : public SkyBox
 public:
 	SunSkyBox(const glm::vec3 light_direction);
 
-	const glm::vec3& getLightDirection() const;
+	const glm::vec3& getLightDirection() const
+	{ return m_light_direction; }
 	void setLightDirection(const glm::vec3 light_direction);
 
 private:

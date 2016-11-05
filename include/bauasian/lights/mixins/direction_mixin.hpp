@@ -13,7 +13,8 @@ class bauasian::DirectionMixin
 {
 public:
 	virtual void setDirection(const glm::vec3& direction);
-	const glm::vec3& getDirection() const;
+	const glm::vec3& getDirection() const
+	{ return m_direction; }
 
 protected:
 	glm::vec3 m_direction;

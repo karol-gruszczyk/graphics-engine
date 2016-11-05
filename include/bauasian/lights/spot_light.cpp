@@ -26,19 +26,9 @@ SpotLight::SpotLight(const glm::vec3& position, const glm::vec3& direction, cons
 	calculateModelMatrix();
 }
 
-float SpotLight::getInnerAngle() const
-{
-	return m_inner_angle;
-}
-
 void SpotLight::setInnerAngle(float inner_angle)
 {
 	m_inner_angle = inner_angle;
-}
-
-float SpotLight::getOuterAngle() const
-{
-	return m_outer_angle;
 }
 
 void SpotLight::setOuterAngle(float outer_angle)

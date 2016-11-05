@@ -14,20 +14,10 @@ HDR::HDR(const glm::uvec2& size, float exposure, float gamma)
 	setGamma(gamma);
 }
 
-float HDR::getExposure() const
-{
-	return m_exposure;
-}
-
 void HDR::setExposure(float exposure)
 {
 	m_exposure = exposure;
 	m_shader->setUniform(m_location_exposure, m_exposure);
-}
-
-float HDR::getGamma() const
-{
-	return m_gamma;
 }
 
 void HDR::setGamma(float gamma)

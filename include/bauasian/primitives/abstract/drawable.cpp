@@ -38,11 +38,6 @@ void Drawable::updateVertexBuffer(GLsizeiptr size, const void* data,
 	glBindVertexArray(0);
 }
 
-GLsizei Drawable::getNumElements() const
-{
-	return m_elements_count;
-}
-
 void Drawable::render() const
 {
 	glBindVertexArray(m_vao_id);

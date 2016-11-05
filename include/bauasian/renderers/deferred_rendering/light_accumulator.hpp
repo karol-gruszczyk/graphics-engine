@@ -20,7 +20,8 @@ public:
 
 	void setSize(const glm::uvec2& size);
 	void render(const Scene3D* scene) const;
-	const FrameBuffer& getFrameBuffer() const;
+	const FrameBuffer& getFrameBuffer() const
+	{ return *m_frame_buffer; }
 
 private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;

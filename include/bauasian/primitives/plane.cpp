@@ -24,13 +24,3 @@ Plane::Plane(const glm::vec2& size, unsigned tile /* = 1 */)
 	updateVertexBuffer(sizeof(vertex_data), vertex_data, Entity3D::Vertex3D::offsets, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }
-
-const glm::vec2& Plane::getSize() const
-{
-	return m_size;
-}
-
-float Plane::getTile() const
-{
-	return m_tile;
-}

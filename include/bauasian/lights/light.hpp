@@ -13,9 +13,14 @@ class alignas(16) bauasian::Light
 {
 public:
 	const glm::vec3 getDiffuseColor() const;
-	virtual void setDiffuseColor(const glm::vec3& color);
-	const glm::vec3 getSpecularColor() const;
-	virtual void setSpecularColor(const glm::vec3& color);
+	virtual void setDiffuseColor(const glm::vec3& color)
+	{ m_diffuse_color = color; }
+
+	const glm::vec3 getSpecularColor() const
+	{ return m_specular_color; }
+	virtual void setSpecularColor(const glm::vec3& color)
+	{ m_specular_color = color; }
+
 	void setColor(const glm::vec3& diffuse, const glm::vec3& specular);
 
 protected:

@@ -12,8 +12,10 @@ namespace bauasian
 class bauasian::NameMixin
 {
 public:
-	const std::string& getName() const;
-	void setName(const std::string& name);
+	const std::string& getName() const
+	{ return m_name; }
+	void setName(const std::string& name)
+	{ m_name = name; }
 
 protected:
 	std::string m_name;

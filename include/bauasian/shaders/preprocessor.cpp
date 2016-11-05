@@ -13,11 +13,6 @@ Preprocessor::Preprocessor(const boost::filesystem::path& path, const std::map<s
 	insertDefines(defines);
 }
 
-std::string Preprocessor::getSourceCode() const
-{
-	return m_source_code;
-}
-
 bool Preprocessor::isInsideComment(size_t position, const std::string& code) const
 {
 	const auto first_block = code.rfind("/*", position);

@@ -33,6 +33,4 @@ void Bloom::process() const
 	m_horizontal_blur_2.process();
 	m_vertical_blur_2.process();
 	glViewport(0, 0, m_size.x, m_size.y);
-
-
 }

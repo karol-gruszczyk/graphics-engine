@@ -17,9 +17,12 @@ public:
 	SpotLight(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& attenuation,
 			  float inner_angle, float outer_angle);
 
-	float getInnerAngle() const;
+	float getInnerAngle() const
+	{ return m_inner_angle; }
 	void setInnerAngle(float inner_angle);
-	float getOuterAngle() const;
+
+	float getOuterAngle() const
+	{ return m_outer_angle; }
 	void setOuterAngle(float outer_angle);
 
 private:

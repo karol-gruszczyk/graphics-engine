@@ -66,18 +66,3 @@ ImageLoader& ImageLoader::getStaticInstance()
 	static ImageLoader instance;
 	return instance;
 }
-
-const glm::uvec2& ImageLoader::getSize() const
-{
-	return m_size;
-}
-
-unsigned ImageLoader::getBitsPerPixel() const
-{
-	return m_bits_per_pixel;
-}
-
-unsigned char* ImageLoader::getPixels() const
-{
-	return m_pixels;
-}

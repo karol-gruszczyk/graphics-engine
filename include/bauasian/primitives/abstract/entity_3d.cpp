@@ -14,13 +14,7 @@ const std::vector<unsigned> Entity3D::Vertex3D::offsets = { 3, 3, 2, 3, 3 };
 Entity3D::Entity3D(GLenum elements_mode, GLsizei elements_count, GLenum elements_type,
 				   unsigned num_vertices, unsigned num_faces)
 		: IndexedDrawable(elements_mode, elements_count, elements_type), DrawableStats(num_vertices, num_faces)
-{
-}
-
-void Entity3D::setMaterial(std::shared_ptr<Material> material)
-{
-	m_material = material;
-}
+{}
 
 void Entity3D::render() const
 {

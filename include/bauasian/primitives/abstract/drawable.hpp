@@ -17,7 +17,9 @@ public:
 	Drawable(GLenum elements_mode, GLsizei elements_count);
 	virtual ~Drawable();
 
-	GLsizei getNumElements() const;
+	GLsizei getNumElements() const
+	{ return m_elements_count; }
+
 	virtual void render() const;
 
 protected:
@@ -27,7 +29,7 @@ protected:
 	GLsizei m_elements_count;
 
 	void updateVertexBuffer(GLsizeiptr size, const void* data, const std::vector<unsigned>& offsets,
-					   GLenum draw_type) const;
+							GLenum draw_type) const;
 
 };
 

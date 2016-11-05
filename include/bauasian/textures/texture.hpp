@@ -26,7 +26,8 @@ public:
 
 	void setFiltering(GLenum filtering) const;
 	void enableDepthComparison() const;
-	virtual GLuint getId() const override;
+	virtual GLuint getId() const override
+	{ return m_texture_id; }
 	virtual void setSize(const glm::uvec2& size) override;
 
 };

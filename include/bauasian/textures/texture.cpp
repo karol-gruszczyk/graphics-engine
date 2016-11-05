@@ -92,11 +92,6 @@ void Texture::setSize(const glm::uvec2& size)
 						0, m_format, GL_UNSIGNED_BYTE, nullptr);
 }
 
-GLuint Texture::getId() const
-{
-	return m_texture_id;
-}
-
 void Texture::setFiltering(GLenum filtering) const
 {
 	glTextureParameteri(m_texture_id, GL_TEXTURE_MIN_FILTER, filtering);

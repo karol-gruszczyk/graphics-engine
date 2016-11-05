@@ -71,13 +71,3 @@ void DeferredRenderer::render(const Scene3D* scene) const
 	else
 		m_hdr.processToScreen();
 }
-
-float DeferredRenderer::getExposure() const
-{
-	return m_hdr.getExposure();
-}
-
-void DeferredRenderer::setExposure(float exposure)
-{
-	m_hdr.setExposure(exposure);
-}

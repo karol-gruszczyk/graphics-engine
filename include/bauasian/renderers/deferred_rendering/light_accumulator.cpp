@@ -43,8 +43,3 @@ void LightAccumulator::render(const Scene3D* scene) const
 	m_accumulation_buffer->bind(POST_PROCESSING_COLOR_TEXTURE);
 	m_accumulation_buffer->bind(POST_PROCESSING_BLOOM_COLOR_TEXTURE);
 }
-
-const FrameBuffer& LightAccumulator::getFrameBuffer() const
-{
-	return *m_frame_buffer;
-}

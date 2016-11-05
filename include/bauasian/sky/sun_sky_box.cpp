@@ -10,11 +10,6 @@ SunSkyBox::SunSkyBox(const glm::vec3 light_direction)
 	setLightDirection(light_direction);
 }
 
-const glm::vec3& SunSkyBox::getLightDirection() const
-{
-	return m_light_direction;
-}
-
 void SunSkyBox::setLightDirection(const glm::vec3 light_direction)
 {
 	m_light_direction = glm::normalize(light_direction);

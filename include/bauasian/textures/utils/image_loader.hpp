@@ -20,9 +20,12 @@ public:
 	ImageLoader(const boost::filesystem::path& path, unsigned num_rotate_sides = 0);
 	~ImageLoader();
 
-	const glm::uvec2& getSize() const;
-	unsigned char* getPixels() const;
-	unsigned getBitsPerPixel() const;
+	const glm::uvec2& getSize() const
+	{ return m_size; }
+	unsigned char* getPixels() const
+	{ return m_pixels; }
+	unsigned getBitsPerPixel() const
+	{ return m_bits_per_pixel; }
 
 private:
 	ImageLoader();

@@ -18,14 +18,17 @@ class bauasian::FrameBuffer
 {
 public:
 	FrameBuffer(const std::initializer_list<std::shared_ptr<FrameBufferAttachment>>& color_attachments,
-	            const std::shared_ptr<FrameBufferAttachment>& depth_attachment, const glm::uvec2& size);
+				const std::shared_ptr<FrameBufferAttachment>& depth_attachment, const glm::uvec2& size);
 	virtual ~FrameBuffer();
 
 	void setSize(const glm::uvec2& size);
 
-	GLuint getId() const;
-	const std::list<std::shared_ptr<FrameBufferAttachment>>& getColorAttachments() const;
-	const std::shared_ptr<FrameBufferAttachment>& getDepthAttachment() const;
+	GLuint getId() const
+	{ return m_fbo_id; }
+	const std::list<std::shared_ptr<FrameBufferAttachment>>& getColorAttachments() const
+	{ return m_color_attachments; }
+	const std::shared_ptr<FrameBufferAttachment>& getDepthAttachment() const
+	{ return m_depth_attachment; }
 	void bind() const;
 	void unbind() const;
 	void copyBuffer(GLbitfield mask, GLuint destination_fbo_id = 0) const;

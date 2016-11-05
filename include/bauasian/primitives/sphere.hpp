@@ -14,7 +14,8 @@ class bauasian::Sphere : public Entity3D
 public:
 	Sphere(float radius, unsigned num_sides);
 
-	float getRadius() const;
+	float getRadius() const
+	{ return m_radius; }
 
 private:
 	float m_radius;

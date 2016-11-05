@@ -33,8 +33,3 @@ Sphere::Sphere(float radius, unsigned num_sides)
 
 	delete[] vertices;
 }
-
-float Sphere::getRadius() const
-{
-	return m_radius;
-}

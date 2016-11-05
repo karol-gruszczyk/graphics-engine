@@ -71,8 +71,3 @@ Box::Box(const glm::vec3& size)
 	updateVertexBuffer(sizeof(vertex_data), vertex_data, Entity3D::Vertex3D::offsets, GL_STATIC_DRAW);
 	updateIndexBuffer(sizeof(indices), indices, GL_STATIC_DRAW);
 }
-
-const glm::vec3& Box::getSize() const
-{
-	return m_size;
-}
