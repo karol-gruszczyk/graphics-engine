@@ -7,8 +7,8 @@
 using bauasian::ShadowRenderer;
 using bauasian::Texture;
 
-ShadowRenderer::ShadowRenderer(unsigned size)
-		: ShaderMixin("deferred_rendering/shadow_vs.glsl")
+ShadowRenderer::ShadowRenderer(unsigned size, float distance)
+		: ShaderMixin("deferred_rendering/shadow_vs.glsl"), m_distance(distance / 2.f)
 {
 	SizeMixin::setSize(size);
 	m_buffer.setShadowPixelSize(1.f / size);
@@ -25,9 +25,14 @@ void ShadowRenderer::setSize(const unsigned& size)
 	m_buffer.setShadowPixelSize(1.f / size);
 }
 
+void ShadowRenderer::setDistance(float distance)
+{
+	m_distance = distance / 2.f;
+}
+
 void ShadowRenderer::render(const Scene3D* scene, const glm::vec3& light_direction)
 {
-	calculateCameraBounds(light_direction);
+	calculateCameraBounds(light_direction, scene->getCamera());
 	m_frame_buffer->bind();
 	glViewport(0, 0, m_size, m_size);
 	m_buffer.bind();
@@ -44,10 +49,15 @@ void ShadowRenderer::bind() const
 	m_depth_texture->bind(DEFERRED_SHADOW_MAP_BINDING);
 }
 
-void ShadowRenderer::calculateCameraBounds(const glm::vec3& light_dir)
+void ShadowRenderer::calculateCameraBounds(const glm::vec3& light_dir, const Camera* camera)
 {
-	glm::mat4 view_matrix = glm::lookAt(glm::vec3(0.f), light_dir, glm::vec3(0.f, 1.f, 0.f));
-	auto bounds = glm::vec2(m_size) / 2.f;
-	glm::mat4 projection_matrix = glm::ortho(-bounds.x, bounds.x, -bounds.y, bounds.y, -10000.f, 10000.f);
+	auto position = camera->getPosition() + m_distance * camera->getDirection();
+
+	auto view_matrix = glm::lookAt(position, position + light_dir, glm::vec3(0.f, 1.f, 0.f));
+
+
+	const auto projection_matrix = glm::ortho(-m_distance, m_distance,
+											  -m_distance, m_distance,
+											  -10000.f, 10000.f);
 	m_buffer.setShadowSpaceMatrix(projection_matrix * view_matrix);
 }

@@ -37,9 +37,9 @@ void DirectionalLight::bind() const
 		m_shadow_renderer->bind();
 }
 
-void DirectionalLight::enableShadows(unsigned size)
+void DirectionalLight::enableShadows(unsigned size, float distance)
 {
-	m_shadow_renderer = std::make_unique<ShadowRenderer>(size);
+	m_shadow_renderer = std::make_unique<ShadowRenderer>(size, distance);
 	m_buffer.setUseShadowMap(true);
 }
 

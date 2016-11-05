@@ -22,7 +22,7 @@ public:
 	virtual void setDirection(const glm::vec3& direction) override;
 
 	void bind() const;
-	void enableShadows(unsigned size);
+	void enableShadows(unsigned size, float distance);
 	void disableShadows();
 	void updateShadowMap(const Scene3D* scene);
 

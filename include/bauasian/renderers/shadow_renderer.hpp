@@ -20,9 +20,10 @@ namespace bauasian
 class bauasian::ShadowRenderer : public SizeMixin<unsigned>, public ShaderMixin
 {
 public:
-	ShadowRenderer(unsigned size);
+	ShadowRenderer(unsigned size, float distance);
 
 	void setSize(const unsigned& size) override;
+	void setDistance(float distance);
 	void render(const Scene3D* scene, const glm::vec3& light_direction);
 	void bind() const;
 
@@ -30,8 +31,9 @@ private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
 	std::shared_ptr<Texture> m_depth_texture;
 	ShadowBuffer m_buffer;
+	float m_distance;
 
-	void calculateCameraBounds(const glm::vec3& light_dir);
+	void calculateCameraBounds(const glm::vec3& light_dir, const Camera* camera);
 
 };
 

@@ -36,11 +36,6 @@ void main()
         shadow_position.xyz /= shadow_position.w;
         shadow_position.xyz = shadow_position.xyz * 0.5f + 0.5f;
         shadow_position.z -= shadow.pixel_size;
-        if (shadow_position.x < 0.f || shadow_position.y < 0.f || shadow_position.x > 1.f || shadow_position.y > 1.f)
-        {
-            out_color = vec4(1.f, 0.f, 0.f, 1.f);
-            return;
-        }
         shadow_depth = pcf(shadow_map, shadow_position.xyz);
     }
     vec3 frag_diffuse = texture(albedo_buffer, texture_coord).rgb;
