@@ -18,6 +18,8 @@ public:
 	virtual void setSize(const glm::uvec2& size) = 0;
 	virtual void process(unsigned short out_binding = POST_PROCESSING_COLOR_TEXTURE) const = 0;
 	virtual void processToScreen() const = 0;
+	virtual void process(const Texture* texture) const = 0;
+	virtual const Texture* getTexture() const = 0;
 
 };
 

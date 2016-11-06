@@ -48,6 +48,20 @@ void FXAA::processToScreen() const
 	m_screen_quad->render();
 }
 
+void FXAA::process(const Texture* texture) const
+{
+	texture->bind(POST_PROCESSING_COLOR_TEXTURE);
+	m_frame_buffer->unbind();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	m_shader->use();
+	m_screen_quad->render();
+}
+
+const Texture* FXAA::getTexture() const
+{
+	return m_color_texture.get();
+}
+
 void FXAA::setSubPixelRemoval(float sub_pixel_removal) const
 {
 	m_shader->setUniform(m_location_subpix, sub_pixel_removal);

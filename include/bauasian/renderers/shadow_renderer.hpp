@@ -8,6 +8,8 @@
 #include "bauasian/cameras/orthographic_camera.hpp"
 #include "bauasian/cameras/perspective_camera.hpp"
 #include "bauasian/uniform_buffers/shadow_buffer.hpp"
+#include "bauasian/post_processors/vertical_gaussian_blur.hpp"
+#include "bauasian/post_processors/horizontal_gaussian_blur.hpp"
 
 #include <glm/glm.hpp>
 
@@ -32,6 +34,8 @@ private:
 	std::shared_ptr<Texture> m_depth_texture;
 	ShadowBuffer m_buffer;
 	float m_distance;
+	VerticalGaussianBlur m_vertical_blur;
+	HorizontalGaussianBlur m_horizontal_blur;
 
 	void calculateCameraBounds(const glm::vec3& light_dir, const Camera* camera);
 

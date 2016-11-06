@@ -25,6 +25,8 @@ public:
 	virtual void setSize(const glm::uvec2& size) override;
 	virtual void process(unsigned short out_binding = POST_PROCESSING_COLOR_TEXTURE) const override;
 	virtual void processToScreen() const override;
+	virtual void process(const Texture* texture) const override;
+	virtual const Texture* getTexture() const override;
 
 	void setSubPixelRemoval(float sub_pixel_removal) const;
 	void setEdgeThreshold(float edge_threshold) const;

@@ -40,3 +40,17 @@ void Filter::processToScreen() const
 	m_shader->use();
 	m_screen_quad.render();
 }
+
+void Filter::process(const Texture* texture) const
+{
+	texture->bind(POST_PROCESSING_COLOR_TEXTURE);
+	m_frame_buffer->bind();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	m_shader->use();
+	m_screen_quad.render();
+}
+
+const Texture* Filter::getTexture() const
+{
+	return m_color_texture.get();
+}
