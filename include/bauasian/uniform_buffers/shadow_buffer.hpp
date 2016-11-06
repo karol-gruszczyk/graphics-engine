@@ -17,7 +17,6 @@ public:
 	using UniformBuffer::bind;
 
 	void setShadowSpaceMatrix(const glm::mat4& matrix) const;
-	void setShadowPixelSize(float size) const;
 
 };
 

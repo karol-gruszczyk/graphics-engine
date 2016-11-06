@@ -3,5 +3,4 @@
 layout (std140, binding = BUFFER_SHADOW_BINDING) uniform ShadowBuffer
 {
     mat4 light_space_matrix;
-    float pixel_size;
 } shadow;

@@ -8,22 +8,22 @@ layout (binding = DEFERRED_ALBEDO_BINDING) uniform sampler2D albedo_buffer;
 layout (binding = DEFERRED_SPECULAR_BINDING) uniform sampler2D specular_buffer;
 layout (binding = DEFERRED_NORMAL_BINDING) uniform sampler2D normal_buffer;
 layout (binding = DEFERRED_POSITION_BINDING) uniform sampler2D position_buffer;
-layout (binding = DEFERRED_SHADOW_MAP_BINDING) uniform sampler2DShadow shadow_map;
+layout (binding = DEFERRED_SHADOW_MAP_BINDING) uniform sampler2D shadow_map;
 
 in vec2 texture_coord;
 
 out vec4 out_color;
 
-
-float pcf(sampler2DShadow shadow_texture, vec3 projected_position)
+float varianceShadowMap(sampler2D shadow_map, vec3 position)
 {
-    float z = projected_position.z;
-    float depth = texture(shadow_texture, projected_position.xyz);
-    depth += texture(shadow_texture, vec3(projected_position.xy + vec2(shadow.pixel_size), z));
-    depth += texture(shadow_texture, vec3(projected_position.xy - vec2(shadow.pixel_size), z));
-    depth += texture(shadow_texture, vec3(projected_position.xy + vec2(-shadow.pixel_size, shadow.pixel_size), z));
-    depth += texture(shadow_texture, vec3(projected_position.xy + vec2(shadow.pixel_size, -shadow.pixel_size), z));
-    return depth / 5.f;
+    vec2 shadow_sample = texture(shadow_map, position.xy).xy;
+
+    float p = step(position.z, shadow_sample.x);
+    float variance = max(shadow_sample.y - shadow_sample.x * shadow_sample.x, 0.00002f);
+    float d = position.z - shadow_sample.x;
+    float p_max = smoothstep(0.2f, 1.f, variance / (variance + d * d));
+
+    return min(max(p, p_max), 1.f);
 }
 
 void main()
@@ -35,8 +35,7 @@ void main()
         vec4 shadow_position = shadow.light_space_matrix * vec4(frag_position, 1.f);
         shadow_position.xyz /= shadow_position.w;
         shadow_position.xyz = shadow_position.xyz * 0.5f + 0.5f;
-        shadow_position.z -= shadow.pixel_size;
-        shadow_depth = pcf(shadow_map, shadow_position.xyz);
+        shadow_depth = varianceShadowMap(shadow_map, shadow_position.xyz);
     }
     vec3 frag_diffuse = texture(albedo_buffer, texture_coord).rgb;
     vec4 frag_specular_buffer = texture(specular_buffer, texture_coord);

@@ -8,21 +8,20 @@ using bauasian::ShadowRenderer;
 using bauasian::Texture;
 
 ShadowRenderer::ShadowRenderer(unsigned size, float distance)
-		: ShaderMixin("deferred_rendering/shadow_vs.glsl"), m_distance(distance / 2.f)
+		: ShaderMixin("deferred_rendering/shadow_vs.glsl", "deferred_rendering/shadow_fs.glsl"),
+		  m_distance(distance / 2.f)
 {
 	SizeMixin::setSize(size);
-	m_buffer.setShadowPixelSize(1.f / size);
-	m_depth_texture = std::make_shared<Texture>(GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, glm::uvec2(size), GL_FLOAT);
-	m_depth_texture->enableDepthComparison();
-	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>{},
-												   m_depth_texture, glm::uvec2(size));
+	m_depth_texture = std::make_shared<Texture>(GL_RG32F, GL_RG, glm::uvec2(size), GL_FLOAT);
+	m_frame_buffer = std::make_unique<FrameBuffer>(std::initializer_list<std::shared_ptr<FrameBufferAttachment>>
+														   { m_depth_texture },
+												   std::make_shared<RenderBuffer>(glm::uvec2(size)), glm::uvec2(size));
 }
 
 void ShadowRenderer::setSize(const unsigned& size)
 {
 	SizeMixin::setSize(size);
 	m_frame_buffer->setSize(glm::uvec2(size));
-	m_buffer.setShadowPixelSize(1.f / size);
 }
 
 void ShadowRenderer::setDistance(float distance)
