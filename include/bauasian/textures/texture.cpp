@@ -58,7 +58,7 @@ Texture::Texture(GLint internal_format, GLenum format, glm::uvec2 size, GLenum t
 	glTextureParameteri(m_texture_id, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 }
 
-void Texture::save(const boost::filesystem::path& path)
+void Texture::save(const boost::filesystem::path& path) const
 {
 	auto fif = FreeImage_GetFIFFromFilename(path.filename().c_str());
 	if (fif == FIF_UNKNOWN)

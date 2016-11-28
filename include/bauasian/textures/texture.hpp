@@ -22,7 +22,7 @@ public:
 			std::string image_name = "", GLenum type = GL_UNSIGNED_BYTE);
 	Texture(GLint internal_format, GLenum format, glm::uvec2 size, GLenum type = GL_UNSIGNED_BYTE);
 
-	void save(const boost::filesystem::path& path);
+	void save(const boost::filesystem::path& path) const;
 
 	void setFiltering(GLenum filtering) const;
 	void enableDepthComparison() const;

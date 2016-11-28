@@ -24,10 +24,19 @@ public:
 	void addPostProcessor(PostProcessor* post_processor);
 	void clearScreen() const;
 	void render(const Scene3D* scene) const;
+
 	float getExposure() const
 	{ return m_hdr.getExposure(); }
 	void setExposure(float exposure)
 	{ m_hdr.setExposure(exposure); }
+
+	void enableBloom()
+	{ m_bloom_enabled = true; }
+	void disableBloom()
+	{ m_bloom_enabled = false; }
+
+	void enableSSAO();
+	void disableSSAO();
 
 private:
 	std::list<PostProcessor*> m_post_processors;
@@ -38,6 +47,8 @@ private:
 
 	HDR m_hdr;
 	Bloom m_bloom;
+
+	bool m_bloom_enabled = true;
 
 };
 

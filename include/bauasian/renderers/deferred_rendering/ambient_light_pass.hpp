@@ -20,9 +20,15 @@ public:
 	void setSize(const glm::uvec2& size);
 	void process(const FrameBuffer* frame_buffer) const;
 
+	void enableSSAO();
+	void disableSSAO();
+
 private:
 	SSAO m_ssao;
 	ScreenQuad m_screen_quad;
+
+	bool m_ssao_enabled = true;
+	GLint m_location_ssao_enabled;
 
 };
 

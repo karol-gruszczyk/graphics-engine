@@ -43,3 +43,13 @@ void LightAccumulator::render(const Scene3D* scene) const
 	m_accumulation_buffer->bind(POST_PROCESSING_COLOR_TEXTURE);
 	m_accumulation_buffer->bind(POST_PROCESSING_BLOOM_COLOR_TEXTURE);
 }
+
+void LightAccumulator::enableSSAO()
+{
+	m_ambient_renderer.enableSSAO();
+}
+
+void LightAccumulator::disableSSAO()
+{
+	m_ambient_renderer.disableSSAO();
+}

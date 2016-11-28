@@ -52,7 +52,8 @@ void DeferredRenderer::render(const Scene3D* scene) const
 
 	m_light_accumulator.render(scene);
 
-	m_bloom.process();
+	if (m_bloom_enabled)
+		m_bloom.process();
 
 	m_light_accumulator.getFrameBuffer().bind();  // render sky-box after bloom
 	glEnable(GL_DEPTH_TEST);
@@ -70,4 +71,14 @@ void DeferredRenderer::render(const Scene3D* scene) const
 	}
 	else
 		m_hdr.processToScreen();
+}
+
+void DeferredRenderer::enableSSAO()
+{
+	m_light_accumulator.enableSSAO();
+}
+
+void DeferredRenderer::disableSSAO()
+{
+	m_light_accumulator.disableSSAO();
 }

@@ -79,6 +79,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	else if (key == GLFW_KEY_LEFT_SHIFT)
 		accelerate = action == GLFW_PRESS;
+
+	else if (key == GLFW_KEY_KP_1 && action == GLFW_PRESS)
+		renderer->enableBloom();
+	else if (key == GLFW_KEY_KP_2 && action == GLFW_PRESS)
+		renderer->disableBloom();
+	else if (key == GLFW_KEY_KP_4 && action == GLFW_PRESS)
+		renderer->enableSSAO();
+	else if (key == GLFW_KEY_KP_5 && action == GLFW_PRESS)
+		renderer->disableSSAO();
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -154,7 +163,7 @@ void setup()
 	renderer->addPostProcessor(new FXAA(renderer->getSize()));
 
 	dir_light = new DirectionalLight(glm::vec3(-1.f, -0.3f, -1.f));
-	dir_light->enableShadows(512, 3000.f);
+	dir_light->enableShadows(2048, 3000.f);
 	PointLight* point_light = new PointLight({ 50.f, 2.f, 50.f }, 10.f);
 	SpotLight* spot_light = new SpotLight({ 10.f, 10.f, 10.f }, { -1.f, -1.f, -1.f }, 50.f, glm::radians(20.f),
 										  glm::radians(25.f));
@@ -170,14 +179,14 @@ void setup()
 
 	scene3d = new Scene3D(sky_box);
 	scene3d->addLight(dir_light);
-	scene3d->addLight(point_light);
-	scene3d->addLight(spot_light);
+//	scene3d->addLight(point_light);
+//	scene3d->addLight(spot_light);
 
 	scene3d->loadFromFile("scenes/sponza/sponza.obj", false, true);
 //	scene3d->loadFromFile("scenes/dragon.obj");
 
 	camera = new PerspectiveCamera(8.f / 6.f);
-	camera->lookAt(glm::vec3(25.f, 25.f, 25.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+	camera->lookAt(glm::vec3(25.f, 25.f, 0.f), glm::vec3(0.f, 35.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 	scene3d->addCamera(camera);
 
 	camera = dynamic_cast<PerspectiveCamera*>(scene3d->getCamera());

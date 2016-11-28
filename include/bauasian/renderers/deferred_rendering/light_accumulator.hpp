@@ -23,6 +23,9 @@ public:
 	const FrameBuffer& getFrameBuffer() const
 	{ return *m_frame_buffer; }
 
+	void enableSSAO();
+	void disableSSAO();
+
 private:
 	std::unique_ptr<FrameBuffer> m_frame_buffer;
 	std::shared_ptr<Texture> m_accumulation_buffer;
