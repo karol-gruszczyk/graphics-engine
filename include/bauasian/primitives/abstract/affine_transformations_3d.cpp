@@ -31,6 +31,7 @@ void AffineTransformations3D::rotate(const glm::vec3& rotation)
 	m_model_matrix = glm::translate(m_model_matrix, -m_pivot);
 	m_rotation += rotation;
 	m_rotation_quat = glm::quat(m_rotation);
+	m_rotation_mat = glm::mat4_cast(glm::quat(m_rotation));
 }
 
 void AffineTransformations3D::setScale(const glm::vec3& scale)
@@ -55,4 +56,5 @@ void AffineTransformations3D::setModelMatrix(const glm::mat4& matrix)
 	glm::vec4 perspective;
 	glm::decompose(matrix, m_scale, m_rotation_quat, m_position, skew, perspective);
 	m_rotation = glm::eulerAngles(m_rotation_quat) * glm::pi<float>() / 180.f;
+	m_rotation_mat = glm::mat4_cast(glm::quat(m_rotation));
 }

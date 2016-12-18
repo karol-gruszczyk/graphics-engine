@@ -37,7 +37,7 @@ public:
 	{ return m_model_matrix; }
 	virtual void setModelMatrix(const glm::mat4& matrix);
 	virtual const glm::mat4 getNormalMatrix() const
-	{ return glm::mat4_cast(m_rotation_quat); }
+	{ return m_rotation_mat; }
 
 protected:
 	glm::vec3 m_position;
@@ -46,6 +46,7 @@ protected:
 	glm::vec3 m_pivot;
 
 	glm::quat m_rotation_quat;
+	glm::mat4 m_rotation_mat;
 	glm::mat4 m_model_matrix;
 
 };
