@@ -1,5 +1,6 @@
 #include "ssao.hpp"
 
+#include <random>
 
 using bauasian::SSAO;
 using bauasian::Texture;

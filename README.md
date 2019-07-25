@@ -11,6 +11,11 @@ develop
 
 ## Build
 
+### Clone repo
+```bash
+git clone --recursive git@github.com:karol-gruszczyk/graphics-engine.git
+```
+
 ### Requirements
 
 #### Library

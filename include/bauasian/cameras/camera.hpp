@@ -4,6 +4,7 @@
 #include "bauasian/mixins/name_mixin.hpp"
 #include "bauasian/uniform_buffers/camera_buffer.hpp"
 
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 
 
